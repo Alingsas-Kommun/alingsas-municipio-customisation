@@ -1,0 +1,50 @@
+@use "sass:color";
+
+.c-button {
+    &.alingsas-recommended {
+        &:hover {
+            &::after {
+                display: none;
+            }
+        }
+    }
+}
+
+.alingsas-popular-pages {
+    .c-button {
+        &.alingsas-recommended {
+            background-color: $color-brand-alt;
+            border-color: $color-brand-alt;
+
+            &:hover {
+                background-color: color.scale(
+                    $color-brand-alt,
+                    $lightness: 10%
+                );
+                border-color: color.scale($color-brand-alt, $lightness: 10%);
+            }
+
+            .c-button__label {
+                color: white;
+            }
+        }
+    }
+}
+
+.alingsas-related-pages {
+    .c-button {
+        &.alingsas-recommended {
+            background-color: $color-gray;
+            border-color: $color-gray;
+
+            &:hover {
+                background-color: color.scale($color-gray, $lightness: -10%);
+                border-color: color.scale($color-gray, $lightness: -10%);
+            }
+
+            .c-button__label {
+                color: black;
+            }
+        }
+    }
+}

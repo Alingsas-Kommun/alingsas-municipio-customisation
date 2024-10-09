@@ -19,13 +19,13 @@ class Text {
     }
 
     public function additional_settings() {
-        if (! function_exists('acf_add_local_field_group')) {
+        if (!function_exists('acf_add_local_field_group')) {
             return;
         }
 
         acf_add_local_field_group(array(
             'key' => 'group_67064d0f1f69d',
-            'title' => 'Utseende',
+            'title' => 'Inställningar',
             'fields' => array(
                 array(
                     'key' => 'field_67064d0f2f0b1',
@@ -45,7 +45,7 @@ class Text {
                         'standard' => 'Standard',
                         'gray' => 'Grå',
                     ),
-                    'default_value' => false,
+                    'default_value' => 'standard',
                     'return_format' => 'value',
                     'multiple' => 0,
                     'allow_custom' => 0,

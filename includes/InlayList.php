@@ -2,15 +2,23 @@
 
 namespace AlingsasCustomisation\Includes;
 
-class Recommended {
+class InlayList {
     public function __construct() {
         add_action('acf/include_fields', [$this, 'additional_settings']);
 
         add_filter('Modularity/Display/BeforeModule::classes', function ($classes, $args, $posttype, $ID) {
-            if ($posttype === 'mod-recommend') {
-                $type = get_field('page_type', $ID);
-                if (!empty($type)) {
-                    $classes[] = 'alingsas-' . $type . '-pages';
+            if ($posttype === 'mod-inlaylist') {
+                $appearance = get_field('appearance', $ID);
+
+                if (!empty($appearance)) {
+                    $classes[] = 'alingsas-appearance-' . $appearance;
+                }
+
+                if (!empty($appearance) && $appearance === 'buttons') {
+                    $gray_background = get_field('gray_background', $ID);
+                    if ($gray_background === true) {
+                        $classes[] = 'alingsas-gray-background';
+                    }
                 }
             }
 
@@ -24,13 +32,13 @@ class Recommended {
         }
 
         acf_add_local_field_group(array(
-            'key' => 'group_6706354df3a68',
-            'title' => 'Typ av länkar',
+            'key' => 'group_67065157310c7',
+            'title' => 'Inställningar',
             'fields' => array(
                 array(
-                    'key' => 'field_6706354e6b324',
-                    'label' => 'Typ av sidor',
-                    'name' => 'page_type',
+                    'key' => 'field_670651571749f',
+                    'label' => 'Utseende',
+                    'name' => 'appearance',
                     'aria-label' => '',
                     'type' => 'select',
                     'instructions' => '',
@@ -43,8 +51,7 @@ class Recommended {
                     ),
                     'choices' => array(
                         'standard' => 'Standard',
-                        'popular' => 'Populära',
-                        'related' => 'Relaterade',
+                        'buttons' => 'Knappar',
                     ),
                     'default_value' => 'standard',
                     'return_format' => 'value',
@@ -56,20 +63,55 @@ class Recommended {
                     'ui' => 0,
                     'ajax' => 0,
                 ),
+                array(
+                    'key' => 'field_67066fbfb2330',
+                    'label' => 'Grå bakgrund',
+                    'name' => 'gray_background',
+                    'aria-label' => '',
+                    'type' => 'true_false',
+                    'instructions' => '',
+                    'required' => 0,
+                    'conditional_logic' => array(
+                        array(
+                            array(
+                                'field' => 'field_670651571749f',
+                                'operator' => '==',
+                                'value' => 'buttons',
+                            ),
+                        ),
+                    ),
+                    'wrapper' => array(
+                        'width' => '',
+                        'class' => '',
+                        'id' => '',
+                    ),
+                    'message' => 'Ja',
+                    'default_value' => 0,
+                    'ui' => 0,
+                    'ui_on_text' => '',
+                    'ui_off_text' => '',
+                ),
             ),
             'location' => array(
                 array(
                     array(
                         'param' => 'post_type',
                         'operator' => '==',
-                        'value' => 'mod-recommend',
+                        'value' => 'mod-inlaylist',
                     ),
                 ),
                 array(
                     array(
                         'param' => 'block',
                         'operator' => '==',
-                        'value' => 'acf/recommend',
+                        'value' => 'all',
+                    ),
+                ),
+                array(
+                    array(
+                        'param' => 'block',
+                        'operator' => '==',
+                        'value' => 'acf/inlaylist',
                     ),
                 ),
             ),

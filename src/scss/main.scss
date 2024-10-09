@@ -1,7 +1,8 @@
-@import "shared/variables.scss";
+@import "shared/variables";
 
 @import "base/typography";
 
+@import "modules/inlay-list";
 @import "modules/recommended";
 @import "modules/text";
 

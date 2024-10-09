@@ -36,6 +36,7 @@
         &.alingsas-recommended {
             background-color: $color-gray;
             border-color: $color-gray;
+            border-radius: var(--radius-md);
 
             &:hover {
                 background-color: color.scale($color-gray, $lightness: -10%);

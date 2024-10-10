@@ -5,6 +5,7 @@
   },
   "devDependencies": {
     "browser-sync": "^3.0.3",
+    "dotenv": "^16.4.5",
     "gulp": "^5.0.0",
     "gulp-dart-sass": "^1.1.0",
     "sass": "^1.79.4"

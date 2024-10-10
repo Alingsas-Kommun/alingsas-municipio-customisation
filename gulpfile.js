@@ -1,6 +1,9 @@
 const gulp = require("gulp");
 const sass = require("gulp-dart-sass");
 const browserSync = require("browser-sync").create();
+const config = require('dotenv').config();
+
+console.log(config);
 
 function style() {
     return gulp
@@ -19,7 +22,7 @@ function build() {
 
 function watch() {
     browserSync.init({
-        proxy: "https://alingsas.municipio.dev",
+        proxy: process.env.PROXY_URL || "http://localhost:8888",
         open: false,
     });
 

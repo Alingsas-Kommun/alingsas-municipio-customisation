@@ -1,0 +1,20 @@
+{
+    "name": "alingsas-kommun/municipio-customisation",
+    "description": "Custom styling and settings for Alingsås kommun's main Municipio setup",
+    "type": "wordpress-plugin",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Alingsas Kommun",
+            "email": "email@provider.net"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {},
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/Alingsas-Kommun/alingsas-municipio-customisation"
+        }
+    ]
+}

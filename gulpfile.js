@@ -3,8 +3,6 @@ const sass = require("gulp-dart-sass");
 const browserSync = require("browser-sync").create();
 const config = require('dotenv').config();
 
-console.log(config);
-
 function style() {
     return gulp
         .src("./src/scss/main.scss")

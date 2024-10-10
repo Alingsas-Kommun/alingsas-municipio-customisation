@@ -16,5 +16,13 @@
             "type": "vcs",
             "url": "https://github.com/Alingsas-Kommun/alingsas-municipio-customisation"
         }
+    ],
+    "post-install-cmd": [
+        "npm install",
+        "npm run build"
+    ],
+    "post-update-cmd": [
+        "npm install",
+        "npm run build"
     ]
 }

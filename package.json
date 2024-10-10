@@ -1,4 +1,17 @@
 {
+  "name": "@alingsas-kommun/municipio-customisation",
+  "version": "1.0.0",
+  "description": "Custom styling and settings for Alingsås kommun's main Municipio setup",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Alingsas-Kommun/alingsas-municipio-customisation"
+  },
+  "author": "Consid",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Alingsas-Kommun/alingsas-municipio-customisation/issues"
+  },
+  "homepage": "https://github.com/Alingsas-Kommun/alingsas-municipio-customisation",
   "scripts": {
     "dev": "gulp dev",
     "build": "gulp build"

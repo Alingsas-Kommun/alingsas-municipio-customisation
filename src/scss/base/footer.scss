@@ -1,0 +1,39 @@
+.c-footer {
+    &__postfooter-wrapper {
+        background-color: #f3f3f3;
+    }
+
+    &__subfooter {
+        background-color: #f3f3f3;
+    }
+
+    &__main-wrapper {
+        padding-top: 0 !important;
+        padding-bottom: 0 !important;
+
+        .widget_block {
+            h3 {
+                font-weight: bold;
+            }
+        }
+
+        >.o-container {
+            padding-top: 3rem;
+            padding-bottom: 3rem;
+        }
+
+        .social-media-link {
+            margin-bottom: 0;
+        }
+    }
+
+    &__prefooter-wrapper {
+        background-color: #fff;
+    }
+}
+
+.o-grid-12:has(.social-media-link) {
+    display: inline-block;
+    width: auto;
+    margin-right: 4px;
+}

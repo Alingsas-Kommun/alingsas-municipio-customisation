@@ -2,6 +2,10 @@
     &.alingsas-appearance-gray {
         .c-card {
             background-color: $color-gray;
+
+            a {
+                color: $color-black;
+            }
         }
     }
 }

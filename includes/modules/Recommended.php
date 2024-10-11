@@ -1,6 +1,6 @@
 <?php
 
-namespace AlingsasCustomisation\Includes;
+namespace AlingsasCustomisation\Includes\Modules;
 
 class Recommended {
     public function __construct() {

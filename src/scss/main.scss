@@ -1,6 +1,10 @@
 @import "shared/variables";
+@import "shared/other";
 
 @import "base/typography";
+@import "base/header";
+@import "base/footer";
+@import "base/article";
 
 @import "modules/inlay-list";
 @import "modules/recommended";

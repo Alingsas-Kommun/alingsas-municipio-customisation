@@ -7,28 +7,26 @@ Author: Consid Borås AB
 
 namespace AlingsasCustomisation;
 
-class Bootstrap {
+class Plugin {
 
-    private const VERSION = '1.0.0';
+    public const VERSION = '1.0.0';
 
     public function __construct() {
-        add_action('wp_enqueue_scripts', [$this, 'enqueue_style']);
-
-        $includes = glob(__DIR__ . '/includes/*.php');
+        $includes = array_merge(glob(__DIR__ . '/includes/*.php'), glob(__DIR__ . '/includes/**/*.php'));
         foreach ($includes as $class) {
             require_once $class;
-            
-            $classname = '\\AlingsasCustomisation\\Includes\\' . pathinfo($class, PATHINFO_FILENAME);
+
+            $path = str_replace(plugin_dir_path(__FILE__) . 'includes/', '', $class);
+            $path = explode('/', $path);
+            array_pop($path);
+
+            $class_path = array_reduce($path, fn ($carry, $item) => $carry . ucfirst($item) . '\\' , '\\');
+            $classname = '\\AlingsasCustomisation\\Includes' . $class_path . ucfirst(pathinfo($class, PATHINFO_FILENAME));
             if (class_exists($classname)) {
                 new $classname;
             }
         }
     }
-
-    public function enqueue_style() {
-        wp_enqueue_style('alingsas-style', plugin_dir_url(__FILE__) . 'dist/css/main.css', null, self::VERSION);
-    }
-
 }
 
-new Bootstrap;
+new Plugin;

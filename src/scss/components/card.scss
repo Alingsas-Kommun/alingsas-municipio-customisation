@@ -5,3 +5,17 @@
         color: white;
     }
 }
+
+.sidebar-right-sidebar {
+    .c-card {
+        &__header {
+            padding: calc(var(--base, 8px)* 3);
+            padding-bottom: calc(var(--base, 8px) * 1.5);
+        }
+
+        &__body {
+            padding: calc(var(--base, 8px)* 3);
+            padding-top: 0;
+        }
+    }
+}

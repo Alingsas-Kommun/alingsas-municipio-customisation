@@ -1,0 +1,193 @@
+:root {
+    --c-nav-v-background-active: rgba(0, 0, 0, 0.05);
+
+    .s-nav-drawer-secondary {
+        --c-nav-v-color-contrasting: #236151;
+    }
+}
+
+.c-drawer {
+
+    /* Huvudmeny bakgrund */
+    &.c-drawer--primary {
+        background-color: #ffffff;
+
+        .c-nav--vertical {
+            .c-nav {
+                &__link {
+                    padding: 15px 20px;
+                }
+
+                &__toggle {
+                    flex: 0 0 48px;
+                    margin-top: 5px;
+                }
+
+                &__item {
+                    &.has-children {
+                        .c-nav.c-nav--vertical {
+                            border-left: 8px solid #c2dad7;
+                            background-color: #fff !important;
+
+                            .c-nav.c-nav--vertical {
+                                margin-left: 4px;
+                                width: auto;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    /* Justera bakgrundsfärg för header */
+    &.s-drawer-menu &__header {
+        background-color: $color-plantation;
+
+        .c-drawer__close {
+            .c-button__label {
+
+                /* Justera färg för "Stäng" header */
+                &-icon .c-icon,
+                &-text {
+                    color: white;
+                }
+            }
+        }
+    }
+
+    .c-nav {
+        &--drawer {
+            .c-nav {
+
+                /* Huvudmenyobjekt */
+                &__item-wrapper {
+                    background-color: #ffffff;
+                    border-bottom: 1px solid #e0e0e0;
+                    transition: background-color 0.3s ease;
+                }
+
+                &__item {
+                    &--depth-2 {
+
+                        /* Undermenyobjekt */
+                        .c-nav__item-wrapper {
+                            border-bottom: 1px solid #c2dad7;
+                        }
+                    }
+                }
+
+                /* Textfärg för alla menyobjekt */
+                &__link {
+                    color: black;
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                    flex: 1;
+                    overflow-wrap: break-word;
+                    word-wrap: break-word;
+                    -webkit-hyphens: auto;
+                    -ms-hyphens: auto;
+                    hyphens: auto;
+                }
+
+                &__item {
+
+                    /* Stil för expanderad huvudmenysektion */
+                    &.is-open {
+                        >.c-nav__item-wrapper.c-nav__item-wrapper {
+                            border-color: #c2dad7;
+                            background-color: #c2dad7;
+                            font-weight: 600;
+
+                            /* Hover för undermenyobjekt */
+                            &:hover {
+                                background-color: #9cc0bb;
+                            }
+
+                            .c-nav__link,
+                            .c-button,
+                            .c-nav__toggle .c-icon {
+                                color: black;
+                            }
+
+                            /* Rotera pilen uppåt för expanderad menysektion */
+                            .c-nav__toggle {
+                                .c-icon {
+                                    transform: rotate(180deg);
+                                }
+                            }
+                        }
+
+                        .c-nav__item--depth-3 .c-nav__link {
+                            color: #000000;
+                        }
+
+                        /* Behåll vit text för huvudmenyobjekt även när undermenyer är öppna */
+                        >.c-nav__item-wrapper .c-nav__link {
+                            color: #ffffff;
+                        }
+                    }
+
+                    /* Stil för expanderad undermenysektion */
+                    &--depth-2,
+                    &--depth-3,
+                    &--depth-4 {
+                        &.is-open {
+                            >.c-nav__item-wrapper {
+                                background-color: #c2dad7;
+                                margin-left: 4px;
+                            }
+                        }
+                    }
+
+                    &--depth-2 {
+                        &.is-open {
+                            >.c-nav__item-wrapper {
+
+                                .c-nav__link,
+                                .c-button,
+                                .c-nav__toggle .c-icon {
+                                    color: black;
+                                }
+                            }
+                        }
+                    }
+
+                }
+            }
+        }
+
+        /* Dra in ikonen i menyn */
+        &__icon {
+            margin-left: 10px;
+        }
+    }
+
+    /* Secondary Menu */
+    .site-nav-mobile {
+        &__secondary {
+            margin-top: 1rem;
+
+            .c-nav__item-wrapper {
+                border-bottom: 0;
+
+                &:hover {
+                    background-color: transparent;
+                }
+
+                .c-nav__link {
+                    padding: 5px 12px;
+                }
+            }
+
+            .c-drawer {
+                .c-nav__item {
+                    .c-nav__icon {
+                        color: #236151;
+                    }
+                }
+            }
+        }
+    }
+}

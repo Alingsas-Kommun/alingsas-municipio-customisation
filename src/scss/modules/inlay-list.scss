@@ -56,9 +56,7 @@
                 width: calc(100vw - calc(var(--scrollbar) / 2));
 
                 @media screen and (min-width: 1248px) {
-                    margin-left: calc(
-                        calc(1152px - calc(100vw - var(--scrollbar))) / 2
-                    );
+                    margin-left: calc(calc(1152px - calc(100vw - var(--scrollbar))) / 2);
                     width: calc(100vw - var(--scrollbar));
                 }
             }

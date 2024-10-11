@@ -1,5 +1,5 @@
 <?php
-namespace AlingsasCustomisation\Includes;
+namespace AlingsasCustomisation\Includes\Components;
 
 class Card {
     public function __construct() {

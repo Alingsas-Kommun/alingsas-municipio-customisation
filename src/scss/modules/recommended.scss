@@ -1,10 +1,8 @@
 .modularity-mod-recommend {
     &.alingsas-related-pages {
         background: white;
-        border-radius: var(
-            --c-card-border-radius,
-            var(--radius-lg, calc(var(--base, 8px) / 4))
-        );
+        border-radius: var(--c-card-border-radius,
+                var(--radius-lg, calc(var(--base, 8px) / 4)));
         padding: 2rem 1rem;
     }
 }

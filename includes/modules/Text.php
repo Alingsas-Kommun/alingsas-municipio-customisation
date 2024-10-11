@@ -1,24 +1,16 @@
 <?php
 
-namespace AlingsasCustomisation\Includes;
+namespace AlingsasCustomisation\Includes\Modules;
 
-class InlayList {
+class Text {
     public function __construct() {
         add_action('acf/include_fields', [$this, 'additional_settings']);
 
         add_filter('Modularity/Display/BeforeModule::classes', function ($classes, $args, $posttype, $ID) {
-            if ($posttype === 'mod-inlaylist') {
+            if ($posttype === 'mod-text') {
                 $appearance = get_field('appearance', $ID);
-
                 if (!empty($appearance)) {
                     $classes[] = 'alingsas-appearance-' . $appearance;
-                }
-
-                if (!empty($appearance) && $appearance === 'buttons') {
-                    $gray_background = get_field('gray_background', $ID);
-                    if ($gray_background === true) {
-                        $classes[] = 'alingsas-gray-background';
-                    }
                 }
             }
 
@@ -32,11 +24,11 @@ class InlayList {
         }
 
         acf_add_local_field_group(array(
-            'key' => 'group_67065157310c7',
+            'key' => 'group_67064d0f1f69d',
             'title' => 'Inställningar',
             'fields' => array(
                 array(
-                    'key' => 'field_670651571749f',
+                    'key' => 'field_67064d0f2f0b1',
                     'label' => 'Utseende',
                     'name' => 'appearance',
                     'aria-label' => '',
@@ -51,7 +43,7 @@ class InlayList {
                     ),
                     'choices' => array(
                         'standard' => 'Standard',
-                        'buttons' => 'Knappar',
+                        'gray' => 'Grå',
                     ),
                     'default_value' => 'standard',
                     'return_format' => 'value',
@@ -63,55 +55,20 @@ class InlayList {
                     'ui' => 0,
                     'ajax' => 0,
                 ),
-                array(
-                    'key' => 'field_67066fbfb2330',
-                    'label' => 'Grå bakgrund',
-                    'name' => 'gray_background',
-                    'aria-label' => '',
-                    'type' => 'true_false',
-                    'instructions' => '',
-                    'required' => 0,
-                    'conditional_logic' => array(
-                        array(
-                            array(
-                                'field' => 'field_670651571749f',
-                                'operator' => '==',
-                                'value' => 'buttons',
-                            ),
-                        ),
-                    ),
-                    'wrapper' => array(
-                        'width' => '',
-                        'class' => '',
-                        'id' => '',
-                    ),
-                    'message' => 'Ja',
-                    'default_value' => 0,
-                    'ui' => 0,
-                    'ui_on_text' => '',
-                    'ui_off_text' => '',
-                ),
             ),
             'location' => array(
                 array(
                     array(
                         'param' => 'post_type',
                         'operator' => '==',
-                        'value' => 'mod-inlaylist',
+                        'value' => 'mod-text',
                     ),
                 ),
                 array(
                     array(
                         'param' => 'block',
                         'operator' => '==',
-                        'value' => 'all',
-                    ),
-                ),
-                array(
-                    array(
-                        'param' => 'block',
-                        'operator' => '==',
-                        'value' => 'acf/inlaylist',
+                        'value' => 'acf/text',
                     ),
                 ),
             ),

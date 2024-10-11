@@ -1,5 +1,5 @@
 <?php
-namespace AlingsasCustomisation\Includes;
+namespace AlingsasCustomisation\Includes\Components;
 
 class Button {
     public function __construct() {

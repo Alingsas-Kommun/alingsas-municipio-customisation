@@ -20,4 +20,10 @@
     .c-typography.c-typography__variant--h6 {
         margin-top: 1.75rem;
     }
+
+    p.preamble {
+        font-size: 125%;
+        padding-bottom: 2rem;
+        border-bottom: 2px solid $color-gray;
+    }
 }

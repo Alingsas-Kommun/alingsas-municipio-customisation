@@ -12,11 +12,21 @@
                     'day' => $event->day,
                     'month' => $event->month,
                     'time' => $event->time ?? null,
-                    'location' => 'Plats',
+                    'location' => $event->location ?? null,
                     'tags' => $event->tags ?? null
                 ])
                 @endevent
             @endcard
         </div>
     @endforeach
+</div>
+<div class="u-display--flex u-align-content--center u-margin__y--4">
+    @button([
+        'text' => 'Se fler evenemang',
+        'style' => 'filled',
+        'color' => 'secondary',
+        'href' => $archive_link,
+        'classList' => ['u-flex-grow--1@xs', 'u-margin__x--auto'],
+    ])
+    @endbutton
 </div>

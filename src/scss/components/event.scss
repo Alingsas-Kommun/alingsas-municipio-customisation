@@ -1,0 +1,86 @@
+.c-event {
+
+    .image {
+        position: relative;
+
+        .date {
+            align-items: center;
+            background: white;
+            display: flex;
+            flex-flow: column;
+            font-weight: bold;
+            line-height: 1.2;
+            padding: .5rem 1rem;
+            position: absolute;
+            top: 0;
+            left: 15%;
+        }
+
+
+    }
+
+    .metadata {
+        display: flex;
+        flex-flow: column;
+        gap: .5rem;
+        margin-top: 1rem;
+    }
+
+    .meta {
+        align-items: center;
+        display: flex;
+        gap: .5rem;
+
+        .icon,
+        .value {
+            display: inline-flex;
+        }
+
+        .icon {
+            color: var(--color-secondary-dark);
+        }
+    }
+}
+
+.c-card {
+    &.has-event {
+        padding: 1rem;
+    }
+}
+
+a.c-card.has-event {
+    h3 {
+        text-decoration: underline;
+    }
+}
+
+.o-grid--events {
+    --o-grid-gap: 2;
+}
+
+@supports (container-type: inline-size) {
+    .c-card.has-event {
+        container-type: inline-size;
+
+        @container (width > 400px) {
+            .c-event {
+                display: flex;
+                gap: 1.5rem;
+
+                .content {
+                    padding: 1rem 0;
+                }
+
+                .image {
+                    flex: 0 0 33%;
+
+                    img {
+                        height: 100%;
+                        object-fit: cover;
+                        width: 100%;
+                    }
+                }
+            }
+        }
+    }
+}

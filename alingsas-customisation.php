@@ -11,7 +11,11 @@ class Plugin {
 
     public const VERSION = '1.0.0';
 
+    public const PATH = __DIR__;
+
     public function __construct() {
+        require_once 'components/Event/Event.php';
+        
         $includes = array_merge(glob(__DIR__ . '/includes/*.php'), glob(__DIR__ . '/includes/**/*.php'));
         foreach ($includes as $class) {
             require_once $class;

@@ -46,8 +46,7 @@
         &__form {
             &.open {
                 @media (max-width: 799px) {
-                    width: auto !important;
-                    left: calc(var(--base, 8px) * 0.8);
+                    width: calc(100% - (var(--base, 8px) * 1.6)) !important;
                     right: calc(var(--base, 8px) * 0.8);
                 }
             }

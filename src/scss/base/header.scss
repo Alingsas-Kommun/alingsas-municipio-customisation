@@ -32,9 +32,23 @@
                     outline-color: var(--c-button-primary-color) !important;
                 }
 
+                input {
+                    font-size: 16px !important;
+                }
+
                 &__inner {
                     background-color: #fff;
                     border: 2px solid var(--c-button-primary-color);
+                }
+            }
+        }
+
+        &__form {
+            &.open {
+                @media (max-width: 799px) {
+                    width: auto !important;
+                    left: calc(var(--base, 8px) * 0.8);
+                    right: calc(var(--base, 8px) * 0.8);
                 }
             }
         }
@@ -53,16 +67,36 @@
 
         &__close-button {
             width: auto !important;
+            height: 50px !important;
             padding: 0 calc(var(--base, 8px) * 1.5) 0 calc(var(--base, 8px) * 0.9) !important;
             background-color: var(--color-secondary-light);
             outline-color: var(--c-button-primary-color) !important;
             border-top-left-radius: 0 !important;
             border-bottom-left-radius: 0 !important;
+            color: #000 !important;
 
             &::before {
                 background-color: var(--color-secondary-light);
             }
         }
+    }
+}
+
+.admin-bar {
+    .collapsible-search-form {
+      position: relative;
+    
+      &__form {
+        @media (max-width: 799px) {
+          top: calc(var(--wp-admin--admin-bar--height, 32px) + 10px);
+        }
+      }
+    }
+}
+
+.admin-bar {
+    .c-drawer {
+        top: var(--wp-admin--admin-bar--height, 32px);
     }
 }
 

@@ -1,7 +1,8 @@
 <?php
 /*
-Plugin Name: Alingsås custom Municipio styling
-Version: 1.0.0
+Plugin Name: Alingsås Municipio customisation
+Description: Alingsås kommun's custom tweaks for Municipio
+Version: 0.1.1
 Author: Consid Borås AB
 */
 
@@ -9,7 +10,7 @@ namespace AlingsasCustomisation;
 
 class Plugin {
 
-    public const VERSION = '1.0.0';
+    public const VERSION = '0.1.1';
 
     public const PATH = __DIR__;
 

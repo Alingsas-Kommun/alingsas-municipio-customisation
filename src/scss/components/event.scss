@@ -24,26 +24,24 @@
             font-size: 85%;
             font-weight: bold;
             line-height: 1.2;
-            padding: .35rem .75rem;
+            padding: 0.35rem 0.75rem;
             position: absolute;
             top: 0;
             left: 15%;
         }
-
-
     }
 
     .metadata {
         display: flex;
         flex-flow: column;
-        gap: .5rem;
+        gap: 0.5rem;
         margin-top: 1rem;
     }
 
     .meta {
         align-items: center;
         display: flex;
-        gap: .5rem;
+        gap: 0.5rem;
 
         .icon,
         .value {
@@ -75,6 +73,7 @@ a.c-card.has-event {
 
 .single-tribe_events {
     .c-image.event-hero {
+        aspect-ratio: initial !important;
         overflow: hidden;
         padding-bottom: 45%;
         position: relative;

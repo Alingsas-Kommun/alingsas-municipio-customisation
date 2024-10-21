@@ -54,6 +54,22 @@ class Events {
             $event->location = get_post($location_id)->post_title;
         }
 
+        // Organizers
+        $organizers = tribe_get_organizer_ids($pid);
+        if (!empty($organizers)) {
+            $organizers = array_map(function($oid) {
+                return get_the_title($oid);
+            }, $organizers);
+            $organizers = implode(', ', $organizers);
+            $event->organizer = $organizers;
+        }
+
+        // Cost
+        $cost = tribe_get_formatted_cost($pid);
+        if (!empty($cost)) {
+            $event->cost = $cost;
+        }
+
         return $event;
     }
 }

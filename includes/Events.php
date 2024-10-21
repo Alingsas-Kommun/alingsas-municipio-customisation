@@ -1,6 +1,8 @@
 <?php
 namespace AlingsasCustomisation\Includes;
 
+use AlingsasCustomisation\Helpers\Events as EventHelper;
+
 use ComponentLibrary\Integrations\Image\Image;
 use Municipio\Integrations\Component\ImageResolver;
 class Events {
@@ -27,6 +29,8 @@ class Events {
             $image = new Image($thumbnail_id, [1920, 1080], $resolver);
             
             $data['featuredImage'] = $image;
+
+            $data['event'] = EventHelper::parseEvent(get_the_ID());
 
             return $data;
         });

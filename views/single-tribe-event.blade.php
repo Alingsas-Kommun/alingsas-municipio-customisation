@@ -74,11 +74,56 @@
         @endif
     @endif
     <div class="o-grid">
-        @card(['heading' => 'Information', 'content' => '<p>Lorem ipsum</p>'])
+        @card([
+            'heading' => 'Information',
+            'classList' => ['background-color-gray']
+        ])
+            <div class="c-card__body">
+                @typography([
+                    'element' => 'h2',
+                    'variant' => 'h3'
+                ])
+                    Information
+                @endtypography
+
+                @event([
+                    'date' => $event->date,
+                    'day' => $event->day,
+                    'month' => $event->month,
+                    'time' => $event->time ?? null,
+                    'location' => $event->location ?? null,
+                    'tags' => $event->tags ?? null
+                ])
+                @endevent
+            </div>
         @endcard
 
-        @card(['heading' => 'Övrig information', 'content' => '<p><b>Kostnad</b>: 60 kr <br><b>Arrangör:</b> Alingsås kommun</p>'])
-        @endcard
+        @if (@isset($event->cost) || @isset($event->organizer))
+            @card([
+                'classList' => ['background-color-gray']
+            ])
+                <div class="c-card__body">
+                    @typography([
+                        'element' => 'h2',
+                        'variant' => 'h3'
+                    ])
+                        Övrig information
+                    @endtypography
+
+                    <p>
+                        @isset($event->cost)
+                            <b>Kostnad:</b> {{ $event->cost }}
+                        @endisset
+                        @if (@isset($event->cost) || @isset($event->organizer))
+                            <br>
+                        @endif
+                        @isset($event->organizer)
+                            <b>Arrangör:</b> {{ $event->organizer }}
+                        @endisset
+                    </p>
+                </div>
+            @endcard
+        @endif
     </div>
 @endif
 

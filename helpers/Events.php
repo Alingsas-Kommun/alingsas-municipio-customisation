@@ -52,6 +52,7 @@ class Events {
         $location_id = get_post_meta($post->ID, '_EventVenueID', true);
         if (!empty($location_id)) {
             $event->location = get_post($location_id)->post_title;
+            $event->location_full = tribe_get_address($pid) . ', ' . tribe_get_zip($pid) . ' ' . tribe_get_city($pid);
         }
 
         // Organizers

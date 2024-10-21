@@ -91,7 +91,7 @@
                     'day' => $event->day,
                     'month' => $event->month,
                     'time' => $event->time ?? null,
-                    'location' => $event->location ?? null,
+                    'location' => $event->location_full ?? null,
                     'tags' => $event->tags ?? null
                 ])
                 @endevent

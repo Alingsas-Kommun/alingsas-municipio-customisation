@@ -1,20 +1,11 @@
 @use "sass:color";
 
-.c-button {
-    &.alingsas-recommended {
-        &:hover {
-            &::after {
-                display: none;
-            }
-        }
-    }
-}
+body:not(.home) {
+    .sidebar-content-area-top {
+        --c-button-primary-color: #{$color-brand-alt};
 
-.alingsas-popular-pages {
-    .c-button {
-        &.alingsas-recommended {
+        .c-button {
             background-color: $color-brand-alt;
-            border-color: $color-brand-alt;
 
             &:hover {
                 background-color: color.scale($color-brand-alt,
@@ -29,21 +20,19 @@
     }
 }
 
-.alingsas-related-pages {
+.sidebar-content-area {
     .c-button {
-        &.alingsas-recommended {
-            background-color: $color-gray;
-            border-color: $color-gray;
-            border-radius: var(--radius-md);
+        --c-button-primary-color: #{$color-gray};
+        background-color: #{$color-gray};
+        border-radius: var(--radius-md);
 
-            &:hover {
-                background-color: color.scale($color-gray, $lightness: -10%);
-                border-color: color.scale($color-gray, $lightness: -10%);
-            }
+        &:hover {
+            background-color: color.scale($color-gray, $lightness: -10%);
+            border-color: color.scale($color-gray, $lightness: -10%);
+        }
 
-            .c-button__label {
-                color: black;
-            }
+        .c-button__label {
+            color: black;
         }
     }
 }

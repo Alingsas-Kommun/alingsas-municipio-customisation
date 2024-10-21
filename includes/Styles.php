@@ -12,7 +12,6 @@ class Styles {
             } else {
                 wp_enqueue_style('alingsas-style', dirname(plugin_dir_url(__FILE__)) . '/dist/css/main.css', null);
             }
-            
         });
     }
 }

@@ -1,4 +1,5 @@
 @import "shared/variables";
+@import "shared/css-variables";
 @import "shared/other";
 
 @import "base/typography";
@@ -12,5 +13,4 @@
 
 @import "components/button";
 @import "components/card";
-@import "components/faq";
-@import "components/image";
+@import "components/event";

@@ -1,0 +1,129 @@
+.c-event {
+    display: flex;
+    flex-flow: column;
+    gap: 1rem;
+
+    .image {
+        padding-bottom: 56.25%;
+        position: relative;
+
+        img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .date {
+            align-items: center;
+            background: white;
+            display: flex;
+            flex-flow: column;
+            font-size: 85%;
+            font-weight: bold;
+            line-height: 1.2;
+            padding: .35rem .75rem;
+            position: absolute;
+            top: 0;
+            left: 15%;
+        }
+
+
+    }
+
+    .metadata {
+        display: flex;
+        flex-flow: column;
+        gap: .5rem;
+        margin-top: 1rem;
+    }
+
+    .meta {
+        align-items: center;
+        display: flex;
+        gap: .5rem;
+
+        .icon,
+        .value {
+            display: inline-flex;
+        }
+
+        .icon {
+            color: var(--color-secondary-dark);
+        }
+    }
+}
+
+.c-card {
+    &.has-event {
+        height: 100%;
+        padding: 1rem;
+    }
+}
+
+a.c-card.has-event {
+    h3 {
+        text-decoration: underline;
+    }
+}
+
+.o-grid--events {
+    --o-grid-gap: 2;
+}
+
+.single-tribe_events {
+    .c-image.event-hero {
+        overflow: hidden;
+        padding-bottom: 45%;
+        position: relative;
+
+        img {
+            height: 100%;
+            width: 100%;
+            top: 0;
+            left: 0;
+            object-fit: cover;
+            position: absolute;
+        }
+    }
+}
+
+@supports (container-type: inline-size) {
+    .c-card.has-event {
+        container-type: inline-size;
+
+        @container (width <=400px) {
+            .c-event {
+                .image {
+                    .date {
+                        font-size: 100%;
+                        left: 10%;
+                    }
+                }
+            }
+        }
+
+        @container (width > 400px) {
+            .c-event {
+                flex-flow: row;
+                gap: 1.5rem;
+
+                .content {
+                    padding: 1rem 0;
+                }
+
+                .image {
+                    flex: 0 0 35%;
+                    padding-bottom: 0;
+
+                    img {
+                        height: 100%;
+                        width: 100%;
+                    }
+                }
+            }
+        }
+    }
+}

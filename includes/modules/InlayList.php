@@ -11,13 +11,13 @@ class InlayList {
                 $appearance = get_field('appearance', $ID);
 
                 if (!empty($appearance)) {
-                    $classes[] = 'alingsas-appearance-' . $appearance;
+                    $classes[] = 'modularity-mod-inlaylist--appearance-' . $appearance;
                 }
 
                 if (!empty($appearance) && $appearance === 'buttons') {
                     $gray_background = get_field('gray_background', $ID);
                     if ($gray_background === true) {
-                        $classes[] = 'alingsas-gray-background';
+                        $classes[] = 'modularity-mod-inlaylist--gray-background';
                     }
                 }
             }

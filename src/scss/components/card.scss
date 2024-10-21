@@ -1,12 +1,29 @@
-.alingsas-links,
-.alingsas-attachments {
-    .c-card__header {
-        background-color: $color-brand;
-        color: white;
+.c-card {
+    &__header {
+        background-color: var(--card-header-background);
+        color: var(--card-header-color);
+    }
+
+    &__body {
+        background-color: var(--card-body-background);
+        color: var(--card-body-color);
     }
 }
 
+body.home {
+    --card-header-background: white;
+    --card-header-color: black;
+}
+
+.sidebar-content-area {
+    --card-header-color: white;
+}
+
+.sidebar-left-sidebar,
 .sidebar-right-sidebar {
+    --card-header-background: white;
+    --card-header-color: black;
+
     .c-card {
         &__header {
             padding: calc(var(--base, 8px)* 3);
@@ -18,4 +35,16 @@
             padding-top: 0;
         }
     }
+}
+
+.card__header--bg-color-winered {
+    --card-header-background: #{$color-brand-alt};
+}
+
+.background-color-gray {
+    --card-header-background: #{$color-gray};
+    --card-header-color: black;
+
+    --card-body-background: #{$color-gray};
+    --card-body-color: black;
 }

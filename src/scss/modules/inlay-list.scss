@@ -2,6 +2,7 @@
     &--appearance-buttons {
         .c-collection {
             display: flex;
+            flex-flow: row wrap;
             gap: 1rem;
             padding: 1rem;
 
@@ -11,8 +12,14 @@
                 border-radius: 2rem;
 
                 &:hover {
+                    background-color: #f3f3f3;
+
                     &::after {
                         display: none;
+                    }
+
+                    .c-collection__content {
+                        transform: none;
                     }
                 }
             }
@@ -27,11 +34,7 @@
                 display: flex;
                 justify-content: center;
                 height: 2.5rem;
-
-
-                &:hover {
-                    transform: none;
-                }
+                white-space: nowrap;
 
                 h2 {
                     text-decoration: underline;
@@ -71,6 +74,16 @@
 
         .c-collection {
             background: $color-gray;
+        }
+    }
+}
+
+.sidebar-content-area {
+    .modularity-mod-inlaylist {
+        .c-collection {
+            h2 {
+                font-weight: 500;
+            }
         }
     }
 }

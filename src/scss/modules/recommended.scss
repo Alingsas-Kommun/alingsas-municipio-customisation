@@ -3,6 +3,15 @@
         background: white;
         border-radius: var(--c-card-border-radius,
                 var(--radius-lg, calc(var(--base, 8px) / 4)));
-        padding: 2rem 1rem;
+        padding: 1rem;
+
+        h2,
+        h3,
+        h4 {
+            &.module-title {
+                font-size: clamp(var(--font-size-base, 1rem), 3vw, var(--h4-font-size, 1rem));
+                font-weight: var(--h4-font-weight, var(--font-weight-heading, 500));
+            }
+        }
     }
 }

@@ -9,3 +9,15 @@
         }
     }
 }
+
+.sidebar-right-sidebar {
+    .modularity-mod-text {
+
+        h2,
+        h3,
+        h4 {
+            font-size: clamp(var(--font-size-base, 1rem) + .125rem, 3vw, var(--h3-font-size, 1.125rem));
+            font-weight: var(--h4-font-weight, var(--font-weight-heading, 500));
+        }
+    }
+}

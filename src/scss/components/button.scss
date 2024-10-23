@@ -37,104 +37,6 @@ body:not(.home) {
     }
 }
 
-/* Knapparna överst i header*/
-.c-nav .c-button {
-    font-size: 0.95rem;
-}
-
-/* Primär knapp */
-.c-button__basic--primary,
-.c-button__basic--primary .c-button__label {
-    color: #ffffff;
-    /* Textfärg */
-    background-color: #236151;
-    /* Lägg till bakgrundsfärg */
-    border-radius: 50px;
-    /* Gör hörnen runda */
-    padding: 0.375rem 1rem;
-    /* Justera padding för att likna en badge */
-    font-size: 1.1rem;
-    /* Textstorlek */
-    display: flex;
-    /* Använd flexbox för centrerad text */
-    align-items: center;
-    /* Centrera vertikalt */
-    justify-content: center;
-    /* Centrera horisontellt */
-    text-align: center;
-    /* Säkerställ att texten är centrerad */
-    cursor: pointer;
-    /* Ändra markören till en pekare */
-    transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
-    /* Lägg till övergång för bakgrund och kantfärg */
-}
-
-/* Sekundär knapp */
-.c-button__basic--secondary,
-.c-button__basic--secondary .c-button__label {
-    color: #000000;
-    /* Textfärg */
-    background-color: #CADFDE;
-    /* Lägg till bakgrundsfärg */
-    border-radius: 50px;
-    /* Gör hörnen runda */
-    padding: 0.375rem 1rem;
-    /* Justera padding för att likna en badge */
-    font-size: 1.1rem;
-    /* Textstorlek */
-    display: flex;
-    /* Använd flexbox för centrerad text */
-    align-items: center;
-    /* Centrera vertikalt */
-    justify-content: center;
-    /* Centrera horisontellt */
-    text-align: center;
-    /* Säkerställ att texten är centrerad */
-    cursor: pointer;
-    /* Ändra markören till en pekare */
-    transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
-    /* Lägg till övergång för bakgrund och kantfärg */
-}
-
-/* standard knapp */
-.c-button__basic--deafult,
-.c-button__basic--deafult .c-button__label .c-button__label-text {
-    color: #000000;
-    /* Textfärg */
-    background-color: #FAD945;
-    /* Lägg till bakgrundsfärg */
-    border-radius: 50px;
-    /* Gör hörnen runda */
-    padding: 0.375rem 1rem;
-    /* Justera padding för att likna en badge */
-    font-size: 1.1rem;
-    /* Textstorlek */
-    display: flex;
-    /* Använd flexbox för centrerad text */
-    align-items: center;
-    /* Centrera vertikalt */
-    justify-content: center;
-    /* Centrera horisontellt */
-    text-align: center;
-    /* Säkerställ att texten är centrerad */
-    cursor: pointer;
-    /* Ändra markören till en pekare */
-    transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
-    /* Lägg till övergång för bakgrund och kantfärg */
-}
-
-.c-button__basic--primary:hover {
-    background-color: color.scale(#ae0b05, $lightness: -10%);
-    /* Mörkare bakgrund vid hover */
-}
-
-
-/* Gör ikoner outlined */
-.material-symbols-outlined.material-symbols-outlined--filled {
-    font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24 !important;
-}
-
-
 .ak-footer-knapp {
     border-right: 1px solid gray;
     /* Border till höger på alla element */
@@ -149,8 +51,105 @@ body:not(.home) {
     /* Justera padding efter behov */
 }
 
-/* Ändrar färg på menyknappen */
-.c-button__basic--deafult .c-button__label,
-.c-button__basic--default {
-    color: #236151;
+/* Knapparna överst i header*/
+.c-nav .c-button {
+    font-size: 0.95rem;
 }
+
+// /* Primär knapp */
+// .c-button__basic--primary,
+// .c-button__basic--primary .c-button__label {
+//     color: #ffffff;
+//     /* Textfärg */
+//     background-color: #236151;
+//     /* Lägg till bakgrundsfärg */
+//     border-radius: 50px;
+//     /* Gör hörnen runda */
+//     padding: 0.375rem 1rem;
+//     /* Justera padding för att likna en badge */
+//     font-size: 1.1rem;
+//     /* Textstorlek */
+//     display: flex;
+//     /* Använd flexbox för centrerad text */
+//     align-items: center;
+//     /* Centrera vertikalt */
+//     justify-content: center;
+//     /* Centrera horisontellt */
+//     text-align: center;
+//     /* Säkerställ att texten är centrerad */
+//     cursor: pointer;
+//     /* Ändra markören till en pekare */
+//     transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+//     /* Lägg till övergång för bakgrund och kantfärg */
+// }
+
+// /* Sekundär knapp */
+// .c-button__basic--secondary,
+// .c-button__basic--secondary .c-button__label {
+//     color: #000000;
+//     /* Textfärg */
+//     background-color: #CADFDE;
+//     /* Lägg till bakgrundsfärg */
+//     border-radius: 50px;
+//     /* Gör hörnen runda */
+//     padding: 0.375rem 1rem;
+//     /* Justera padding för att likna en badge */
+//     font-size: 1.1rem;
+//     /* Textstorlek */
+//     display: flex;
+//     /* Använd flexbox för centrerad text */
+//     align-items: center;
+//     /* Centrera vertikalt */
+//     justify-content: center;
+//     /* Centrera horisontellt */
+//     text-align: center;
+//     /* Säkerställ att texten är centrerad */
+//     cursor: pointer;
+//     /* Ändra markören till en pekare */
+//     transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+//     /* Lägg till övergång för bakgrund och kantfärg */
+// }
+
+// /* standard knapp */
+// .c-button__basic--deafult,
+// .c-button__basic--deafult .c-button__label .c-button__label-text {
+//     color: #000000;
+//     /* Textfärg */
+//     background-color: #FAD945;
+//     /* Lägg till bakgrundsfärg */
+//     border-radius: 50px;
+//     /* Gör hörnen runda */
+//     padding: 0.375rem 1rem;
+//     /* Justera padding för att likna en badge */
+//     font-size: 1.1rem;
+//     /* Textstorlek */
+//     display: flex;
+//     /* Använd flexbox för centrerad text */
+//     align-items: center;
+//     /* Centrera vertikalt */
+//     justify-content: center;
+//     /* Centrera horisontellt */
+//     text-align: center;
+//     /* Säkerställ att texten är centrerad */
+//     cursor: pointer;
+//     /* Ändra markören till en pekare */
+//     transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+//     /* Lägg till övergång för bakgrund och kantfärg */
+// }
+
+// .c-button__basic--primary:hover {
+//     background-color: color.scale(#ae0b05, $lightness: -10%);
+//     /* Mörkare bakgrund vid hover */
+// }
+
+
+// /* Gör ikoner outlined */
+// .material-symbols-outlined.material-symbols-outlined--filled {
+//     font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24 !important;
+// }
+
+// /* Ändrar färg på menyknappen */
+// .c-button__basic--deafult .c-button__label,
+// .c-button__basic--default {
+//     color: #236151;
+// }

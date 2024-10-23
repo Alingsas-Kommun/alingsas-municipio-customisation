@@ -1,0 +1,45 @@
+html {
+    overflow-x: hidden;
+}
+
+.modularity-mod {
+    &--has-background-color {
+        position: relative;
+
+        &::before {
+            content: '';
+            height: 100%;
+            left: 50%;
+            margin-left: -50vw;
+            position: absolute;
+            top: 0;
+            width: calc(100vw);
+        }
+    }
+
+    &--background-overlap {
+        &::before {
+            height: calc(100% + calc(var(--base) * 8));
+            top: calc(var(--base)*-4);
+        }
+    }
+
+    &--background-color-green {
+        &::before {
+            background-color: $color-geyser;
+        }
+    }
+
+    &--background-tilted {
+        &::after {
+            background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMDMzLjI0OCIgaGVpZ2h0PSI5NzQuODUiIHZpZXdCb3g9IjAgMCAyMDMzLjI0OCA5NzQuODUiPgogIDxwYXRoIGlkPSJQYXRoXzIiIGRhdGEtbmFtZT0iUGF0aCAyIiBkPSJNLjQxNCwwSDE5NzMuMjY2bDI0LjY4LDk3NC44NUwtMzUuMyw2MTMuMDQ3WiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMzUuMzAzKSIgZmlsbD0iI2NhZGZkZSIvPgo8L3N2Zz4=') center center / 100% 100% no-repeat;
+            top: 80%;
+            content: '';
+            height: 1000px;
+            left: 55%;
+            margin-left: -55vw;
+            position: absolute;
+            width: 110vw;
+        }
+    }
+}

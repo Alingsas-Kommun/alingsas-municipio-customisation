@@ -24,6 +24,18 @@ class ExtraSettings {
             return $classes;
         }, 10, 4);
 
+        // Background settings
+        add_filter('Modularity/Display/BeforeModule::classes', function ($classes, $args, $posttype, $ID) {
+                $background_color = get_field('background_stripe_color', $ID);
+
+                if (!empty($background_color) && $background_color !== 'none') {
+                    $classes[] = 'has-background-stripe';
+                    $classes[] = 'background-stripe-color-' . $background_color;
+                }
+
+            return $classes;
+        }, 10, 4);
+
         // Card
         add_filter('Modularity/Display/BeforeModule::classes', function ($classes, $args, $posttype, $ID) {
             if (in_array($posttype, self::modulesWithCardSettings)) {

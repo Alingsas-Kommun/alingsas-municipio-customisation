@@ -21,9 +21,13 @@
         margin-top: 1.75rem;
     }
 
-    p.lead {
-        border-bottom: 2px solid $color-gray;
-        margin-bottom: 2rem;
-        padding-bottom: 2rem;
+    p {
+        --base: 4px;
+
+        &.lead {
+            border-bottom: 2px solid $color-gray;
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+        }
     }
 }

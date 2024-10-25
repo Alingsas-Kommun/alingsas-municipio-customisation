@@ -5,6 +5,7 @@ body:not(.home) {
         --c-button-primary-color: #{$color-brand-alt};
 
         .c-button {
+            --base: 7px;
             background-color: $color-brand-alt;
 
             &:hover {
@@ -22,6 +23,7 @@ body:not(.home) {
 
 .sidebar-content-area {
     .c-button {
+        --base: 6.5px;
         --c-button-primary-color: #{$color-gray};
         background-color: #{$color-gray};
         border-radius: var(--radius-md);

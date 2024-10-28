@@ -1,0 +1,55 @@
+#main-content {
+    overflow-x: hidden;
+}
+
+div[class^="modularity-mod-"] {
+    &.has-background-stripe {
+        position: relative;
+
+        &::before {
+            content: '';
+            height: 100%;
+            left: 50%;
+            margin-left: -50vw;
+            position: absolute;
+            top: 0;
+            width: calc(100vw);
+        }
+    }
+
+    &.background-stripe-color-primary {
+        &::before {
+            background-color: var(--color-primary);
+        }
+    }
+
+    &.background-stripe-color-primary-light {
+        &::before {
+            background-color: var(--color-primary-light);
+        }
+    }
+
+    &.background-stripe-color-primary-dark {
+        &::before {
+            background-color: var(--color-primary-dark);
+        }
+    }
+
+    &.background-stripe-color-secondary {
+        &::before {
+            background-color: var(--color-secondary);
+        }
+    }
+
+    &.background-stripe-color-secondary-light {
+        &::before {
+            background-color: var(--color-secondary-light);
+        }
+    }
+
+    &.background-stripe-color-secondary-dark {
+        &::before {
+            background-color: var(--color-secondary-dark);
+        }
+    }
+}

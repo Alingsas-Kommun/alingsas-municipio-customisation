@@ -1,0 +1,111 @@
+[
+    {
+        "key": "group_6718a5f9a58fb",
+        "title": "Extrainst\u00e4llningar",
+        "fields": [
+            {
+                "key": "field_6718a5f939289",
+                "label": "Bakgrundsremsa",
+                "name": "background_stripe_color",
+                "aria-label": "",
+                "type": "select",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "choices": {
+                    "none": "Ingen",
+                    "primary": "Prim\u00e4rf\u00e4rg",
+                    "primary-light": "Prim\u00e4rf\u00e4rg (ljus)",
+                    "primary-dark": "Prim\u00e4rf\u00e4rg (m\u00f6rk)",
+                    "secondary": "Sekund\u00e4rf\u00e4rg",
+                    "secondary-light": "Sekund\u00e4rf\u00e4rg (ljus)",
+                    "secondary-dark": "Sekund\u00e4rf\u00e4rg (m\u00f6rk)"
+                },
+                "default_value": "none",
+                "return_format": "value",
+                "multiple": 0,
+                "allow_null": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": "",
+                "allow_custom": 0,
+                "search_placeholder": ""
+            },
+            {
+                "key": "field_671f5ab73d689",
+                "label": "Ingen marginal upptill",
+                "name": "no_top_margin",
+                "aria-label": "",
+                "type": "true_false",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "message": "",
+                "default_value": 0,
+                "ui": 0,
+                "ui_on_text": "",
+                "ui_off_text": ""
+            },
+            {
+                "key": "field_671f5ac63d68a",
+                "label": "Ingen marginal nedtill",
+                "name": "no_bottom_margin",
+                "aria-label": "",
+                "type": "true_false",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "message": "",
+                "default_value": 0,
+                "ui": 0,
+                "ui_on_text": "",
+                "ui_off_text": ""
+            }
+        ],
+        "location": [
+            [
+                {
+                    "param": "modularity_module",
+                    "operator": "==",
+                    "value": "yes"
+                },
+                {
+                    "param": "post_type",
+                    "operator": "!=",
+                    "value": "mod-svg-background"
+                }
+            ]
+        ],
+        "menu_order": 0,
+        "position": "side",
+        "style": "default",
+        "label_placement": "left",
+        "instruction_placement": "label",
+        "hide_on_screen": "",
+        "active": true,
+        "description": "",
+        "show_in_rest": 0,
+        "acfe_display_title": "",
+        "acfe_autosync": [
+            "json"
+        ],
+        "acfe_form": 0,
+        "acfe_meta": "",
+        "acfe_note": ""
+    }
+]

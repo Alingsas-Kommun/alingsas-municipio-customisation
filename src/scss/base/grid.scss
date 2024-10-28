@@ -7,3 +7,13 @@
         --o-grid-gap: 3;
     }
 }
+
+div[class^="modularity-mod-"] {
+    &.no-bottom-margin {
+        margin-bottom: calc(var(--grid-gap) * -1);
+    }
+
+    &.no-top-margin {
+        margin-top: calc(var(--grid-gap) * -1);
+    }
+}

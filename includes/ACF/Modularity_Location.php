@@ -22,6 +22,10 @@ class Modularity_Location extends ACF_Location {
     }
 
     public function match( $rule, $screen, $field_group ) {
+        if (!isset($screen['post_type'])) {
+            return false;
+        }
+
         $result = strpos($screen['post_type'], 'mod-') === 0;
     
         if( $rule['operator'] === '!=' ) {

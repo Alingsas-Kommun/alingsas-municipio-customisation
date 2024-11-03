@@ -16,6 +16,7 @@ class ACF {
             'background-settings' => 'group_671638b4358a9',
             'card-settings' => 'group_67161fd718251',
             'mod-inlay-settings' => 'group_67065157310c7',
+            'mod-manualinput-settings' => 'group_672336ea7ed1a',
         ));
         $acfExportManager->import();
     }

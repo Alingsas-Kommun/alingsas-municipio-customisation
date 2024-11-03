@@ -41,10 +41,29 @@ body.home {
     --card-header-background: #{$color-brand-alt};
 }
 
-.background-color-gray {
+.background-color-gray,
+.single-event-sidebar-right {
     --card-header-background: #{$color-gray};
     --card-header-color: black;
 
     --card-body-background: #{$color-gray};
     --card-body-color: black;
+}
+
+.single-event-sidebar-right {
+
+    .c-card__body {
+
+        h2,
+        h3,
+        h4 {
+            margin-bottom: .5rem;
+        }
+
+        p,
+        ul,
+        ol {
+            margin-top: 0 !important;
+        }
+    }
 }

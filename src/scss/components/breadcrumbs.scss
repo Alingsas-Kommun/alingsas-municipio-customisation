@@ -1,0 +1,15 @@
+@media screen and (max-width: 520px) {
+    nav.c-breadcrumb {
+        overflow-x: auto;
+        width: 100%;
+
+        .c-breadcrumb__list {
+            flex-wrap: nowrap;
+        }
+
+        .c-breadcrumb__item {
+            display: block;
+            white-space: nowrap;
+        }
+    }
+}

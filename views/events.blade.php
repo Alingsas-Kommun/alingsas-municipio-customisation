@@ -2,11 +2,11 @@
     @foreach ($events as $event)
         <div class="o-grid-12@md">
             @card([
-                'link' => $event->link,
+                'link' => $event->guid,
                 'classList' => ['has-event']
             ])
                 @event([
-                    'title' => $event->title,
+                    'title' => $event->postTitle,
                     'image' => $event->image ?? null,
                     'date' => $event->date,
                     'day' => $event->day,

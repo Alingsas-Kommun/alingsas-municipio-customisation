@@ -31,3 +31,19 @@ div.widget_block>p:empty {
     background-position: center center;
     background-repeat: no-repeat;
 }
+
+// Footer
+@media (max-width: 992px) {
+    .mod-script {
+        &:has(.ak_quickmeny_footer_container) {
+            margin-left: calc(-50vw + (calc(var(--scrollbar)/2)) + 50%);
+            overflow: hidden;
+            width: calc(100vw - var(--scrollbar));
+
+            .ak_quickmeny_footer_container {
+                margin: 0;
+                width: 100%;
+            }
+        }
+    }
+}

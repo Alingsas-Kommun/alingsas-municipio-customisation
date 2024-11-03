@@ -1,0 +1,24 @@
+body.archive {
+    &.post-type-archive-nyheter {
+        .s-archive-template-cards {
+            @media (min-width: 56em) {
+                .c-card {
+                    padding: calc(var(--base, 8px)* 4);
+
+                    &__body {
+                        order: 2;
+                        padding: 0 calc(var(--base, 8px)* 4) 0 0;
+                    }
+
+                    &__image-container {
+                        order: 3;
+
+                        figure {
+                            border-radius: 0;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

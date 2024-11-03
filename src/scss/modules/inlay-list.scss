@@ -57,18 +57,15 @@
 
         &::before {
             background: $color-gray;
-            content: "";
-            display: block;
+            content: '';
             height: 100%;
-            left: 0;
-            margin-left: calc(-50vw + 50%);
+            margin-left: calc(calc(calc(-100vw - var(--scrollbar))/2) + 50% + var(--scrollbar));
             position: absolute;
             top: 0;
-            width: calc(100vw - calc(var(--scrollbar) / 2));
+            width: calc(100vw - var(--scrollbar));
 
             @media screen and (min-width: 1248px) {
-                margin-left: calc(calc(1152px - calc(100vw - var(--scrollbar))) / 2);
-                width: calc(100vw - var(--scrollbar));
+                margin-left: calc(-50vw + calc(var(--container-width) / 2) - calc(var(--base, 8px)* 3) + calc(var(--scrollbar)/2));
             }
         }
 

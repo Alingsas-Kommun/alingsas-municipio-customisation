@@ -3,27 +3,45 @@ namespace AlingsasCustomisation\Includes;
 
 use AlingsasCustomisation\Helpers\Events as EventHelper;
 
-use ComponentLibrary\Integrations\Image\Image;
-use Municipio\Integrations\Component\ImageResolver;
 class Events {
     public function __construct() {
-        add_filter('tribe_events_views_v2_should_hijack_page_template', function($hijack) {
-            $hijack = false;
+        // Add option to display post as events calendar
+        add_action('acf/load_field/name=posts_display_as', function ($field) {
+            if (!isset($_GET['post'])) {
+                return $field;
+            }
 
-            return $hijack;
-        }, -1);
+            $pid = intval($_GET['post']);
+            $source_type = get_field('posts_data_post_type', $pid);
 
-        add_filter('tribe_events_views_v2_use_wp_template_hierarchy', '__return_true');
+            if ($source_type === 'event') {
+                $field['choices']['ak-event'] = 'Event';
+            }
 
-        add_filter('template_include', function($template) {
-            if (is_singular('tribe_events')){
-                $template = 'single-tribe-event';
+            return $field;
+        });
+
+        // Use events template to display tribe events
+        add_filter('Modularity/Module/Posts/template', function($template, $class, $data, $fields) {
+            if (isset($fields['posts_display_as']) && $fields['posts_display_as'] === 'ak-event') {
+                $template = 'events.blade.php';
             }
 
             return $template;
-        }, 14);
+        }, 10, 4);
 
-        add_filter('Municipio/Template/tribe_events/single/viewData', function($data) {
+        // Preprocess events on archive page
+        add_filter('Municipio/Controller/Archive/getArchivePosts', function($posts) {
+            if (is_post_type_archive('event')) {
+                foreach ($posts as $key => $post) {
+                    $posts[$key] = EventHelper::parseEvent($post);
+                }
+            }
+
+            return $posts;
+        });
+
+        /* add_filter('Municipio/Template/tribe_events/single/viewData', function($data) {
             $thumbnail_id = get_post_thumbnail_id();
             $resolver = new ImageResolver;
             $image = new Image($thumbnail_id, [1920, 1080], $resolver);
@@ -33,6 +51,6 @@ class Events {
             $data['event'] = EventHelper::parseEvent(get_the_ID());
 
             return $data;
-        });
+        }); */
     }
 }

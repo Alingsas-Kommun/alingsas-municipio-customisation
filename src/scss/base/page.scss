@@ -1,0 +1,9 @@
+body {
+    &.page:not(.page-template-one-page-blade) {
+        footer {
+            &.site-footer {
+                margin-top: calc(var(--base, 8px) * calc(-12/2));
+            }
+        }
+    }
+}

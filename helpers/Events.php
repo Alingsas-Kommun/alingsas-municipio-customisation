@@ -3,73 +3,69 @@
 namespace AlingsasCustomisation\Helpers;
 
 use DateTime;
-use WP_Post;
 use WP_Term;
 
+use ComponentLibrary\Integrations\Image\Image;
+use Municipio\Integrations\Component\ImageResolver;
+
 class Events {
-    public static function parseEvent(int $pid) {
-        $event = new \stdClass;
-
-        $post = get_post($pid);
-
-        if (!$post instanceof WP_Post || $post->post_type !== 'tribe_events') {
-            return false;
+    public static function parseEvent(\stdClass $event) {
+        if ($event->postType !== 'event') {
+            return $event;
         }
 
-        $event->title = $post->post_title;
-        $event->link = get_permalink($post->ID);
+        $event->link = get_permalink($event->id);
 
         // Thumbnail
-        $thumbnail = wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), 'large');
-        if (is_array($thumbnail) && sizeof($thumbnail) > 0) {
-            $event->image = $thumbnail[0];
-        }
+        $resolver = new ImageResolver;
+        $image = new Image(get_post_thumbnail_id($event->id), [1280, 720], $resolver);
+        $event->image = $image;
 
         // Start and end dates
-        $start = get_post_meta($post->ID, '_EventStartDate', true);
-        $end = get_post_meta($post->ID, '_EventEndDate', true);
+        $date = get_post_meta($event->id, 'occasions_complete', true);
+        if (is_array($date)) {
+            $startDate = new DateTime($date[0]['start_date']);
+            $endDate = new DateTime($date[0]['end_date']);
 
-        $startDate = new DateTime($start);
-        $endDate = new DateTime($end);
+            $event->day = date('d', $startDate->getTimestamp());
+            $event->month = wp_date('M', $startDate->getTimestamp());
 
-        $event->day = date('d', $startDate->getTimestamp());
-        $event->month = wp_date('M', $startDate->getTimestamp());
-
-        if ($startDate->format('Y-m-d') === $endDate->format('Y-m-d')) {
-            $event->date = ucfirst(wp_date('l j F', $startDate->getTimestamp()));
-            $event->time = $startDate->format('H:i') . ' &ndash; ' . $endDate->format('H:i');
-        } else {
-            $event->date = wp_date('j M \k\l. H:i', $startDate->getTimestamp()) . ' &ndash; ' . wp_date('j M \k\l. H:i', $endDate->getTimestamp());
+            if ($startDate->format('Y-m-d') === $endDate->format('Y-m-d')) {
+                $event->date = ucfirst(wp_date('l j F', $startDate->getTimestamp()));
+                $event->time = $startDate->format('H:i') . ' &ndash; ' . $endDate->format('H:i');
+            } else {
+                $event->date = wp_date('j M \k\l. H:i', $startDate->getTimestamp()) . ' &ndash; ' . wp_date('j M \k\l. H:i', $endDate->getTimestamp());
+            }
+        }
+        
+        // Location
+        $location = get_post_meta($event->id, 'location', true);
+        if (is_array($location)) {
+            $event->location = $location['title'];
+            //$event->location_full = tribe_get_address($pid) . ', ' . tribe_get_zip($pid) . ' ' . tribe_get_city($pid);
         }
 
         // Tags
-        $terms = wp_get_post_terms($post->ID);
+        $terms = wp_get_post_terms($event->id, 'event_tags');
         if (sizeof($terms)) {
-            $event->tags = array_map(fn(WP_Term $item) => $item->name, $terms);
-        }
-
-        // Location
-        $location_id = get_post_meta($post->ID, '_EventVenueID', true);
-        if (!empty($location_id)) {
-            $event->location = get_post($location_id)->post_title;
-            $event->location_full = tribe_get_address($pid) . ', ' . tribe_get_zip($pid) . ' ' . tribe_get_city($pid);
+            $event->tags = array_map(fn(WP_Term $item) => ucfirst($item->name), $terms);
         }
 
         // Organizers
-        $organizers = tribe_get_organizer_ids($pid);
+        /* $organizers = tribe_get_organizer_ids($pid);
         if (!empty($organizers)) {
             $organizers = array_map(function($oid) {
                 return get_the_title($oid);
             }, $organizers);
             $organizers = implode(', ', $organizers);
             $event->organizer = $organizers;
-        }
+        } */
 
         // Cost
-        $cost = tribe_get_formatted_cost($pid);
+        /* $cost = tribe_get_formatted_cost($pid);
         if (!empty($cost)) {
             $event->cost = $cost;
-        }
+        } */
 
         return $event;
     }

@@ -1,0 +1,38 @@
+#main-content {
+    form {
+        .c-field {
+            .c-field_focus-styler {
+                border-radius: calc(var(--base, 8px)* 6);
+                outline-color: var(--c-button-primary-color);
+                outline-width: 3px;
+            }
+
+            input {
+                border-radius: calc(var(--base, 8px)* 6);
+                font-size: 16px;
+            }
+
+            &__inner {
+                background-color: #fff;
+                border: 2px solid var(--c-button-primary-color);
+                border-radius: calc(var(--base, 8px)* 6);
+            }
+        }
+
+        .c-select {
+            &__action-overlay {
+                &:focus {
+                    border-radius: calc(var(--base, 8px)* 6);
+                    outline-color: var(--c-button-primary-color);
+                    outline-width: 3px;
+                }
+            }
+
+            .c-select__dropdown {
+                width: calc(100% - calc(var(--base, 8px)* 6));
+                left: calc(var(--base, 8px)* 3);
+                top: calc(100% + calc(var(--base, 8px)/2));
+            }
+        }
+    }
+}

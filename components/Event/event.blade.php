@@ -1,7 +1,11 @@
 <div class="{{ $class }}" {!! $attribute !!}>
     @isset($image)
         <div class="image">
-            <img src="{{ $image }}" alt="{{ $title }}">
+            @image([
+                'src' => $image
+            ])
+            @endimage
+            {{-- <img src="{{ $image }}" alt="{{ $title }}"> --}}
             @isset($day, $month)
                 @typography(['element' => 'span', 'classList' => ['date']])
                     <span class="day">{{ $day }}</span>

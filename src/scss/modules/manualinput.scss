@@ -1,0 +1,31 @@
+.modularity-mod-manualinput {
+    &.has-search {
+        form {
+            display: none;
+        }
+
+        &.js-search {
+            form {
+                background-color: white;
+                border-top-left-radius: var(--c-card-border-radius, var(--radius-lg, calc(var(--base, 8px) / 2)));
+                border-top-right-radius: var(--c-card-border-radius, var(--radius-lg, calc(var(--base, 8px) / 2)));
+                display: block;
+                padding: calc(var(--base, 8px)* 2);
+            }
+
+            label {
+                display: none;
+            }
+
+            .c-card {
+                &__header {
+                    border-radius: 0;
+                }
+            }
+
+            &.card__header--bg-color-winered {
+                --c-button-primary-color: #{$color-brand-alt};
+            }
+        }
+    }
+}

@@ -7,7 +7,7 @@
                     'classList' => ['has-event']
                 ])
                     @event([
-                        'title' => $post->title,
+                        'title' => $post->postTitle,
                         'image' => $post->image ?? null,
                         'date' => $post->date,
                         'day' => $post->day,

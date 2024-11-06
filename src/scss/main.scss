@@ -1,24 +1,26 @@
-@import "shared/variables";
-@import "shared/css-variables";
-@import "shared/extra-settings";
-@import "shared/other";
+@import 'shared/variables';
+@import 'shared/css-variables';
+@import 'shared/extra-settings';
+@import 'shared/other';
+@import 'shared/globals';
 
-@import "base/typography";
-@import "base/page";
-@import "base/grid";
-@import "base/header";
-@import "base/footer";
-@import "base/archive";
-@import "base/form";
-@import "base/article";
+@import 'base/typography';
+@import 'base/page';
+@import 'base/grid';
+@import 'base/header';
+@import 'base/footer';
+@import 'base/archive';
+@import 'base/form';
+@import 'base/article';
 
-@import "modules/inlay-list";
-@import "modules/manualinput";
-@import "modules/recommend";
-@import "modules/text";
+@import 'modules/inlay-list';
+@import 'modules/manualinput';
+@import 'modules/recommend';
+@import 'modules/text';
+@import 'modules/script';
 
-@import "components/breadcrumbs";
-@import "components/button";
-@import "components/card";
-@import "components/event";
-@import "components/segment";
+@import 'components/breadcrumbs';
+@import 'components/button';
+@import 'components/card';
+@import 'components/event';
+@import 'components/segment';

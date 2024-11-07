@@ -15,7 +15,7 @@
                 display: none;
             }
         }
-    
+
         .collapsible-search-form__trigger-button {
             min-width: 0;
 
@@ -78,18 +78,22 @@
                 background-color: var(--color-secondary-light);
             }
         }
+
+        .c-button {
+            color: var(--c-button-primary-color);
+        }
     }
 }
 
 .admin-bar {
     .collapsible-search-form {
-      position: relative;
-    
-      &__form {
-        @media (max-width: 799px) {
-          top: calc(var(--wp-admin--admin-bar--height, 32px) + 10px);
+        position: relative;
+
+        &__form {
+            @media (max-width: 799px) {
+                top: calc(var(--wp-admin--admin-bar--height, 32px) + 10px);
+            }
         }
-      }
     }
 }
 

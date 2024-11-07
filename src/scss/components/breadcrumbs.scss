@@ -1,15 +1,16 @@
 @media screen and (max-width: 520px) {
-    nav.c-breadcrumb {
-        overflow-x: auto;
-        width: 100%;
+    .nav-helper {
+        nav.c-breadcrumb {
+            font-size: 85%;
 
-        .c-breadcrumb__list {
-            flex-wrap: nowrap;
-        }
+            .c-breadcrumb__list {
+                display: inline;
+            }
 
-        .c-breadcrumb__item {
-            display: block;
-            white-space: nowrap;
+            .c-breadcrumb__item {
+                display: inline;
+                padding: 0;
+            }
         }
     }
 }

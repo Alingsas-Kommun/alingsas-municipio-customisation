@@ -1,24 +1,43 @@
 body.archive {
-    &.post-type-archive-nyheter {
-        .s-archive-template-cards {
-            @media (min-width: 56em) {
-                .c-card {
-                    padding: calc(var(--base, 8px)* 4);
+  &.post-type-archive-nyheter {
+    .s-archive-template-cards {
+      @media (min-width: 56em) {
+        .c-card {
+          padding: calc(var(--base, 8px) * 4);
 
-                    &__body {
-                        order: 2;
-                        padding: 0 calc(var(--base, 8px)* 4) 0 0;
-                    }
+          &__body {
+            order: 2;
+            padding: 0 calc(var(--base, 8px) * 4) 0 0;
+          }
 
-                    &__image-container {
-                        order: 3;
+          &__image-container {
+            order: 3;
 
-                        figure {
-                            border-radius: 0;
-                        }
-                    }
-                }
+            figure {
+              border-radius: 0;
             }
+          }
         }
+      }
     }
+  }
+}
+
+.post-type-archive-lediga-jobb {
+  table {
+    border-radius: 15px;
+  }
+
+  table thead th {
+    background-color: #fad945;
+    color: #000;
+  }
+  .c-table .c-table__body .c-table__line:hover .c-table__column {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+  table th a.c-link {
+    color: #000;
+    text-decoration: none;
+    font-weight: 400;
+  }
 }

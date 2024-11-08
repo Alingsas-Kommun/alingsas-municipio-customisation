@@ -5,6 +5,7 @@ Description: Alingsås kommun's custom tweaks for Municipio
 Version: 0.1.6
 Author: Consid
 Author URI: https://www.consid.se
+Textdomain: municipio-customisation
 */
 
 namespace AlingsasCustomisation;
@@ -14,6 +15,8 @@ class Plugin {
     public const VERSION = '0.1.6';
 
     public const PATH = __DIR__;
+
+    public const VIEWPATH = __DIR__ . '/views/';
 
     public function __construct() {
         // Require helpers

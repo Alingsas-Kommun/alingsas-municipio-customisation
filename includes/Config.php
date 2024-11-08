@@ -36,5 +36,10 @@ class Config {
 
             return $paths;
         });
+
+        // Load textdomain
+        add_action('init', function() {
+            load_plugin_textdomain('municipio-customisation', false, basename(Plugin::PATH) . '/languages/');
+        });
     }
 }

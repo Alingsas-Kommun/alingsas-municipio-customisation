@@ -5,7 +5,6 @@ namespace AlingsasCustomisation\Includes;
 use AlingsasCustomisation\Plugin;
 
 use ComponentLibrary\Init as ComponentLibraryInit;
-use stdClass;
 
 class Search {
     private array $postTypes;
@@ -56,7 +55,7 @@ class Search {
         $data['lang'] = $this->getLang();
 
         try {
-            $markup = $bladeEngine->makeView('search', $data, [], Plugin::VIEWPATH)->render();
+            $markup = $bladeEngine->makeView('custom-search', $data, [], Plugin::VIEWPATH)->render();
         } catch (\Throwable $e) {
             $markup .= '<pre style="border: 3px solid #f00; padding: 10px;">';
             $markup .= '<strong>' . $e->getMessage() . '</strong>';

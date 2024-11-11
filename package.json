@@ -14,7 +14,8 @@
   "homepage": "https://github.com/Alingsas-Kommun/alingsas-municipio-customisation",
   "scripts": {
     "dev": "gulp dev",
-    "build": "gulp build"
+    "build": "gulp build",
+    "make-pot": "wp i18n make-pot ./ ./languages/municipio-customisation.pot"
   },
   "devDependencies": {
     "@babel/core": "^7.26.0",

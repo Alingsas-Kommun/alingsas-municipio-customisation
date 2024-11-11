@@ -4,6 +4,9 @@
     gap: 1rem;
 
     .image {
+        border-top-left-radius: var(--radius-lg);
+        border-top-right-radius: var(--radius-lg);
+        overflow: hidden;
         padding-bottom: 56.25%;
         position: relative;
 
@@ -35,6 +38,10 @@
         }
     }
 
+    .content {
+        padding: 0 1rem 1rem;
+    }
+
     .metadata {
         display: flex;
         flex-flow: column;
@@ -61,7 +68,6 @@
 .c-card {
     &.has-event {
         height: 100%;
-        padding: 1rem;
     }
 }
 
@@ -71,9 +77,9 @@ a.c-card.has-event {
     }
 }
 
-.o-grid--events {
+/* .o-grid--events {
     --o-grid-gap: 2;
-}
+} */
 
 .single-tribe_events {
     .c-image.event-hero {
@@ -118,6 +124,8 @@ a.c-card.has-event {
                 }
 
                 .image {
+                    border-top-right-radius: 0;
+                    border-bottom-left-radius: var(--radius-lg);
                     flex: 0 0 35%;
                     padding-bottom: 0;
                 }

@@ -9,9 +9,11 @@
 @import 'base/grid';
 @import 'base/header';
 @import 'base/footer';
-@import 'base/archive';
 @import 'base/form';
-@import 'base/article';
+
+@import 'pages/archive';
+@import 'pages/article';
+@import 'pages/search';
 
 @import 'modules/inlay-list';
 @import 'modules/manualinput';
@@ -23,4 +25,5 @@
 @import 'components/button';
 @import 'components/card';
 @import 'components/event';
+@import 'components/notice';
 @import 'components/segment';

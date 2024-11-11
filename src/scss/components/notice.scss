@@ -1,0 +1,8 @@
+@media screen and (min-width: 1210px) {
+    .sidebar-header-area-site-banner {
+        .c-notice {
+            border-radius: 0;
+            padding: calc(var(--base, 8px)*2) calc(calc(calc(100vw - var(--container-width))/2) + calc(var(--base, 8px)*3));
+        }
+    }
+}

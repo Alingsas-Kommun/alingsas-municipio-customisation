@@ -6,7 +6,8 @@ use AlingsasCustomisation\Helpers\Events;
 
 class AkEventTemplate extends AbstractController {
     public function __construct(\Modularity\Module\Posts\Posts $module) {
-        $posts = $module->getPosts();
+        $posts = $module->getPostsHelper->getPostsAndPaginationData($module->fields);
+        $posts = $posts['posts'];
 
         $events = [];
         foreach ($posts as $post) {

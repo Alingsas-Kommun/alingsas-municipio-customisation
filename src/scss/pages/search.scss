@@ -8,7 +8,8 @@
 
         ul {
             display: flex;
-            gap: calc(var(--grid-gap)/3);
+            flex-flow: row wrap;
+            gap: calc(var(--grid-gap)/2) calc(var(--grid-gap)/3);
             list-style: none;
             margin: 0;
             padding: 0;

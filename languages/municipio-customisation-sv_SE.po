@@ -5,8 +5,8 @@ msgstr ""
 "Project-Id-Version: Alingsås Municipio customisation 0.1.6\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/municipio-"
 "customisation\n"
-"POT-Creation-Date: 2024-11-11T11:01:34+00:00\n"
-"PO-Revision-Date: 2024-11-11 12:02+0100\n"
+"POT-Creation-Date: 2024-11-11T20:02:10+00:00\n"
+"PO-Revision-Date: 2024-11-11 21:02+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv\n"
@@ -162,20 +162,28 @@ msgstr "Evenemang"
 msgid "Operating information"
 msgstr "Driftinformation"
 
-#: includes/Search.php:100
+#: includes/Search.php:111
 msgid "Hit"
 msgid_plural "Hits"
 msgstr[0] "Träff"
 msgstr[1] "Träffar"
 
-#: includes/Search.php:101
+#: includes/Search.php:112
 msgid "All hits"
 msgstr "Alla träffar"
 
 #. translators: 1 nr hits, 2 hits, 3 search string, 4 domain
-#: includes/Search.php:103
+#: includes/Search.php:114
 msgid "%1$d %2$s for <b>\"%3$s\"</b> on %4$s"
 msgstr "%1$d %2$s för <b>\"%3$s\"</b> inom %4$s"
+
+#: includes/Translation.php:28
+msgid "From"
+msgstr "Från"
+
+#: includes/Translation.php:32
+msgid "To"
+msgstr "Till"
 
 #: includes/Widgets.php:12
 msgid "Site banner (top of page)"

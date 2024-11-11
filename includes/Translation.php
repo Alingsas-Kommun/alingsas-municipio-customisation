@@ -8,9 +8,29 @@ class Translation {
     ];
 
     public function __construct() {
-        add_filter("gettext_municipio", function($translation, $text) {
+        // Translation mapper
+        add_filter("gettext_municipio", function ($translation, $text) {
             if (isset(self::transMapper[$text])) {
                 $translation = self::transMapper[$text];
+            }
+
+            return $translation;
+        }, 10, 2);
+
+        // Specific translation overrides
+        add_filter("gettext_municipio", function ($translation, $text) {
+            if (is_post_type_archive('event')) {
+                if ($text === 'Select') {
+                    $translation = '';
+                }
+
+                if ($text === 'Choose a from date') {
+                    $translation = __('From', 'municipio-customisation');
+                }
+
+                if ($text === 'Choose a to date') {
+                    $translation = __('To', 'municipio-customisation');
+                }
             }
 
             return $translation;

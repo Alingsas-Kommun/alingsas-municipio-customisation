@@ -43,6 +43,12 @@ class Search {
         if ($query->is_main_query() && $query->is_search() && !is_admin()) {
             $query->set('post_type', array_keys($this->postTypes));
             $query->set('posts_per_page', 10);
+            $query->set('paged', $this->getCurrentPage());
+
+            $searchType = $this->getSearchType();
+            if ($searchType !== 'all-hits' && in_array($searchType, array_keys($this->postTypes))) {
+                $query->set('post_type', $searchType);
+            }
         }
     }
 
@@ -70,22 +76,27 @@ class Search {
     private function getData() {
         $data = [];
 
-        $count = $this->getResultCountByPostType();
-        $countByType = array_map(function ($typeKey) use ($count) {
-            return [
-                'name' => $this->postTypes[$typeKey],
-                'type_id' => $typeKey,
-                'count' => $count[$typeKey] ?? 0,
-            ];
-        }, array_keys($this->postTypes));
-
         $data['resultCount'] = $this->wpquery->found_posts;
-        $data['allHits'] = $this->wpquery->found_posts;
+        $data['allHits'] = $this->getTotalHitCount();
         $data['posts'] = $this->getPosts();
         $data['searchTerm'] = $this->searchTerm;
         $data['searchTermUrl'] = urlencode($this->searchTerm);
+        $data['searchType'] = $this->getSearchType();
+        $data['currentPagePagination'] = $this->getCurrentPage();
+        $data['showPagination'] = \Municipio\Helper\Archive::showPagination(false, $this->wpquery);
+        $data['paginationList'] = \Municipio\Helper\Archive::getPagination(false, $this->wpquery);
+
+        $count = $this->getResultCountByPostType();
+        $countByType = array_map(function ($typeKey) use ($count, $data) {
+            return [
+                'name' => $this->postTypes[$typeKey],
+                'link' => home_url("/?s={$data['searchTermUrl']}&type={$typeKey}"),
+                'type_id' => $typeKey,
+                'count' => $count[$typeKey] ?? 0,
+                'active' => $typeKey === $data['searchType'],
+            ];
+        }, array_keys($this->postTypes));
         $data['countByType'] = $countByType;
-        $data['searchType'] = isset($_GET['type']) ? trim($_GET['type']) : 'all-hits';
 
         return $data;
     }
@@ -106,6 +117,10 @@ class Search {
         return $lang;
     }
 
+    private function getSearchType() {
+        return isset($_GET['type']) ? trim($_GET['type']) : 'all-hits';
+    }
+
     private function getPosts() {
         $posts = $this->wpquery->posts;
         foreach ($posts as $postKey => $post) {
@@ -117,6 +132,32 @@ class Search {
         return $posts;
     }
 
+    private function getTotalHitCount() {
+        $postTypes = implode(',', array_map(fn($item) => "'{$item}'", array_keys($this->postTypes)));
+
+        $sql = "SELECT COUNT(*)
+                FROM {$this->wpdb->posts}
+                WHERE post_type IN ({$postTypes})
+                AND post_status = 'publish'
+                AND post_password = ''
+                AND (
+                    post_title LIKE %s 
+                    OR post_excerpt LIKE %s 
+                    OR post_content LIKE %s 
+                )";
+
+        $preparedStatement = $this->wpdb->prepare(
+            $sql,
+            '%' . $this->searchTerm . '%',
+            '%' . $this->searchTerm . '%',
+            '%' . $this->searchTerm . '%'
+        );
+
+        $count = $this->wpdb->get_var($preparedStatement);
+
+        return intval($count);
+    }
+
     private function getResultCountByPostType() {
         $postTypes = implode(',', array_map(fn($item) => "'{$item}'", array_keys($this->postTypes)));
 
@@ -126,13 +167,15 @@ class Search {
                 AND post_status = 'publish'
                 AND post_password = ''
                 AND (
-                    post_title LIKE %s
-                    OR post_content LIKE %s
+                    post_title LIKE %s 
+                    OR post_excerpt LIKE %s 
+                    OR post_content LIKE %s 
                 )
                 GROUP BY post_type";
 
         $preparedStatement = $this->wpdb->prepare(
             $sql,
+            '%' . $this->searchTerm . '%',
             '%' . $this->searchTerm . '%',
             '%' . $this->searchTerm . '%'
         );
@@ -149,5 +192,15 @@ class Search {
         }
 
         return $count;
+    }
+
+    private function getCurrentPage() {
+        $paged = isset($_GET['paged'])
+            ? (intval($_GET['paged']) > 0 
+                ? intval($_GET['paged'])
+                : 1)
+            : 1;
+
+        return $paged;
     }
 }

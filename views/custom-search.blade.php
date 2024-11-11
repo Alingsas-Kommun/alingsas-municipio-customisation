@@ -55,9 +55,9 @@
                 <li>
                     @button([
                         'text' => "{$type['name']} ({$type['count']})",
-                        'href' => "/?s={$searchTermUrl}&type={$type['type_id']}",
+                        'href' => $type['link'],
                         'color' => 'primary',
-                        'style' => $searchType === $type['type_id'] ? 'filled' : 'outlined',
+                        'style' => $type['active'] ? 'filled' : 'outlined',
                         'size' => 'sm',
                     ])
                     @endbutton
@@ -96,12 +96,12 @@
 
         </section>
 
-        <section class="t-searchpagination u-mt-0 u-margin__top--2 u-margin__bottom--4">
+        <section class="t-searchpagination u-mt-0 u-margin__top--6 u-margin__bottom--8">
 
             @if ($showPagination)
                 @pagination([
                     'list' => $paginationList,
-                    'classList' => ['u-margin__top--4', 'u-display--flex', 'u-justify-content--center'],
+                    'classList' => ['u-display--flex', 'u-justify-content--center'],
                     'current' => $currentPagePagination,
                     'linkPrefix' => ''
                 ])

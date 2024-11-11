@@ -1,5 +1,11 @@
 @use "sass:color";
 
+.c-button {
+    &.c-button--sm {
+        letter-spacing: 1px;
+    }
+}
+
 body:not(.home) {
     .sidebar-content-area-top {
         --c-button-primary-color: #{$color-brand-alt};

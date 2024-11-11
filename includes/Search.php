@@ -64,17 +64,28 @@ class Search {
             $markup .= '</pre>';
         }
 
-        $this->getResultCountByPostType();
-
         echo $markup;
     }
 
     private function getData() {
         $data = [];
 
+        $count = $this->getResultCountByPostType();
+        $countByType = array_map(function ($typeKey) use ($count) {
+            return [
+                'name' => $this->postTypes[$typeKey],
+                'type_id' => $typeKey,
+                'count' => $count[$typeKey] ?? 0,
+            ];
+        }, array_keys($this->postTypes));
+
         $data['resultCount'] = $this->wpquery->found_posts;
+        $data['allHits'] = $this->wpquery->found_posts;
         $data['posts'] = $this->getPosts();
         $data['searchTerm'] = $this->searchTerm;
+        $data['searchTermUrl'] = urlencode($this->searchTerm);
+        $data['countByType'] = $countByType;
+        $data['searchType'] = isset($_GET['type']) ? trim($_GET['type']) : 'all-hits';
 
         return $data;
     }
@@ -87,7 +98,9 @@ class Search {
         $lang->search = __('Search', 'municipio');
         $lang->placeholder = __('What are you searching for?', 'municipio');
         $lang->hits = _n('Hit', 'Hits', $this->wpquery->found_posts, 'municipio-customisation');
-        $lang->found = __('%1$d %2$s for "%3$s" on %4$s', 'municipio-customisation'); /* translators: 1 nr hits, 2 hits, 3 search string, 4 domain */
+        $lang->allHits = __('All hits', 'municipio-customisation');
+        /* translators: 1 nr hits, 2 hits, 3 search string, 4 domain */
+        $lang->found = __('%1$d %2$s for <b>"%3$s"</b> on %4$s', 'municipio-customisation');
         $lang->found = sprintf($lang->found, $this->wpquery->found_posts, lcfirst($lang->hits), $this->searchTerm, $domain);
 
         return $lang;
@@ -107,7 +120,7 @@ class Search {
     private function getResultCountByPostType() {
         $postTypes = implode(',', array_map(fn($item) => "'{$item}'", array_keys($this->postTypes)));
 
-        $sql = "SELECT COUNT(*), post_type
+        $sql = "SELECT COUNT(*) occurrences, post_type
                 FROM {$this->wpdb->posts}
                 WHERE post_type IN ({$postTypes})
                 AND post_status = 'publish'
@@ -124,6 +137,17 @@ class Search {
             '%' . $this->searchTerm . '%'
         );
 
-        $count = $this->wpdb->get_var($preparedStatement);
+        $count = $this->wpdb->get_results($preparedStatement);
+
+        if (is_array($count) && sizeof($count) > 0) {
+            $count = array_combine(
+                array_column($count, 'post_type'),
+                array_map('intval', array_column($count, 'occurrences'))
+            );
+        } else {
+            $count = [];
+        }
+
+        return $count;
     }
 }

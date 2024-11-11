@@ -33,10 +33,37 @@
     @endgroup
     @endform
 
-    <div class="search-result-count u-margin__top--1">
+    <div class="search-result-count">
         @typography(['variant' => 'meta', 'element' => 'span'])
-            {{ $lang->found }}
+            {!! $lang->found !!}
         @endtypography
+    </div>
+
+    <div class="search-by-type">
+        <ul>
+            <li>
+                @button([
+                    'text' => $lang->allHits . " ({$allHits})",
+                    'href' => "/?s={$searchTermUrl}",
+                    'color' => 'primary',
+                    'style' => $searchType === 'all-hits' ? 'filled' : 'outlined',
+                    'size' => 'sm',
+                ])
+                @endbutton
+            </li>
+            @foreach ($countByType as $type)
+                <li>
+                    @button([
+                        'text' => "{$type['name']} ({$type['count']})",
+                        'href' => "/?s={$searchTermUrl}&type={$type['type_id']}",
+                        'color' => 'primary',
+                        'style' => $searchType === $type['type_id'] ? 'filled' : 'outlined',
+                        'size' => 'sm',
+                    ])
+                    @endbutton
+                </li>
+            @endforeach
+        </ul>
     </div>
 
     @if (!$resultCount)

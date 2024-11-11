@@ -1,0 +1,22 @@
+.ak-search {
+    .search-result-count {
+        margin: 1rem 0;
+    }
+
+    .search-by-type {
+        margin: 1rem 0 4rem 0;
+
+        ul {
+            display: flex;
+            gap: calc(var(--grid-gap)/3);
+            list-style: none;
+            margin: 0;
+            padding: 0;
+
+            li {
+                margin: 0;
+                padding: 0;
+            }
+        }
+    }
+}

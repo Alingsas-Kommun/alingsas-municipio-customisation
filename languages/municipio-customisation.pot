@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-11-08T15:20:55+00:00\n"
+"POT-Creation-Date: 2024-11-11T11:01:34+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: municipio-customisation\n"
@@ -143,12 +143,45 @@ msgstr ""
 msgid "Aktivera sök"
 msgstr ""
 
-#: includes/Search.php:59
+#: includes/Search.php:20
+msgid "Pages"
+msgstr ""
+
+#: includes/Search.php:21
+msgid "News"
+msgstr ""
+
+#: includes/Search.php:22
+msgid "Jobs"
+msgstr ""
+
+#: includes/Search.php:23
+msgid "Events"
+msgstr ""
+
+#: includes/Search.php:24
+msgid "Operating information"
+msgstr ""
+
+#: includes/Search.php:100
 msgid "Hit"
 msgid_plural "Hits"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/Search.php:60
-msgid "%1$d %2$s for \"%3$s\" on %4$s"
+#: includes/Search.php:101
+msgid "All hits"
+msgstr ""
+
+#. translators: 1 nr hits, 2 hits, 3 search string, 4 domain
+#: includes/Search.php:103
+msgid "%1$d %2$s for <b>\"%3$s\"</b> on %4$s"
+msgstr ""
+
+#: includes/Widgets.php:12
+msgid "Site banner (top of page)"
+msgstr ""
+
+#: includes/Widgets.php:13
+msgid "The area above the header"
 msgstr ""

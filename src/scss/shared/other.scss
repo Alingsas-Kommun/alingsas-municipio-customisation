@@ -48,5 +48,17 @@ div.widget_block > p:empty {
 /* Single job */
 
 .single-lediga-jobb .c-paper {
-  background-color: $color-quill-gray;
+  background-color: #dededd;
+}
+
+.single-lediga-jobb [aria-label='Ansök'].c-button {
+  background-color: #fad945;
+  border: none;
+  color: #000;
+  filter: unset;
+  outline: none;
+}
+
+.single-lediga-jobb [aria-label='Ansök'].c-button span {
+  color: #000;
 }

@@ -32,7 +32,12 @@ body.home {
 
         &__body {
             padding: calc(var(--base, 8px)* 3);
-            padding-top: 0;
+        }
+
+        &:has(.c-card__header) {
+            .c-card__body {
+                padding-top: 0;
+            }
         }
     }
 }

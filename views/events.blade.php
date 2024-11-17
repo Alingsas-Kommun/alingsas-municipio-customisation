@@ -13,7 +13,7 @@
                     'month' => $event->month,
                     'time' => $event->time ?? null,
                     'location' => $event->location ?? null,
-                    'tags' => $event->tags ?? null
+                    'tags' => $event->categories ?? null
                 ])
                 @endevent
             @endcard

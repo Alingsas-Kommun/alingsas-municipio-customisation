@@ -45,6 +45,12 @@ class Events {
             //$event->location_full = tribe_get_address($pid) . ', ' . tribe_get_zip($pid) . ' ' . tribe_get_city($pid);
         }
 
+        // Categories
+        $terms = wp_get_post_terms($event->id, 'event_categories');
+        if (sizeof($terms)) {
+            $event->categories = array_map(fn(WP_Term $item) => ucfirst($item->name), $terms);
+        }
+
         // Tags
         $terms = wp_get_post_terms($event->id, 'event_tags');
         if (sizeof($terms)) {

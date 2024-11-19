@@ -1,4 +1,12 @@
-<div class="o-grid o-grid--events">
+@typography([
+    'id' => 'mod-posts-' . $ID . '-label',
+    'element' => $element ?? 'h2',
+    'variant' => $variant ?? 'h2',
+    'classList' => $classList ?? ['module-title']
+])
+    {!! $postTitle !!}
+@endtypography
+<div class="o-grid o-grid--events u-margin__top--4">
     @foreach ($events as $event)
         <div class="o-grid-12@md">
             @card([
@@ -13,7 +21,7 @@
                     'month' => $event->month,
                     'time' => $event->time ?? null,
                     'location' => $event->location ?? null,
-                    'tags' => $event->tags ?? null
+                    'tags' => $event->categories ?? null
                 ])
                 @endevent
             @endcard

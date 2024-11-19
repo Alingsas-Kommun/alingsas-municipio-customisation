@@ -17,6 +17,30 @@ body.home {
 
 .sidebar-content-area {
     --card-header-color: white;
+
+    .modularity-mod-manualinput {
+        a.c-card {
+            .c-card__body {
+                padding: calc(var(--base, 8px)* 2);
+            }
+
+            .c-card__heading {
+                text-decoration: underline;
+            }
+
+            .c-group--vertical {
+                align-items: center;
+                flex-direction: row;
+
+                &:before {
+                    content: 'arrow_forward';
+                    font-family: 'Material Symbols Rounded';
+                    font-size: 1.5rem;
+                    margin-right: .5rem;
+                }
+            }
+        }
+    }
 }
 
 .sidebar-left-sidebar,
@@ -32,7 +56,12 @@ body.home {
 
         &__body {
             padding: calc(var(--base, 8px)* 3);
-            padding-top: 0;
+        }
+
+        &:has(.c-card__header) {
+            .c-card__body {
+                padding-top: 0;
+            }
         }
     }
 }

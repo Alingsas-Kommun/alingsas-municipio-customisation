@@ -87,10 +87,16 @@
             @foreach ($posts as $post)
                 @card([
                     'heading' => $post->postTitleFiltered,
-                    'content' => $post->excerpt,
                     'link' => $post->permalink,
                     'classList' => ['u-margin__top--4']
                 ])
+                    @slot('content')
+                        <p>{{ $post->excerpt }}</p>
+                        <br>
+                        <b>{{ implode(' > ', array_map(fn($crumb) => $crumb['title'], $post->breadcrumbs)) }}</b>
+                        <br>
+                        <p>Senast ändrad: {{ $post->postModifiedGmt }} </p>
+                    @endslot
                 @endcard
             @endforeach
 

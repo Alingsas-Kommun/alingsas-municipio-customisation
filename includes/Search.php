@@ -87,8 +87,6 @@ class Search {
 		$data['showPagination']        = \Municipio\Helper\Archive::showPagination(false, $this->wpquery);
 		$data['paginationList']        = \Municipio\Helper\Archive::getPagination(false, $this->wpquery);
 
-
-
 		$count               = $this->getResultCountByPostType();
 		$countByType         = array_map(function ($typeKey) use ($count, $data) {
 			return [

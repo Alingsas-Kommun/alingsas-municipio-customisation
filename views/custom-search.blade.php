@@ -66,22 +66,7 @@
         </ul>
     </div>
 
-    @if (!$resultCount)
-        <section class="o-container t-searchform u-margin__top--6">
-            <div class="o-grid">
-                <div class="o-grid-12">
-                    @notice([
-                        'type' => 'info',
-                        'message' => [
-                            'text' => $lang->noResult,
-                            'size' => 'md'
-                        ]
-                    ])
-                    @endnotice
-                </div>
-            </div>
-        </section>
-    @else
+    @if ($resultCount)
         <section class="t-searchresult">
 
             @foreach ($posts as $post)

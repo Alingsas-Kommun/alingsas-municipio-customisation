@@ -13,7 +13,6 @@ class ACF {
         $acfExportManager->setExportFolder(Plugin::PATH . '/acf/');
         $acfExportManager->autoExport(array(
             'appearance-settings' => 'group_673db0fb7c0f8',
-            'background-settings' => 'group_671638b4358a9',
             'card-settings' => 'group_67161fd718251',
             'page-settings' => 'group_673dd0baaff48',
             'general-mod-settings' => 'group_6718a5f9a58fb',

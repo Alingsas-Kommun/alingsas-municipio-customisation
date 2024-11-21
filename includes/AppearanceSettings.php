@@ -3,23 +3,26 @@
 namespace AlingsasCustomisation\Includes;
 
 use AlingsasCustomisation\Includes\ExtraSettings;
+use AlingsasCustomisation\Helpers\Appearance as AppearanceHelper;
 
-class Appearance {
-    private const FIELD_CUSTOM_COLORS = 'field_673db188c0196';
+class AppearanceSettings {
+    public const FIELD_CUSTOM_COLORS = 'field_673db188c0196';
 
-    private const FIELD_CUSTOM_COLORS_ID = 'field_673dc384fb40f';
+    public const FIELD_CUSTOM_COLORS_ID = 'field_673dc384fb40f';
 
-    private const FIELD_CUSTOM_COLORS_NAME = 'field_673dc384fb40f';
+    public const FIELD_CUSTOM_COLORS_NAME = 'field_673dc384fb40f';
 
-    private const FIELD_THEMES = 'field_673db58fbaeef';
+    public const FIELD_THEMES = 'field_673db58fbaeef';
 
-    private const FIELD_THEME_ID = 'field_673f13830a0c2';
-    
-    private const FIELD_THEME_NAME = 'field_673dc12fa4c63';
+    public const FIELD_THEME_ID = 'field_673f13830a0c2';
 
-    private const FIELD_THEME_COLOR = 'field_673db6b8e0e37';
+    public const FIELD_THEME_NAME = 'field_673dc12fa4c63';
 
-    private const FIELD_PAGE_THEME = 'field_673dd0bbc9739';
+    public const FIELD_THEME_COLOR = 'field_673db6b8e0e37';
+
+    public const FIELD_PAGE_THEME = 'field_673dd0bbc9739';
+
+    public const FIELD_COLOR = 'alingsas_color';
 
     public function __construct() {
         // Add options page
@@ -55,7 +58,7 @@ class Appearance {
 
             $themes = get_field(self::FIELD_THEMES, 'options');
             foreach ($themes as $theme) {
-                $field['choices'][$theme['theme_color']] = $theme['name'];
+                $field['choices'][$theme['id']] = $theme['name'];
             }
 
             return $field;
@@ -73,6 +76,25 @@ class Appearance {
             foreach ($themes as $theme) {
                 $field['choices']['theme-' . $theme['id']] = sprintf(__('Theme: %s', 'municipio-customisation'), $theme['name']);
             }
+
+            return $field;
+        });
+
+        // Add colors to theme component color selector
+        add_filter('acf/load_field/name=' . self::FIELD_COLOR, function ($field) {
+            if ($this->isEditingFieldGroup()) {
+                return $field;
+            }
+
+            $field['choices']['-'] = __('Standard', 'municipio-customisation');
+
+            $colors = get_field(self::FIELD_CUSTOM_COLORS, 'options');
+            foreach ($colors as $color) {
+                $field['choices']['color-' . $color['id']] = $color['name'];
+            }
+
+            $field['choices']['page-theme'] = __('Theme color', 'municipio-customisation');
+            $field['choices']['custom'] = __('Custom color', 'municipio-customisation');
 
             return $field;
         });
@@ -132,7 +154,26 @@ class Appearance {
                 $css_vars .= "--alingsas-color-{$color['id']}: {$color['color']};";
             }
 
+            foreach ($themes as $theme) {
+                $css_vars .= "--alingsas-theme-{$theme['id']}: var(--alingsas-color-{$theme['theme_color']});";
+            }
+
             echo '<style>:root {' . $css_vars . '}</style>';
+        });
+
+        // Output theme colors if page or URL has it
+        add_action('wp_head', function () {
+            $css_vars = '';
+
+            $page_theme = get_field(self::FIELD_PAGE_THEME);
+            if (!empty($page_theme) && $page_theme !== '-') {
+                $css_vars .= '--color-page-theme: var(--alingsas-theme-' . $page_theme . ');';
+                $css_vars .= AppearanceHelper::getThemeColorVars($page_theme);
+            }
+
+            if (!empty($css_vars)) {
+                echo '<style>:root {' . $css_vars . '}</style>';
+            }
         });
     }
 
@@ -144,7 +185,7 @@ class Appearance {
         $field['wrapper']['class'] = 'hidden';
 
         return $field;
-    } 
+    }
 
     private function isEditingFieldGroup() {
         if (is_admin() && function_exists('get_current_screen') && get_current_screen()->id === 'acf-field-group') {

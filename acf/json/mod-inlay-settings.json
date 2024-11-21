@@ -76,7 +76,7 @@
         ]
     ],
     "menu_order": 0,
-    "position": "normal",
+    "position": "side",
     "style": "default",
     "label_placement": "left",
     "instruction_placement": "label",
@@ -92,4 +92,4 @@
     "acfe_meta": "",
     "acfe_note": ""
 }]
-
+

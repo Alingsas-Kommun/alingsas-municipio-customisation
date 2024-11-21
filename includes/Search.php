@@ -41,7 +41,7 @@ class Search {
 	}
 
 	public function setPostTypesToSearch(\WP_Query $query) {
-		if ($query->is_main_query() && $query->is_search() && ! is_admin()) {
+		if ($query->is_main_query() && $query->is_search() && !$query->get('post_type') && !is_admin()) {
 			$query->set('post_type', array_keys($this->postTypes));
 			$query->set('posts_per_page', 10);
 			$query->set('paged', $this->getCurrentPage());

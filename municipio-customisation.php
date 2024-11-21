@@ -36,7 +36,8 @@ class Plugin {
         $includes = array_merge(glob(__DIR__ . '/includes/*.php'), glob(__DIR__ . '/includes/**/*.php'));
         foreach ($includes as $class) {
             require_once $class;
-
+        }
+        foreach ($includes as $class) {
             $path = str_replace(plugin_dir_path(__FILE__) . 'includes/', '', $class);
             $path = explode('/', $path);
             array_pop($path);

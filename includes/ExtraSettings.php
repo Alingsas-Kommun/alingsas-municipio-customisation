@@ -3,9 +3,11 @@
 namespace AlingsasCustomisation\Includes;
 
 class ExtraSettings {
-    private const modulesWithBackgroundSettings = ['mod-text'];
+    public const FIELD_BACKGROUND_STRIPE_COLOR = 'field_6718a5f939289';
 
-    private const modulesWithCardSettings = ['mod-manualinput'];
+    private const MODS_BACKGROUND_SETTINGS = ['mod-text'];
+
+    private const MODS_CARD_SETTINGS = ['mod-manualinput'];
 
     public function __construct() {
         // General settings
@@ -32,7 +34,7 @@ class ExtraSettings {
 
         // General
         add_filter('Modularity/Display/BeforeModule::classes', function ($classes, $args, $posttype, $ID) {
-            if (in_array($posttype, self::modulesWithBackgroundSettings)) {
+            if (in_array($posttype, self::MODS_BACKGROUND_SETTINGS)) {
                 $background_color = get_field('background_color', $ID);
 
                 if (!empty($background_color) && $background_color !== 'standard') {
@@ -45,7 +47,7 @@ class ExtraSettings {
 
         // Card
         add_filter('Modularity/Display/BeforeModule::classes', function ($classes, $args, $posttype, $ID) {
-            if (in_array($posttype, self::modulesWithCardSettings)) {
+            if (in_array($posttype, self::MODS_CARD_SETTINGS)) {
                 $card_header_color = get_field('card_head_color', $ID);
 
                 if (!empty($card_header_color) && $card_header_color !== 'standard') {

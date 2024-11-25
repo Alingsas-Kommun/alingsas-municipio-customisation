@@ -22,6 +22,10 @@ class AppearanceSettings {
 
     public const FIELD_PAGE_THEME = 'field_673dd0bbc9739';
 
+    public const FIELD_THEME_PATHS = 'field_67448dbe1ba14';
+
+    public const FIELD_PATH_THEME = 'field_67448ddb1ba16';
+
     public const FIELD_COLOR = 'alingsas_color';
 
     public function __construct() {
@@ -48,13 +52,27 @@ class AppearanceSettings {
             return $field;
         });
 
-        // Load available themes
+        // Load available themes for page
         add_filter('acf/load_field/key=' . self::FIELD_PAGE_THEME, function ($field) {
             if ($this->isEditingFieldGroup()) {
                 return $field;
             }
 
             $field['choices']['-'] = __('Standard', 'municipio-customisation');
+
+            $themes = get_field(self::FIELD_THEMES, 'options');
+            foreach ($themes as $theme) {
+                $field['choices'][$theme['id']] = $theme['name'];
+            }
+
+            return $field;
+        });
+
+        // Load available themes for path
+        add_filter('acf/load_field/key=' . self::FIELD_PATH_THEME, function ($field) {
+            if ($this->isEditingFieldGroup()) {
+                return $field;
+            }
 
             $themes = get_field(self::FIELD_THEMES, 'options');
             foreach ($themes as $theme) {
@@ -163,12 +181,17 @@ class AppearanceSettings {
 
         // Output theme colors if page or URL has it
         add_action('wp_head', function () {
+            $theme = null;
             $css_vars = '';
 
-            $page_theme = get_field(self::FIELD_PAGE_THEME);
-            if (!empty($page_theme) && $page_theme !== '-') {
-                $css_vars .= '--color-page-theme: var(--alingsas-theme-' . $page_theme . ');';
-                $css_vars .= AppearanceHelper::getThemeColorVars($page_theme);
+            $theme = get_field(self::FIELD_PAGE_THEME);
+            if (empty($theme) || $theme === '-') {
+                $theme = AppearanceHelper::getThemeForUrl($_SERVER['REQUEST_URI']);
+            }
+
+            if (!empty($theme) && $theme !== '-') {
+                $css_vars .= AppearanceHelper::getThemeVar($theme);
+                $css_vars .= AppearanceHelper::getThemeColorVars($theme);
             }
 
             if (!empty($css_vars)) {

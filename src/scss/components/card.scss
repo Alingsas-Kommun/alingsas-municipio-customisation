@@ -55,9 +55,9 @@ body.home {
 .sidebar-left-sidebar,
 .sidebar-right-sidebar,
 .single-event-sidebar-right {
-    --card-header-background: var(--theme-sidebar-background, var(--color-page-theme, white));
+    --card-header-background: var(--theme-sidebar-background, var(--color-page-theme, #{$color-gray}));
     --card-header-color: var(--theme-sidebar-color, black);
-    --card-body-background: var(--theme-sidebar-background, var(--color-page-theme, white));
+    --card-body-background: var(--theme-sidebar-background, var(--color-page-theme, #{$color-gray}));
     --card-body-color: var(--theme-sidebar-color, black);
 
     .c-card {

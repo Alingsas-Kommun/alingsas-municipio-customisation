@@ -34,6 +34,10 @@ class Appearance {
         return 'var(--color-' . $id . ')';
     }
 
+    public static function getThemeVar($theme_id) {
+        return '--color-page-theme: var(--alingsas-theme-' . $theme_id . ');';
+    }
+
     public static function getThemeColorVars($theme_id) {
         $theme = self::getThemeSettings($theme_id);
 
@@ -71,5 +75,25 @@ class Appearance {
 
     public static function getThemes() {
         return get_field(AppearanceSettings::FIELD_THEMES, 'options');
+    }
+
+    public static function getThemeForUrl($path) {
+        $paths = get_field(AppearanceSettings::FIELD_THEME_PATHS, 'options');
+
+        foreach ($paths as $item) {
+            $exact = preg_match('/\$$/', $item['path']) === 1;
+            
+            if ($exact) {
+                if (str_replace('$', '', $item['path']) === $path) {
+                    return $item['theme'];
+                }
+            } else {
+                if (strpos($path, $item['path']) === 0) {
+                    return $item['theme'];
+                }
+            }
+        }
+        
+        return false;
     }
 }

@@ -421,7 +421,7 @@
         },
         {
             "key": "field_673f826624f3f",
-            "label": "Themes by route",
+            "label": "Themes by path",
             "name": "",
             "aria-label": "",
             "type": "tab",
@@ -435,6 +435,78 @@
             },
             "placement": "top",
             "endpoint": 0
+        },
+        {
+            "key": "field_67448dbe1ba14",
+            "label": "Paths",
+            "name": "alingsas_theme_paths",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "Define paths that you want to use specific themes for. A path can be defined as exact but also that it should start with a certain string. To define the end of a path, use the $ character. If this is missing it matches both the defined path as well as descendents do that path.<br>\r\n<br>\r\nExact path: \/your-path\/$<br>\r\nStart with path: \/your-path\/",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "acfe_repeater_stylised_button": 0,
+            "layout": "table",
+            "pagination": 0,
+            "min": 0,
+            "max": 0,
+            "collapsed": "field_67448dcd1ba15",
+            "button_label": "Add path",
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_67448dcd1ba15",
+                    "label": "Path",
+                    "name": "path",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "\/your-path-here",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_67448dbe1ba14"
+                },
+                {
+                    "key": "field_67448ddb1ba16",
+                    "label": "Theme",
+                    "name": "theme",
+                    "aria-label": "",
+                    "type": "select",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "choices": [],
+                    "default_value": false,
+                    "return_format": "value",
+                    "multiple": 0,
+                    "allow_null": 0,
+                    "ui": 0,
+                    "ajax": 0,
+                    "placeholder": "",
+                    "allow_custom": 0,
+                    "search_placeholder": "",
+                    "parent_repeater": "field_67448dbe1ba14"
+                }
+            ]
         }
     ],
     "location": [

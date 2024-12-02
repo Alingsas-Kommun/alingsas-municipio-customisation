@@ -51,7 +51,7 @@ class Appearance {
             $var_name = str_replace(['var_', '_'], ['', '-'], $key);
             $var_value = $settings['alingsas_color'] !== 'custom'
                 ? self::getColorValue($settings['alingsas_color'])
-                : $settings['custom_color'];
+                : $settings['alingsas_custom_color'];
 
             if (!empty($var_value)) {
                 $vars .= "--theme-{$var_name}: {$var_value};";

@@ -25,6 +25,12 @@
         }
     }
 
+    .c-nav.c-nav--horizontal {
+        a {
+            color: var(--color-link);
+        }
+    }
+
     .collapsible-search-form {
         &__group {
             .c-field {

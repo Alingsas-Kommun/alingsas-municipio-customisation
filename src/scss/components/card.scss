@@ -24,10 +24,12 @@ body.home {
     --card-header-color: black;
 }
 
-.sidebar-content-area {
+.sidebar-content-area,
+.sidebar-content-area-top {
     --card-header-color: white;
 
-    .modularity-mod-manualinput {
+    .modularity-mod-manualinput,
+    .modularity-mod-posts {
         a.c-card {
             .c-card__body {
                 padding: calc(var(--base, 8px)* 2);
@@ -38,7 +40,7 @@ body.home {
             }
 
             .c-group--vertical {
-                align-items: center;
+                align-items: flex-start;
                 flex-direction: row;
 
                 &:before {

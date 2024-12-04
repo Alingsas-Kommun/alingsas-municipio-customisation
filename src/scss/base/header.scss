@@ -8,6 +8,10 @@
 
 .site-header {
     @media (max-width: 500px) {
+        .c-header__logotype {
+            height: calc(var(--c-header-logotype-height-mobile, 6)* var(--base, 8px));
+        }
+
         .mobile-menu-trigger {
             min-width: 0;
 

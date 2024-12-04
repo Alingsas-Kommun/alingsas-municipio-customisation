@@ -9,7 +9,7 @@ use ComponentLibrary\Integrations\Image\Image;
 use Municipio\Integrations\Component\ImageResolver;
 
 class Events {
-    public static function parseEvent(\stdClass $event) {
+    public static function parseEvent($event) {
         if ($event->postType !== 'event') {
             return $event;
         }

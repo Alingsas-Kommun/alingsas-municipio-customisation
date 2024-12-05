@@ -13,8 +13,8 @@
 .sidebar-content-area {
     .c-card {
         &__header {
-            background-color: var(--color-page-theme, var(--card-header-background));
-            color: var(--card-header-color);
+            background-color: var(--theme-card-header-background, var(--color-page-theme, var(--card-header-background)));
+            color: var(--theme-card-header-color, --card-header-color);
         }
     }
 }
@@ -81,7 +81,10 @@ body.home {
 }
 
 .card__header--bg-color-winered {
+    --theme-card-header-background: #{$color-brand-alt};
+    --theme-card-header-color: white;
     --card-header-background: #{$color-brand-alt};
+    --card-header-color: white;
 }
 
 .single-event-sidebar-right {

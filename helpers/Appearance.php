@@ -48,13 +48,17 @@ class Appearance {
                 continue;
             }
 
-            $var_name = str_replace(['var_', '_'], ['', '-'], $key);
-            $var_value = $settings['alingsas_color'] !== 'custom'
-                ? self::getColorValue($settings['alingsas_color'])
-                : $settings['alingsas_custom_color'];
+            $var_base = str_replace(['var_', '_color_settings', '_'], ['', '', '-'], $key);
 
-            if (!empty($var_value)) {
-                $vars .= "--theme-{$var_name}: {$var_value};";
+            foreach ($settings as $group => $s) {
+                $var_name = $var_base . '-' . $group;
+                $var_value = $s['alingsas_color'] !== 'custom'
+                    ? self::getColorValue($s['alingsas_color'])
+                    : $s['alingsas_custom_color'];
+
+                if (!empty($var_value)) {
+                    $vars .= "--theme-{$var_name}: {$var_value};";
+                }
             }
         }
 
@@ -82,7 +86,7 @@ class Appearance {
 
         foreach ($paths as $item) {
             $exact = preg_match('/\$$/', $item['path']) === 1;
-            
+
             if ($exact) {
                 if (str_replace('$', '', $item['path']) === $path) {
                     return $item['theme'];
@@ -93,7 +97,7 @@ class Appearance {
                 }
             }
         }
-        
+
         return false;
     }
 }

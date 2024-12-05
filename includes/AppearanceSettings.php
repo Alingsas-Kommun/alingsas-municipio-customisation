@@ -123,6 +123,13 @@ class AppearanceSettings {
         // Hide theme ID field from admin
         add_filter('acf/load_field/key=' . self::FIELD_THEME_ID, [$this, 'hideField']);
 
+        // Hide title for color settings clone field
+        add_filter('acf/load_field/key=field_6751b8156d755', function($field) {
+            $field['label'] = '';
+
+            return $field;
+        });
+
         // Give each custom color a unique ID
         add_filter('acf/save_post', function ($post_id) {
             $screen = get_current_screen();

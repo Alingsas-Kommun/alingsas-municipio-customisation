@@ -125,6 +125,15 @@ class AppearanceSettings {
 
         // Hide title for color settings clone field
         add_filter('acf/load_field/key=field_6751b8156d755', function($field) {
+            if (!is_admin()) {
+                return $field;
+            }
+
+            $screen = get_current_screen();
+            if ($screen->id === 'acf-field-group') {
+                return $field;
+            }
+
             $field['label'] = '';
 
             return $field;

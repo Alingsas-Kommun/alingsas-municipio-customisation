@@ -48,6 +48,10 @@ class Appearance {
                 continue;
             }
 
+            if (isset($settings['color_settings'])) {
+                $settings = $settings['color_settings'];
+            }
+
             $var_base = str_replace(['var_', '_color_settings', '_'], ['', '', '-'], $key);
 
             foreach ($settings as $group => $s) {

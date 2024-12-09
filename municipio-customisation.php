@@ -2,7 +2,7 @@
 /*
 Plugin Name: Alingsås Municipio customisation
 Description: Alingsås kommun's custom tweaks for Municipio
-Version: 0.1.10
+Version: 0.1.11
 Author: Consid
 Author URI: https://www.consid.se
 Textdomain: municipio-customisation
@@ -12,7 +12,7 @@ namespace AlingsasCustomisation;
 
 class Plugin {
 
-    public const VERSION = '0.1.10';
+    public const VERSION = '0.1.11';
 
     public const PATH = __DIR__;
 
@@ -36,7 +36,8 @@ class Plugin {
         $includes = array_merge(glob(__DIR__ . '/includes/*.php'), glob(__DIR__ . '/includes/**/*.php'));
         foreach ($includes as $class) {
             require_once $class;
-
+        }
+        foreach ($includes as $class) {
             $path = str_replace(plugin_dir_path(__FILE__) . 'includes/', '', $class);
             $path = explode('/', $path);
             array_pop($path);

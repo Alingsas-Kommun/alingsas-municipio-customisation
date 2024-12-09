@@ -1,7 +1,9 @@
 <?php 
 
-if (function_exists('acf_add_local_field_group')) {
-    acf_add_local_field_group(array(
+
+if (function_exists('acf_add_local_field_group')) {
+
+    acf_add_local_field_group(array(
     'key' => 'group_67065157310c7',
     'title' => __('Inställningar', 'municipio-customisation'),
     'fields' => array(
@@ -79,7 +81,7 @@
         ),
     ),
     'menu_order' => 0,
-    'position' => 'normal',
+    'position' => 'side',
     'style' => 'default',
     'label_placement' => 'left',
     'instruction_placement' => 'label',
@@ -95,4 +97,5 @@
     'acfe_meta' => '',
     'acfe_note' => '',
 ));
-}
+
+}

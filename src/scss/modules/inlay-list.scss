@@ -33,8 +33,7 @@
                 color: $color-brand;
                 display: flex;
                 justify-content: center;
-                height: 2.5rem;
-                white-space: nowrap;
+                //white-space: nowrap;
 
                 h2 {
                     text-decoration: underline;
@@ -43,7 +42,7 @@
             }
 
             .c-collection__icon+.c-collection__content {
-                padding: 0 1.5rem;
+                padding: .65rem 1.5rem;
             }
         }
     }
@@ -52,6 +51,8 @@
         background: $color-gray;
         padding: 1rem 0;
 
+        --theme-card-header-background: #{$color-gray};
+        --theme-card-header-color: black;
         --card-header-background: #{$color-gray};
         --card-header-color: black;
 

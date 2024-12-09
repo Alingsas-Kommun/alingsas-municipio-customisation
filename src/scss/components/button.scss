@@ -8,20 +8,20 @@
 
 body:not(.home) {
     .sidebar-content-area-top {
-        --c-button-primary-color: #{$color-brand-alt};
+        --c-button-primary-color: var(--theme-button-background, #{$color-brand-alt});
 
         .c-button {
             --base: 7px;
-            background-color: $color-brand-alt;
+            background-color: var(--theme-button-background, #{$color-brand-alt});
 
             &:hover {
-                background-color: color.scale($color-brand-alt,
-                        $lightness: 10%);
-                border-color: color.scale($color-brand-alt, $lightness: 10%);
+                background-color: var(--theme-button-background, #{$color-brand-alt});
+                border-color: var(--theme-button-background, #{$color-brand-alt});
+                opacity: .9;
             }
 
             .c-button__label {
-                color: white;
+                color: var(--theme-button-color, white);
             }
         }
     }

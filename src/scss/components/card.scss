@@ -10,15 +10,26 @@
     }
 }
 
+.sidebar-content-area {
+    .c-card {
+        &__header {
+            background-color: var(--theme-card-header-background, var(--color-page-theme, var(--card-header-background)));
+            color: var(--theme-card-header-color, --card-header-color);
+        }
+    }
+}
+
 body.home {
     --card-header-background: white;
     --card-header-color: black;
 }
 
-.sidebar-content-area {
+.sidebar-content-area,
+.sidebar-content-area-top {
     --card-header-color: white;
 
-    .modularity-mod-manualinput {
+    .modularity-mod-manualinput,
+    .modularity-mod-posts {
         a.c-card {
             .c-card__body {
                 padding: calc(var(--base, 8px)* 2);
@@ -29,7 +40,7 @@ body.home {
             }
 
             .c-group--vertical {
-                align-items: center;
+                align-items: flex-start;
                 flex-direction: row;
 
                 &:before {
@@ -44,9 +55,12 @@ body.home {
 }
 
 .sidebar-left-sidebar,
-.sidebar-right-sidebar {
-    --card-header-background: white;
-    --card-header-color: black;
+.sidebar-right-sidebar,
+.single-event-sidebar-right {
+    --card-header-background: var(--theme-sidebar-background, var(--color-page-theme, #{$color-gray}));
+    --card-header-color: var(--theme-sidebar-color, black);
+    --card-body-background: var(--theme-sidebar-background, var(--color-page-theme, #{$color-gray}));
+    --card-body-color: var(--theme-sidebar-color, black);
 
     .c-card {
         &__header {
@@ -67,20 +81,13 @@ body.home {
 }
 
 .card__header--bg-color-winered {
+    --theme-card-header-background: #{$color-brand-alt};
+    --theme-card-header-color: white;
     --card-header-background: #{$color-brand-alt};
-}
-
-.background-color-gray,
-.single-event-sidebar-right {
-    --card-header-background: #{$color-gray};
-    --card-header-color: black;
-
-    --card-body-background: #{$color-gray};
-    --card-body-color: black;
+    --card-header-color: white;
 }
 
 .single-event-sidebar-right {
-
     .c-card__body {
 
         h2,

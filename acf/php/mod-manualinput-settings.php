@@ -1,7 +1,9 @@
 <?php 
 
-if (function_exists('acf_add_local_field_group')) {
-    acf_add_local_field_group(array(
+
+if (function_exists('acf_add_local_field_group')) {
+
+    acf_add_local_field_group(array(
     'key' => 'group_672336ea7ed1a',
     'title' => __('Inställningar: Manuell inmatning', 'municipio-customisation'),
     'fields' => array(
@@ -19,7 +21,7 @@
                 'class' => '',
                 'id' => '',
             ),
-            'message' => __('Ja', 'municipio-customisation'),
+            'message' => __('Yes', 'municipio-customisation'),
             'default_value' => 0,
             'ui' => 0,
             'ui_on_text' => '',
@@ -59,4 +61,5 @@
     'acfe_meta' => '',
     'acfe_note' => '',
 ));
-}
+
+}

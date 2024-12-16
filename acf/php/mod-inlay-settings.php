@@ -1,15 +1,13 @@
 <?php 
 
-
-if (function_exists('acf_add_local_field_group')) {
-
-    acf_add_local_field_group(array(
+if (function_exists('acf_add_local_field_group')) {
+    acf_add_local_field_group(array(
     'key' => 'group_67065157310c7',
-    'title' => __('Inställningar', 'municipio-customisation'),
+    'title' => __('Inställningar lista', 'municipio-customisation'),
     'fields' => array(
         0 => array(
             'key' => 'field_670651571749f',
-            'label' => __('Utseende', 'municipio-customisation'),
+            'label' => __('Appearance', 'municipio-customisation'),
             'name' => 'appearance',
             'aria-label' => '',
             'type' => 'select',
@@ -23,22 +21,22 @@ if (function_exists('acf_add_local_field_group')) {
             ),
             'choices' => array(
                 'standard' => __('Standard', 'municipio-customisation'),
-                'buttons' => __('Knappar', 'municipio-customisation'),
+                'buttons' => __('Buttons', 'municipio-customisation'),
             ),
             'default_value' => __('standard', 'municipio-customisation'),
             'return_format' => 'value',
             'multiple' => 0,
-            'allow_custom' => 0,
-            'placeholder' => '',
-            'search_placeholder' => '',
             'allow_null' => 0,
             'ui' => 0,
             'ajax' => 0,
+            'placeholder' => '',
+            'allow_custom' => 0,
+            'search_placeholder' => '',
         ),
         1 => array(
             'key' => 'field_67066fbfb2330',
-            'label' => __('Grå bakgrund', 'municipio-customisation'),
-            'name' => 'gray_background',
+            'label' => __('Background', 'municipio-customisation'),
+            'name' => 'background_color',
             'aria-label' => '',
             'type' => 'true_false',
             'instructions' => '',
@@ -57,7 +55,7 @@ if (function_exists('acf_add_local_field_group')) {
                 'class' => '',
                 'id' => '',
             ),
-            'message' => __('Ja', 'municipio-customisation'),
+            'message' => __('Yes', 'municipio-customisation'),
             'default_value' => 0,
             'ui' => 0,
             'ui_on_text' => '',
@@ -73,6 +71,27 @@ if (function_exists('acf_add_local_field_group')) {
             ),
         ),
         1 => array(
+            0 => array(
+                'param' => 'block',
+                'operator' => '==',
+                'value' => 'all',
+            ),
+        ),
+        2 => array(
+            0 => array(
+                'param' => 'block',
+                'operator' => '==',
+                'value' => 'all',
+            ),
+        ),
+        3 => array(
+            0 => array(
+                'param' => 'block',
+                'operator' => '==',
+                'value' => 'all',
+            ),
+        ),
+        4 => array(
             0 => array(
                 'param' => 'block',
                 'operator' => '==',
@@ -97,5 +116,4 @@ if (function_exists('acf_add_local_field_group')) {
     'acfe_meta' => '',
     'acfe_note' => '',
 ));
-
-}
+}

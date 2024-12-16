@@ -4,7 +4,7 @@
     "fields": [
         {
             "key": "field_6718a5f939289",
-            "label": "Bakgrundsremsa",
+            "label": "Background stripe",
             "name": "background_stripe_color",
             "aria-label": "",
             "type": "select",
@@ -18,12 +18,12 @@
             },
             "choices": {
                 "none": "Ingen",
-                "municipio-primary": "Prim\u00e4rf\u00e4rg",
-                "municipio-primary-light": "Prim\u00e4rf\u00e4rg (ljus)",
-                "municipio-primary-dark": "Prim\u00e4rf\u00e4rg (m\u00f6rk)",
-                "municipio-secondary": "Sekund\u00e4rf\u00e4rg",
-                "municipio-secondary-light": "Sekund\u00e4rf\u00e4rg (ljus)",
-                "municipio-secondary-dark": "Sekund\u00e4rf\u00e4rg (m\u00f6rk)"
+                "primary": "Primary color",
+                "primary-light": "Primary color (light)",
+                "primary-dark": "Primary color (dark)",
+                "secondary": "Secondary color",
+                "secondary-light": "Secondary color (light)",
+                "secondary-dark": "Secondary color (dark)"
             },
             "default_value": "none",
             "return_format": "value",
@@ -37,7 +37,7 @@
         },
         {
             "key": "field_671f5ab73d689",
-            "label": "Ingen marginal upptill",
+            "label": "No top margin",
             "name": "no_top_margin",
             "aria-label": "",
             "type": "true_false",
@@ -57,7 +57,7 @@
         },
         {
             "key": "field_671f5ac63d68a",
-            "label": "Ingen marginal nedtill",
+            "label": "No bottom margin",
             "name": "no_bottom_margin",
             "aria-label": "",
             "type": "true_false",
@@ -107,4 +107,4 @@
     "acfe_meta": "",
     "acfe_note": ""
 }]
-
+

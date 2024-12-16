@@ -14,7 +14,7 @@
     .c-card {
         &__header {
             background-color: var(--theme-card-header-background, var(--color-page-theme, var(--card-header-background)));
-            color: var(--theme-card-header-color, --card-header-color);
+            color: var(--theme-card-header-color, var(--card-header-color));
         }
     }
 }

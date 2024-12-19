@@ -1,0 +1,26 @@
+.c-group.c-group--fluid-grid.c-group--display-grid.c-group--fluid-grid-2.c-group--size-lg:not(.c-group--single-column-lg) { 
+	grid-template-columns: 1fr 1fr 1fr 1fr; 
+}
+
+
+.mod-menu__heading-link .c-typography.c-typography__variant--h2 {
+	font-size: 18px;
+		font-weight: 700;
+}
+
+.mod-menu.mod-menu--listing .mod-menu__child.c-nav__item a.c-nav__link span.c-icon {
+	display: none;
+}
+
+.mod-menu.mod-menu--listing.mod-menu--wrapped .mod-menu__children, .mod-menu.mod-menu--listing.mod-menu--wrapped .mod-menu__heading-description
+{
+	grid-column: 2 / span 2;
+}
+
+.mod-menu.mod-menu--listing.mod-menu--wrapped .mod-menu__children, .mod-menu.mod-menu--listing.mod-menu--wrapped .mod-menu__heading-description a {
+	text-decoration: underline
+}
+
+.c-nav.c-nav--vertical.c-nav--compressed .c-nav__link {
+	padding: 0
+}

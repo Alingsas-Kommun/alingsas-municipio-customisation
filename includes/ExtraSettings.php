@@ -7,8 +7,6 @@ use AlingsasCustomisation\Helpers\Appearance as AppearanceHelper;
 class ExtraSettings {
     public const FIELD_BACKGROUND_STRIPE_COLOR = 'field_6718a5f939289';
 
-    private const MODS_CARD_SETTINGS = ['mod-manualinput'];
-
     public function __construct() {
         // General settings
         add_filter('Modularity/Display/BeforeModule::classes', function ($classes, $args, $posttype, $ID) {
@@ -45,20 +43,6 @@ class ExtraSettings {
             }
 
             return $html;
-        }, 10, 4);
-
-        // Card
-        add_filter('Modularity/Display/BeforeModule::classes', function ($classes, $args, $posttype, $ID) {
-            if (in_array($posttype, self::MODS_CARD_SETTINGS)) {
-                $card_header_color = get_field('card_head_color', $ID);
-
-                if (!empty($card_header_color) && $card_header_color !== 'standard') {
-                    $classes[] = 'card__header--bg-color-' . $card_header_color;
-                    $classes[] = 'card__header---color-white';
-                }
-            }
-
-            return $classes;
         }, 10, 4);
     }
 }

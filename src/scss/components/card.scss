@@ -80,13 +80,6 @@ body.home {
     }
 }
 
-.card__header--bg-color-winered {
-    --theme-card-header-background: #{$color-brand-alt};
-    --theme-card-header-color: white;
-    --card-header-background: #{$color-brand-alt};
-    --card-header-color: white;
-}
-
 .single-event-sidebar-right {
     .c-card__body {
 

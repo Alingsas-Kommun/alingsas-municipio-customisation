@@ -8,8 +8,9 @@
 
             &__item {
                 background: white;
-                border: 3px solid $color-brand-light;
-                border-radius: 2rem;
+                border: 2px solid $color-brand-light;
+                border-radius: var(--base, 8px);
+                overflow: hidden;
 
                 &:hover {
                     background-color: #f3f3f3;
@@ -42,22 +43,21 @@
             }
 
             .c-collection__icon+.c-collection__content {
-                padding: .65rem 1.5rem;
+                padding: .75rem 1.5rem;
             }
         }
     }
 
-    &--gray-background {
-        background: $color-gray;
+    &--background-color {
         padding: 1rem 0;
 
-        --theme-card-header-background: #{$color-gray};
-        --theme-card-header-color: black;
-        --card-header-background: #{$color-gray};
-        --card-header-color: black;
+        --theme-card-header-background: var(--theme-external-links-general-background, $color-geyser);
+        --theme-card-header-color: var(--theme-external-links-general-color, black);
+        --card-header-background: var(--theme-external-links-general-background, $color-geyser);
+        --card-header-color: var(--theme-external-links-general-color, black);
 
         &::before {
-            background: $color-gray;
+            background: var(--theme-external-links-general-background, $color-geyser);
             content: '';
             height: 100%;
             margin-left: calc(calc(calc(-100vw - var(--scrollbar))/2) + 50% + var(--scrollbar));
@@ -70,8 +70,47 @@
             }
         }
 
+        .c-card {
+            background: var(--theme-external-links-general-background, $color-geyser);
+            color: var(--theme-external-links-general-color, black);
+        }
+
         .c-collection {
-            background: $color-gray;
+            background: var(--theme-external-links-general-background, $color-geyser);
+            padding: 0 1rem 1rem;
+
+            &__item {
+                background: var(--theme-external-links-button-background, white);
+                border: 0;
+                position: relative;
+
+                &:hover {
+                    background-color: inherit;
+
+                    &::after {
+                        display: block;
+                    }
+                }
+
+                &::after {
+                    background: var(--theme-external-links-button-background, white);
+                    border-radius: var(--base, 8px);
+                    content: '';
+                    display: none;
+                    height: 100%;
+                    left: 0;
+                    opacity: .85;
+                    position: absolute;
+                    top: 0;
+                    width: 100%;
+                    z-index: 1;
+                }
+            }
+
+            &__content {
+                color: var(--theme-external-links-button-color, $color-plantation);
+                z-index: 2;
+            }
         }
     }
 }

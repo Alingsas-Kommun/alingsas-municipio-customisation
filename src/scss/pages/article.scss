@@ -23,11 +23,34 @@
 
     p {
         --base: 4px;
+        margin-top: calc(var(--base, 8px)* 5);
 
         &.lead:not(:last-of-type) {
             border-bottom: 2px solid $color-gray;
             margin-bottom: 2rem;
             padding-bottom: 2rem;
+        }
+    }
+
+    h2+p {
+        margin-top: calc(var(--base, 8px)* 2);
+    }
+
+    p:has(strong)+p {
+        margin-top: calc(var(--base, 8px)* 2);
+    }
+
+    ul {
+        li+li {
+            margin-top: calc(var(--base, 8px)* 2);
+        }
+    }
+
+    figure {
+        &.c-image {
+            &:has(figcaption) {
+                margin-bottom: calc(var(--base, 8px)* 4);
+            }
         }
     }
 }

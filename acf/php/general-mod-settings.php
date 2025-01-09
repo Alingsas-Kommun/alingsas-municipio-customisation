@@ -1,15 +1,13 @@
 <?php 
 
-
-if (function_exists('acf_add_local_field_group')) {
-
-    acf_add_local_field_group(array(
+if (function_exists('acf_add_local_field_group')) {
+    acf_add_local_field_group(array(
     'key' => 'group_6718a5f9a58fb',
     'title' => __('Extrainställningar', 'municipio-customisation'),
     'fields' => array(
         0 => array(
             'key' => 'field_6718a5f939289',
-            'label' => __('Bakgrundsremsa', 'municipio-customisation'),
+            'label' => __('Background stripe', 'municipio-customisation'),
             'name' => 'background_stripe_color',
             'aria-label' => '',
             'type' => 'select',
@@ -23,12 +21,12 @@ if (function_exists('acf_add_local_field_group')) {
             ),
             'choices' => array(
                 'none' => __('Ingen', 'municipio-customisation'),
-                'municipio-primary' => __('Primärfärg', 'municipio-customisation'),
-                'municipio-primary-light' => __('Primärfärg (ljus)', 'municipio-customisation'),
-                'municipio-primary-dark' => __('Primärfärg (mörk)', 'municipio-customisation'),
-                'municipio-secondary' => __('Sekundärfärg', 'municipio-customisation'),
-                'municipio-secondary-light' => __('Sekundärfärg (ljus)', 'municipio-customisation'),
-                'municipio-secondary-dark' => __('Sekundärfärg (mörk)', 'municipio-customisation'),
+                'primary' => __('Primary color', 'municipio-customisation'),
+                'primary-light' => __('Primary color (light)', 'municipio-customisation'),
+                'primary-dark' => __('Primary color (dark)', 'municipio-customisation'),
+                'secondary' => __('Secondary color', 'municipio-customisation'),
+                'secondary-light' => __('Secondary color (light)', 'municipio-customisation'),
+                'secondary-dark' => __('Secondary color (dark)', 'municipio-customisation'),
             ),
             'default_value' => __('none', 'municipio-customisation'),
             'return_format' => 'value',
@@ -42,7 +40,7 @@ if (function_exists('acf_add_local_field_group')) {
         ),
         1 => array(
             'key' => 'field_671f5ab73d689',
-            'label' => __('Ingen marginal upptill', 'municipio-customisation'),
+            'label' => __('No top margin', 'municipio-customisation'),
             'name' => 'no_top_margin',
             'aria-label' => '',
             'type' => 'true_false',
@@ -62,7 +60,7 @@ if (function_exists('acf_add_local_field_group')) {
         ),
         2 => array(
             'key' => 'field_671f5ac63d68a',
-            'label' => __('Ingen marginal nedtill', 'municipio-customisation'),
+            'label' => __('No bottom margin', 'municipio-customisation'),
             'name' => 'no_bottom_margin',
             'aria-label' => '',
             'type' => 'true_false',
@@ -112,5 +110,4 @@ if (function_exists('acf_add_local_field_group')) {
     'acfe_meta' => '',
     'acfe_note' => '',
 ));
-
-}
+}

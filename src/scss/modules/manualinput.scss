@@ -14,7 +14,7 @@
             }
 
             label {
-                display: none;
+                @extend .sr-only;
             }
 
             .c-card {

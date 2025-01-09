@@ -1,0 +1,33 @@
+.modularity-mod-fileslist {
+    .c-group:has(.c-field) {
+        .c-card__body {
+            padding: calc(var(--base, 8px)* 2)
+        }
+    }
+
+    .c-card {
+        .c-field {
+            label {
+                @extend .sr-only;
+            }
+
+            .c-field_focus-styler {
+                border-radius: calc(var(--base, 8px)* 6);
+                outline-color: var(--theme-card-header-background, var(--color-page-theme, var(--c-button-primary-color)));
+                outline-width: 3px;
+            }
+
+            input {
+                border-radius: calc(var(--base, 8px)* 6);
+                font-size: 16px;
+            }
+
+            &__inner {
+                background-color: #fff;
+                border: 2px solid var(--theme-card-header-background, var(--color-page-theme, var(--c-button-primary-color)));
+                border-radius: calc(var(--base, 8px)* 6);
+                height: auto;
+            }
+        }
+    }
+}

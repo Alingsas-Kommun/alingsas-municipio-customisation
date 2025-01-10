@@ -50,10 +50,10 @@ body.archive {
   }
 
   .c-button:disabled:not(.c-button--no-disabled-color) {
-    border: 2px solid #ccc;
+    --color-button-disabled-bg: #ccc;
 
-    .c-button__label-text {
-      color: #ccc;
+    @media screen and (min-width: 520px) {
+      box-sizing: content-box;
     }
 
     &::after {

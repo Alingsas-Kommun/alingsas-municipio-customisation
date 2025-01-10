@@ -1,3 +1,9 @@
+body.search-results {
+    h1 {
+        color: var(--page-title-color, var(--color-primary, #ae0b05));
+    }
+}
+
 .ak-search {
     .search-result-count {
         margin: 1rem 0;

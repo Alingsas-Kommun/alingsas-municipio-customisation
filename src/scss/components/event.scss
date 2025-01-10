@@ -35,6 +35,10 @@
             position: absolute;
             top: 0;
             left: 15%;
+
+            .day {
+                font-size: 125%;
+            }
         }
     }
 
@@ -61,6 +65,12 @@
 
         .icon {
             color: var(--color-secondary-dark);
+        }
+
+        .value {
+            span:not(.tag) {
+                margin-right: .25em;
+            }
         }
     }
 }
@@ -120,7 +130,7 @@ a.c-card.has-event {
                 gap: 1.5rem;
 
                 .content {
-                    padding: 1rem 0;
+                    padding: 1rem 1rem 1rem 0;
                 }
 
                 .image {

@@ -40,17 +40,5 @@ class Events {
 
             return $posts;
         });
-
-        /* add_filter('Municipio/Template/tribe_events/single/viewData', function($data) {
-            $thumbnail_id = get_post_thumbnail_id();
-            $resolver = new ImageResolver;
-            $image = new Image($thumbnail_id, [1920, 1080], $resolver);
-            
-            $data['featuredImage'] = $image;
-
-            $data['event'] = EventHelper::parseEvent(get_the_ID());
-
-            return $data;
-        }); */
     }
 }

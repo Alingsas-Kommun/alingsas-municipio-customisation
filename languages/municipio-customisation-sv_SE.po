@@ -5,8 +5,8 @@ msgstr ""
 "Project-Id-Version: Alingsås Municipio customisation 0.1.6\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/municipio-"
 "customisation\n"
-"POT-Creation-Date: 2024-12-16T12:40:05+00:00\n"
-"PO-Revision-Date: 2024-12-16 13:43+0100\n"
+"POT-Creation-Date: 2025-01-10T14:03:56+00:00\n"
+"PO-Revision-Date: 2025-01-10 15:04+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv\n"
@@ -102,11 +102,11 @@ msgstr "Inställningar"
 msgid "Hero"
 msgstr ""
 
-#: acf/php/appearance-settings.php:380
+#: acf/php/appearance-settings.php:380 acf/php/appearance-settings.php:482
 msgid "General"
 msgstr "Allmänt"
 
-#: acf/php/appearance-settings.php:408
+#: acf/php/appearance-settings.php:408 acf/php/appearance-settings.php:510
 msgid "Button"
 msgstr "Knapp"
 
@@ -114,15 +114,19 @@ msgstr "Knapp"
 msgid "Button attention"
 msgstr "Knapp (synlig)"
 
-#: acf/php/appearance-settings.php:466
+#: acf/php/appearance-settings.php:464
+msgid "External links"
+msgstr ""
+
+#: acf/php/appearance-settings.php:540
 msgid "Themes by path"
 msgstr "Tema efter sökväg"
 
-#: acf/php/appearance-settings.php:483
+#: acf/php/appearance-settings.php:557
 msgid "Paths"
 msgstr "Sökvägar"
 
-#: acf/php/appearance-settings.php:487
+#: acf/php/appearance-settings.php:561
 msgid ""
 "Define paths that you want to use specific themes for. A path can be defined "
 "as exact but also that it should start with a certain string. To define the "
@@ -133,38 +137,21 @@ msgid ""
 "Start with path: /your-path/"
 msgstr ""
 
-#: acf/php/appearance-settings.php:504
+#: acf/php/appearance-settings.php:578
 msgid "Add path"
 msgstr "Lägg till sökväg"
 
-#: acf/php/appearance-settings.php:509
+#: acf/php/appearance-settings.php:583
 msgid "Path"
 msgstr "Sökväg"
 
-#: acf/php/appearance-settings.php:523
+#: acf/php/appearance-settings.php:597
 msgid "/your-path-here"
 msgstr "/din-sökväg-här"
 
-#: acf/php/appearance-settings.php:530 acf/php/page-settings.php:12
+#: acf/php/appearance-settings.php:604 acf/php/page-settings.php:12
 msgid "Theme"
 msgstr "Tema"
-
-#: acf/php/card-settings.php:8
-msgid "Kortutseende"
-msgstr ""
-
-#: acf/php/card-settings.php:12
-msgid "Färg på huvud"
-msgstr ""
-
-#: acf/php/card-settings.php:25 acf/php/mod-inlay-settings.php:25
-#: includes/AppearanceSettings.php:61 includes/AppearanceSettings.php:107
-msgid "Standard"
-msgstr ""
-
-#: acf/php/card-settings.php:26
-msgid "Vinröd"
-msgstr ""
 
 #: acf/php/clone-fields-settings.php:8
 msgid "Alingsås klonfält"
@@ -242,17 +229,18 @@ msgstr ""
 msgid "Appearance"
 msgstr "Utseende"
 
+#: acf/php/mod-inlay-settings.php:25 includes/AppearanceSettings.php:61
+#: includes/AppearanceSettings.php:107
+msgid "Standard"
+msgstr ""
+
 #: acf/php/mod-inlay-settings.php:28
 msgid "standard"
 msgstr ""
 
-#: acf/php/mod-inlay-settings.php:61
-msgid "Green"
-msgstr "Grön"
-
-#: acf/php/mod-inlay-settings.php:62 includes/AppearanceSettings.php:91
-msgid "According to theme"
-msgstr "Enligt tema"
+#: acf/php/mod-inlay-settings.php:60 acf/php/mod-manualinput-settings.php:24
+msgid "Yes"
+msgstr "Ja"
 
 #: acf/php/mod-manualinput-settings.php:8
 msgid "Inställningar: Manuell inmatning"
@@ -262,17 +250,21 @@ msgstr ""
 msgid "Aktivera sök"
 msgstr ""
 
-#: acf/php/mod-manualinput-settings.php:24
-msgid "Yes"
-msgstr "Ja"
-
 #: acf/php/page-settings.php:8
 msgid "Page settings"
 msgstr "Sidinställningar"
 
+#: includes/AppearanceSettings.php:91
+msgid "According to theme"
+msgstr "Enligt tema"
+
 #: includes/AppearanceSettings.php:95
 msgid "Theme: %s"
 msgstr "Tema: %s"
+
+#: includes/controllers/AkEventTemplate.php:23
+msgid "More events"
+msgstr "Fler evenemang"
 
 #: includes/Search.php:21
 msgid "Pages"
@@ -309,18 +301,13 @@ msgstr "Alla träffar"
 msgid "%1$d %2$s for <b>\"%3$s\"</b> on %4$s"
 msgstr "%1$d %2$s för <b>\"%3$s\"</b> inom %4$s"
 
-#: includes/Translation.php:28
+#: includes/Translation.php:24
 msgid "From"
 msgstr "Från"
 
-#: includes/Translation.php:32
+#: includes/Translation.php:28
 msgid "To"
 msgstr "Till"
 
-#: includes/Widgets.php:12
-msgid "Site banner (top of page)"
-msgstr ""
-
-#: includes/Widgets.php:13
-msgid "The area above the header"
-msgstr ""
+#~ msgid "Green"
+#~ msgstr "Grön"

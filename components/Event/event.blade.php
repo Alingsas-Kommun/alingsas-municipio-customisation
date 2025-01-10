@@ -16,7 +16,7 @@
     @endisset
     <div class="content">
         @typography([
-            'variant' => 'h2',
+            'variant' => $title_variant,
             'element' => 'h3'
         ])
             {{ $title }}

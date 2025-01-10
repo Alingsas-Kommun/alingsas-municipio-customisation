@@ -14,7 +14,7 @@
                         'month' => $post->month,
                         'time' => $post->time ?? null,
                         'location' => $post->location ?? null,
-                        'tags' => $post->tags ?? null
+                        'tags' => $post->categories ?? null
                     ])
                     @endevent
                 @endcard

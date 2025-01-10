@@ -28,6 +28,7 @@
     "gulp-dart-sass": "^1.1.0",
     "gulp-rev": "^11.0.0",
     "gulp-rev-format": "^1.0.5",
+    "gulp-sourcemaps": "^3.0.0",
     "jquery": "^3.7.1",
     "sass": "^1.79.4",
     "webpack": "^5.95.0",

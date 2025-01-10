@@ -22,22 +22,25 @@ class Events {
         $event->image = $image;
 
         // Start and end dates
-        $date = get_post_meta($event->id, 'occasions_complete', true);
-        if (is_array($date)) {
+        if (isset($event->startDate) && $event->endDate) {
+            $startDate = new DateTime($event->startDate);
+            $endDate = new DateTime($event->endDate);
+        } else {
+            $date = get_post_meta($event->id, 'occasions_complete', true);
             $startDate = new DateTime($date[0]['start_date']);
             $endDate = new DateTime($date[0]['end_date']);
-
-            $event->day = date('d', $startDate->getTimestamp());
-            $event->month = wp_date('M', $startDate->getTimestamp());
-
-            if ($startDate->format('Y-m-d') === $endDate->format('Y-m-d')) {
-                $event->date = ucfirst(wp_date('l j F', $startDate->getTimestamp()));
-                $event->time = $startDate->format('H:i') . ' &ndash; ' . $endDate->format('H:i');
-            } else {
-                $event->date = wp_date('j M \k\l. H:i', $startDate->getTimestamp()) . ' &ndash; ' . wp_date('j M \k\l. H:i', $endDate->getTimestamp());
-            }
         }
-        
+
+        $event->day = date('d', $startDate->getTimestamp());
+        $event->month = wp_date('M', $startDate->getTimestamp());
+
+        if ($startDate->format('Y-m-d') === $endDate->format('Y-m-d')) {
+            $event->date = ucfirst(wp_date('l j F', $startDate->getTimestamp()));
+            $event->time = $startDate->format('H:i') . ' &ndash; ' . $endDate->format('H:i');
+        } else {
+            $event->date = wp_date('j M \k\l. H:i', $startDate->getTimestamp()) . ' &ndash; ' . wp_date('j M \k\l. H:i', $endDate->getTimestamp());
+        }
+
         // Location
         $location = get_post_meta($event->id, 'location', true);
         if (is_array($location)) {

@@ -15,6 +15,7 @@
             ])
                 @event([
                     'title' => $event->postTitle,
+                    'title_variant' => 'h3',
                     'image' => $event->image ?? null,
                     'date' => $event->date,
                     'day' => $event->day,
@@ -30,7 +31,7 @@
 </div>
 <div class="u-display--flex u-align-content--center u-margin__y--4">
     @button([
-        'text' => 'Se fler evenemang',
+        'text' => $archive_title,
         'style' => 'filled',
         'color' => 'secondary',
         'href' => $archive_link,

@@ -1,0 +1,29 @@
+.c-pagination {
+    .c-button {
+        &.c-button--pill {
+            border-radius: var(--c-button-border-radius-small, var(--radius-sm, calc(var(--base, 8px) / 2)));
+        }
+
+        &.c-button__filled--default {
+            background: white;
+        }
+    }
+
+    .c-pagination__item {
+        .c-button--icon-only {
+            background-color: var(--c-button-primary-color, var(--color-primary, #ae0b05));
+
+            .c-icon {
+                color: white;
+            }
+        }
+
+        button:disabled {
+            background-color: #ccc;
+
+            .c-icon {
+                color: var(--color-button-disabled-text, var(--color-disabled-text, var(--color-dark, #707070)));
+            }
+        }
+    }
+}

@@ -20,10 +20,6 @@ class Translation {
         // Specific translation overrides
         add_filter("gettext_municipio", function ($translation, $text) {
             if (is_post_type_archive('event')) {
-                if ($text === 'Select') {
-                    $translation = '';
-                }
-
                 if ($text === 'Choose a from date') {
                     $translation = __('From', 'municipio-customisation');
                 }

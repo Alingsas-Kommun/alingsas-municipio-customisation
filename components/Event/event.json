@@ -1,8 +1,11 @@
 {
   "slug": "event",
-  "default": {},
+  "default": {
+    "title_variant": "h2"
+  },
   "description": {
     "title": "Title of the event.",
+    "title_variant": "Which title variant to use",
     "date": "Date that the event takes place.",
     "day": "Day of the month the event takes place.",
     "month": "Month event takes place.",
@@ -14,6 +17,7 @@
   },
   "types": {
     "title": "string",
+    "title_variant": "string",
     "date": "string",
     "day": "string",
     "month": "string",

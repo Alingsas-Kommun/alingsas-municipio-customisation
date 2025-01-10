@@ -1,4 +1,4 @@
-# Copyright (C) 2024 Consid
+# Copyright (C) 2025 Consid
 # This file is distributed under the same license as the Alingsås Municipio customisation plugin.
 msgid ""
 msgstr ""
@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-12-16T12:40:05+00:00\n"
+"POT-Creation-Date: 2025-01-10T14:03:56+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: municipio-customisation\n"
@@ -106,10 +106,12 @@ msgid "Hero"
 msgstr ""
 
 #: acf/php/appearance-settings.php:380
+#: acf/php/appearance-settings.php:482
 msgid "General"
 msgstr ""
 
 #: acf/php/appearance-settings.php:408
+#: acf/php/appearance-settings.php:510
 msgid "Button"
 msgstr ""
 
@@ -117,15 +119,19 @@ msgstr ""
 msgid "Button attention"
 msgstr ""
 
-#: acf/php/appearance-settings.php:466
+#: acf/php/appearance-settings.php:464
+msgid "External links"
+msgstr ""
+
+#: acf/php/appearance-settings.php:540
 msgid "Themes by path"
 msgstr ""
 
-#: acf/php/appearance-settings.php:483
+#: acf/php/appearance-settings.php:557
 msgid "Paths"
 msgstr ""
 
-#: acf/php/appearance-settings.php:487
+#: acf/php/appearance-settings.php:561
 msgid ""
 "Define paths that you want to use specific themes for. A path can be defined as exact but also that it should start with a certain string. To define the end of a path, use the $ character. If this is missing it matches both the defined path as well as descendents do that path.<br>\r\n"
 "<br>\r\n"
@@ -133,40 +139,21 @@ msgid ""
 "Start with path: /your-path/"
 msgstr ""
 
-#: acf/php/appearance-settings.php:504
+#: acf/php/appearance-settings.php:578
 msgid "Add path"
 msgstr ""
 
-#: acf/php/appearance-settings.php:509
+#: acf/php/appearance-settings.php:583
 msgid "Path"
 msgstr ""
 
-#: acf/php/appearance-settings.php:523
+#: acf/php/appearance-settings.php:597
 msgid "/your-path-here"
 msgstr ""
 
-#: acf/php/appearance-settings.php:530
+#: acf/php/appearance-settings.php:604
 #: acf/php/page-settings.php:12
 msgid "Theme"
-msgstr ""
-
-#: acf/php/card-settings.php:8
-msgid "Kortutseende"
-msgstr ""
-
-#: acf/php/card-settings.php:12
-msgid "Färg på huvud"
-msgstr ""
-
-#: acf/php/card-settings.php:25
-#: acf/php/mod-inlay-settings.php:25
-#: includes/AppearanceSettings.php:61
-#: includes/AppearanceSettings.php:107
-msgid "Standard"
-msgstr ""
-
-#: acf/php/card-settings.php:26
-msgid "Vinröd"
 msgstr ""
 
 #: acf/php/clone-fields-settings.php:8
@@ -247,17 +234,19 @@ msgstr ""
 msgid "Appearance"
 msgstr ""
 
+#: acf/php/mod-inlay-settings.php:25
+#: includes/AppearanceSettings.php:61
+#: includes/AppearanceSettings.php:107
+msgid "Standard"
+msgstr ""
+
 #: acf/php/mod-inlay-settings.php:28
 msgid "standard"
 msgstr ""
 
-#: acf/php/mod-inlay-settings.php:61
-msgid "Green"
-msgstr ""
-
-#: acf/php/mod-inlay-settings.php:62
-#: includes/AppearanceSettings.php:91
-msgid "According to theme"
+#: acf/php/mod-inlay-settings.php:60
+#: acf/php/mod-manualinput-settings.php:24
+msgid "Yes"
 msgstr ""
 
 #: acf/php/mod-manualinput-settings.php:8
@@ -268,16 +257,20 @@ msgstr ""
 msgid "Aktivera sök"
 msgstr ""
 
-#: acf/php/mod-manualinput-settings.php:24
-msgid "Yes"
-msgstr ""
-
 #: acf/php/page-settings.php:8
 msgid "Page settings"
 msgstr ""
 
+#: includes/AppearanceSettings.php:91
+msgid "According to theme"
+msgstr ""
+
 #: includes/AppearanceSettings.php:95
 msgid "Theme: %s"
+msgstr ""
+
+#: includes/controllers/AkEventTemplate.php:23
+msgid "More events"
 msgstr ""
 
 #: includes/Search.php:21
@@ -315,18 +308,10 @@ msgstr ""
 msgid "%1$d %2$s for <b>\"%3$s\"</b> on %4$s"
 msgstr ""
 
-#: includes/Translation.php:28
+#: includes/Translation.php:24
 msgid "From"
 msgstr ""
 
-#: includes/Translation.php:32
+#: includes/Translation.php:28
 msgid "To"
-msgstr ""
-
-#: includes/Widgets.php:12
-msgid "Site banner (top of page)"
-msgstr ""
-
-#: includes/Widgets.php:13
-msgid "The area above the header"
 msgstr ""

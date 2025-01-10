@@ -4,6 +4,7 @@ import gulp from "gulp";
 import dartSass from "gulp-dart-sass";
 import rev from "gulp-rev";
 import revFormat from "gulp-rev-format";
+import sourcemaps from "gulp-sourcemaps";
 import webpack from "webpack";
 import webpackStream from "webpack-stream";
 import { deleteAsync } from "del";
@@ -24,7 +25,9 @@ const reload = (done) => {
 function devStyle() {
     return gulp
         .src("./src/scss/main.scss")
+        .pipe(sourcemaps.init())
         .pipe(dartSass().on("error", dartSass.logError))
+        .pipe(sourcemaps.write("."))
         .pipe(gulp.dest("./dist/css"))
         .pipe(browserSync.stream());
 }

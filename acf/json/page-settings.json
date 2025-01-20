@@ -17,9 +17,7 @@
                 "id": ""
             },
             "choices": {
-                "-": "Standard",
-                "e41f72b75f64f3238080a8ed3158c554": "Jobb",
-                "46f1075d6585e36386c584b087497d39": "Alings\u00e5s kulturhus "
+                "-": "Standard"
             },
             "default_value": false,
             "return_format": "value",
@@ -98,4 +96,4 @@
     "acfe_meta": "",
     "acfe_note": ""
 }]
-
+

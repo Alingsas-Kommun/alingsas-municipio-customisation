@@ -1,7 +1,9 @@
 <?php 
 
-if (function_exists('acf_add_local_field_group')) {
-    acf_add_local_field_group(array(
+
+if (function_exists('acf_add_local_field_group')) {
+
+    acf_add_local_field_group(array(
     'key' => 'group_673dd0baaff48',
     'title' => __('Page settings', 'municipio-customisation'),
     'fields' => array(
@@ -21,8 +23,6 @@
             ),
             'choices' => array(
                 '-' => __('Standard', 'municipio-customisation'),
-                'e41f72b75f64f3238080a8ed3158c554' => __('Jobb', 'municipio-customisation'),
-                '46f1075d6585e36386c584b087497d39' => __('Alingsås kulturhus ', 'municipio-customisation'),
             ),
             'default_value' => false,
             'return_format' => 'value',
@@ -101,4 +101,5 @@
     'acfe_meta' => '',
     'acfe_note' => '',
 ));
-}
+
+}

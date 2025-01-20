@@ -36,7 +36,7 @@ class ExtraSettings {
                 $html .= '
                 <style>
                 .background-stripe-color-' . $ID . '::before {
-                    background-color: '.AppearanceHelper::getColorValue($background_color).';
+                    background-color: ' . AppearanceHelper::getColorValue($background_color) . ';
                 }
                 </style>
                 ';
@@ -44,5 +44,22 @@ class ExtraSettings {
 
             return $html;
         }, 10, 4);
+
+        add_filter('template_redirect', function () {
+            // Hide breadcrumbs if set on single page
+            if (is_singular() && get_field('hide_breadcrumbs')) {
+                add_filter('Municipio/Partials/Navigation/HelperNavBeforeContent', '__return_false');
+            }
+
+            if (is_singular() && get_field('hide_title')) {
+                add_filter('Municipio/Helper/Post/complementPostObject', function($appendFields) {
+                    $appendFields = array_filter($appendFields, function ($value) {
+                        return $value !== "post_title_filtered";
+                    });
+
+                    return $appendFields;
+                });
+            }
+        });
     }
 }

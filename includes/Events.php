@@ -1,7 +1,10 @@
 <?php
+
 namespace AlingsasCustomisation\Includes;
 
 use AlingsasCustomisation\Helpers\Events as EventHelper;
+
+use EventManagerIntegration\EventArchive;
 
 class Events {
     public function __construct() {
@@ -22,7 +25,7 @@ class Events {
         });
 
         // Use events template to display tribe events
-        add_filter('Modularity/Module/Posts/template', function($template, $class, $data, $fields) {
+        add_filter('Modularity/Module/Posts/template', function ($template, $class, $data, $fields) {
             if (isset($fields['posts_display_as']) && $fields['posts_display_as'] === 'ak-event') {
                 $template = 'events.blade.php';
             }
@@ -31,7 +34,7 @@ class Events {
         }, 10, 4);
 
         // Preprocess events on archive page
-        add_filter('Municipio/Controller/Archive/getArchivePosts', function($posts) {
+        add_filter('Municipio/Controller/Archive/getArchivePosts', function ($posts) {
             if (is_post_type_archive('event')) {
                 foreach ($posts as $key => $post) {
                     $posts[$key] = EventHelper::parseEvent($post);
@@ -39,6 +42,24 @@ class Events {
             }
 
             return $posts;
+        });
+
+        // Sort events properly
+        add_action('wp', function () {
+            if (!is_admin() && !is_post_type_archive('event')) {
+                $eventArchive = new EventArchive;
+                add_filter('pre_get_posts', function (\WP_Query $query) use ($eventArchive) {
+                    if ($query->get('post_type') === 'event') {
+                        add_filter('posts_fields', array($eventArchive, 'eventFilterSelect'));
+                        add_filter('posts_join', array($eventArchive, 'eventFilterJoin'));
+                        add_filter('posts_where', array($eventArchive, 'eventFilterWhere'), 10, 2);
+                        add_filter('posts_groupby', array($eventArchive, 'eventFilterGroupBy'));
+                        add_filter('posts_orderby', array($eventArchive, 'eventFilterOrderBy'));
+                    }
+
+                    return $query;
+                });
+            }
         });
     }
 }

@@ -1,7 +1,9 @@
 <?php 
 
-if (function_exists('acf_add_local_field_group')) {
-    acf_add_local_field_group(array(
+
+if (function_exists('acf_add_local_field_group')) {
+
+    acf_add_local_field_group(array(
     'key' => 'group_673dd0baaff48',
     'title' => __('Page settings', 'municipio-customisation'),
     'fields' => array(
@@ -20,6 +22,7 @@
                 'id' => '',
             ),
             'choices' => array(
+                '-' => __('Standard', 'municipio-customisation'),
             ),
             'default_value' => false,
             'return_format' => 'value',
@@ -30,6 +33,46 @@
             'allow_null' => 0,
             'ui' => 0,
             'ajax' => 0,
+        ),
+        1 => array(
+            'key' => 'field_678b816dc1948',
+            'label' => __('Hide breadcrumbs', 'municipio-customisation'),
+            'name' => 'hide_breadcrumbs',
+            'aria-label' => '',
+            'type' => 'true_false',
+            'instructions' => '',
+            'required' => 0,
+            'conditional_logic' => 0,
+            'wrapper' => array(
+                'width' => '',
+                'class' => '',
+                'id' => '',
+            ),
+            'message' => __('Yes', 'municipio-customisation'),
+            'default_value' => 0,
+            'ui' => 0,
+            'ui_on_text' => '',
+            'ui_off_text' => '',
+        ),
+        2 => array(
+            'key' => 'field_678b855b8f941',
+            'label' => __('Hide page title', 'municipio-customisation'),
+            'name' => 'hide_title',
+            'aria-label' => '',
+            'type' => 'true_false',
+            'instructions' => '',
+            'required' => 0,
+            'conditional_logic' => 0,
+            'wrapper' => array(
+                'width' => '',
+                'class' => '',
+                'id' => '',
+            ),
+            'message' => __('Yes', 'municipio-customisation'),
+            'default_value' => 0,
+            'ui' => 0,
+            'ui_on_text' => '',
+            'ui_off_text' => '',
         ),
     ),
     'location' => array(
@@ -58,4 +101,5 @@
     'acfe_meta' => '',
     'acfe_note' => '',
 ));
-}
+
+}

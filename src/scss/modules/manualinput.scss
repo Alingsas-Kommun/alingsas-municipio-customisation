@@ -26,8 +26,10 @@
     }
 
     &:has(.c-accordion) {
-        --c-button-primary-color: var(--color-page-theme, #{$color-brand-alt});
-        --theme-card-header-background: var(--color-page-theme, #{$color-brand-alt});
-        --card-header-color: var(--theme-card-header-color, white);
+        --c-button-primary-color: #{$color-brand-alt};
+        --theme-card-header-background: #{$color-brand-alt};
+        --theme-card-header-color: white;
+        --card-header-background: #{$color-brand-alt};
+        --card-header-color: white;
     }
 }

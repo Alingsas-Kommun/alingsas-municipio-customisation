@@ -76,8 +76,10 @@
                     'classList' => ['u-margin__top--4']
                 ])
                     @slot('content')
-                        <p>{{ $post->excerpt }}</p>
-                        <br>
+                        @if (!empty($post->postContent))
+                            <p>{{ $post->excerpt }}</p>
+                            <br>
+                        @endif
                         <b>{{ implode(' > ', array_map(fn($crumb) => $crumb['title'], $post->breadcrumbs)) }}</b>
                         <br>
                         <p>Senast ändrad: {{ $post->postModifiedGmt }} </p>

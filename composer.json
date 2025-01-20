@@ -10,12 +10,14 @@
         }
     ],
     "minimum-stability": "stable",
-    "require": {},
+    "require": {
+        "helsingborg-stad/api-event-manager-integration": "2.0.23"
+    },
     "repositories": [
         {
             "type": "vcs",
             "url": "https://github.com/Alingsas-Kommun/alingsas-municipio-customisation"
         }
     ],
-    "version": "0.1.14"
+    "version": "0.1.15"
 }

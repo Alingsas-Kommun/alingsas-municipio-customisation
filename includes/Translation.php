@@ -29,6 +29,12 @@ class Translation {
                 }
             }
 
+            if (is_post_type_archive('lediga-jobb')) {
+                if ($text === 'Title') {
+                    $translation = __('Service', 'municipio-customisation');
+                }
+            }
+
             return $translation;
         }, 10, 2);
     }

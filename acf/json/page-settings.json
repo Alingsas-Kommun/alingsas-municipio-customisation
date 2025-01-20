@@ -16,7 +16,9 @@
                 "class": "",
                 "id": ""
             },
-            "choices": [],
+            "choices": {
+                "-": "Standard"
+            },
             "default_value": false,
             "return_format": "value",
             "multiple": 0,
@@ -26,6 +28,46 @@
             "allow_null": 0,
             "ui": 0,
             "ajax": 0
+        },
+        {
+            "key": "field_678b816dc1948",
+            "label": "Hide breadcrumbs",
+            "name": "hide_breadcrumbs",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "Yes",
+            "default_value": 0,
+            "ui": 0,
+            "ui_on_text": "",
+            "ui_off_text": ""
+        },
+        {
+            "key": "field_678b855b8f941",
+            "label": "Hide page title",
+            "name": "hide_title",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "Yes",
+            "default_value": 0,
+            "ui": 0,
+            "ui_on_text": "",
+            "ui_off_text": ""
         }
     ],
     "location": [
@@ -54,4 +96,4 @@
     "acfe_meta": "",
     "acfe_note": ""
 }]
-
+

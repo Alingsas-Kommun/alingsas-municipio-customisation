@@ -1,0 +1,5 @@
+#wp-admin-bar-new-post,
+#wp-admin-bar-new-api-resource,
+[id^="wp-admin-bar-new-mod-"] {
+    display: none;
+}

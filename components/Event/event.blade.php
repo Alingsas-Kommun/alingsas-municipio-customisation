@@ -17,7 +17,8 @@
     <div class="content">
         @typography([
             'variant' => $title_variant,
-            'element' => 'h3'
+            'element' => 'span',
+            'classList' => ['title']
         ])
             {{ $title }}
         @endtypography

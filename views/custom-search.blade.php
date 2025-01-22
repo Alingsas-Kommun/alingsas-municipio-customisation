@@ -77,7 +77,7 @@
                 ])
                     @slot('content')
                         @if (!empty($post->postContent))
-                            <p>{{ $post->excerpt }}</p>
+                            <p>{{ strip_tags($post->excerpt) }}</p>
                             <br>
                         @endif
                         <b>{{ implode(' > ', array_map(fn($crumb) => $crumb['title'], $post->breadcrumbs)) }}</b>

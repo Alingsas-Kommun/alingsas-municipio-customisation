@@ -13,7 +13,7 @@
 .sidebar-content-area {
     .c-card {
         &__header {
-            background-color: var(--theme-card-header-background, var(--color-page-theme, var(--card-header-background)));
+            background-color: var(--color-page-theme, var(--card-header-background));
             color: var(--theme-card-header-color, var(--card-header-color));
         }
     }

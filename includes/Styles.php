@@ -15,5 +15,10 @@ class Styles {
                 wp_enqueue_style('alingsas-style', dirname(plugin_dir_url(__FILE__)) . '/dist/css/main.css', null, Plugin::VERSION);
             }
         });
+
+        add_action('admin_enqueue_scripts', function () {
+            $admin_css = dirname(plugin_dir_url(__FILE__)) . '/src/css/admin.css';
+            wp_enqueue_style('alingsas-admin-style', $admin_css, [], filemtime($admin_css));
+        });
     }
 }

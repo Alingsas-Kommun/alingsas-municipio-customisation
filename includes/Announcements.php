@@ -1,0 +1,78 @@
+<?php
+
+namespace AlingsasCustomisation\Includes;
+
+class Announcements {
+
+    public function __construct() {
+        // Change announcement links to use portal link instead
+        add_filter('post_type_link', function ($post_link, $post) {
+            if ($post->post_type === 'anslagstavla') {
+                $post_link = get_field('link', $post->ID);
+            }
+
+            return $post_link;
+        }, 10, 2);
+
+
+        // Add date and archive date as preamble
+        add_filter('Municipio/Helper/Post/postObject', function ($postObject) {
+            if ($postObject instanceof \WP_Post && $postObject->post_type === 'anslagstavla') {
+                $meeting_date = get_field('meeting_date', $postObject->ID);
+                $archive_date = get_field('archive_date', $postObject->ID);
+
+                $excerpt = __('Meeting date:', 'municipio-customisation') . ' ' . $meeting_date;
+
+                if (!empty($archive_date)) {
+                    $excerpt .= '<br>' . __('To be archived:', 'municipio-customisation') . ' ' . $archive_date;
+                }
+
+                $postObject->post_excerpt = $excerpt;
+                $postObject->excerpt = $excerpt;
+                $postObject->excerpt_short = $excerpt;
+                $postObject->excerpt_shorter = $excerpt;
+            }
+
+            return $postObject;
+        });
+
+        // Add class when we're showing anslagstavla posts
+        add_filter('Modularity/Display/BeforeModule::classes', function ($classes, $args, $post_type, $ID) {
+            if ($post_type !== 'mod-posts') {
+                return $classes;
+            }
+
+            if (get_field('posts_data_post_type', $ID) !== 'anslagstavla') {
+                return $classes;
+            }
+
+            $classes[] = 'announcements';
+
+            return $classes;
+        }, 10, 4);
+
+        // Remove archived announcements if not specifically on archive archive
+        if (!is_admin()) {
+            add_filter('pre_get_posts', function ($query) {
+                if (!is_post_type_archive('anslagstavla')) {
+                    if ($query->get('post_type') === 'anslagstavla') {
+                        $query->set('meta_query', [
+                            'relation' => 'OR',
+                            [
+                                'key' => 'archived',
+                                'compare' => 'NOT EXISTS',
+                            ],
+                            [
+                                'key' => 'archived',
+                                'value' => 0,
+                                'compare' => '='
+                            ]
+                        ]);
+                    }
+                }
+
+                return $query;
+            });
+        }
+    }
+}

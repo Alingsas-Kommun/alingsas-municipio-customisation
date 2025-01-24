@@ -1,0 +1,133 @@
+[{
+    "key": "group_6793527c520e2",
+    "title": "Anslagsinformation",
+    "fields": [
+        {
+            "key": "field_6793527ca006c",
+            "label": "L\u00e4nk till PDF\/protokoll",
+            "name": "link",
+            "aria-label": "",
+            "type": "url",
+            "instructions": "",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_679352f7a006d",
+            "label": "M\u00f6tesdatum",
+            "name": "meeting_date",
+            "aria-label": "",
+            "type": "date_picker",
+            "instructions": "",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "display_format": "Y-m-d",
+            "return_format": "d\/m\/Y",
+            "first_day": 1
+        },
+        {
+            "key": "field_6793531da006e",
+            "label": "Tas ner",
+            "name": "archive_date",
+            "aria-label": "",
+            "type": "date_picker",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "display_format": "Y-m-d",
+            "return_format": "d\/m\/Y",
+            "first_day": 1
+        },
+        {
+            "key": "field_67935342a006f",
+            "label": "Anslagstyp",
+            "name": "announcement_type",
+            "aria-label": "",
+            "type": "taxonomy",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "taxonomy": "anslagstyp",
+            "add_term": 0,
+            "save_terms": 1,
+            "load_terms": 1,
+            "return_format": "id",
+            "field_type": "radio",
+            "allow_null": 0,
+            "acfe_bidirectional": {
+                "acfe_bidirectional_enabled": "0"
+            },
+            "bidirectional": 0,
+            "multiple": 0,
+            "bidirectional_target": []
+        },
+        {
+            "key": "field_6793772e2708e",
+            "label": "Arkiverad",
+            "name": "archived",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "Ja",
+            "default_value": 0,
+            "ui": 0,
+            "ui_on_text": "",
+            "ui_off_text": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "anslagstavla"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "left",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "acfe_display_title": "",
+    "acfe_autosync": [
+        "json"
+    ],
+    "acfe_form": 0,
+    "acfe_meta": "",
+    "acfe_note": ""
+}]
+

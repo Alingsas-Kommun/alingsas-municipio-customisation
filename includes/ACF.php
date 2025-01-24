@@ -19,6 +19,7 @@ class ACF {
             'general-mod-settings' => 'group_6718a5f9a58fb',
             'mod-inlay-settings' => 'group_67065157310c7',
             'mod-manualinput-settings' => 'group_672336ea7ed1a',
+            'noticeboard-settings' => 'group_6793527c520e2',
             'webcast-settings' => 'group_6784f11a254a0',
         ));
         $acfExportManager->import();

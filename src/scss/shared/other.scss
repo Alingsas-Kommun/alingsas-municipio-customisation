@@ -76,3 +76,11 @@ div.widget_block>p:empty {
     padding: revert;
   }
 }
+
+.modularity-mod-posts {
+  &.announcements {
+    .o-grid {
+      --grid-gap: 1.5rem;
+    }
+  }
+}

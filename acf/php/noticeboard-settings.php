@@ -29,7 +29,7 @@
             'aria-label' => '',
             'type' => 'date_picker',
             'instructions' => '',
-            'required' => 1,
+            'required' => 0,
             'conditional_logic' => 0,
             'wrapper' => array(
                 'width' => '',
@@ -37,7 +37,7 @@
                 'id' => '',
             ),
             'display_format' => 'Y-m-d',
-            'return_format' => 'd/m/Y',
+            'return_format' => 'Y-m-d',
             'first_day' => 1,
         ),
         2 => array(
@@ -55,7 +55,7 @@
                 'id' => '',
             ),
             'display_format' => 'Y-m-d',
-            'return_format' => 'd/m/Y',
+            'return_format' => 'Y-m-d',
             'first_day' => 1,
         ),
         3 => array(

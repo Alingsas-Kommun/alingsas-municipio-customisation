@@ -39,14 +39,13 @@ class Cron {
         ];
         $query = new \WP_Query($args);
 
+        $today = strtotime('today');
         foreach ($query->posts as $post) {
             $archive_date = get_field('archive_date', $post->ID);
             
             if (empty($archive_date)) {
                 continue;
             }
-
-            $today = strtotime('today');
             $archive_timestamp = strtotime($archive_date);
             
             if ($archive_timestamp > $today) {
@@ -55,6 +54,11 @@ class Cron {
 
             update_field('archived', 1, $post->ID);
             update_field('archive_date', null, $post->ID);
+
+            wp_update_post([
+                'ID' => $post->ID,
+                'post_content' => uniqid()
+            ]);
         }
     }
 }

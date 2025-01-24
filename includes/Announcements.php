@@ -7,6 +7,10 @@ class Announcements {
     public function __construct() {
         // Change announcement links to use portal link instead
         add_filter('post_type_link', function ($post_link, $post) {
+            if (is_admin()) {
+                return $post_link;
+            }
+
             if ($post->post_type === 'anslagstavla') {
                 $post_link = get_field('link', $post->ID);
             }
@@ -21,11 +25,17 @@ class Announcements {
                 $meeting_date = get_field('meeting_date', $postObject->ID);
                 $archive_date = get_field('archive_date', $postObject->ID);
 
-                $excerpt = __('Meeting date:', 'municipio-customisation') . ' ' . $meeting_date;
+                $excerpt = [];
+
+                if (!empty($meeting_date)) {
+                    $excerpt[] = __('Meeting date:', 'municipio-customisation') . ' ' . $meeting_date;
+                }
 
                 if (!empty($archive_date)) {
-                    $excerpt .= '<br>' . __('To be archived:', 'municipio-customisation') . ' ' . $archive_date;
+                    $excerpt[] = __('To be archived:', 'municipio-customisation') . ' ' . $archive_date;
                 }
+
+                $excerpt = implode('<br>', $excerpt);
 
                 $postObject->post_excerpt = $excerpt;
                 $postObject->excerpt = $excerpt;

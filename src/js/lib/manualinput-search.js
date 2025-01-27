@@ -1,9 +1,11 @@
 import $ from 'jquery';
+
+const store = {};
+/* 
 import Fuse from 'fuse.js'
 import { debounce } from './shared';
 
-const store = {};
-const threshhold = 0.5;
+const threshhold = 0.5; 
 
 const doSearch = (e, id) => {
     const $field = $(e.currentTarget);
@@ -20,6 +22,25 @@ const doSearch = (e, id) => {
     result.forEach(element => {
         if (element.score <= threshhold) {
             store[id].rows.eq(element.refIndex).show();
+        }
+    });
+}
+*/
+
+const doSearch = (e, id) => {
+    const $field = $(e.currentTarget);
+    const term = $field.val().trim().toLowerCase();
+
+    if (term.length === 0) {
+        store[id].rows.show();
+        return;
+    }
+
+    store[id].data.forEach((item, index) => {
+        if (item.title.indexOf(term) > 0 || item.body.indexOf(term) > 0) {
+            store[id].rows.eq(index).show();
+        } else {
+            store[id].rows.eq(index).hide(); 
         }
     });
 }
@@ -41,15 +62,15 @@ const faqSearch = () => {
         const data = $rows.toArray().map((row) => {
             const $row = $(row);
             return {
-                title: $row.find('.c-accordion__button').text().trim(),
-                body: $row.find('.c-accordion__content').text().trim(),
+                title: $row.find('.c-accordion__button').text().trim().toLowerCase(),
+                body: $row.find('.c-accordion__content').text().trim().toLowerCase(),
             }
         });
 
         store[id] = {
             rows: $rows,
             data,
-            fuse: new Fuse(data, { 
+            /* fuse: new Fuse(data, { 
                 isCaseSensitive: true,
                 includeScore: true,
                 ignoreLocation: true,
@@ -60,11 +81,11 @@ const faqSearch = () => {
                     },
                     'body'
                 ]
-            }),
+            }), */
         };
 
-        const debouncedSearch = debounce((e) => doSearch(e, id), 500);
-        $container.on('keyup', 'input[type=search]', debouncedSearch);
+        /* const debouncedSearch = debounce((e) => doSearch(e, id), 500); */
+        $container.on('keyup', 'input[type=search]', (e) => { doSearch(e, id); });
     });
 }
 

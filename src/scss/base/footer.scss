@@ -30,6 +30,16 @@
     &__prefooter-wrapper {
         background-color: #fff;
     }
+
+    .s-sidebar-footer-area-column-2 {
+        .t-block-container {
+            padding: 0 !important;
+
+            .o-container {
+                padding: 0;
+            }
+        }
+    }
 }
 
 .o-grid-12:has(.social-media-link) {

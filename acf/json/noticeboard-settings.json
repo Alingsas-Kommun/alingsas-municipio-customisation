@@ -38,6 +38,26 @@
             "first_day": 1
         },
         {
+            "key": "field_67a22fbb01482",
+            "label": "Inneh\u00e5ll",
+            "name": "content",
+            "aria-label": "",
+            "type": "wysiwyg",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "tabs": "all",
+            "toolbar": "full",
+            "media_upload": 1,
+            "delay": 0
+        },
+        {
             "key": "field_6793531da006e",
             "label": "Tas ner",
             "name": "archive_date",

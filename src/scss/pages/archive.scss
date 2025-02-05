@@ -31,6 +31,14 @@ body.archive {
   table thead th {
     background-color: #fad945;
     color: #000;
+
+    @media screen and (min-width: 1024px) {
+      white-space: nowrap;
+    }
+
+    &.c-table__column-2 {
+      min-width: 140px;
+    }
   }
 
   .c-table .c-table__body .c-table__line:hover .c-table__column {

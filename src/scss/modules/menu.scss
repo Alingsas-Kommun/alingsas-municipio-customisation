@@ -1,26 +1,86 @@
-.c-group.c-group--fluid-grid.c-group--display-grid.c-group--fluid-grid-2.c-group--size-lg:not(.c-group--single-column-lg) { 
-	grid-template-columns: 1fr 1fr 1fr 1fr; 
+.c-group {
+	&.c-group--fluid-grid.c-group--display-grid.c-group--fluid-grid-2.c-group--size-lg:not(.c-group--single-column-lg) {
+		grid-template-columns: 1fr 1fr 1fr 1fr;
+	}
 }
 
+.mod-menu {
+	&__heading-link {
+		.c-typography.c-typography__variant--h2 {
+			font-size: 18px;
+			font-weight: 700;
+		}
+	}
 
-.mod-menu__heading-link .c-typography.c-typography__variant--h2 {
-	font-size: 18px;
-		font-weight: 700;
+	&.mod-menu--listing {
+		.mod-menu__item {
+			a {
+				&:hover {
+					.mod-menu__heading-label {
+						transform: none;
+					}
+				}
+			}
+
+			.mod-menu__child.c-nav__item {
+				a.c-nav__link {
+					&:hover {
+						span.c-nav__text {
+							transform: none;
+						}
+					}
+				}
+			}
+
+			.mod-menu__children {
+				margin-top: .5rem;
+
+				li {
+					margin-bottom: .5rem;
+
+					&:last-of-type {
+						margin-top: .75rem;
+					}
+				}
+			}
+		}
+
+		.c-nav.c-nav.c-nav--vertical {
+			.c-nav__item {
+				&:hover {
+					>.c-nav__item-wrapper {
+						background-color: transparent;
+					}
+				}
+			}
+		}
+
+		.mod-menu__child.c-nav__item {
+			a.c-nav__link {
+				span.c-icon {
+					display: none;
+				}
+			}
+		}
+
+		&.mod-menu--wrapped {
+
+			.mod-menu__children,
+			.mod-menu__heading-description {
+				grid-column: 2 / span 2;
+
+				a {
+					text-decoration: underline;
+				}
+			}
+		}
+	}
 }
 
-.mod-menu.mod-menu--listing .mod-menu__child.c-nav__item a.c-nav__link span.c-icon {
-	display: none;
-}
-
-.mod-menu.mod-menu--listing.mod-menu--wrapped .mod-menu__children, .mod-menu.mod-menu--listing.mod-menu--wrapped .mod-menu__heading-description
-{
-	grid-column: 2 / span 2;
-}
-
-.mod-menu.mod-menu--listing.mod-menu--wrapped .mod-menu__children, .mod-menu.mod-menu--listing.mod-menu--wrapped .mod-menu__heading-description a {
-	text-decoration: underline
-}
-
-.c-nav.c-nav--vertical.c-nav--compressed .c-nav__link {
-	padding: 0
+.c-nav {
+	&.c-nav--vertical.c-nav--compressed {
+		.c-nav__link {
+			padding: 0;
+		}
+	}
 }

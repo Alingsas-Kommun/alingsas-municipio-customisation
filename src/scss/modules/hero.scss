@@ -1,0 +1,44 @@
+body {
+    .a-hero {
+        @media screen and (max-width: 380px) {
+            form.c-form {
+                .c-group {
+                    background-color: var(--c-button-primary-color);
+                    flex-direction: row;
+                    gap: 0;
+
+                    .c-field {
+                        &.c-field--md input {
+                            padding: calc(var(--base, 8px)* 1.5);
+
+                            &::placeholder {
+                                font-size: 14px;
+                            }
+                        }
+                    }
+
+                    .c-button {
+                        padding: 0 calc(var(--base, 8px)*3) 0 calc(var(--base, 8px)*0.5);
+
+                        &__label {
+                            gap: var(--base, 4px);
+                        }
+                    }
+                }
+            }
+
+            &__col__buttons {
+                gap: 1rem 0.5rem;
+
+                .c-button {
+                    &.c-button--md {
+                        font-size: 14px;
+                        height: calc(var(--base, 6px)* 6);
+                        min-width: calc(var(--base, 6px)* 9);
+                        padding: 0 calc(var(--base, 4px)* 4);
+                    }
+                }
+            }
+        }
+    }
+}

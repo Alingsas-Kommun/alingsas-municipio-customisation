@@ -2,7 +2,6 @@ import { defineConfig } from 'vite';
 import { resolve } from 'path';
 import sass from 'sass';
 import basicSsl from '@vitejs/plugin-basic-ssl'
-import cleanPlugin from 'vite-plugin-clean';
 
 export default defineConfig({
   // Base public path when served in development or production
@@ -63,9 +62,6 @@ export default defineConfig({
   },
 
   plugins: [
-    basicSsl(),
-    cleanPlugin({
-      targetFiles: ['dist'],
-    }),
+    basicSsl()
   ],
 });

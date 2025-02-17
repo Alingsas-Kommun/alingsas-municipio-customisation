@@ -1,40 +1,14 @@
 {
-  "name": "alingsas-kommun-municipio-customisation",
-  "version": "0.1.19",
-  "description": "Custom styling and settings for Alingsås kommun's main Municipio setup",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/Alingsas-Kommun/alingsas-municipio-customisation"
-  },
-  "author": "Consid",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/Alingsas-Kommun/alingsas-municipio-customisation/issues"
-  },
-  "homepage": "https://github.com/Alingsas-Kommun/alingsas-municipio-customisation",
   "scripts": {
-    "dev": "gulp dev",
-    "build": "gulp build",
-    "make-pot": "wp i18n make-pot ./ ./languages/municipio-customisation.pot"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   },
   "devDependencies": {
-    "@babel/core": "^7.26.0",
-    "@babel/preset-env": "^7.26.0",
-    "babel-loader": "^9.2.1",
-    "browser-sync": "^3.0.3",
-    "del": "^8.0.0",
-    "dotenv": "^16.4.5",
-    "gulp": "^5.0.0",
-    "gulp-dart-sass": "^1.1.0",
-    "gulp-rev": "^11.0.0",
-    "gulp-rev-format": "^1.0.5",
-    "gulp-sourcemaps": "^3.0.0",
+    "@vitejs/plugin-basic-ssl": "^1.2.0",
     "jquery": "^3.7.1",
-    "sass": "^1.79.4",
-    "webpack": "^5.95.0",
-    "webpack-stream": "^7.0.0"
-  },
-  "dependencies": {
-    "fuse.js": "^7.0.0"
+    "sass": "^1.84.0",
+    "vite": "^6.1.0",
+    "vite-plugin-clean": "^1.0.0"
   }
 }

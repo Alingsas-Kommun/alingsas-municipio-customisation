@@ -7,9 +7,10 @@ use WP_Term;
 
 use ComponentLibrary\Integrations\Image\Image;
 use Municipio\Integrations\Component\ImageResolver;
+use Municipio\PostObject\Decorators\BackwardsCompatiblePostObject;
 
 class Events {
-    public static function parseEvent($event) {
+    public static function parseEvent(BackwardsCompatiblePostObject $event) {
         if ($event->postType !== 'event') {
             return $event;
         }

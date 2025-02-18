@@ -11,6 +11,7 @@ class AkEventTemplate extends AbstractController {
 
         $events = [];
         foreach ($posts as $post) {
+            $post = \Municipio\Helper\Post::preparePostObjectArchive($post);
             $event = Events::parseEvent($post);
 
             if ($event) {

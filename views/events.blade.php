@@ -1,11 +1,19 @@
-@typography([
-    'id' => 'mod-posts-' . $ID . '-label',
-    'element' => $element ?? 'h2',
-    'variant' => $variant ?? 'h2',
-    'classList' => $classList ?? ['module-title']
+@group([
+    'direction' => 'horizontal',
+    'justifyContent' => 'space-between',
+    'alignItems' => 'center'
 ])
-    {!! $postTitle !!}
-@endtypography
+    @if (!$hideTitle && !empty($postTitle))
+        @typography([
+            'id' => 'mod-posts-' . $ID . '-label',
+            'element' => $element ?? 'h2',
+            'variant' => $variant ?? 'h2',
+            'classList' => $classList ?? ['module-title']
+        ])
+            {!! $postTitle !!}
+        @endtypography
+    @endif
+@endgroup
 <div class="o-grid o-grid--events u-margin__top--4">
     @foreach ($events as $event)
         <div class="o-grid-12@md">

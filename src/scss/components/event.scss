@@ -54,13 +54,14 @@
     }
 
     .meta {
-        align-items: center;
+        align-items: flex-start;
         display: flex;
         gap: 0.5rem;
 
         .icon,
         .value {
             display: inline-flex;
+            flex-flow: row wrap;
         }
 
         .icon {

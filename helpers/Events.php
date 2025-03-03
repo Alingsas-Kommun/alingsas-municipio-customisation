@@ -6,6 +6,7 @@ use DateTime;
 use WP_Term;
 
 use ComponentLibrary\Integrations\Image\Image;
+use DateTimeZone;
 use Municipio\Integrations\Component\ImageResolver;
 use Municipio\PostObject\Decorators\BackwardsCompatiblePostObject;
 
@@ -39,7 +40,8 @@ class Events {
             $event->date = ucfirst(wp_date('l j F', $startDate->getTimestamp()));
             $event->time = $startDate->format('H:i') . ' &ndash; ' . $endDate->format('H:i');
         } else {
-            $event->date = wp_date('j M \k\l. H:i', $startDate->getTimestamp()) . ' &ndash; ' . wp_date('j M \k\l. H:i', $endDate->getTimestamp());
+            $GMT = new DateTimeZone('GMT');
+            $event->date = wp_date('j M \k\l. H:i', $startDate->getTimestamp(), $GMT) . ' &ndash; ' . wp_date('j M \k\l. H:i', $endDate->getTimestamp(), $GMT);
         }
 
         // Location

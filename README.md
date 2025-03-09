@@ -1,4 +1,4 @@
-# Alingsås Municipio Customisation
+# Alingsås tillägg för Municipio-anpassning
 
 Ett WordPress-tillägg som ger anpassad funktionalitet och förbättringar för Alingsås kommuns Municipio-baserade webbplats. Innehåller skräddarsydd kod för att uppnå design och innehållsstruktur som varit svår att åstadkomma med grunduppsättningen.
 
@@ -18,7 +18,8 @@ Strukturerat enligt följande princip:
 - **`/helpers`**: Stödfunktioner som återanvänds av olika funktioner
 - **`/includes`**: Merparten av tilläggets funktionalitet ligger här. Allt i denna mapp läses in vid inladdning
 - **`/languages`**: Språkfiler (byggs med `npm run make-pot` och översätts med POEdit)
-- **Languages Directory**: Holds translation files
+- **`/src`**: Källkod för stilmallar och skriptfiler. Stilmallar är uppdelade och använder Sass CSS
+- **`/views`**: Anpassade vyer för sök, evenemang och nyheter
 
 ## Nyckelfunktioner
 

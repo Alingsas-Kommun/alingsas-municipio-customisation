@@ -6,6 +6,7 @@ use AlingsasCustomisation\Plugin;
 
 use ComponentLibrary\Init as ComponentLibraryInit;
 use AlingsasCustomisation\Helpers\Posts;
+use TypesenseIndex\Search as TypesenseIndexSearch;
 
 class Search {
 	private array $postTypes;
@@ -20,13 +21,13 @@ class Search {
 		$this->postTypes = [
 			'page'             => __('Pages', 'municipio-customisation'),
 			'nyheter'          => __('News', 'municipio-customisation'),
-			'jobb'             => __('Jobs', 'municipio-customisation'),
+			'lediga-jobb'      => __('Job vacancies', 'municipio-customisation'),
 			'event'            => __('Events', 'municipio-customisation'),
 			'driftinformation' => __('Operating information', 'municipio-customisation')
 		];
 
 		add_action('template_redirect', [$this, 'setLocalVars']);
-		add_action('pre_get_posts', [$this, 'setPostTypesToSearch']);
+		//add_action('pre_get_posts', [$this, 'setPostTypesToSearch']);
 		add_action('custom_search_page', [$this, 'customSearchPage']);
 	}
 
@@ -34,10 +35,12 @@ class Search {
 		global $wp_query;
 		global $wpdb;
 
-		$this->searchTerm = get_search_query();
-
 		$this->wpquery = $wp_query;
 		$this->wpdb    = $wpdb;
+
+		if (!is_admin() && $wp_query->is_main_query() && $wp_query->is_search) {
+			$this->searchTerm = $wp_query->query['s'];
+		}
 	}
 
 	public function setPostTypesToSearch(\WP_Query $query) {
@@ -87,16 +90,18 @@ class Search {
 		$data['showPagination']        = \Municipio\Helper\Archive::showPagination(false, $this->wpquery);
 		$data['paginationList']        = \Municipio\Helper\Archive::getPagination(false, $this->wpquery);
 
-		$count               = $this->getResultCountByPostType();
-		$countByType         = array_map(function ($typeKey) use ($count, $data) {
+		$countByType = $this->getResultCountByPostType();
+		$countByType = array_map(function ($typeName) use ($countByType, $data) {
+			$typeKey = array_flip($this->postTypes)[$typeName];
+
 			return [
-				'name'    => $this->postTypes[$typeKey],
+				'name'    => $typeName,
 				'link'    => home_url("/?s={$data['searchTermUrl']}&type={$typeKey}"),
 				'type_id' => $typeKey,
-				'count'   => $count[$typeKey] ?? 0,
+				'count'   => $countByType[$typeName]['count'],
 				'active'  => $typeKey === $data['searchType'],
 			];
-		}, array_keys($this->postTypes));
+		}, array_keys($countByType));
 		$data['countByType'] = $countByType;
 
 		return $data;
@@ -109,11 +114,11 @@ class Search {
 
 		$lang->search      = __('Search', 'municipio');
 		$lang->placeholder = __('What are you searching for?', 'municipio');
-		$lang->hits        = _n('Hit', 'Hits', $this->wpquery->found_posts, 'municipio-customisation');
+		$lang->hits        = _n('Hit', 'Hits', $this->getTotalHitCount(), 'municipio-customisation');
 		$lang->allHits     = __('All hits', 'municipio-customisation');
 		/* translators: 1 nr hits, 2 hits, 3 search string, 4 domain */
 		$lang->found = __('%1$d %2$s for <b>"%3$s"</b> on %4$s', 'municipio-customisation');
-		$lang->found = sprintf($lang->found, $this->wpquery->found_posts, lcfirst($lang->hits), $this->searchTerm, $domain);
+		$lang->found = sprintf($lang->found, $this->getTotalHitCount(), lcfirst($lang->hits), $this->searchTerm, $domain);
 
 		return $lang;
 	}
@@ -143,65 +148,14 @@ class Search {
 	}
 
 	private function getTotalHitCount() {
-		$postTypes = implode(',', array_map(fn($item) => "'{$item}'", array_keys($this->postTypes)));
-
-		$sql = "SELECT COUNT(*)
-                FROM {$this->wpdb->posts}
-                WHERE post_type IN ({$postTypes})
-                AND post_status = 'publish'
-                AND post_password = ''
-                AND (
-                    post_title LIKE %s 
-                    OR post_excerpt LIKE %s 
-                    OR post_content LIKE %s 
-                )";
-
-		$preparedStatement = $this->wpdb->prepare(
-			$sql,
-			'%' . $this->searchTerm . '%',
-			'%' . $this->searchTerm . '%',
-			'%' . $this->searchTerm . '%'
-		);
-
-		$count = $this->wpdb->get_var($preparedStatement);
-
-		return intval($count);
+		return TypesenseIndexSearch::getTotalHitCount();
 	}
 
 	private function getResultCountByPostType() {
-		$postTypes = implode(',', array_map(fn($item) => "'{$item}'", array_keys($this->postTypes)));
+		$facetCounts = TypesenseIndexSearch::getFacetCounts();
+		$countByType = $facetCounts['post_type_name'];
 
-		$sql = "SELECT COUNT(*) occurrences, post_type
-                FROM {$this->wpdb->posts}
-                WHERE post_type IN ({$postTypes})
-                AND post_status = 'publish'
-                AND post_password = ''
-                AND (
-                    post_title LIKE %s 
-                    OR post_excerpt LIKE %s 
-                    OR post_content LIKE %s 
-                )
-                GROUP BY post_type";
-
-		$preparedStatement = $this->wpdb->prepare(
-			$sql,
-			'%' . $this->searchTerm . '%',
-			'%' . $this->searchTerm . '%',
-			'%' . $this->searchTerm . '%'
-		);
-
-		$count = $this->wpdb->get_results($preparedStatement);
-
-		if (is_array($count) && sizeof($count) > 0) {
-			$count = array_combine(
-				array_column($count, 'post_type'),
-				array_map('intval', array_column($count, 'occurrences'))
-			);
-		} else {
-			$count = [];
-		}
-
-		return $count;
+		return $countByType;
 	}
 
 	private function getCurrentPage() {

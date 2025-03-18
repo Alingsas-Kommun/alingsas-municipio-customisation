@@ -88,7 +88,7 @@
                                 </p>
                             @endif
                         </div>
-                        <div class="breadcrumbs" style="font-weight:bold;margin-top:1rem;">
+                        <div class="breadcrumbs">
                             {{ implode(' > ', array_map(fn($crumb) => $crumb['title'], $post->breadcrumbs)) }}
                         </div>
                         <p>Senast ändrad: {{ $post->postModifiedGmt }} </p>

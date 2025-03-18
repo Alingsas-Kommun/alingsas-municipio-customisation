@@ -81,7 +81,7 @@
                             @if (isset($highlights[$post->id]['post_excerpt']))
                                 <p>{!! $highlights[$post->id]['post_excerpt'] !!}</p>
                             @elseif (isset($highlights[$post->id]['content']))
-                                <p>{!! $highlights[$post->id]['content'] !!}</p>
+                                <p>[...] {!! $highlights[$post->id]['content'] !!} [...]</p>
                             @elseif (!empty($post->excerpt))
                                 <p>
                                     {{ strip_tags($post->excerpt) }}

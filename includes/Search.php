@@ -83,6 +83,7 @@ class Search {
 		$data['resultCount']           = $this->wpquery->found_posts;
 		$data['allHits']               = $this->getTotalHitCount();
 		$data['posts']                 = $this->getPosts();
+		$data['highlights']            = TypesenseIndexSearch::getHighlights();
 		$data['searchTerm']            = $this->searchTerm;
 		$data['searchTermUrl']         = urlencode($this->searchTerm);
 		$data['searchType']            = $this->getSearchType();

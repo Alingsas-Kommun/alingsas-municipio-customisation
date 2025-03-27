@@ -19,5 +19,17 @@
             font-size: clamp(var(--font-size-base, 1rem) + .125rem, 3vw, var(--h3-font-size, 1.125rem));
             font-weight: var(--h4-font-weight, var(--font-weight-heading, 500));
         }
+
+        a {
+            color: var(--theme-sidebar-links-link-color, var(--color-link));
+        }
+
+        a:hover {
+            color: var(--theme-sidebar-links-link-color_hover, var(--color-link-hover));
+        }
+
+        a:visited {
+            color: var(--theme-sidebar-links-link-color_visited, var(--color-link-visited));
+        }
     }
 }

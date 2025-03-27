@@ -3,3 +3,15 @@
     --h1-font-weight: 700;
     --page-title-color: var(--theme-page-title-color, #{$color-plantation});
 }
+
+a {
+    color: var(--theme-links-link-color, var(--color-link));
+}
+
+a:hover {
+    color: var(--theme-links-link-color_hover, var(--color-link-hover));
+}
+
+a:visited {
+    color: var(--theme-links-link-color_visited, var(--color-link-visited));
+}

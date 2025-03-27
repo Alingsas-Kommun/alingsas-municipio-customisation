@@ -21,6 +21,7 @@
             ),
             'placement' => 'top',
             'endpoint' => 0,
+            'selected' => 0,
         ),
         1 => array(
             'key' => 'field_673db188c0196',
@@ -124,6 +125,7 @@
             ),
             'placement' => 'top',
             'endpoint' => 0,
+            'selected' => 0,
         ),
         3 => array(
             'key' => 'field_673db58fbaeef',
@@ -240,6 +242,7 @@
                     'placement' => 'top',
                     'endpoint' => 0,
                     'parent_repeater' => 'field_673db58fbaeef',
+                    'selected' => 0,
                 ),
                 4 => array(
                     'key' => 'field_67a32e60315dd',
@@ -270,6 +273,29 @@
                     'parent_repeater' => 'field_673db58fbaeef',
                 ),
                 5 => array(
+                    'key' => 'field_67e5164c6b13e',
+                    'label' => __('Links', 'municipio-customisation'),
+                    'name' => 'var_links',
+                    'aria-label' => '',
+                    'type' => 'clone',
+                    'instructions' => '',
+                    'required' => 0,
+                    'conditional_logic' => 0,
+                    'wrapper' => array(
+                        'width' => '',
+                        'class' => '',
+                        'id' => '',
+                    ),
+                    'clone' => array(
+                        0 => 'field_67e5160edc668',
+                    ),
+                    'display' => 'seamless',
+                    'layout' => 'block',
+                    'prefix_label' => 0,
+                    'prefix_name' => 1,
+                    'parent_repeater' => 'field_673db58fbaeef',
+                ),
+                6 => array(
                     'key' => 'field_673f789c33066',
                     'label' => __('Buttons', 'municipio-customisation'),
                     'name' => '',
@@ -286,8 +312,9 @@
                     'placement' => 'top',
                     'endpoint' => 0,
                     'parent_repeater' => 'field_673db58fbaeef',
+                    'selected' => 0,
                 ),
-                6 => array(
+                7 => array(
                     'key' => 'field_6751cb2ee997d',
                     'label' => __('Buttons', 'municipio-customisation'),
                     'name' => 'var_button',
@@ -315,7 +342,7 @@
                     'acfe_clone_modal_size' => 'large',
                     'parent_repeater' => 'field_673db58fbaeef',
                 ),
-                7 => array(
+                8 => array(
                     'key' => 'field_673f7430f642d',
                     'label' => __('Card', 'municipio-customisation'),
                     'name' => '',
@@ -332,8 +359,9 @@
                     'placement' => 'top',
                     'endpoint' => 0,
                     'parent_repeater' => 'field_673db58fbaeef',
+                    'selected' => 0,
                 ),
-                8 => array(
+                9 => array(
                     'key' => 'field_6751c652af72d',
                     'label' => __('Head', 'municipio-customisation'),
                     'name' => 'var_card_header',
@@ -361,7 +389,7 @@
                     'acfe_clone_modal_size' => 'large',
                     'parent_repeater' => 'field_673db58fbaeef',
                 ),
-                9 => array(
+                10 => array(
                     'key' => 'field_673f73fbf642c',
                     'label' => __('Sidebar', 'municipio-customisation'),
                     'name' => '',
@@ -378,8 +406,9 @@
                     'placement' => 'top',
                     'endpoint' => 0,
                     'parent_repeater' => 'field_673db58fbaeef',
+                    'selected' => 0,
                 ),
-                10 => array(
+                11 => array(
                     'key' => 'field_6751b9e8c133a',
                     'label' => __('Settings', 'municipio-customisation'),
                     'name' => 'var_sidebar',
@@ -407,7 +436,30 @@
                     'acfe_clone_modal_size' => 'large',
                     'parent_repeater' => 'field_673db58fbaeef',
                 ),
-                11 => array(
+                12 => array(
+                    'key' => 'field_67e51d34a32cc',
+                    'label' => __('Links', 'municipio-customisation'),
+                    'name' => 'var_sidebar_links',
+                    'aria-label' => '',
+                    'type' => 'clone',
+                    'instructions' => '',
+                    'required' => 0,
+                    'conditional_logic' => 0,
+                    'wrapper' => array(
+                        'width' => '',
+                        'class' => '',
+                        'id' => '',
+                    ),
+                    'clone' => array(
+                        0 => 'field_67e5160edc668',
+                    ),
+                    'display' => 'seamless',
+                    'layout' => 'block',
+                    'prefix_label' => 0,
+                    'prefix_name' => 1,
+                    'parent_repeater' => 'field_673db58fbaeef',
+                ),
+                13 => array(
                     'key' => 'field_6756c567843a0',
                     'label' => __('Hero', 'municipio-customisation'),
                     'name' => '',
@@ -424,8 +476,9 @@
                     'placement' => 'top',
                     'endpoint' => 0,
                     'parent_repeater' => 'field_673db58fbaeef',
+                    'selected' => 0,
                 ),
-                12 => array(
+                14 => array(
                     'key' => 'field_6756c73975a15',
                     'label' => __('General', 'municipio-customisation'),
                     'name' => 'var_hero_general',
@@ -453,7 +506,7 @@
                     'acfe_clone_modal_size' => 'large',
                     'parent_repeater' => 'field_673db58fbaeef',
                 ),
-                13 => array(
+                15 => array(
                     'key' => 'field_6756c57a843a1',
                     'label' => __('Button', 'municipio-customisation'),
                     'name' => 'var_hero_button',
@@ -481,7 +534,7 @@
                     'acfe_clone_modal_size' => 'large',
                     'parent_repeater' => 'field_673db58fbaeef',
                 ),
-                14 => array(
+                16 => array(
                     'key' => 'field_6756cff80411f',
                     'label' => __('Button attention', 'municipio-customisation'),
                     'name' => 'var_hero_button_attention',
@@ -509,7 +562,7 @@
                     'acfe_clone_modal_size' => 'large',
                     'parent_repeater' => 'field_673db58fbaeef',
                 ),
-                15 => array(
+                17 => array(
                     'key' => 'field_676028fe95125',
                     'label' => __('External links', 'municipio-customisation'),
                     'name' => '',
@@ -526,8 +579,9 @@
                     'placement' => 'top',
                     'endpoint' => 0,
                     'parent_repeater' => 'field_673db58fbaeef',
+                    'selected' => 0,
                 ),
-                16 => array(
+                18 => array(
                     'key' => 'field_6760290795126',
                     'label' => __('General', 'municipio-customisation'),
                     'name' => 'var_external_links_general',
@@ -555,7 +609,7 @@
                     'acfe_clone_modal_size' => 'large',
                     'parent_repeater' => 'field_673db58fbaeef',
                 ),
-                17 => array(
+                19 => array(
                     'key' => 'field_6760291295127',
                     'label' => __('Button', 'municipio-customisation'),
                     'name' => 'var_external_links_button',
@@ -601,6 +655,7 @@
             ),
             'placement' => 'top',
             'endpoint' => 0,
+            'selected' => 0,
         ),
         5 => array(
             'key' => 'field_67448dbe1ba14',
@@ -699,12 +754,5 @@ Start with path: /your-path/', 'municipio-customisation'),
     'active' => true,
     'description' => '',
     'show_in_rest' => 0,
-    'acfe_display_title' => '',
-    'acfe_autosync' => array(
-        0 => 'json',
-    ),
-    'acfe_form' => 0,
-    'acfe_meta' => '',
-    'acfe_note' => '',
 ));
 }

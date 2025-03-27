@@ -4,7 +4,7 @@
     "fields": [
         {
             "key": "field_6751b8156d755",
-            "label": "Color settings",
+            "label": "",
             "name": "color_settings",
             "aria-label": "",
             "type": "group",
@@ -17,8 +17,6 @@
                 "id": ""
             },
             "layout": "block",
-            "acfe_seamless_style": 0,
-            "acfe_group_modal": 0,
             "sub_fields": [
                 {
                     "key": "field_6751b8d16d756",
@@ -76,10 +74,94 @@
                     "acfe_clone_modal_button": "",
                     "acfe_clone_modal_size": "large"
                 }
-            ],
-            "acfe_group_modal_close": 0,
-            "acfe_group_modal_button": "",
-            "acfe_group_modal_size": "large"
+            ]
+        },
+        {
+            "key": "field_67e5160edc668",
+            "label": "",
+            "name": "link_color_settings",
+            "aria-label": "",
+            "type": "group",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "sub_fields": [
+                {
+                    "key": "field_67e5160edc66c",
+                    "label": "Link",
+                    "name": "color",
+                    "aria-label": "",
+                    "type": "clone",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "clone": [
+                        "field_6751b92a6d758",
+                        "field_6751b9566d759"
+                    ],
+                    "display": "group",
+                    "layout": "block",
+                    "prefix_label": 0,
+                    "prefix_name": 1
+                },
+                {
+                    "key": "field_67e520fad5a44",
+                    "label": "Link hover",
+                    "name": "color_hover",
+                    "aria-label": "",
+                    "type": "clone",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "clone": [
+                        "field_6751b92a6d758",
+                        "field_6751b9566d759"
+                    ],
+                    "display": "group",
+                    "layout": "block",
+                    "prefix_label": 0,
+                    "prefix_name": 1
+                },
+                {
+                    "key": "field_67e520e9d5a43",
+                    "label": "Link visited",
+                    "name": "color_visited",
+                    "aria-label": "",
+                    "type": "clone",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "clone": [
+                        "field_6751b92a6d758",
+                        "field_6751b9566d759"
+                    ],
+                    "display": "group",
+                    "layout": "block",
+                    "prefix_label": 0,
+                    "prefix_name": 1
+                }
+            ]
         },
         {
             "key": "field_6751b92a6d758",
@@ -95,7 +177,17 @@
                 "class": "",
                 "id": ""
             },
-            "choices": [],
+            "choices": {
+                "-": "Standard",
+                "color-bf8f584775102c0501f3fd985c586df3": "Kommun m\u00f6rkgr\u00f6n",
+                "color-eee548fdc241f0b62f0a2b9bcf88b281": "Kommun mintgr\u00f6n",
+                "color-d34e9863df667cee03318283f2e9d5e8": "Kommun vinr\u00f6d",
+                "color-61b24e96e2f2742e7f37bee54c5e2ab5": "Kommun gr\u00e5",
+                "color-07b44733fc13230164eba69a41c3fc80": "Kulturhus gr\u00f6n",
+                "color-198a3795d5207701149bebb81e109e73": "Jobb gul",
+                "page-theme": "Temaf\u00e4rg",
+                "custom": "Valfri f\u00e4rg"
+            },
             "default_value": false,
             "return_format": "value",
             "multiple": 0,
@@ -150,13 +242,6 @@
     "hide_on_screen": "",
     "active": true,
     "description": "",
-    "show_in_rest": 0,
-    "acfe_display_title": "",
-    "acfe_autosync": [
-        "json"
-    ],
-    "acfe_form": 0,
-    "acfe_meta": "",
-    "acfe_note": ""
+    "show_in_rest": 0
 }]
 

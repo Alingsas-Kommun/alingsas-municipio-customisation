@@ -24,7 +24,7 @@
         ),
         1 => array(
             'key' => 'field_679352f7a006d',
-            'label' => __('Mötesdatum', 'municipio-customisation'),
+            'label' => __('Anslagsdatum', 'municipio-customisation'),
             'name' => 'meeting_date',
             'aria-label' => '',
             'type' => 'date_picker',
@@ -39,6 +39,7 @@
             'display_format' => 'Y-m-d',
             'return_format' => 'Y-m-d',
             'first_day' => 1,
+            'allow_in_bindings' => 1,
         ),
         2 => array(
             'key' => 'field_67a22fbb01482',

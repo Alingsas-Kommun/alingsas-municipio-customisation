@@ -48,7 +48,7 @@ class Announcements {
                 $excerpt = [];
 
                 if (!empty($meeting_date)) {
-                    $excerpt[] = __('Meeting date:', 'municipio-customisation') . ' ' . $meeting_date;
+                    $excerpt[] = __('Grant date:', 'municipio-customisation') . ' ' . $meeting_date;
                 }
 
                 if (!empty($archive_date)) {

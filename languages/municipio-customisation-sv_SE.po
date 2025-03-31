@@ -5,8 +5,8 @@ msgstr ""
 "Project-Id-Version: Alingsås Municipio customisation 0.1.6\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/municipio-"
 "customisation\n"
-"POT-Creation-Date: 2025-02-05T09:53:10+00:00\n"
-"PO-Revision-Date: 2025-02-05 10:54+0100\n"
+"POT-Creation-Date: 2025-03-31T11:04:03+00:00\n"
+"PO-Revision-Date: 2025-03-31 13:04+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv\n"
@@ -45,117 +45,121 @@ msgstr ""
 msgid "Colors"
 msgstr "Färger"
 
-#: acf/php/appearance-settings.php:29
+#: acf/php/appearance-settings.php:30
 msgid "Custom colors"
 msgstr "Skräddarsydda färger"
 
-#: acf/php/appearance-settings.php:47
+#: acf/php/appearance-settings.php:48
 msgid "Add color"
 msgstr "Lägg till färg"
 
-#: acf/php/appearance-settings.php:52 acf/php/appearance-settings.php:155
+#: acf/php/appearance-settings.php:53 acf/php/appearance-settings.php:157
 msgid "ID"
 msgstr ""
 
-#: acf/php/appearance-settings.php:73 acf/php/appearance-settings.php:176
+#: acf/php/appearance-settings.php:74 acf/php/appearance-settings.php:178
 msgid "Name"
 msgstr "Namn"
 
-#: acf/php/appearance-settings.php:94 acf/php/clone-fields-settings.php:91
+#: acf/php/appearance-settings.php:95 acf/php/clone-fields-settings.php:173
 msgid "Color"
 msgstr "Färg"
 
-#: acf/php/appearance-settings.php:115 acf/php/appearance-settings.php:132
+#: acf/php/appearance-settings.php:116 acf/php/appearance-settings.php:134
 msgid "Themes"
 msgstr "Teman"
 
-#: acf/php/appearance-settings.php:150
+#: acf/php/appearance-settings.php:152
 msgid "Add theme"
 msgstr "Lägg till tema"
 
-#: acf/php/appearance-settings.php:197 includes/AppearanceSettings.php:114
+#: acf/php/appearance-settings.php:199 includes/AppearanceSettings.php:114
 msgid "Theme color"
 msgstr "Temafärg"
 
-#: acf/php/appearance-settings.php:210
+#: acf/php/appearance-settings.php:212 acf/php/clone-fields-settings.php:187
 msgid "Kommun mörkgrön"
 msgstr ""
 
-#: acf/php/appearance-settings.php:211
+#: acf/php/appearance-settings.php:213 acf/php/clone-fields-settings.php:188
 msgid "Kommun mintgrön"
 msgstr ""
 
-#: acf/php/appearance-settings.php:212
+#: acf/php/appearance-settings.php:214 acf/php/clone-fields-settings.php:189
 msgid "Kommun vinröd"
 msgstr ""
 
-#: acf/php/appearance-settings.php:213
+#: acf/php/appearance-settings.php:215 acf/php/clone-fields-settings.php:190
 msgid "Kommun grå"
 msgstr ""
 
-#: acf/php/appearance-settings.php:214
+#: acf/php/appearance-settings.php:216 acf/php/clone-fields-settings.php:191
 msgid "Kulturhus grön"
 msgstr ""
 
-#: acf/php/appearance-settings.php:215
+#: acf/php/appearance-settings.php:217 acf/php/clone-fields-settings.php:192
 msgid "Jobb gul"
 msgstr ""
 
-#: acf/php/appearance-settings.php:230 acf/php/appearance-settings.php:432
-#: acf/php/appearance-settings.php:534
+#: acf/php/appearance-settings.php:232 acf/php/appearance-settings.php:485
+#: acf/php/appearance-settings.php:588
 msgid "General"
 msgstr "Allmänt"
 
-#: acf/php/appearance-settings.php:248
+#: acf/php/appearance-settings.php:251
 msgid "Page title"
 msgstr "Sidtitel"
 
-#: acf/php/appearance-settings.php:276 acf/php/appearance-settings.php:294
+#: acf/php/appearance-settings.php:279 acf/php/appearance-settings.php:443
+msgid "Links"
+msgstr ""
+
+#: acf/php/appearance-settings.php:302 acf/php/appearance-settings.php:321
 #: acf/php/mod-inlay-settings.php:26
 msgid "Buttons"
 msgstr "Knappar"
 
-#: acf/php/appearance-settings.php:322
+#: acf/php/appearance-settings.php:349
 msgid "Card"
 msgstr "Kort"
 
-#: acf/php/appearance-settings.php:340
+#: acf/php/appearance-settings.php:368
 msgid "Head"
 msgstr "Huvud"
 
-#: acf/php/appearance-settings.php:368
+#: acf/php/appearance-settings.php:396
 msgid "Sidebar"
 msgstr ""
 
-#: acf/php/appearance-settings.php:386
+#: acf/php/appearance-settings.php:415
 msgid "Settings"
 msgstr "Inställningar"
 
-#: acf/php/appearance-settings.php:414
+#: acf/php/appearance-settings.php:466
 msgid "Hero"
 msgstr ""
 
-#: acf/php/appearance-settings.php:460 acf/php/appearance-settings.php:562
+#: acf/php/appearance-settings.php:513 acf/php/appearance-settings.php:616
 msgid "Button"
 msgstr "Knapp"
 
-#: acf/php/appearance-settings.php:488
+#: acf/php/appearance-settings.php:541
 msgid "Button attention"
 msgstr "Knapp (synlig)"
 
-#: acf/php/appearance-settings.php:516
+#: acf/php/appearance-settings.php:569
 msgid "External links"
 msgstr "Externa länkar"
 
-#: acf/php/appearance-settings.php:592
+#: acf/php/appearance-settings.php:646
 msgid "Themes by path"
 msgstr "Tema efter sökväg"
 
-#: acf/php/appearance-settings.php:609
+#: acf/php/appearance-settings.php:664
 msgid "Paths"
 msgstr "Sökvägar"
 
-#: acf/php/appearance-settings.php:613
+#: acf/php/appearance-settings.php:668
 msgid ""
 "Define paths that you want to use specific themes for. A path can be defined "
 "as exact but also that it should start with a certain string. To define the "
@@ -166,27 +170,27 @@ msgid ""
 "Start with path: /your-path/"
 msgstr ""
 
-#: acf/php/appearance-settings.php:630
+#: acf/php/appearance-settings.php:685
 msgid "Add path"
 msgstr "Lägg till sökväg"
 
-#: acf/php/appearance-settings.php:635
+#: acf/php/appearance-settings.php:690
 msgid "Path"
 msgstr "Sökväg"
 
-#: acf/php/appearance-settings.php:649
+#: acf/php/appearance-settings.php:704
 msgid "/your-path-here"
 msgstr "/din-sökväg-här"
 
-#: acf/php/appearance-settings.php:656 acf/php/page-settings.php:12
+#: acf/php/appearance-settings.php:711 acf/php/page-settings.php:12
 msgid "Theme"
 msgstr "Tema"
 
-#: acf/php/appearance-settings.php:669
+#: acf/php/appearance-settings.php:724
 msgid "Jobb"
 msgstr ""
 
-#: acf/php/appearance-settings.php:670
+#: acf/php/appearance-settings.php:725
 msgid "Alingsås kulturhus "
 msgstr ""
 
@@ -194,19 +198,41 @@ msgstr ""
 msgid "Alingsås klonfält"
 msgstr ""
 
-#: acf/php/clone-fields-settings.php:12
-msgid "Color settings"
-msgstr "Färginställningar"
-
-#: acf/php/clone-fields-settings.php:30 acf/php/mod-inlay-settings.php:40
+#: acf/php/clone-fields-settings.php:28 acf/php/mod-inlay-settings.php:40
 msgid "Background"
 msgstr "Bakgrund"
 
-#: acf/php/clone-fields-settings.php:58
+#: acf/php/clone-fields-settings.php:56
 msgid "Text"
 msgstr ""
 
-#: acf/php/clone-fields-settings.php:117 includes/AppearanceSettings.php:115
+#: acf/php/clone-fields-settings.php:102
+msgid "Link"
+msgstr ""
+
+#: acf/php/clone-fields-settings.php:125
+msgid "Link hover"
+msgstr ""
+
+#: acf/php/clone-fields-settings.php:148
+msgid "Link visited"
+msgstr ""
+
+#: acf/php/clone-fields-settings.php:186 acf/php/mod-inlay-settings.php:25
+#: acf/php/page-settings.php:25 includes/AppearanceSettings.php:61
+#: includes/AppearanceSettings.php:107
+msgid "Standard"
+msgstr ""
+
+#: acf/php/clone-fields-settings.php:193
+msgid "Temafärg"
+msgstr ""
+
+#: acf/php/clone-fields-settings.php:194
+msgid "Valfri färg"
+msgstr ""
+
+#: acf/php/clone-fields-settings.php:208 includes/AppearanceSettings.php:115
 msgid "Custom color"
 msgstr "Valfri färg"
 
@@ -266,11 +292,6 @@ msgstr ""
 msgid "Appearance"
 msgstr "Utseende"
 
-#: acf/php/mod-inlay-settings.php:25 acf/php/page-settings.php:25
-#: includes/AppearanceSettings.php:61 includes/AppearanceSettings.php:107
-msgid "Standard"
-msgstr ""
-
 #: acf/php/mod-inlay-settings.php:28
 msgid "standard"
 msgstr ""
@@ -297,26 +318,28 @@ msgid "Länk till PDF/protokoll"
 msgstr ""
 
 #: acf/php/noticeboard-settings.php:29
-msgid "Mötesdatum"
-msgstr ""
+#, fuzzy
+#| msgid "Anslagsinformation"
+msgid "Anslagsdatum"
+msgstr "Anslagsinformation"
 
-#: acf/php/noticeboard-settings.php:47
+#: acf/php/noticeboard-settings.php:48
 msgid "Innehåll"
 msgstr ""
 
-#: acf/php/noticeboard-settings.php:67
+#: acf/php/noticeboard-settings.php:68
 msgid "Tas ner"
 msgstr ""
 
-#: acf/php/noticeboard-settings.php:85
+#: acf/php/noticeboard-settings.php:86
 msgid "Anslagstyp"
 msgstr ""
 
-#: acf/php/noticeboard-settings.php:114
+#: acf/php/noticeboard-settings.php:115
 msgid "Arkiverad"
 msgstr ""
 
-#: acf/php/noticeboard-settings.php:126
+#: acf/php/noticeboard-settings.php:127
 msgid "Ja"
 msgstr ""
 
@@ -345,8 +368,8 @@ msgid "Download protocol"
 msgstr "Ladda hem protokoll"
 
 #: includes/Announcements.php:51
-msgid "Meeting date:"
-msgstr "Mötesdatum:"
+msgid "Grant date:"
+msgstr "Anslagsdatum:"
 
 #: includes/Announcements.php:55
 msgid "To be archived:"
@@ -360,44 +383,9 @@ msgstr "Enligt tema"
 msgid "Theme: %s"
 msgstr "Tema: %s"
 
-#: includes/controllers/AkEventTemplate.php:23
+#: includes/controllers/AkEventTemplate.php:24
 msgid "More events"
 msgstr "Fler evenemang"
-
-#: includes/Search.php:21
-msgid "Pages"
-msgstr "Sidor"
-
-#: includes/Search.php:22
-msgid "News"
-msgstr "Nyheter"
-
-#: includes/Search.php:23
-msgid "Jobs"
-msgstr "Jobb"
-
-#: includes/Search.php:24
-msgid "Events"
-msgstr "Evenemang"
-
-#: includes/Search.php:25
-msgid "Operating information"
-msgstr "Driftinformation"
-
-#: includes/Search.php:112
-msgid "Hit"
-msgid_plural "Hits"
-msgstr[0] "Träff"
-msgstr[1] "Träffar"
-
-#: includes/Search.php:113
-msgid "All hits"
-msgstr "Alla träffar"
-
-#. translators: 1 nr hits, 2 hits, 3 search string, 4 domain
-#: includes/Search.php:115
-msgid "%1$d %2$s for <b>\"%3$s\"</b> on %4$s"
-msgstr "%1$d %2$s för <b>\"%3$s\"</b> inom %4$s"
 
 #: includes/Translation.php:24
 msgid "From"
@@ -410,6 +398,38 @@ msgstr "Till"
 #: includes/Translation.php:34
 msgid "Service"
 msgstr "Tjänst"
+
+#~ msgid "Color settings"
+#~ msgstr "Färginställningar"
+
+#~ msgid "Meeting date:"
+#~ msgstr "Mötesdatum:"
+
+#~ msgid "Pages"
+#~ msgstr "Sidor"
+
+#~ msgid "News"
+#~ msgstr "Nyheter"
+
+#~ msgid "Jobs"
+#~ msgstr "Jobb"
+
+#~ msgid "Events"
+#~ msgstr "Evenemang"
+
+#~ msgid "Operating information"
+#~ msgstr "Driftinformation"
+
+#~ msgid "Hit"
+#~ msgid_plural "Hits"
+#~ msgstr[0] "Träff"
+#~ msgstr[1] "Träffar"
+
+#~ msgid "All hits"
+#~ msgstr "Alla träffar"
+
+#~ msgid "%1$d %2$s for <b>\"%3$s\"</b> on %4$s"
+#~ msgstr "%1$d %2$s för <b>\"%3$s\"</b> inom %4$s"
 
 #~ msgid "Green"
 #~ msgstr "Grön"

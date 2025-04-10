@@ -11,10 +11,10 @@
 
 a,
 .link {
-    color: var(--color-link-alingsas, var(--color-primary-dark, #236151));
+    color: var(--color-link-alingsas, var(--color-link, var(--color-primary-dark, #236151)));
 }
 
 a:hover,
 .link:hover {
-    color: var(--color-link-alingsas-hover, var(--color-primary, #13332b));
+    color: var(--color-link-alingsas-hover, var(--color-link-hover, var(--color-primary, #13332b)));
 }

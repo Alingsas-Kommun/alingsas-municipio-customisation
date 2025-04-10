@@ -4,14 +4,17 @@
     --page-title-color: var(--theme-page-title-color, #{$color-plantation});
 }
 
-a {
-    color: var(--theme-links-link-color, var(--color-link));
+#main-content {
+    --color-link-alingsas: var(--theme-links-link-color, var(--color-link));
+    --color-link-alingsas-hover: var(--theme-links-link-color_hover, var(--color-link-hover));
 }
 
-a:hover {
-    color: var(--theme-links-link-color_hover, var(--color-link-hover));
+a,
+.link {
+    color: var(--color-link-alingsas, var(--color-primary-dark, #236151));
 }
 
-a:visited {
-    color: var(--theme-links-link-color_visited, var(--color-link-visited));
+a:hover,
+.link:hover {
+    color: var(--color-link-alingsas-hover, var(--color-primary, #13332b));
 }

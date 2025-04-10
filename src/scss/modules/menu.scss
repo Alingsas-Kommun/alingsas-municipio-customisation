@@ -1,4 +1,12 @@
 .c-group {
+	&.c-group--fluid-grid.c-group--display-grid.c-group--fluid-grid-2.c-group--size-sm {
+		grid-template-columns: 1fr 1fr;
+	}
+
+	&.c-group--fluid-grid.c-group--display-grid.c-group--fluid-grid-2.c-group--size-md {
+		grid-template-columns: 1fr 1fr;
+	}
+
 	&.c-group--fluid-grid.c-group--display-grid.c-group--fluid-grid-2.c-group--size-lg:not(.c-group--single-column-lg) {
 		grid-template-columns: 1fr 1fr 1fr 1fr;
 	}

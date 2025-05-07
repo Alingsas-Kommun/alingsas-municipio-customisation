@@ -12,12 +12,32 @@ class Announcements {
             }
 
             if ($post->post_type === 'anslagstavla') {
+                $post_content = get_field('content', $post->ID);
+                if (!empty($post_content)) {
+                    return $post_link;
+                }
+
                 $post_link = get_field('link', $post->ID);
             }
 
             return $post_link;
         }, 10, 2);
 
+        // Change content if on a singular page
+        add_action('template_redirect', function () {
+            if (is_singular('anslagstavla')) {
+                add_filter('the_content', function ($content) {
+                    $content = get_field('content', get_queried_object_id());
+                    $link = get_field('link', get_queried_object_id());
+
+                    if (!empty($link)) {
+                        $content .= '<p><a href="' . $link . '">' . __('Download protocol', 'municipio-customisation') . '</a></p>';
+                    }
+
+                    return $content;
+                });
+            }
+        });
 
         // Add date and archive date as preamble
         add_filter('Municipio/Helper/Post/postObject', function ($postObject) {
@@ -28,7 +48,7 @@ class Announcements {
                 $excerpt = [];
 
                 if (!empty($meeting_date)) {
-                    $excerpt[] = __('Meeting date:', 'municipio-customisation') . ' ' . $meeting_date;
+                    $excerpt[] = __('Grant date:', 'municipio-customisation') . ' ' . $meeting_date;
                 }
 
                 if (!empty($archive_date)) {

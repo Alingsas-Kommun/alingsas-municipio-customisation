@@ -24,7 +24,7 @@
         ),
         1 => array(
             'key' => 'field_679352f7a006d',
-            'label' => __('Mötesdatum', 'municipio-customisation'),
+            'label' => __('Anslagsdatum', 'municipio-customisation'),
             'name' => 'meeting_date',
             'aria-label' => '',
             'type' => 'date_picker',
@@ -39,8 +39,29 @@
             'display_format' => 'Y-m-d',
             'return_format' => 'Y-m-d',
             'first_day' => 1,
+            'allow_in_bindings' => 1,
         ),
         2 => array(
+            'key' => 'field_67a22fbb01482',
+            'label' => __('Innehåll', 'municipio-customisation'),
+            'name' => 'content',
+            'aria-label' => '',
+            'type' => 'wysiwyg',
+            'instructions' => '',
+            'required' => 0,
+            'conditional_logic' => 0,
+            'wrapper' => array(
+                'width' => '',
+                'class' => '',
+                'id' => '',
+            ),
+            'default_value' => '',
+            'tabs' => 'all',
+            'toolbar' => 'full',
+            'media_upload' => 1,
+            'delay' => 0,
+        ),
+        3 => array(
             'key' => 'field_6793531da006e',
             'label' => __('Tas ner', 'municipio-customisation'),
             'name' => 'archive_date',
@@ -58,7 +79,7 @@
             'return_format' => 'Y-m-d',
             'first_day' => 1,
         ),
-        3 => array(
+        4 => array(
             'key' => 'field_67935342a006f',
             'label' => __('Anslagstyp', 'municipio-customisation'),
             'name' => 'announcement_type',
@@ -87,7 +108,7 @@
             'bidirectional_target' => array(
             ),
         ),
-        4 => array(
+        5 => array(
             'key' => 'field_6793772e2708e',
             'label' => __('Arkiverad', 'municipio-customisation'),
             'name' => 'archived',

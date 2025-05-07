@@ -17,7 +17,8 @@
                 "id": ""
             },
             "placement": "top",
-            "endpoint": 0
+            "endpoint": 0,
+            "selected": 0
         },
         {
             "key": "field_673db188c0196",
@@ -53,7 +54,7 @@
                     "conditional_logic": 0,
                     "wrapper": {
                         "width": "",
-                        "class": "",
+                        "class": "hidden",
                         "id": ""
                     },
                     "default_value": "",
@@ -120,7 +121,8 @@
                 "id": ""
             },
             "placement": "top",
-            "endpoint": 0
+            "endpoint": 0,
+            "selected": 0
         },
         {
             "key": "field_673db58fbaeef",
@@ -156,7 +158,7 @@
                     "conditional_logic": 0,
                     "wrapper": {
                         "width": "",
-                        "class": "",
+                        "class": "hidden",
                         "id": ""
                     },
                     "default_value": "",
@@ -201,7 +203,14 @@
                         "class": "",
                         "id": ""
                     },
-                    "choices": [],
+                    "choices": {
+                        "bf8f584775102c0501f3fd985c586df3": "Kommun m\u00f6rkgr\u00f6n",
+                        "eee548fdc241f0b62f0a2b9bcf88b281": "Kommun mintgr\u00f6n",
+                        "d34e9863df667cee03318283f2e9d5e8": "Kommun vinr\u00f6d",
+                        "61b24e96e2f2742e7f37bee54c5e2ab5": "Kommun gr\u00e5",
+                        "07b44733fc13230164eba69a41c3fc80": "Kulturhus gr\u00f6n",
+                        "198a3795d5207701149bebb81e109e73": "Jobb gul"
+                    },
                     "default_value": false,
                     "return_format": "value",
                     "multiple": 0,
@@ -211,6 +220,76 @@
                     "placeholder": "",
                     "allow_custom": 0,
                     "search_placeholder": "",
+                    "parent_repeater": "field_673db58fbaeef"
+                },
+                {
+                    "key": "field_67a32e52315dc",
+                    "label": "General",
+                    "name": "",
+                    "aria-label": "",
+                    "type": "tab",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "placement": "top",
+                    "endpoint": 0,
+                    "parent_repeater": "field_673db58fbaeef",
+                    "selected": 0
+                },
+                {
+                    "key": "field_67a32e60315dd",
+                    "label": "Page title",
+                    "name": "var_page_title",
+                    "aria-label": "",
+                    "type": "clone",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "clone": [
+                        "field_6751b8156d755"
+                    ],
+                    "display": "seamless",
+                    "layout": "block",
+                    "prefix_label": 0,
+                    "prefix_name": 1,
+                    "acfe_seamless_style": 0,
+                    "acfe_clone_modal": 0,
+                    "acfe_clone_modal_close": 0,
+                    "acfe_clone_modal_button": "",
+                    "acfe_clone_modal_size": "large",
+                    "parent_repeater": "field_673db58fbaeef"
+                },
+                {
+                    "key": "field_67e5164c6b13e",
+                    "label": "Links",
+                    "name": "var_links",
+                    "aria-label": "",
+                    "type": "clone",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "clone": [
+                        "field_67e5160edc668"
+                    ],
+                    "display": "seamless",
+                    "layout": "block",
+                    "prefix_label": 0,
+                    "prefix_name": 1,
                     "parent_repeater": "field_673db58fbaeef"
                 },
                 {
@@ -229,7 +308,8 @@
                     },
                     "placement": "top",
                     "endpoint": 0,
-                    "parent_repeater": "field_673db58fbaeef"
+                    "parent_repeater": "field_673db58fbaeef",
+                    "selected": 0
                 },
                 {
                     "key": "field_6751cb2ee997d",
@@ -275,7 +355,8 @@
                     },
                     "placement": "top",
                     "endpoint": 0,
-                    "parent_repeater": "field_673db58fbaeef"
+                    "parent_repeater": "field_673db58fbaeef",
+                    "selected": 0
                 },
                 {
                     "key": "field_6751c652af72d",
@@ -321,7 +402,8 @@
                     },
                     "placement": "top",
                     "endpoint": 0,
-                    "parent_repeater": "field_673db58fbaeef"
+                    "parent_repeater": "field_673db58fbaeef",
+                    "selected": 0
                 },
                 {
                     "key": "field_6751b9e8c133a",
@@ -352,6 +434,29 @@
                     "parent_repeater": "field_673db58fbaeef"
                 },
                 {
+                    "key": "field_67e51d34a32cc",
+                    "label": "Links",
+                    "name": "var_sidebar_links",
+                    "aria-label": "",
+                    "type": "clone",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "clone": [
+                        "field_67e5160edc668"
+                    ],
+                    "display": "seamless",
+                    "layout": "block",
+                    "prefix_label": 0,
+                    "prefix_name": 1,
+                    "parent_repeater": "field_673db58fbaeef"
+                },
+                {
                     "key": "field_6756c567843a0",
                     "label": "Hero",
                     "name": "",
@@ -367,7 +472,8 @@
                     },
                     "placement": "top",
                     "endpoint": 0,
-                    "parent_repeater": "field_673db58fbaeef"
+                    "parent_repeater": "field_673db58fbaeef",
+                    "selected": 0
                 },
                 {
                     "key": "field_6756c73975a15",
@@ -469,7 +575,8 @@
                     },
                     "placement": "top",
                     "endpoint": 0,
-                    "parent_repeater": "field_673db58fbaeef"
+                    "parent_repeater": "field_673db58fbaeef",
+                    "selected": 0
                 },
                 {
                     "key": "field_6760290795126",
@@ -544,7 +651,8 @@
                 "id": ""
             },
             "placement": "top",
-            "endpoint": 0
+            "endpoint": 0,
+            "selected": 0
         },
         {
             "key": "field_67448dbe1ba14",
@@ -604,7 +712,10 @@
                         "class": "",
                         "id": ""
                     },
-                    "choices": [],
+                    "choices": {
+                        "e41f72b75f64f3238080a8ed3158c554": "Jobb",
+                        "46f1075d6585e36386c584b087497d39": "Alings\u00e5s kulturhus "
+                    },
                     "default_value": false,
                     "return_format": "value",
                     "multiple": 0,
@@ -636,13 +747,6 @@
     "hide_on_screen": "",
     "active": true,
     "description": "",
-    "show_in_rest": 0,
-    "acfe_display_title": "",
-    "acfe_autosync": [
-        "json"
-    ],
-    "acfe_form": 0,
-    "acfe_meta": "",
-    "acfe_note": ""
+    "show_in_rest": 0
 }]
 

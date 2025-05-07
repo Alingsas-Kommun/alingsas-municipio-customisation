@@ -6,7 +6,7 @@
     }
 }
 
-.site-header {
+.site-header:not(.c-header--business) {
     @media (max-width: 500px) {
         .c-header__logotype {
             height: calc(var(--c-header-logotype-height-mobile, 6)* var(--base, 8px));
@@ -90,8 +90,15 @@
         }
 
         .c-button {
-            color: var(--c-button-primary-color);
+            .c-button__label {
+                color: var(--c-button-primary-color);
+            }
         }
+
+    }
+
+    .s-header-button .c-button__label {
+        color: var(--c-button-primary-color);
     }
 }
 

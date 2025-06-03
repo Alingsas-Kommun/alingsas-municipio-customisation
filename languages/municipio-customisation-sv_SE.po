@@ -1,40 +1,41 @@
-# Swedish (Sweden) translation for Alingsås Municipio customisation plugin
 # Copyright (C) 2025 Consid
 # This file is distributed under the same license as the Alingsås Municipio customisation plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Alingsås Municipio customisation 0.1.20\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/municipio-customisation\n"
-"POT-Creation-Date: 2025-03-31T11:04:03+00:00\n"
-"PO-Revision-Date: 2025-06-03 08:38+0200\n"
-"Last-Translator: Claude Assistant\n"
-"Language-Team: Swedish\n"
+"Project-Id-Version: Alingsås Municipio customisation 0.1.22\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/municipio-"
+"customisation\n"
+"POT-Creation-Date: 2025-06-02T13:50:20+00:00\n"
+"PO-Revision-Date: 2025-06-03 10:41+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
 "Language: sv_SE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 3.5\n"
 "X-Domain: municipio-customisation\n"
 
 #. Plugin Name of the plugin
 #: municipio-customisation.php
 msgid "Alingsås Municipio customisation"
-msgstr "Alingsås Municipio anpassning"
+msgstr ""
 
 #. Description of the plugin
 #: municipio-customisation.php
 msgid "Alingsås kommun's custom tweaks for Municipio"
-msgstr "Alingsås kommuns anpassningar för Municipio"
+msgstr ""
 
 #. Author of the plugin
 #: municipio-customisation.php
 msgid "Consid"
-msgstr "Consid"
+msgstr ""
 
 #. Author URI of the plugin
 #: municipio-customisation.php
 msgid "https://www.consid.se"
-msgstr "https://www.consid.se"
+msgstr ""
 
 #: acf/php/appearance-settings.php:8
 msgid "Appearance - Alingsås"
@@ -46,7 +47,7 @@ msgstr "Färger"
 
 #: acf/php/appearance-settings.php:30
 msgid "Custom colors"
-msgstr "Anpassade färger"
+msgstr "Egna färger"
 
 #: acf/php/appearance-settings.php:48
 msgid "Add color"
@@ -54,7 +55,7 @@ msgstr "Lägg till färg"
 
 #: acf/php/appearance-settings.php:53 acf/php/appearance-settings.php:157
 msgid "ID"
-msgstr "ID"
+msgstr ""
 
 #: acf/php/appearance-settings.php:74 acf/php/appearance-settings.php:178
 msgid "Name"
@@ -78,27 +79,27 @@ msgstr "Temafärg"
 
 #: acf/php/appearance-settings.php:212 acf/php/clone-fields-settings.php:187
 msgid "Kommun mörkgrön"
-msgstr "Kommun mörkgrön"
+msgstr ""
 
 #: acf/php/appearance-settings.php:213 acf/php/clone-fields-settings.php:188
 msgid "Kommun mintgrön"
-msgstr "Kommun mintgrön"
+msgstr ""
 
 #: acf/php/appearance-settings.php:214 acf/php/clone-fields-settings.php:189
 msgid "Kommun vinröd"
-msgstr "Kommun vinröd"
+msgstr ""
 
 #: acf/php/appearance-settings.php:215 acf/php/clone-fields-settings.php:190
 msgid "Kommun grå"
-msgstr "Kommun grå"
+msgstr ""
 
 #: acf/php/appearance-settings.php:216 acf/php/clone-fields-settings.php:191
 msgid "Kulturhus grön"
-msgstr "Kulturhus grön"
+msgstr ""
 
 #: acf/php/appearance-settings.php:217 acf/php/clone-fields-settings.php:192
 msgid "Jobb gul"
-msgstr "Jobb gul"
+msgstr ""
 
 #: acf/php/appearance-settings.php:232 acf/php/appearance-settings.php:485
 #: acf/php/appearance-settings.php:588
@@ -136,75 +137,74 @@ msgstr "Inställningar"
 
 #: acf/php/appearance-settings.php:466
 msgid "Hero"
-msgstr "Hjälte"
+msgstr ""
 
 #: acf/php/appearance-settings.php:513 acf/php/appearance-settings.php:616
 msgid "Button"
-msgstr "Knapp"
+msgstr ""
 
 #: acf/php/appearance-settings.php:541
 msgid "Button attention"
-msgstr "Knapp uppmärksamhet"
+msgstr ""
 
 #: acf/php/appearance-settings.php:569
 msgid "External links"
-msgstr "Externa länkar"
+msgstr ""
 
 #: acf/php/appearance-settings.php:646
 msgid "Themes by path"
-msgstr "Teman per sökväg"
+msgstr ""
 
 #: acf/php/appearance-settings.php:664
 msgid "Paths"
-msgstr "Sökvägar"
+msgstr ""
 
 #: acf/php/appearance-settings.php:668
 msgid ""
-"Define paths that you want to use specific themes for. A path can be defined as exact but also that it should start with a certain string. To define the end of a path, use the $ character. If this is missing it matches both the defined path as well as descendents do that path.<br>\r\n"
+"Define paths that you want to use specific themes for. A path can be defined "
+"as exact but also that it should start with a certain string. To define the "
+"end of a path, use the $ character. If this is missing it matches both the "
+"defined path as well as descendents do that path.<br>\r\n"
 "<br>\r\n"
 "Exact path: /your-path/$<br>\r\n"
 "Start with path: /your-path/"
 msgstr ""
-"Definiera sökvägar som du vill använda specifika teman för. En sökväg kan definieras som exakt men också att den ska börja med en viss sträng. För att definiera slutet av en sökväg, använd $-tecknet. Om detta saknas matchar det både den definierade sökvägen samt underliggande sökvägar.<br>\r\n"
-"<br>\r\n"
-"Exakt sökväg: /din-sökväg/$<br>\r\n"
-"Börjar med sökväg: /din-sökväg/"
 
 #: acf/php/appearance-settings.php:685
 msgid "Add path"
-msgstr "Lägg till sökväg"
+msgstr ""
 
 #: acf/php/appearance-settings.php:690
 msgid "Path"
-msgstr "Sökväg"
+msgstr ""
 
 #: acf/php/appearance-settings.php:704
 msgid "/your-path-here"
-msgstr "/din-sökväg-här"
+msgstr ""
 
 #: acf/php/appearance-settings.php:711 acf/php/page-settings.php:12
 msgid "Theme"
-msgstr "Tema"
+msgstr ""
 
 #: acf/php/appearance-settings.php:724
 msgid "Jobb"
-msgstr "Jobb"
+msgstr ""
 
 #: acf/php/appearance-settings.php:725
 msgid "Alingsås kulturhus "
-msgstr "Alingsås kulturhus "
+msgstr ""
 
 #: acf/php/clone-fields-settings.php:8
 msgid "Alingsås klonfält"
-msgstr "Alingsås klonfält"
+msgstr ""
 
 #: acf/php/clone-fields-settings.php:28 acf/php/mod-inlay-settings.php:40
 msgid "Background"
-msgstr "Bakgrund"
+msgstr ""
 
 #: acf/php/clone-fields-settings.php:56
 msgid "Text"
-msgstr "Text"
+msgstr ""
 
 #: acf/php/clone-fields-settings.php:102
 msgid "Link"
@@ -222,23 +222,23 @@ msgstr "Länk besökt"
 #: acf/php/page-settings.php:25 includes/AppearanceSettings.php:61
 #: includes/AppearanceSettings.php:107
 msgid "Standard"
-msgstr "Standard"
+msgstr ""
 
 #: acf/php/clone-fields-settings.php:193
 msgid "Temafärg"
-msgstr "Temafärg"
+msgstr ""
 
 #: acf/php/clone-fields-settings.php:194
 msgid "Valfri färg"
-msgstr "Valfri färg"
+msgstr ""
 
 #: acf/php/clone-fields-settings.php:208 includes/AppearanceSettings.php:115
 msgid "Custom color"
-msgstr "Anpassad färg"
+msgstr ""
 
 #: acf/php/general-mod-settings.php:8
 msgid "Extrainställningar"
-msgstr "Extrainställningar"
+msgstr ""
 
 #: acf/php/general-mod-settings.php:12
 msgid "Background stripe"
@@ -246,31 +246,31 @@ msgstr "Bakgrundsrand"
 
 #: acf/php/general-mod-settings.php:25
 msgid "Ingen"
-msgstr "Ingen"
+msgstr ""
 
 #: acf/php/general-mod-settings.php:26
 msgid "Primary color"
-msgstr "Primärfärg"
+msgstr "Primär färg"
 
 #: acf/php/general-mod-settings.php:27
 msgid "Primary color (light)"
-msgstr "Primärfärg (ljus)"
+msgstr "Primär färg (ljus)"
 
 #: acf/php/general-mod-settings.php:28
 msgid "Primary color (dark)"
-msgstr "Primärfärg (mörk)"
+msgstr "Primär färg (mörk)"
 
 #: acf/php/general-mod-settings.php:29
 msgid "Secondary color"
-msgstr "Sekundärfärg"
+msgstr "Sekundär färg"
 
 #: acf/php/general-mod-settings.php:30
 msgid "Secondary color (light)"
-msgstr "Sekundärfärg (ljus)"
+msgstr "Sekundär färg (ljus)"
 
 #: acf/php/general-mod-settings.php:31
 msgid "Secondary color (dark)"
-msgstr "Sekundärfärg (mörk)"
+msgstr "Sekundär färg (mörk)"
 
 #: acf/php/general-mod-settings.php:33
 msgid "none"
@@ -278,15 +278,15 @@ msgstr "ingen"
 
 #: acf/php/general-mod-settings.php:45
 msgid "No top margin"
-msgstr "Ingen toppmarginál"
+msgstr "Inget topputrymme"
 
 #: acf/php/general-mod-settings.php:65
 msgid "No bottom margin"
-msgstr "Ingen bottenmarginál"
+msgstr "Inget bottenutrymme"
 
 #: acf/php/mod-inlay-settings.php:8
 msgid "Inställningar lista"
-msgstr "Inställningar lista"
+msgstr ""
 
 #: acf/php/mod-inlay-settings.php:12
 msgid "Appearance"
@@ -294,7 +294,7 @@ msgstr "Utseende"
 
 #: acf/php/mod-inlay-settings.php:28
 msgid "standard"
-msgstr "standard"
+msgstr ""
 
 #: acf/php/mod-inlay-settings.php:60 acf/php/mod-manualinput-settings.php:24
 #: acf/php/page-settings.php:51 acf/php/page-settings.php:71
@@ -303,43 +303,43 @@ msgstr "Ja"
 
 #: acf/php/mod-manualinput-settings.php:8
 msgid "Inställningar: Manuell inmatning"
-msgstr "Inställningar: Manuell inmatning"
+msgstr ""
 
 #: acf/php/mod-manualinput-settings.php:12
 msgid "Aktivera sök"
-msgstr "Aktivera sök"
+msgstr ""
 
 #: acf/php/noticeboard-settings.php:8
 msgid "Anslagsinformation"
-msgstr "Anslagsinformation"
+msgstr ""
 
 #: acf/php/noticeboard-settings.php:12
 msgid "Länk till PDF/protokoll"
-msgstr "Länk till PDF/protokoll"
+msgstr ""
 
 #: acf/php/noticeboard-settings.php:29
 msgid "Anslagsdatum"
-msgstr "Anslagsdatum"
+msgstr ""
 
 #: acf/php/noticeboard-settings.php:48
 msgid "Innehåll"
-msgstr "Innehåll"
+msgstr ""
 
 #: acf/php/noticeboard-settings.php:68
 msgid "Tas ner"
-msgstr "Tas ner"
+msgstr ""
 
 #: acf/php/noticeboard-settings.php:86
 msgid "Anslagstyp"
-msgstr "Anslagstyp"
+msgstr ""
 
 #: acf/php/noticeboard-settings.php:115
 msgid "Arkiverad"
-msgstr "Arkiverad"
+msgstr ""
 
 #: acf/php/noticeboard-settings.php:127
 msgid "Ja"
-msgstr "Ja"
+msgstr ""
 
 #: acf/php/page-settings.php:8
 msgid "Page settings"
@@ -355,35 +355,70 @@ msgstr "Dölj sidtitel"
 
 #: acf/php/webcast-settings.php:8
 msgid "Webbsändningar"
-msgstr "Webbsändningar"
+msgstr ""
 
 #: acf/php/webcast-settings.php:12
 msgid "Ange URL"
-msgstr "Ange URL"
+msgstr ""
 
 #: includes/Announcements.php:34
 msgid "Download protocol"
-msgstr "Ladda ner protokoll"
+msgstr ""
 
 #: includes/Announcements.php:51
 msgid "Grant date:"
-msgstr "Anslagsdatum:"
+msgstr "Beviljat"
 
 #: includes/Announcements.php:55
 msgid "To be archived:"
-msgstr "Ska arkiveras:"
+msgstr "Arkiveras:"
 
 #: includes/AppearanceSettings.php:91
 msgid "According to theme"
-msgstr "Enligt tema"
+msgstr ""
 
 #: includes/AppearanceSettings.php:95
 msgid "Theme: %s"
-msgstr "Tema: %s"
+msgstr ""
 
 #: includes/controllers/AkEventTemplate.php:24
 msgid "More events"
 msgstr "Fler evenemang"
+
+#: includes/Search.php:21
+msgid "Pages"
+msgstr "Sidor"
+
+#: includes/Search.php:22
+msgid "News"
+msgstr "Nyheter"
+
+#: includes/Search.php:23
+msgid "Jobs"
+msgstr "Jobb"
+
+#: includes/Search.php:24
+msgid "Events"
+msgstr "Evenemang"
+
+#: includes/Search.php:25
+msgid "Operating information"
+msgstr "Driftinformation"
+
+#: includes/Search.php:112
+msgid "Hit"
+msgid_plural "Hits"
+msgstr[0] "Träff"
+msgstr[1] "Träffar"
+
+#: includes/Search.php:113
+msgid "All hits"
+msgstr "Alla träffar"
+
+#. translators: 1 nr hits, 2 hits, 3 search string, 4 domain
+#: includes/Search.php:115
+msgid "%1$d %2$s for <b>\"%3$s\"</b> on %4$s"
+msgstr "%1$d %2$s för <b>\"%3$s\"</b> inom %4$s"
 
 #: includes/Translation.php:24
 msgid "From"
@@ -395,4 +430,4 @@ msgstr "Till"
 
 #: includes/Translation.php:34
 msgid "Service"
-msgstr "Tjänst"
+msgstr "Service"

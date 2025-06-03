@@ -55,7 +55,7 @@ class Search
 
             $searchType = $this->getSearchType();
             if ($searchType !== 'all-hits' && in_array($searchType, array_keys($postTypes))) {
-                $query->set('post_type', 'jobs');
+                $query->set('post_type', $searchType);
             }
         }
     }

@@ -12,7 +12,7 @@ namespace AlingsasCustomisation;
 
 class Plugin {
 
-	public const VERSION = '0.1.22';
+	public const VERSION = '0.1.23';
 
 	public const PATH = __DIR__;
 

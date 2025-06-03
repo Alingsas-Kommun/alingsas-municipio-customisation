@@ -4,10 +4,12 @@ namespace AlingsasCustomisation\Includes;
 
 use AlingsasCustomisation\Plugin;
 
-class Config {
-    public function __construct() {
+class Config
+{
+    public function __construct()
+    {
         // Add post excerpt support for pages
-        add_filter('init', function() {
+        add_filter('init', function () {
             add_post_type_support('page', 'excerpt');
         });
 
@@ -19,24 +21,38 @@ class Config {
         });
 
         // Remove small button class from header buttons
-        add_filter('ComponentLibrary/Component/Button/Class', function($classes, $context) {
-            if (in_array('component.nav.button', $context)) {
-                $classes = array_filter($classes, fn ($class) => $class !== 'c-button--sm');
-                $classes[] = 'c-button--md';
-            }
+        add_filter(
+            'ComponentLibrary/Component/Button/Class',
+            function ($classes, $context) {
+                if (in_array('component.nav.button', $context)) {
+                    $classes = array_filter($classes, fn($class) => $class !== 'c-button--sm');
+                    $classes[] = 'c-button--md';
+                }
 
-            return $classes;
-        }, 10, 2);
+                return $classes;
+            },
+            10,
+            2,
+        );
 
         // Add template path for posts module
-        add_filter('Modularity/Module/posts/TemplatePath', function($paths) {
+        add_filter('Modularity/Module/posts/TemplatePath', function ($paths) {
             $paths[] = Plugin::PATH . '/views/';
 
             return $paths;
         });
 
-        // Load textdomain
-        load_plugin_textdomain('municipio-customisation', false, basename(Plugin::PATH) . '/languages/');
+        add_action('init', function () {
+            $plugin_path = \AlingsasCustomisation\Plugin::PATH;
+
+            $textdomain = 'municipio-customisation';
+            $locale = get_locale();
+            $mo_file = $plugin_path . '/languages/' . $textdomain . '-' . $locale . '.mo';
+
+            if (file_exists($mo_file)) {
+                load_textdomain($textdomain, $mo_file);
+            }
+        });
 
         // Hide regular posts from admin menu
         add_action('admin_menu', function () {
@@ -44,7 +60,7 @@ class Config {
         });
 
         // No HTML tags in news post object
-        add_filter('Municipio/Helper/Post/postObject', function($postObject) {
+        add_filter('Municipio/Helper/Post/postObject', function ($postObject) {
             if ($postObject instanceof \WP_Post && $postObject->post_type === 'nyheter') {
                 $postObject->post_excerpt = strip_tags($postObject->post_excerpt);
 
@@ -58,7 +74,7 @@ class Config {
                     $postObject->excerpt_shorter = strip_tags($postObject->excerpt_shorter);
                 }
             }
-            
+
             return $postObject;
         });
     }

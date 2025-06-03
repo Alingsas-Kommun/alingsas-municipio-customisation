@@ -6,7 +6,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/municipio-"
 "customisation\n"
 "POT-Creation-Date: 2025-06-02T13:50:20+00:00\n"
-"PO-Revision-Date: 2025-06-03 10:41+0200\n"
+"PO-Revision-Date: 2025-06-03 10:47+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv_SE\n"
@@ -141,23 +141,23 @@ msgstr ""
 
 #: acf/php/appearance-settings.php:513 acf/php/appearance-settings.php:616
 msgid "Button"
-msgstr ""
+msgstr "Knapp"
 
 #: acf/php/appearance-settings.php:541
 msgid "Button attention"
-msgstr ""
+msgstr "Knapp uppmärksamma"
 
 #: acf/php/appearance-settings.php:569
 msgid "External links"
-msgstr ""
+msgstr "Externa länkar"
 
 #: acf/php/appearance-settings.php:646
 msgid "Themes by path"
-msgstr ""
+msgstr "Teman enligt sökväg"
 
 #: acf/php/appearance-settings.php:664
 msgid "Paths"
-msgstr ""
+msgstr "Sökväg"
 
 #: acf/php/appearance-settings.php:668
 msgid ""
@@ -169,22 +169,30 @@ msgid ""
 "Exact path: /your-path/$<br>\r\n"
 "Start with path: /your-path/"
 msgstr ""
+"Definiera sökvägar som du vill använda specifika teman för. En sökväg kan "
+"definieras som exakt men också att den ska börja med en viss sträng. För att "
+"definiera slutet av en sökväg, använd $-tecknet. Om detta saknas matchar det "
+"både den definierade sökvägen samt underliggande sidor till den sökvägen."
+"<br>\n"
+"<br>\n"
+"Exakt sökväg: /din-sökväg/$<br>\n"
+"Börjar med sökväg: /din-sökväg/"
 
 #: acf/php/appearance-settings.php:685
 msgid "Add path"
-msgstr ""
+msgstr "Lägg till sökväg"
 
 #: acf/php/appearance-settings.php:690
 msgid "Path"
-msgstr ""
+msgstr "Sökväg"
 
 #: acf/php/appearance-settings.php:704
 msgid "/your-path-here"
-msgstr ""
+msgstr "/din-sokvag-har"
 
 #: acf/php/appearance-settings.php:711 acf/php/page-settings.php:12
 msgid "Theme"
-msgstr ""
+msgstr "Tema"
 
 #: acf/php/appearance-settings.php:724
 msgid "Jobb"
@@ -200,7 +208,7 @@ msgstr ""
 
 #: acf/php/clone-fields-settings.php:28 acf/php/mod-inlay-settings.php:40
 msgid "Background"
-msgstr ""
+msgstr "Bakgrund"
 
 #: acf/php/clone-fields-settings.php:56
 msgid "Text"
@@ -234,7 +242,7 @@ msgstr ""
 
 #: acf/php/clone-fields-settings.php:208 includes/AppearanceSettings.php:115
 msgid "Custom color"
-msgstr ""
+msgstr "Egen färg"
 
 #: acf/php/general-mod-settings.php:8
 msgid "Extrainställningar"
@@ -363,7 +371,7 @@ msgstr ""
 
 #: includes/Announcements.php:34
 msgid "Download protocol"
-msgstr ""
+msgstr "Nedladdningsprotokoll"
 
 #: includes/Announcements.php:51
 msgid "Grant date:"
@@ -375,11 +383,11 @@ msgstr "Arkiveras:"
 
 #: includes/AppearanceSettings.php:91
 msgid "According to theme"
-msgstr ""
+msgstr "Enligt tema"
 
 #: includes/AppearanceSettings.php:95
 msgid "Theme: %s"
-msgstr ""
+msgstr "Tema: %s"
 
 #: includes/controllers/AkEventTemplate.php:24
 msgid "More events"

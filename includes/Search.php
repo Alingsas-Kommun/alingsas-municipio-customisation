@@ -26,7 +26,7 @@ class Search
             $this->postTypes = [
                 'page' => __('Pages', 'municipio-customisation'),
                 'nyheter' => __('News', 'municipio-customisation'),
-                'jobb' => __('Jobs', 'municipio-customisation'),
+                'lediga-jobb' => __('Jobs', 'municipio-customisation'),
                 'event' => __('Events', 'municipio-customisation'),
                 'driftinformation' => __('Operating information', 'municipio-customisation'),
             ];

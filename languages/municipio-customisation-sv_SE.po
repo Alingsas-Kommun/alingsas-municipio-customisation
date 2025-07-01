@@ -6,7 +6,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/municipio-"
 "customisation\n"
 "POT-Creation-Date: 2025-06-02T13:50:20+00:00\n"
-"PO-Revision-Date: 2025-06-03 10:47+0200\n"
+"PO-Revision-Date: 2025-07-01 14:56+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv_SE\n"
@@ -14,7 +14,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.5\n"
+"X-Generator: Poedit 3.6\n"
 "X-Domain: municipio-customisation\n"
 
 #. Plugin Name of the plugin
@@ -375,7 +375,7 @@ msgstr "Nedladdningsprotokoll"
 
 #: includes/Announcements.php:51
 msgid "Grant date:"
-msgstr "Beviljat"
+msgstr "Anslaget:"
 
 #: includes/Announcements.php:55
 msgid "To be archived:"

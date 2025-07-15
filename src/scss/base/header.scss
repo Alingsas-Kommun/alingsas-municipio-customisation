@@ -54,6 +54,11 @@
         }
 
         &__form {
+            @media (max-width: 799px) {
+                position: fixed;
+                top: calc(var(--base, 8px) * 1.5);
+            }
+
             &.open {
                 @media (max-width: 799px) {
                     width: calc(100% - (var(--base, 8px) * 1.6)) !important;

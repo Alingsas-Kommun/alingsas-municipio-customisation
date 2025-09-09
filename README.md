@@ -84,7 +84,7 @@ För extrainställningar och extra fält används tillägget som är branschstan
 
 ## Version
 
-Current version: 0.1.20
+Current version: 0.2.0
 
 ## Författare
 

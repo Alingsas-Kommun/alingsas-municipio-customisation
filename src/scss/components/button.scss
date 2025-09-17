@@ -59,6 +59,28 @@ body:not(.home) {
     /* Justera padding efter behov */
 }
 
+
+.ak-tags {
+ padding: 2rem 0rem;
+}
+
+a.ak-tag {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    padding: 6px 15px;
+    background-color: $color-plantation;
+    color: white;
+    color: white;
+    border-radius: 50px;    
+    text-decoration: none;
+    
+    &:hover {
+        color: white;
+        opacity: .7;
+    }
+}
+
 // /* Knapparna överst i header*/
 // .c-nav .c-button {
 //     font-size: 0.95rem;
@@ -161,3 +183,7 @@ body:not(.home) {
 // .c-button__basic--default {
 //     color: #236151;
 // }
+
+
+
+

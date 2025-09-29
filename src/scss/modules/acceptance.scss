@@ -1,0 +1,9 @@
+.c-acceptance {
+    > p {
+        margin-top: 0;
+    }
+    
+    .c-button {
+        --c-acceptance-color-alpha: white;
+    }
+}

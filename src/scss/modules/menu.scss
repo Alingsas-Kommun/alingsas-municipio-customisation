@@ -87,6 +87,10 @@
 
 .c-nav {
 	&.c-nav--vertical.c-nav--compressed {
+		.c-nav__item-wrapper {
+			min-height: 0;
+		}
+		
 		.c-nav__link {
 			padding: 0;
 		}

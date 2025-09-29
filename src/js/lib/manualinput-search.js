@@ -1,5 +1,3 @@
-import $ from 'jquery';
-
 const store = {};
 /* 
 import Fuse from 'fuse.js'

@@ -3,70 +3,65 @@
 namespace AlingsasCustomisation\Includes;
 
 use AlingsasCustomisation\Plugin;
+
 use ComponentLibrary\Init as ComponentLibraryInit;
 use AlingsasCustomisation\Helpers\Posts;
+use TypesenseIndex\Search as TypesenseIndexSearch;
 
-class Search
-{
+class Search {
     private array $postTypes;
+
     private string $searchTerm;
+
     private \WP_Query $wpquery;
+
     private \wpdb $wpdb;
 
-    public function __construct()
-    {
-        add_action('template_redirect', [$this, 'setLocalVars']);
-        add_action('pre_get_posts', [$this, 'setPostTypesToSearch']);
-        add_action('custom_search_page', [$this, 'customSearchPage']);
+    public function __construct() {
+        $this->postTypes = [
+            'page'             => __('Pages', 'municipio-customisation'),
+            'nyheter'          => __('News', 'municipio-customisation'),
+            'lediga-jobb'      => __('Job vacancies', 'municipio-customisation'),
+            'event'            => __('Events', 'municipio-customisation'),
+            'driftinformation' => __('Operating information', 'municipio-customisation')
+        ];
+
+        //add_action('template_redirect', [$this, 'setLocalVars']);
+        //add_action('pre_get_posts', [$this, 'setPostTypesToSearch']);
+        //add_action('custom_search_page', [$this, 'customSearchPage']);
     }
 
-    private function getPostTypes()
-    {
-        if (!isset($this->postTypes)) {
-            $this->postTypes = [
-                'page' => __('Pages', 'municipio-customisation'),
-                'nyheter' => __('News', 'municipio-customisation'),
-                'jobb' => __('Jobs', 'municipio-customisation'),
-                'event' => __('Events', 'municipio-customisation'),
-                'driftinformation' => __('Operating information', 'municipio-customisation'),
-            ];
-        }
-        return $this->postTypes;
-    }
-
-    public function setLocalVars()
-    {
+    public function setLocalVars() {
         global $wp_query;
         global $wpdb;
 
-        $this->searchTerm = get_search_query();
         $this->wpquery = $wp_query;
-        $this->wpdb = $wpdb;
+        $this->wpdb    = $wpdb;
+
+        if (!is_admin() && $wp_query->is_main_query() && $wp_query->is_search) {
+            $this->searchTerm = $wp_query->query['s'];
+        }
     }
 
-    public function setPostTypesToSearch(\WP_Query $query)
-    {
+    public function setPostTypesToSearch(\WP_Query $query) {
         if ($query->is_main_query() && $query->is_search() && !$query->get('post_type') && !is_admin()) {
-            $postTypes = $this->getPostTypes();
-
-            $query->set('post_type', array_keys($postTypes));
+            $query->set('post_type', array_keys($this->postTypes));
             $query->set('posts_per_page', 10);
             $query->set('paged', $this->getCurrentPage());
 
             $searchType = $this->getSearchType();
-            if ($searchType !== 'all-hits' && in_array($searchType, array_keys($postTypes))) {
+            if ($searchType !== 'all-hits' && in_array($searchType, array_keys($this->postTypes))) {
                 $query->set('post_type', $searchType);
             }
         }
     }
 
-    public function customSearchPage()
-    {
-        $markup = '';
+    public function customSearchPage() {
+        $markup           = "";
         $componentLibrary = new ComponentLibraryInit([]);
-        $bladeEngine = $componentLibrary->getEngine();
+        $bladeEngine      = $componentLibrary->getEngine();
 
-        $data = $this->getData();
+        $data         = $this->getData();
         $data['lang'] = $this->getLang();
 
         try {
@@ -82,61 +77,58 @@ class Search
         echo $markup;
     }
 
-    private function getData()
-    {
-        $postTypes = $this->getPostTypes();
-
+    private function getData() {
         $data = [];
 
-        $data['resultCount'] = $this->wpquery->found_posts;
-        $data['allHits'] = $this->getTotalHitCount();
-        $data['posts'] = $this->getPosts();
-        $data['searchTerm'] = $this->searchTerm;
-        $data['searchTermUrl'] = urlencode($this->searchTerm);
-        $data['searchType'] = $this->getSearchType();
+        $data['resultCount']           = $this->wpquery->found_posts;
+        $data['allHits']               = $this->getTotalHitCount();
+        $data['posts']                 = $this->getPosts();
+        $data['highlights']            = TypesenseIndexSearch::getHighlights();
+        $data['searchTerm']            = $this->searchTerm;
+        $data['searchTermUrl']         = urlencode($this->searchTerm);
+        $data['searchType']            = $this->getSearchType();
         $data['currentPagePagination'] = $this->getCurrentPage();
-        $data['showPagination'] = \Municipio\Helper\Archive::showPagination(false, $this->wpquery);
-        $data['paginationList'] = \Municipio\Helper\Archive::getPagination(false, $this->wpquery);
+        $data['showPagination']        = \Municipio\Helper\Archive::showPagination(false, $this->wpquery);
+        $data['paginationList']        = \Municipio\Helper\Archive::getPagination(false, $this->wpquery);
 
-        $count = $this->getResultCountByPostType();
-        $countByType = array_map(function ($typeKey) use ($count, $data, $postTypes) {
+        $countByType = $this->getResultCountByPostType();
+        $countByType = array_map(function ($typeName) use ($countByType, $data) {
+            $typeKey = array_flip($this->postTypes)[$typeName];
+
             return [
-                'name' => $postTypes[$typeKey], 
-                'link' => home_url("/?s={$data['searchTermUrl']}&type={$typeKey}"),
+                'name'    => $typeName,
+                'link'    => home_url("/?s={$data['searchTermUrl']}&type={$typeKey}"),
                 'type_id' => $typeKey,
-                'count' => $count[$typeKey] ?? 0,
-                'active' => $typeKey === $data['searchType'],
+                'count'   => $countByType[$typeName]['count'],
+                'active'  => $typeKey === $data['searchType'],
             ];
-        }, array_keys($postTypes));
+        }, array_keys($countByType));
         $data['countByType'] = $countByType;
 
         return $data;
     }
 
-    private function getLang()
-    {
+    private function getLang() {
         $domain = $_SERVER['HTTP_HOST'];
 
-        $lang = new \stdClass();
+        $lang = new \stdClass;
 
-        $lang->search = __('Search', 'municipio');
+        $lang->search      = __('Search', 'municipio');
         $lang->placeholder = __('What are you searching for?', 'municipio');
-        $lang->hits = _n('Hit', 'Hits', $this->wpquery->found_posts, 'municipio-customisation');
-        $lang->allHits = __('All hits', 'municipio-customisation');
+        $lang->hits        = _n('Hit', 'Hits', $this->getTotalHitCount(), 'municipio-customisation');
+        $lang->allHits     = __('All hits', 'municipio-customisation');
         /* translators: 1 nr hits, 2 hits, 3 search string, 4 domain */
         $lang->found = __('%1$d %2$s for <b>"%3$s"</b> on %4$s', 'municipio-customisation');
-        $lang->found = sprintf($lang->found, $this->wpquery->found_posts, lcfirst($lang->hits), $this->searchTerm, $domain);
+        $lang->found = sprintf($lang->found, $this->getTotalHitCount(), lcfirst($lang->hits), $this->searchTerm, $domain);
 
         return $lang;
     }
 
-    private function getSearchType()
-    {
+    private function getSearchType() {
         return isset($_GET['type']) ? trim($_GET['type']) : 'all-hits';
     }
 
-    private function getPosts()
-    {
+    private function getPosts() {
         $posts = $this->wpquery->posts;
         foreach ($posts as $postKey => $post) {
             $posts[$postKey] = \Municipio\Helper\Post::preparePostObject($post);
@@ -156,62 +148,23 @@ class Search
         return $posts;
     }
 
-    private function getTotalHitCount()
-    {
-        $postTypes = $this->getPostTypes(); 
-        $postTypesStr = implode(',', array_map(fn($item) => "'{$item}'", array_keys($postTypes)));
-
-        $sql = "SELECT COUNT(*)
-                FROM {$this->wpdb->posts}
-                WHERE post_type IN ({$postTypesStr})
-                AND post_status = 'publish'
-                AND post_password = ''
-                AND (
-                    post_title LIKE %s 
-                    OR post_excerpt LIKE %s 
-                    OR post_content LIKE %s 
-                )";
-
-        $preparedStatement = $this->wpdb->prepare($sql, '%' . $this->searchTerm . '%', '%' . $this->searchTerm . '%', '%' . $this->searchTerm . '%');
-
-        $count = $this->wpdb->get_var($preparedStatement);
-
-        return intval($count);
+    private function getTotalHitCount() {
+        return TypesenseIndexSearch::getTotalHitCount();
     }
 
-    private function getResultCountByPostType()
-    {
-        $postTypes = $this->getPostTypes();
-        $postTypesStr = implode(',', array_map(fn($item) => "'{$item}'", array_keys($postTypes)));
+    private function getResultCountByPostType() {
+        $facetCounts = TypesenseIndexSearch::getFacetCounts();
+        $countByType = $facetCounts['post_type_name'];
 
-        $sql = "SELECT COUNT(*) occurrences, post_type
-                FROM {$this->wpdb->posts}
-                WHERE post_type IN ({$postTypesStr})
-                AND post_status = 'publish'
-                AND post_password = ''
-                AND (
-                    post_title LIKE %s 
-                    OR post_excerpt LIKE %s 
-                    OR post_content LIKE %s 
-                )
-                GROUP BY post_type";
-
-        $preparedStatement = $this->wpdb->prepare($sql, '%' . $this->searchTerm . '%', '%' . $this->searchTerm . '%', '%' . $this->searchTerm . '%');
-
-        $count = $this->wpdb->get_results($preparedStatement);
-
-        if (is_array($count) && sizeof($count) > 0) {
-            $count = array_combine(array_column($count, 'post_type'), array_map('intval', array_column($count, 'occurrences')));
-        } else {
-            $count = [];
-        }
-
-        return $count;
+        return $countByType;
     }
 
-    private function getCurrentPage()
-    {
-        $paged = isset($_GET['paged']) ? (intval($_GET['paged']) > 0 ? intval($_GET['paged']) : 1) : 1;
+    private function getCurrentPage() {
+        $paged = isset($_GET['paged'])
+            ? (intval($_GET['paged']) > 0
+                ? intval($_GET['paged'])
+                : 1)
+            : 1;
 
         return $paged;
     }

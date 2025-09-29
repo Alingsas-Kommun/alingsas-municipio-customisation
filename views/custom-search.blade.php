@@ -68,20 +68,29 @@
 
     @if ($resultCount)
         <section class="t-searchresult">
-
             @foreach ($posts as $post)
                 @card([
-                    'heading' => $post->postTitleFiltered,
+                    'heading' => isset($highlights[$post->id]['post_title'])
+                        ? $highlights[$post->id]['post_title']
+                        : $post->postTitleFiltered,
                     'link' => $post->permalink,
                     'classList' => ['u-margin__top--4']
                 ])
                     @slot('content')
-                        @if (!empty($post->postContent))
-                            <p>{{ strip_tags($post->excerpt) }}</p>
-                            <br>
-                        @endif
-                        <b>{{ implode(' > ', array_map(fn($crumb) => $crumb['title'], $post->breadcrumbs)) }}</b>
-                        <br>
+                        <div class="text">
+                            @if (isset($highlights[$post->id]['post_excerpt']))
+                                <p>{!! $highlights[$post->id]['post_excerpt'] !!}</p>
+                            @elseif (isset($highlights[$post->id]['content']))
+                                <p>[...] {!! $highlights[$post->id]['content'] !!} [...]</p>
+                            @elseif (!empty($post->excerpt))
+                                <p>
+                                    {{ strip_tags($post->excerpt) }}
+                                </p>
+                            @endif
+                        </div>
+                        <div class="breadcrumbs">
+                            {{ implode(' > ', array_map(fn($crumb) => $crumb['title'], $post->breadcrumbs)) }}
+                        </div>
                         <p>Senast ändrad: {{ $post->postModifiedGmt }} </p>
                     @endslot
                 @endcard

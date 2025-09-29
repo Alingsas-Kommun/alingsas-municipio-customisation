@@ -69,7 +69,8 @@ class MenuFilter {
         }
 
         // Check for any published children using WordPress functions
-        return $this->hasPublishedChildren($item['id']);
+        $pageId = isset($item['page_id']) ? $item['page_id'] : $item['id'];
+        return $this->hasPublishedChildren($pageId);
     }
 
     /**

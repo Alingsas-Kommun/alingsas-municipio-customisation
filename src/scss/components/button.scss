@@ -61,7 +61,10 @@ body:not(.home) {
 
 
 .ak-tags {
- padding: 2rem 0rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem .75rem;
+    padding: 2rem 0rem;
 }
 
 a.ak-tag {

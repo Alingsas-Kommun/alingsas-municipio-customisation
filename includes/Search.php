@@ -18,17 +18,19 @@ class Search {
     private \wpdb $wpdb;
 
     public function __construct() {
-        $this->postTypes = [
-            'page'             => __('Pages', 'municipio-customisation'),
-            'nyheter'          => __('News', 'municipio-customisation'),
-            'lediga-jobb'      => __('Job vacancies', 'municipio-customisation'),
-            'event'            => __('Events', 'municipio-customisation'),
-            'driftinformation' => __('Operating information', 'municipio-customisation')
-        ];
+        add_action('template_redirect', [$this, 'setLocalVars']);
+        add_action('pre_get_posts', [$this, 'setPostTypesToSearch']);
+        add_action('custom_search_page', [$this, 'customSearchPage']);
 
-        //add_action('template_redirect', [$this, 'setLocalVars']);
-        //add_action('pre_get_posts', [$this, 'setPostTypesToSearch']);
-        //add_action('custom_search_page', [$this, 'customSearchPage']);
+        add_action('init', function() {
+            $this->postTypes = [
+                'page'             => __('Pages', 'municipio-customisation'),
+                'nyheter'          => __('News', 'municipio-customisation'),
+                'lediga-jobb'      => __('Jobs', 'municipio-customisation'),
+                'event'            => __('Events', 'municipio-customisation'),
+                'driftinformation' => __('Operating information', 'municipio-customisation')
+            ];
+        });
     }
 
     public function setLocalVars() {
@@ -92,14 +94,13 @@ class Search {
         $data['paginationList']        = \Municipio\Helper\Archive::getPagination(false, $this->wpquery);
 
         $countByType = $this->getResultCountByPostType();
-        $countByType = array_map(function ($typeName) use ($countByType, $data) {
-            $typeKey = array_flip($this->postTypes)[$typeName];
-
+        $countByType = array_map(function ($typeKey) use ($countByType, $data) {
+            $typeName = $this->postTypes[$typeKey] ?? $typeKey;
             return [
                 'name'    => $typeName,
                 'link'    => home_url("/?s={$data['searchTermUrl']}&type={$typeKey}"),
                 'type_id' => $typeKey,
-                'count'   => $countByType[$typeName]['count'],
+                'count'   => $countByType[$typeKey]['count'],
                 'active'  => $typeKey === $data['searchType'],
             ];
         }, array_keys($countByType));
@@ -154,7 +155,7 @@ class Search {
 
     private function getResultCountByPostType() {
         $facetCounts = TypesenseIndexSearch::getFacetCounts();
-        $countByType = $facetCounts['post_type_name'];
+        $countByType = $facetCounts['post_type'];
 
         return $countByType;
     }

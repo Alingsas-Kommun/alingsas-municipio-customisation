@@ -133,6 +133,10 @@ body:has(.c-drawer.is-open) {
     scrollbar-width: thin;
     scrollbar-color: #236151 #f0f0f0;
 
+    &__body {
+        padding-bottom: 70px;
+    }
+
     .search-form {
         display: none;
     }

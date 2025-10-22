@@ -31,6 +31,14 @@ class Search {
                 'driftinformation' => __('Operating information', 'municipio-customisation')
             ];
         });
+
+        add_filter('TypesenseIndex/Index/CustomBoost', function(int|null $boostValue, \WP_Post $post) {
+            if ($post->post_type === 'page' && $boostValue === null) {
+                $boostValue = 1;
+            }
+
+            return $boostValue;
+        }, 10, 2);
     }
 
     public function setLocalVars() {

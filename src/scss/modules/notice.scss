@@ -1,0 +1,38 @@
+.c-notice {
+    &.c-notice--action-below {
+        --c-icon-size: 1.75rem;
+
+        padding: calc(var(--base, 8px) * 3) calc(var(--base, 8px) * 5);
+        row-gap: calc(var(--base, 8px) / 2);
+        grid-template-columns: auto;
+        grid-template-areas:
+            "title"
+            "message"
+            "actions";
+
+
+        >[class*=c-notice__]+[class*=c-notice__] {
+            margin-left: 0;
+        }
+
+        .c-notice__title {
+            font-size: 135%;
+            font-weight: normal;
+            margin-left: 2.5rem !important;
+        }
+
+        .c-notice__icon {
+            grid-area: title;
+        }
+        
+        .c-notice__action {
+            padding-bottom: 1rem;
+            
+            .c-button {
+                font-size: var(--font-size-base, 1rem);
+                font-weight: normal;
+                height: auto;
+            }
+        }
+    }
+}

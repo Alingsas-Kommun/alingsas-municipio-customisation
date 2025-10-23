@@ -1,19 +1,34 @@
 .c-notice {
-    &.c-notice--action-below {
+
+    &.c-notice--action-below,
+    &.c-notice--action-below:has(.c-notice__title),
+    &.c-notice--action-below:not(:has(.c-notice__title)) {
         --c-icon-size: 1.75rem;
 
-        padding: calc(var(--base, 8px) * 3) calc(var(--base, 8px) * 5);
         row-gap: calc(var(--base, 8px) / 2);
         grid-template-columns: auto;
-        grid-template-areas:
-            "title"
-            "message"
-            "actions";
 
+        .c-notice__action {
+            padding-bottom: 1rem;
+
+            .c-button {
+                font-size: var(--font-size-base, 1rem);
+                font-weight: normal;
+                height: auto;
+            }
+        }
 
         >[class*=c-notice__]+[class*=c-notice__] {
             margin-left: 0;
         }
+    }
+
+    &.c-notice--action-below:has(.c-notice__title) {
+        padding: calc(var(--base, 8px) * 3) calc(var(--base, 8px) * 5);
+        grid-template-areas:
+            "title"
+            "message"
+            "actions";
 
         .c-notice__title {
             font-size: 135%;
@@ -24,15 +39,21 @@
         .c-notice__icon {
             grid-area: title;
         }
-        
+    }
+
+    &.c-notice--action-below:not(:has(.c-notice__title)) {
+        padding: calc(var(--base, 8px) * 3) calc(var(--base, 8px) * 4);
+        grid-template-areas:
+            "message"
+            "actions";
+
+        .c-notice__icon {
+            grid-area: message;
+        }
+
+        .c-notice__message,
         .c-notice__action {
-            padding-bottom: 1rem;
-            
-            .c-button {
-                font-size: var(--font-size-base, 1rem);
-                font-weight: normal;
-                height: auto;
-            }
+            margin-left: 2.5rem !important;
         }
     }
 }

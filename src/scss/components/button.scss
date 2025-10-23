@@ -10,7 +10,7 @@ body:not(.home) {
     .sidebar-content-area-top {
         --c-button-primary-color: var(--theme-button-background, #{$color-brand-alt});
 
-        .c-button {
+        .c-button:not(.c-notice__button) {
             --base: 7px;
             background-color: var(--theme-button-background, #{$color-brand-alt});
 

@@ -69,6 +69,32 @@ body.home {
     }
 }
 
+.s-nyheter-archive {
+    a.c-card {
+        .c-card__body {
+            padding: calc(var(--base, 8px)* 2);
+        }
+
+        .c-card__heading {
+            text-decoration: underline;
+        }
+
+        .c-group--vertical {
+            align-items: flex-start;
+            flex-direction: row;
+
+            &:before {
+                content: 'arrow_forward';
+                font-family: 'Material Symbols Rounded';
+                font-size: 1.5rem;
+                height: 100%;
+                line-height: 1.3;
+                margin-right: .5rem;
+            }
+        }
+    }
+}
+
 .sidebar-left-sidebar,
 .sidebar-right-sidebar,
 .single-event-sidebar-right {

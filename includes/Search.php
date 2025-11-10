@@ -15,8 +15,6 @@ class Search {
 
     private \WP_Query $wpquery;
 
-    private \wpdb $wpdb;
-
     public function __construct() {
         add_action('template_redirect', [$this, 'setLocalVars']);
         add_action('pre_get_posts', [$this, 'setPostTypesToSearch']);
@@ -43,10 +41,8 @@ class Search {
 
     public function setLocalVars() {
         global $wp_query;
-        global $wpdb;
 
         $this->wpquery = $wp_query;
-        $this->wpdb    = $wpdb;
 
         if (!is_admin() && $wp_query->is_main_query() && $wp_query->is_search) {
             $this->searchTerm = $wp_query->query['s'];

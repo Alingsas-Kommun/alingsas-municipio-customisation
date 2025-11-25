@@ -10,7 +10,7 @@ body:not(.home) {
     .sidebar-content-area-top {
         --c-button-primary-color: var(--theme-button-background, #{$color-brand-alt});
 
-        .c-button {
+        .c-button:not(.c-notice__button) {
             --base: 7px;
             background-color: var(--theme-button-background, #{$color-brand-alt});
 
@@ -62,8 +62,8 @@ body:not(.home) {
 
 .ak-tags {
     display: flex;
-    flex-wrap: wrap;
-    gap: 1rem .75rem;
+    flex-flow: row wrap;
+    gap: 1rem 0.75rem;
     padding: 2rem 0rem;
 }
 

@@ -7,14 +7,17 @@
                     'image' => $post->imageContract ?? (!empty($post->images['thumbnail16:9']) ? $post->images['thumbnail16:9'] : null),
                     'heading' => $post->postTitle,
                     'classList' => ['t-archive-card', 'u-height--100', 'u-display--flex', 'u-level-2'],
-                    'content' => $post->excerptShort,
+                    'content' => \Municipio\Helper\Sanitize::sanitizeATags($post->excerptShort),
                     'tags' => $post->termsUnlinked,
                     'meta' => $displayReadingTime ? $post->readingTime : '',
-                    'date' => $post->archiveDate,
-                    'dateBadge' => $post->archiveDateFormat == 'date-badge',
+                    'date' => [
+                        'timestamp' => $post->getArchiveDateTimestamp(),
+                        'format' => $post->getArchiveDateFormat()
+                    ],
+                    'dateBadge' => $post->getArchiveDateFormat() == 'date-badge',
                     'context' => ['archive', 'archive.list', 'archive.list.card'],
                     'containerAware' => true,
-                    'hasPlaceholder' => false
+                    'hasPlaceholder' => $anyPostHasImage && empty($post->images['thumbnail16:9']['src'])
                 ])
                 @endcard
             </div>

@@ -6,12 +6,12 @@
   "authors": [
     {
       "name": "Alingsas Kommun",
-      "email": "email@provider.net"
+      "email": "it@alingsas.se"
     }
   ],
   "minimum-stability": "stable",
   "require": {
-    "helsingborg-stad/api-event-manager-integration": "~2.0.23"
+    "helsingborg-stad/api-event-manager-integration": "~2.0"
   },
   "repositories": [
     {
@@ -19,5 +19,5 @@
       "url": "https://github.com/Alingsas-Kommun/alingsas-municipio-customisation"
     }
   ],
-  "version": "0.2.0"
+  "version": "0.2.1"
 }

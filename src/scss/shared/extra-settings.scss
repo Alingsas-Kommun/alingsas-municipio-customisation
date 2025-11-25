@@ -2,6 +2,10 @@ div[class^="modularity-mod-"] {
     &.has-background-stripe {
         position: relative;
 
+        > * {
+            position: relative;
+        }
+
         &::before {
             content: '';
             height: 100%;

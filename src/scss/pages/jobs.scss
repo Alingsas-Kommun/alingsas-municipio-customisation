@@ -6,4 +6,12 @@
     .c-table .c-table__body .c-table__column {
         border-right: 0;
     }
+
+    .c-table .c-table__body .c-table__line:nth-child(odd) .c-table__column {
+        background-color: #f5f5f5 !important;
+    }
+
+    .c-table .c-table__body .c-table__line:hover .c-table__column {
+        background-color: rgba(0, 0, 0, 0.2) !important;
+    }
 }

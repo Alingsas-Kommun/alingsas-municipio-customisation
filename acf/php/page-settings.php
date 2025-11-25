@@ -106,6 +106,20 @@
                 'value' => 'page',
             ),
         ),
+        1 => array(
+            0 => array(
+                'param' => 'post_type',
+                'operator' => '==',
+                'value' => 'nyheter',
+            ),
+        ),
+        2 => array(
+            0 => array(
+                'param' => 'post_type',
+                'operator' => '==',
+                'value' => 'driftinformation',
+            ),
+        ),
     ),
     'menu_order' => 0,
     'position' => 'side',

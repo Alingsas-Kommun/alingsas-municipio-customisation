@@ -7,6 +7,7 @@
 }
 
 body:not(.home) {
+
     .sidebar-content-area-top {
         --c-button-primary-color: var(--theme-button-background, #{$color-brand-alt});
 
@@ -22,6 +23,54 @@ body:not(.home) {
 
             .c-button__label {
                 color: var(--theme-button-color, white);
+            }
+        }
+    }
+
+    .modularity-event-index {
+        .c-button {
+            --base: 7px;
+            background-color: var(--theme-button-background, #{$color-brand-alt});
+            border: 1px solid var(--theme-button-color, black);
+
+            &:hover {
+                background-color: var(--theme-button-background, #{$color-brand-alt});
+            }
+
+            &__filled:hover::after {
+                background-color: color-mix(in srgb, var(--theme-button-background, #{$color-brand-alt}) 70%, white 30%) !important;
+                opacity: 1 !important;
+                z-index: -1;
+            }
+
+            .c-button__label {
+                color: var(--theme-button-color, white);
+            }
+
+            &.disabled:hover::after {
+                display: none !important;
+            }
+        }
+
+        .c-pagination {
+            .c-button {
+                .c-icon {
+                    text-align: center;
+
+                    &::after {
+                        display: none;
+                    }
+                }
+
+                &.c-button__filled--primary {
+                    background-color: var(--theme-button-color, #{$color-brand-alt});
+                    color: white;
+                }
+
+                &.disabled {
+                    cursor: not-allowed;
+                    opacity: 0.75;
+                }
             }
         }
     }
@@ -75,9 +124,9 @@ a.ak-tag {
     background-color: $color-plantation;
     color: white;
     color: white;
-    border-radius: 50px;    
+    border-radius: 50px;
     text-decoration: none;
-    
+
     &:hover {
         color: white;
         opacity: .7;
@@ -186,7 +235,3 @@ a.ak-tag {
 // .c-button__basic--default {
 //     color: #236151;
 // }
-
-
-
-

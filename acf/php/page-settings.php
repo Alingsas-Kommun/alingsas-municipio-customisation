@@ -1,9 +1,7 @@
 <?php 
 
-
-if (function_exists('acf_add_local_field_group')) {
-
-    acf_add_local_field_group(array(
+if (function_exists('acf_add_local_field_group')) {
+    acf_add_local_field_group(array(
     'key' => 'group_673dd0baaff48',
     'title' => __('Page settings', 'municipio-customisation'),
     'fields' => array(
@@ -23,6 +21,8 @@ if (function_exists('acf_add_local_field_group')) {
             ),
             'choices' => array(
                 '-' => __('Standard', 'municipio-customisation'),
+                'e41f72b75f64f3238080a8ed3158c554' => __('Jobb', 'municipio-customisation'),
+                '46f1075d6585e36386c584b087497d39' => __('Alingsås kulturhus ', 'municipio-customisation'),
             ),
             'default_value' => false,
             'return_format' => 'value',
@@ -33,6 +33,8 @@ if (function_exists('acf_add_local_field_group')) {
             'allow_null' => 0,
             'ui' => 0,
             'ajax' => 0,
+            'create_options' => 0,
+            'save_options' => 0,
         ),
         1 => array(
             'key' => 'field_678b816dc1948',
@@ -74,6 +76,27 @@ if (function_exists('acf_add_local_field_group')) {
             'ui_on_text' => '',
             'ui_off_text' => '',
         ),
+        3 => array(
+            'key' => 'field_692587a1568a6',
+            'label' => __('Hide right sidebar', 'municipio-customisation'),
+            'name' => 'hide_right_sidebar',
+            'aria-label' => '',
+            'type' => 'true_false',
+            'instructions' => __('Right sidebar is automatically shown for accessibility reasons on pages, posts and the likes', 'municipio-customisation'),
+            'required' => 0,
+            'conditional_logic' => 0,
+            'wrapper' => array(
+                'width' => '',
+                'class' => '',
+                'id' => '',
+            ),
+            'message' => __('Yes', 'municipio-customisation'),
+            'default_value' => 0,
+            'allow_in_bindings' => 1,
+            'ui' => 0,
+            'ui_on_text' => '',
+            'ui_off_text' => '',
+        ),
     ),
     'location' => array(
         0 => array(
@@ -81,6 +104,20 @@ if (function_exists('acf_add_local_field_group')) {
                 'param' => 'post_type',
                 'operator' => '==',
                 'value' => 'page',
+            ),
+        ),
+        1 => array(
+            0 => array(
+                'param' => 'post_type',
+                'operator' => '==',
+                'value' => 'nyheter',
+            ),
+        ),
+        2 => array(
+            0 => array(
+                'param' => 'post_type',
+                'operator' => '==',
+                'value' => 'driftinformation',
             ),
         ),
     ),
@@ -93,6 +130,7 @@ if (function_exists('acf_add_local_field_group')) {
     'active' => true,
     'description' => '',
     'show_in_rest' => 0,
+    'display_title' => '',
     'acfe_display_title' => '',
     'acfe_autosync' => array(
         0 => 'json',
@@ -101,5 +139,4 @@ if (function_exists('acf_add_local_field_group')) {
     'acfe_meta' => '',
     'acfe_note' => '',
 ));
-
-}
+}

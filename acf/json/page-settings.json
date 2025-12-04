@@ -17,7 +17,9 @@
                 "id": ""
             },
             "choices": {
-                "-": "Standard"
+                "-": "Standard",
+                "e41f72b75f64f3238080a8ed3158c554": "Jobb",
+                "46f1075d6585e36386c584b087497d39": "Alings\u00e5s kulturhus "
             },
             "default_value": false,
             "return_format": "value",
@@ -27,7 +29,9 @@
             "search_placeholder": "",
             "allow_null": 0,
             "ui": 0,
-            "ajax": 0
+            "ajax": 0,
+            "create_options": 0,
+            "save_options": 0
         },
         {
             "key": "field_678b816dc1948",
@@ -68,6 +72,27 @@
             "ui": 0,
             "ui_on_text": "",
             "ui_off_text": ""
+        },
+        {
+            "key": "field_692587a1568a6",
+            "label": "Hide right sidebar",
+            "name": "hide_right_sidebar",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "Right sidebar is automatically shown for accessibility reasons on pages, posts and the likes",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "Yes",
+            "default_value": 0,
+            "allow_in_bindings": 1,
+            "ui": 0,
+            "ui_on_text": "",
+            "ui_off_text": ""
         }
     ],
     "location": [
@@ -76,6 +101,20 @@
                 "param": "post_type",
                 "operator": "==",
                 "value": "page"
+            }
+        ],
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "nyheter"
+            }
+        ],
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "driftinformation"
             }
         ]
     ],
@@ -88,6 +127,7 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
+    "display_title": "",
     "acfe_display_title": "",
     "acfe_autosync": [
         "json"
@@ -96,4 +136,4 @@
     "acfe_meta": "",
     "acfe_note": ""
 }]
-
+

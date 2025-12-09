@@ -72,11 +72,8 @@
 		}
 
 		&.mod-menu--wrapped {
-
 			.mod-menu__children,
 			.mod-menu__heading-description {
-				grid-column: 2 / span 2;
-
 				a {
 					text-decoration: underline;
 				}
@@ -90,11 +87,9 @@
 		.c-nav__item-wrapper {
 			min-height: 0;
 		}
-		
+
 		.c-nav__link {
 			padding: 0;
 		}
 	}
 }
-
-

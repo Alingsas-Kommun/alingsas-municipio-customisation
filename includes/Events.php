@@ -18,7 +18,10 @@ class Events {
             $source_type = get_field('posts_data_post_type', $pid);
 
             if ($source_type === 'event') {
-                $field['choices']['ak-event'] = 'Event';
+                $field['choices']['ak-event'] = [
+                    'image-select-repeater-label' => __('Event', 'municipio-customisation'),
+                    'image-select-repeater-value' => 'ak-event',
+                ];
             }
 
             return $field;
@@ -34,6 +37,15 @@ class Events {
         }, 10, 4);
 
         // Preprocess events on archive page
+        add_filter('Municipio/Template/event/archive/viewData', function($viewData) {
+            if (is_post_type_archive('event')) {
+                foreach ($viewData['posts'] as $key => $post) {
+                    $viewData['posts'][$key] = EventHelper::parseEvent($post);
+                }
+            }
+
+            return $viewData;
+        });
         add_filter('Municipio/Controller/Archive/getArchivePosts', function ($posts) {
             if (is_post_type_archive('event')) {
                 foreach ($posts as $key => $post) {

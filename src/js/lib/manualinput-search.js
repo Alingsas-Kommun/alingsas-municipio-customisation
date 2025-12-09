@@ -1,3 +1,4 @@
+const $ = jQuery;
 const store = {};
 /* 
 import Fuse from 'fuse.js'

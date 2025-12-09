@@ -36,7 +36,7 @@ class Config
         );
 
         // Add template path for posts module
-        add_filter('Modularity/Module/posts/TemplatePath', function ($paths) {
+        add_filter('Modularity/Module/Posts/TemplatePath', function ($paths) {
             $paths[] = Plugin::PATH . '/views/';
 
             return $paths;

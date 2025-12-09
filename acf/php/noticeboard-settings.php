@@ -12,7 +12,7 @@
             'aria-label' => '',
             'type' => 'url',
             'instructions' => '',
-            'required' => 1,
+            'required' => 0,
             'conditional_logic' => 0,
             'wrapper' => array(
                 'width' => '',
@@ -20,6 +20,7 @@
                 'id' => '',
             ),
             'default_value' => '',
+            'allow_in_bindings' => 1,
             'placeholder' => '',
         ),
         1 => array(
@@ -40,6 +41,7 @@
             'return_format' => 'Y-m-d',
             'first_day' => 1,
             'allow_in_bindings' => 1,
+            'default_to_current_date' => 0,
         ),
         2 => array(
             'key' => 'field_67a22fbb01482',
@@ -78,6 +80,7 @@
             'display_format' => 'Y-m-d',
             'return_format' => 'Y-m-d',
             'first_day' => 1,
+            'default_to_current_date' => 0,
         ),
         4 => array(
             'key' => 'field_67935342a006f',
@@ -147,7 +150,7 @@
     'active' => true,
     'description' => '',
     'show_in_rest' => 0,
-    'acfe_display_title' => '',
+    'display_title' => '',
     'acfe_autosync' => array(
         0 => 'json',
     ),

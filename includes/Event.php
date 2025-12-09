@@ -6,16 +6,10 @@ namespace AlingsasCustomisation\Includes;
 class Event extends \EventManagerIntegration\PostTypes\Events {
 
 	public function __construct() {
-		if ( class_exists( '\\EventManagerIntegration\\App' ) ) {
-			add_filter( 'Municipio/viewData', array( $this, 'singleViewData' ) );
-		}
+		add_filter( 'Municipio/Template/event/single/viewData', [ $this, 'singleViewData' ], 5, 1 );
 	}
 
 	public function singleViewData( $data ) {
-		if ( get_post_type() !== parent::$postTypeSlug || is_archive() ) {
-			return $data;
-		}
-
 		global $post;
 
 		$terms               = [];
@@ -23,7 +17,7 @@ class Event extends \EventManagerIntegration\PostTypes\Events {
 		$terms['tags']       = get_the_terms( $post->ID, 'event_tags' );
 		$terms['groups']     = get_the_terms( $post->ID, 'event_groups' );
 
-		foreach ( $terms as $taxonomy => $termObjects ) {
+		foreach ( $terms as $termObjects ) {
 			if ( is_array( $termObjects ) ) {
 				foreach ( $termObjects as $term ) {
 					if ( is_a( $term, 'WP_Term' ) ) {
@@ -33,7 +27,7 @@ class Event extends \EventManagerIntegration\PostTypes\Events {
 			}
 		}
 
-		$data['event']['terms'] = $terms;
+		$data['terms'] = $terms;
 
 		return $data;
 	}

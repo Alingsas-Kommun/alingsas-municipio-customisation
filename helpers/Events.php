@@ -9,9 +9,10 @@ use ComponentLibrary\Integrations\Image\Image;
 use DateTimeZone;
 use Municipio\Integrations\Component\ImageResolver;
 use Municipio\PostObject\Decorators\BackwardsCompatiblePostObject;
+use Municipio\PostObject\PostObjectInterface;
 
 class Events {
-    public static function parseEvent(BackwardsCompatiblePostObject $event) {
+    public static function parseEvent(PostObjectInterface $event) {
         if ($event->postType !== 'event') {
             return $event;
         }

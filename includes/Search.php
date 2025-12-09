@@ -31,6 +31,12 @@ class Search {
             ];
         });
 
+        add_filter('query_vars', function($vars) {
+            $vars[] = 's';
+            $vars[] = 'type';
+            return $vars;
+        });
+
         add_filter('TypesenseIndex/Index/CustomBoost', function(int|null $boostValue, \WP_Post $post) {
             if ($post->post_type === 'page' && $boostValue === null) {
                 $boostValue = 1;
@@ -99,8 +105,14 @@ class Search {
         $data['searchTermUrl']         = urlencode($this->searchTerm);
         $data['searchType']            = $this->getSearchType();
         $data['currentPagePagination'] = $this->getCurrentPage();
-        $data['showPagination']        = \Municipio\Helper\Archive::showPagination(false, $this->wpquery);
-        $data['paginationList']        = \Municipio\Helper\Archive::getPagination(false, $this->wpquery);
+        
+        $data['getPaginationComponentArguments'] = (new \Municipio\PostsList\ViewCallableProviders\Pagination\GetPaginationComponentArguments(
+                $this->wpquery->max_num_pages,
+                $this->getCurrentPage(),
+                'paged',
+            ))->getCallable();
+       /*  $data['showPagination']        = \Municipio\Helper\Archive::showPagination(false, $this->wpquery);
+        $data['paginationList']        = \Municipio\Helper\Archive::getPagination(false, $this->wpquery); */
 
         $countByType = $this->getResultCountByPostType();
         $countByType = array_map(function ($typeKey) use ($countByType, $data) {
@@ -129,8 +141,8 @@ class Search {
         $data['searchTermUrl'] = urlencode($this->searchTerm);
         $data['searchType'] = $this->getSearchType();
         $data['currentPagePagination'] = $this->getCurrentPage();
-        $data['showPagination'] = \Municipio\Helper\Archive::showPagination(false, $this->wpquery);
-        $data['paginationList'] = \Municipio\Helper\Archive::getPagination(false, $this->wpquery);
+        /* $data['showPagination'] = \Municipio\Helper\Archive::showPagination(false, $this->wpquery);
+        $data['paginationList'] = \Municipio\Helper\Archive::getPagination(false, $this->wpquery); */
 
         $count = $this->getFallbackResultCountByPostType();
         $countByType = array_map(function ($typeKey) use ($count, $data) {

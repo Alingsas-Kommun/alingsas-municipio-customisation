@@ -4,6 +4,7 @@ namespace AlingsasCustomisation\Includes;
 
 use AlingsasCustomisation\Plugin;
 
+use \Municipio\PostsList\ViewCallableProviders;
 use ComponentLibrary\Init as ComponentLibraryInit;
 use AlingsasCustomisation\Helpers\Posts;
 use TypesenseIndex\Helper\Index as TypesenseClient;
@@ -104,15 +105,12 @@ class Search {
         $data['searchTerm']            = $this->searchTerm;
         $data['searchTermUrl']         = urlencode($this->searchTerm);
         $data['searchType']            = $this->getSearchType();
-        $data['currentPagePagination'] = $this->getCurrentPage();
         
-        $data['getPaginationComponentArguments'] = (new \Municipio\PostsList\ViewCallableProviders\Pagination\GetPaginationComponentArguments(
-                $this->wpquery->max_num_pages,
-                $this->getCurrentPage(),
-                'paged',
-            ))->getCallable();
-       /*  $data['showPagination']        = \Municipio\Helper\Archive::showPagination(false, $this->wpquery);
-        $data['paginationList']        = \Municipio\Helper\Archive::getPagination(false, $this->wpquery); */
+        $data['getPaginationComponentArguments'] = (new ViewCallableProviders\Pagination\GetPaginationComponentArguments(
+            $this->wpquery->max_num_pages,
+            $this->getCurrentPage(),
+            'paged',
+        ))->getCallable();
 
         $countByType = $this->getResultCountByPostType();
         $countByType = array_map(function ($typeKey) use ($countByType, $data) {
@@ -140,9 +138,12 @@ class Search {
         $data['searchTerm'] = $this->searchTerm;
         $data['searchTermUrl'] = urlencode($this->searchTerm);
         $data['searchType'] = $this->getSearchType();
-        $data['currentPagePagination'] = $this->getCurrentPage();
-        /* $data['showPagination'] = \Municipio\Helper\Archive::showPagination(false, $this->wpquery);
-        $data['paginationList'] = \Municipio\Helper\Archive::getPagination(false, $this->wpquery); */
+
+        $data['getPaginationComponentArguments'] = (new ViewCallableProviders\Pagination\GetPaginationComponentArguments(
+            $this->wpquery->max_num_pages,
+            $this->getCurrentPage(),
+            'paged',
+        ))->getCallable();
 
         $count = $this->getFallbackResultCountByPostType();
         $countByType = array_map(function ($typeKey) use ($count, $data) {

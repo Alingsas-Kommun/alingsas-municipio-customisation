@@ -98,14 +98,15 @@
 
         </section>
 
-        <section class="t-searchpagination u-mt-0 u-margin__top--6 u-margin__bottom--8">
-            @pagination([
-                ...$getPaginationComponentArguments(),
-                'classList' => ['u-display--flex', 'u-justify-content--center'],
-            ])
-            @endpagination
-
-        </section>
+        @if (!empty($getPaginationComponentArguments()))
+            <section class="t-searchpagination u-mt-0 u-margin__top--6 u-margin__bottom--8">
+                @pagination([
+                    ...$getPaginationComponentArguments(),
+                    'classList' => ['u-display--flex', 'u-justify-content--center'],
+                ])
+                @endpagination
+            </section>
+        @endif;
 
     @endif
 </div>

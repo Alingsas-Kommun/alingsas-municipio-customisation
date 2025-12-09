@@ -9,7 +9,7 @@
             "aria-label": "",
             "type": "url",
             "instructions": "",
-            "required": 1,
+            "required": 0,
             "conditional_logic": 0,
             "wrapper": {
                 "width": "",
@@ -17,6 +17,7 @@
                 "id": ""
             },
             "default_value": "",
+            "allow_in_bindings": 1,
             "placeholder": ""
         },
         {
@@ -36,7 +37,8 @@
             "display_format": "Y-m-d",
             "return_format": "Y-m-d",
             "first_day": 1,
-            "allow_in_bindings": 1
+            "allow_in_bindings": 1,
+            "default_to_current_date": 0
         },
         {
             "key": "field_67a22fbb01482",
@@ -74,7 +76,8 @@
             },
             "display_format": "Y-m-d",
             "return_format": "Y-m-d",
-            "first_day": 1
+            "first_day": 1,
+            "default_to_current_date": 0
         },
         {
             "key": "field_67935342a006f",
@@ -143,7 +146,7 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "acfe_display_title": "",
+    "display_title": "",
     "acfe_autosync": [
         "json"
     ],

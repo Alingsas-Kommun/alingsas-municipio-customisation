@@ -5,6 +5,20 @@ namespace AlingsasCustomisation\Includes;
 class Announcements {
 
     public function __construct() {
+        // Validate that either link or content is filled in
+        add_filter('acf/validate_save_post', function () {
+            if (get_post_type($_POST['post_ID'] ?? null) !== 'anslagstavla') {
+                return;
+            }
+
+            $link = $_POST['acf']['field_6793527ca006c'] ?? '';
+            $content = $_POST['acf']['field_67a22fbb01482'] ?? '';
+
+            if (empty($link) && empty($content)) {
+                acf_add_validation_error('', __('Either "Link to PDF/protocol" or "Content" must be filled in.', 'municipio-customisation'));
+            }
+        });
+
         // Change announcement links to use portal link instead
         add_filter('post_type_link', function ($post_link, $post) {
             if (is_admin()) {

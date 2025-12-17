@@ -8,6 +8,7 @@ class AkEventTemplate extends AbstractController {
     public function __construct(\Modularity\Module\Posts\Posts $module) {
         $posts = $module->getPostsHelper->getPosts($module->fields);
         $posts = $posts->getPosts();
+        $perPage = $module->fields['posts_count'];
         
         $priorityEvents = [];
         $longRunningEvents = [];
@@ -27,11 +28,18 @@ class AkEventTemplate extends AbstractController {
             }
         }
 
-        // If no priority events, fall back to long-running events
-        if (empty($priorityEvents)) {
-            $events = $longRunningEvents;
+        // If we have enough priority events, use them
+        if (count($priorityEvents) >= $perPage) {
+            $events = array_slice($priorityEvents, 0, $perPage);
         } else {
+            // Not enough priority events, fill up with long-running events
             $events = $priorityEvents;
+            $remaining = $perPage - count($priorityEvents);
+            
+            if ($remaining > 0 && !empty($longRunningEvents)) {
+                $fillEvents = array_slice($longRunningEvents, 0, $remaining);
+                $events = array_merge($events, $fillEvents);
+            }
         }
 
         $this->data['events'] = $events;

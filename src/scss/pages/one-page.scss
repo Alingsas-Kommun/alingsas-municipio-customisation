@@ -1,0 +1,7 @@
+body.page-template-one-page-blade:not(.home) {
+
+  .sidebar-slider-area,
+  .sidebar-content-area {
+    margin-bottom: calc(var(--base, 8px) * 6);
+  }
+}

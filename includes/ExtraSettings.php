@@ -29,6 +29,7 @@ class ExtraSettings {
 
             return $classes;
         }, 10, 4);
+        
         add_filter('Modularity/Display/AfterModule', function ($html, $args, $posttype, $ID) {
             $background_color = get_field('background_stripe_color', $ID);
 
@@ -49,25 +50,6 @@ class ExtraSettings {
             // Hide breadcrumbs if set on single page
             if (is_singular() && get_field('hide_breadcrumbs')) {
                 add_filter('Municipio/Partials/Navigation/HelperNavBeforeContent', '__return_false');
-            }
-
-            if (is_singular() && get_field('hide_title')) {
-
-                // Make sure decorator class is available (in case Composer autoload not active for plugin src)
-                if (!class_exists('\\AlingsasCustomisation\\Decorators\\HideTitlePostObject')) {
-                    require_once __DIR__ . '/../src/Decorators/HideTitlePostObject.php';
-                }
-
-                // Decorate the PostObject so getTitle() returns empty, hiding the H1 in templates
-                add_filter('Municipio/DecoratePostObject', function ($postObject) {
-                    if (method_exists($postObject, 'getId')) {
-                        $postId = $postObject->getId();
-                        if ($postId && get_field('hide_title', $postId)) {
-                            $postObject = new \AlingsasCustomisation\Decorators\HideTitlePostObject($postObject, true);
-                        }
-                    }
-                    return $postObject;
-                }, 20);
             }
         });
     }

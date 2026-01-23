@@ -54,31 +54,31 @@ class Announcements {
         });
 
         // Add date and archive date as preamble
-        add_filter('Municipio/Helper/Post/postObject', function ($postObject) {
-            if ($postObject instanceof \WP_Post && $postObject->post_type === 'anslagstavla') {
-                $meeting_date = get_field('meeting_date', $postObject->ID);
-                $archive_date = get_field('archive_date', $postObject->ID);
+        add_filter('Modularity/Display/mod-posts/viewData', function( $viewData ) {
+            foreach ($viewData['posts'] as &$post) {
+                $meeting_date = get_field('meeting_date', $post->getId());
+                $archive_date = get_field('archive_date', $post->getId());
 
-                $excerpt = [];
+                $preamble = [];
 
                 if (!empty($meeting_date)) {
-                    $excerpt[] = __('Grant date:', 'municipio-customisation') . ' ' . $meeting_date;
+                    $preamble[] = '<span class="label">' . __('Grant date:', 'municipio-customisation') . '</span>' . ' ' . $meeting_date;
                 }
 
                 if (!empty($archive_date)) {
-                    $excerpt[] = __('To be archived:', 'municipio-customisation') . ' ' . $archive_date;
+                    $preamble[] = '<span class="label">' . __('To be archived:', 'municipio-customisation') . '</span>' . ' ' . $archive_date;
                 }
 
-                $excerpt = implode('<br>', $excerpt);
+                $excerpt = implode('<br>', $preamble);
 
-                $postObject->post_excerpt = $excerpt;
-                $postObject->excerpt = $excerpt;
-                $postObject->excerpt_short = $excerpt;
-                $postObject->excerpt_shorter = $excerpt;
+                $post->postExcerpt = $excerpt;
+                $post->excerpt = $excerpt;
+                $post->excerptShort = $excerpt;
+                $post->excerptShorter = $excerpt;
             }
 
-            return $postObject;
-        });
+            return $viewData;
+        }, 10);
 
         // Add class when we're showing anslagstavla posts
         add_filter('Modularity/Display/BeforeModule::classes', function ($classes, $args, $post_type, $ID) {

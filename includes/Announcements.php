@@ -55,6 +55,10 @@ class Announcements {
 
         // Add date and archive date as preamble
         add_filter('Modularity/Display/mod-posts/viewData', function( $viewData ) {
+            if (!isset($viewData['posts_data_post_type']) || $viewData['posts_data_post_type'] !== 'anslagstavla') {
+                return $viewData;
+            }
+
             foreach ($viewData['posts'] as &$post) {
                 $meeting_date = get_field('meeting_date', $post->getId());
                 $archive_date = get_field('archive_date', $post->getId());

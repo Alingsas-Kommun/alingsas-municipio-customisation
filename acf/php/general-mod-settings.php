@@ -3,7 +3,7 @@
 if (function_exists('acf_add_local_field_group')) {
     acf_add_local_field_group(array(
     'key' => 'group_6718a5f9a58fb',
-    'title' => __('Extrainställningar', 'municipio-customisation'),
+    'title' => __('Extra settings', 'municipio-customisation'),
     'fields' => array(
         0 => array(
             'key' => 'field_6718a5f939289',
@@ -27,8 +27,13 @@
                 'secondary' => __('Secondary color', 'municipio-customisation'),
                 'secondary-light' => __('Secondary color (light)', 'municipio-customisation'),
                 'secondary-dark' => __('Secondary color (dark)', 'municipio-customisation'),
+                'page-theme' => __('Enligt tema', 'municipio-customisation'),
+                'theme-e41f72b75f64f3238080a8ed3158c554' => __('Tema: Jobb', 'municipio-customisation'),
+                'theme-46f1075d6585e36386c584b087497d39' => __('Tema: Alingsås kulturhus ', 'municipio-customisation'),
+                'theme-6a799b815fc718f7ba14c4ce338b5eb4' => __('Tema: Alströmergymnasiet', 'municipio-customisation'),
+                'theme-9721ef068a92f53c397933c0bbe3cfbb' => __('Tema: Nolhaga Parkbad', 'municipio-customisation'),
             ),
-            'default_value' => __('none', 'municipio-customisation'),
+            'default_value' => 'none',
             'return_format' => 'value',
             'multiple' => 0,
             'allow_null' => 0,
@@ -37,6 +42,8 @@
             'placeholder' => '',
             'allow_custom' => 0,
             'search_placeholder' => '',
+            'create_options' => 0,
+            'save_options' => 0,
         ),
         1 => array(
             'key' => 'field_671f5ab73d689',
@@ -78,6 +85,27 @@
             'ui_on_text' => '',
             'ui_off_text' => '',
         ),
+        3 => array(
+            'key' => 'field_69778a3c225c6',
+            'label' => __('Module ID', 'municipio-customisation'),
+            'name' => 'module_id',
+            'aria-label' => '',
+            'type' => 'text',
+            'instructions' => __('Used for anchor linking to module', 'municipio-customisation'),
+            'required' => 0,
+            'conditional_logic' => 0,
+            'wrapper' => array(
+                'width' => '',
+                'class' => '',
+                'id' => '',
+            ),
+            'default_value' => '',
+            'maxlength' => '',
+            'allow_in_bindings' => 0,
+            'placeholder' => '',
+            'prepend' => '',
+            'append' => '',
+        ),
     ),
     'location' => array(
         0 => array(
@@ -102,7 +130,7 @@
     'active' => true,
     'description' => '',
     'show_in_rest' => 0,
-    'acfe_display_title' => '',
+    'display_title' => '',
     'acfe_autosync' => array(
         0 => 'json',
     ),

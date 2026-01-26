@@ -1,6 +1,6 @@
 [{
     "key": "group_6718a5f9a58fb",
-    "title": "Extrainst\u00e4llningar",
+    "title": "Extra settings",
     "fields": [
         {
             "key": "field_6718a5f939289",
@@ -23,7 +23,12 @@
                 "primary-dark": "Primary color (dark)",
                 "secondary": "Secondary color",
                 "secondary-light": "Secondary color (light)",
-                "secondary-dark": "Secondary color (dark)"
+                "secondary-dark": "Secondary color (dark)",
+                "page-theme": "Enligt tema",
+                "theme-e41f72b75f64f3238080a8ed3158c554": "Tema: Jobb",
+                "theme-46f1075d6585e36386c584b087497d39": "Tema: Alings\u00e5s kulturhus ",
+                "theme-6a799b815fc718f7ba14c4ce338b5eb4": "Tema: Alstr\u00f6mergymnasiet",
+                "theme-9721ef068a92f53c397933c0bbe3cfbb": "Tema: Nolhaga Parkbad"
             },
             "default_value": "none",
             "return_format": "value",
@@ -33,7 +38,9 @@
             "ajax": 0,
             "placeholder": "",
             "allow_custom": 0,
-            "search_placeholder": ""
+            "search_placeholder": "",
+            "create_options": 0,
+            "save_options": 0
         },
         {
             "key": "field_671f5ab73d689",
@@ -74,6 +81,27 @@
             "ui": 0,
             "ui_on_text": "",
             "ui_off_text": ""
+        },
+        {
+            "key": "field_69778a3c225c6",
+            "label": "Module ID",
+            "name": "module_id",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Used for anchor linking to module",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         }
     ],
     "location": [
@@ -99,7 +127,7 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "acfe_display_title": "",
+    "display_title": "",
     "acfe_autosync": [
         "json"
     ],

@@ -144,6 +144,7 @@ class Search {
             $this->wpquery->max_num_pages,
             $this->getCurrentPage(),
             'paged',
+            'archive_id',
         ))->getCallable();
 
         $count = $this->getFallbackResultCountByPostType();

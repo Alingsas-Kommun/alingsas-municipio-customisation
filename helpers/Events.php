@@ -12,7 +12,7 @@ use Municipio\PostObject\Decorators\BackwardsCompatiblePostObject;
 use Municipio\PostObject\PostObjectInterface;
 
 class Events {
-    public static function parseEvent(PostObjectInterface $event) {
+    public static function parseEvent(PostObjectInterface $event, int $occasionIndex = 0) {
         if ($event->postType !== 'event') {
             return $event;
         }
@@ -30,8 +30,10 @@ class Events {
             $endDate = new DateTime($event->endDate);
         } else {
             $date = get_post_meta($event->id, 'occasions_complete', true);
-            $startDate = new DateTime($date[0]['start_date']);
-            $endDate = new DateTime($date[0]['end_date']);
+
+            $index = isset($date[$occasionIndex]) ? $occasionIndex : 0;
+            $startDate = new DateTime($date[$index]['start_date']);
+            $endDate = new DateTime($date[$index]['end_date']);
         }
 
         $event->day = date('d', $startDate->getTimestamp());

@@ -39,8 +39,12 @@ class Events {
         // Preprocess events on archive page
         add_filter('Municipio/Template/event/archive/viewData', function($viewData) {
             if (is_post_type_archive('event')) {
+                $eventOccurrences = [];
                 foreach ($viewData['posts'] as $key => $post) {
-                    $viewData['posts'][$key] = EventHelper::parseEvent($post);
+                    $eventId = $post->id;
+                    $occasionIndex = $eventOccurrences[$eventId] ?? 0;
+                    $viewData['posts'][$key] = EventHelper::parseEvent($post, $occasionIndex);
+                    $eventOccurrences[$eventId] = $occasionIndex + 1;
                 }
             }
 
@@ -48,8 +52,12 @@ class Events {
         });
         add_filter('Municipio/Controller/Archive/getArchivePosts', function ($posts) {
             if (is_post_type_archive('event')) {
+                $eventOccurrences = [];
                 foreach ($posts as $key => $post) {
-                    $posts[$key] = EventHelper::parseEvent($post);
+                    $eventId = $post->id;
+                    $occasionIndex = $eventOccurrences[$eventId] ?? 0;
+                    $posts[$key] = EventHelper::parseEvent($post, $occasionIndex);
+                    $eventOccurrences[$eventId] = $occasionIndex + 1;
                 }
             }
 

@@ -13,6 +13,10 @@ class TemplateOverrides {
                 $paths[] = Plugin::PATH . '/views/Events/';
             }
 
+            if (is_post_type_archive('lediga-jobb') || is_singular('lediga-jobb')) {
+                $paths[] = Plugin::PATH . '/views/Jobs/';
+            }
+
             return $paths;
         }, 100, 1);
 

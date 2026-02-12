@@ -17,12 +17,5 @@ class Hooks {
                 </p>
             </div>';
         });
-
-        add_filter('enter_title_here', function ($placeholder, $post) {
-            if ($post->post_type === 'anslagstavla') {
-                return 'Instans, protokoll DD månad ÅÅÅÅ';
-            }
-            return $placeholder;
-        }, 10, 2);
     }
 }

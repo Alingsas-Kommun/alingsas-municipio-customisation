@@ -54,6 +54,7 @@ class Cron {
 
             update_field('archived', 1, $post->ID);
             update_field('archive_date', null, $post->ID);
+            update_field('archived_date', date('Y-m-d'), $post->ID);
 
             wp_update_post([
                 'ID' => $post->ID,

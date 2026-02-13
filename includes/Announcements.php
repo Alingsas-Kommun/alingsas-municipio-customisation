@@ -5,6 +5,27 @@ namespace AlingsasCustomisation\Includes;
 class Announcements {
 
     public function __construct() {
+        // Hide the "Archive date" field if the announcement is not archived
+        add_filter('acf/prepare_field/key=field_6793772e2708e', '__return_false');
+        add_filter('acf/prepare_field/key=field_698479ffaab01', function ($field) {
+            if (empty($field['value'])) {
+                return false;
+            }
+
+            return $field;
+        });
+
+        add_filter('acf/prepare_field/key=field_6793531da006e', function ($field) {
+            $post_id = get_the_id();
+            $archived = get_field('archived', $post_id);
+
+            if ($archived === true) {
+                return false;
+            }
+
+            return $field;
+        });
+
         // Validate that either link or content is filled in
         add_filter('acf/validate_save_post', function () {
             if (get_post_type($_POST['post_ID'] ?? null) !== 'anslagstavla') {

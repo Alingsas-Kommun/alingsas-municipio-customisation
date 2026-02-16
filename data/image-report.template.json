@@ -1,0 +1,28 @@
+{
+    "summary": {
+        "original_unreferenced_count": 0,
+        "found_in_markdown_count": 0,
+        "final_unreferenced_count": 0
+    },
+    "found_in_markdown_ids": [
+        12345
+    ],
+    "final_unreferenced_images": [
+        {
+            "attachment_id": 0,
+            "title": "EXAMPLE_TITLE",
+            "file": "YYYY/MM/example-file.jpg",
+            "mime_type": "image/jpeg",
+            "guid": "https://example.org/wp-content/uploads/YYYY/MM/example-file.jpg",
+            "post_date": "YYYY-MM-DD HH:MM:SS",
+            "post_parent": 0,
+            "file_variants": [
+                "YYYY/MM/example-file-150x150.jpg",
+                "YYYY/MM/example-file-300x200.jpg"
+            ],
+            "referenced": false,
+            "reference_count": 0,
+            "references": []
+        }
+    ]
+}

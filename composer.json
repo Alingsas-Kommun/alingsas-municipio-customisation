@@ -9,9 +9,13 @@
       "email": "it@alingsas.se"
     }
   ],
-  "minimum-stability": "stable",
+  "minimum-stability": "dev",
+  "prefer-stable": true,
   "require": {
     "helsingborg-stad/api-event-manager-integration": "3.1.0"
+  },
+  "require-dev": {
+    "php-stubs/wp-cli-stubs": "^2.0"
   },
   "repositories": [
     {
@@ -19,5 +23,10 @@
       "url": "https://github.com/Alingsas-Kommun/alingsas-municipio-customisation"
     }
   ],
-  "version": "0.3.2"
+  "version": "0.3.2",
+  "config": {
+    "allow-plugins": {
+      "composer/installers": false
+    }
+  }
 }

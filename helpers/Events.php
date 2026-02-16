@@ -36,8 +36,10 @@ class Events {
             $endDate = new DateTime($date[$index]['end_date']);
         }
 
-        $event->day = date('d', $startDate->getTimestamp());
-        $event->month = wp_date('M', $startDate->getTimestamp());
+        $today = new DateTime('today');
+        $displayDate = ($today >= $startDate && $today <= $endDate) ? $today : $startDate;
+        $event->day = date('d', $displayDate->getTimestamp());
+        $event->month = wp_date('M', $displayDate->getTimestamp());
 
         if ($startDate->format('Y-m-d') === $endDate->format('Y-m-d')) {
             $event->date = ucfirst(wp_date('l j F', $startDate->getTimestamp()));

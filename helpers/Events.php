@@ -24,19 +24,24 @@ class Events {
         $image = new Image(get_post_thumbnail_id($event->id), [1280, 720], $resolver);
         $event->image = $image;
 
+        $today = new DateTime('today');
+
         // Start and end dates
         if (isset($event->startDate) && $event->endDate) {
             $startDate = new DateTime($event->startDate);
             $endDate = new DateTime($event->endDate);
         } else {
-            $date = get_post_meta($event->id, 'occasions_complete', true);
+            $occasions = get_post_meta($event->id, 'occasions_complete', true);
 
-            $index = isset($date[$occasionIndex]) ? $occasionIndex : 0;
-            $startDate = new DateTime($date[$index]['start_date']);
-            $endDate = new DateTime($date[$index]['end_date']);
+            $futureOccasions = array_values(array_filter($occasions, function ($occasion) use ($today) {
+                return new DateTime($occasion['end_date']) >= $today;
+            }));
+
+            $source = !empty($futureOccasions) ? $futureOccasions : $occasions;
+            $index = isset($source[$occasionIndex]) ? $occasionIndex : 0;
+            $startDate = new DateTime($source[$index]['start_date']);
+            $endDate = new DateTime($source[$index]['end_date']);
         }
-
-        $today = new DateTime('today');
         $displayDate = ($today >= $startDate && $today <= $endDate) ? $today : $startDate;
         $event->day = date('d', $displayDate->getTimestamp());
         $event->month = wp_date('M', $displayDate->getTimestamp());

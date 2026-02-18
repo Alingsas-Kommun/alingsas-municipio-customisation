@@ -27,24 +27,19 @@ class Events {
         $today = new DateTime('today');
 
         // Start and end dates
-        if (isset($event->startDate) && $event->endDate) {
+        if ($event->startDate && $event->endDate) {
             $startDate = new DateTime($event->startDate);
             $endDate = new DateTime($event->endDate);
         } else {
-            $occasions = get_post_meta($event->id, 'occasions_complete', true);
-
-            $futureOccasions = array_values(array_filter($occasions, function ($occasion) use ($today) {
-                return new DateTime($occasion['end_date']) >= $today;
-            }));
-
-            $source = !empty($futureOccasions) ? $futureOccasions : $occasions;
-            $index = isset($source[$occasionIndex]) ? $occasionIndex : 0;
-            $startDate = new DateTime($source[$index]['start_date']);
-            $endDate = new DateTime($source[$index]['end_date']);
+          $date = get_post_meta($event->id, 'occasions_complete', true);
+            $startDate = new DateTime($date[0]['start_date']);
+            $endDate = new DateTime($date[0]['end_date']);
         }
-        $displayDate = ($today >= $startDate && $today <= $endDate) ? $today : $startDate;
-        $event->day = date('d', $displayDate->getTimestamp());
-        $event->month = wp_date('M', $displayDate->getTimestamp());
+
+        // $displayDate = ($today >= $startDate && $today <= $endDate) ? $today : $startDate;
+        $event->day = date('d', $startDate->getTimestamp());
+        $event->month = wp_date('M', $startDate->getTimestamp());
+
 
         if ($startDate->format('Y-m-d') === $endDate->format('Y-m-d')) {
             $event->date = ucfirst(wp_date('l j F', $startDate->getTimestamp()));

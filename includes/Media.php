@@ -48,17 +48,18 @@ class Media {
         $query = new \WP_Query($args);
         $count = $query->found_posts;
         
-        // Output dropdown
+        // Output checkbox
         ?>
-        <select name="marked_unused" id="filter-by-marked-unused">
-            <option value=""><?php _e('Unused media', 'municipio-customisation'); ?></option>
-            <option value="1" <?php selected($current, '1'); ?>>
-                <?php printf(__('Marked Unused (%d)', 'municipio-customisation'), $count); ?>
-            </option>
-            <option value="0" <?php selected($current, '0'); ?>>
-                <?php _e('Not Marked Unused', 'municipio-customisation'); ?>
-            </option>
-        </select>
+        <label for="filter-by-marked-unused" style="margin: 0 8px;">
+            <input
+                type="checkbox"
+                name="marked_unused"
+                id="filter-by-marked-unused"
+                value="1"
+                <?php checked($current, '1'); ?>
+            />
+            <?php printf(__('Show only unused (%d)', 'municipio-customisation'), $count); ?>
+        </label>
         <?php
     }
     
@@ -95,12 +96,6 @@ class Media {
                 'value' => self::META_VALUE,
                 'compare' => '='
             ];
-        } elseif ($_GET['marked_unused'] === '0') {
-            // Show only images NOT marked as unused
-            $meta_query[] = [
-                'key' => self::META_KEY,
-                'compare' => 'NOT EXISTS'
-            ];
         }
         
         $query->set('meta_query', $meta_query);
@@ -123,12 +118,6 @@ class Media {
                     'key' => self::META_KEY,
                     'value' => self::META_VALUE,
                     'compare' => '='
-                ];
-            } elseif ($_REQUEST['query']['marked_unused'] === '0') {
-                // Show only images NOT marked as unused
-                $query['meta_query'][] = [
-                    'key' => self::META_KEY,
-                    'compare' => 'NOT EXISTS'
                 ];
             }
         }

@@ -1,15 +1,15 @@
-# Copyright (C) 2025 Consid
+# Copyright (C) 2026 Consid
 # This file is distributed under the same license as the Alingsås Municipio customisation plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Alingsås Municipio customisation 0.1.22\n"
+"Project-Id-Version: Alingsås Municipio customisation 0.3.2\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/municipio-customisation\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-06-02T13:50:20+00:00\n"
+"POT-Creation-Date: 2026-02-23T04:47:43+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: municipio-customisation\n"
@@ -197,10 +197,12 @@ msgid "Theme"
 msgstr ""
 
 #: acf/php/appearance-settings.php:724
+#: acf/php/page-settings.php:26
 msgid "Jobb"
 msgstr ""
 
 #: acf/php/appearance-settings.php:725
+#: acf/php/page-settings.php:27
 msgid "Alingsås kulturhus "
 msgstr ""
 
@@ -251,7 +253,7 @@ msgid "Custom color"
 msgstr ""
 
 #: acf/php/general-mod-settings.php:8
-msgid "Extrainställningar"
+msgid "Extra settings"
 msgstr ""
 
 #: acf/php/general-mod-settings.php:12
@@ -286,16 +288,24 @@ msgstr ""
 msgid "Secondary color (dark)"
 msgstr ""
 
-#: acf/php/general-mod-settings.php:33
-msgid "none"
+#: acf/php/general-mod-settings.php:32
+msgid "Enligt tema"
 msgstr ""
 
-#: acf/php/general-mod-settings.php:45
+#: acf/php/general-mod-settings.php:48
 msgid "No top margin"
 msgstr ""
 
-#: acf/php/general-mod-settings.php:65
+#: acf/php/general-mod-settings.php:68
 msgid "No bottom margin"
+msgstr ""
+
+#: acf/php/general-mod-settings.php:88
+msgid "Module ID"
+msgstr ""
+
+#: acf/php/general-mod-settings.php:92
+msgid "Used for anchor linking to module"
 msgstr ""
 
 #: acf/php/mod-inlay-settings.php:8
@@ -312,8 +322,9 @@ msgstr ""
 
 #: acf/php/mod-inlay-settings.php:60
 #: acf/php/mod-manualinput-settings.php:24
-#: acf/php/page-settings.php:51
-#: acf/php/page-settings.php:71
+#: acf/php/page-settings.php:55
+#: acf/php/page-settings.php:75
+#: acf/php/page-settings.php:95
 msgid "Yes"
 msgstr ""
 
@@ -333,40 +344,52 @@ msgstr ""
 msgid "Länk till PDF/protokoll"
 msgstr ""
 
-#: acf/php/noticeboard-settings.php:29
+#: acf/php/noticeboard-settings.php:30
 msgid "Anslagsdatum"
 msgstr ""
 
-#: acf/php/noticeboard-settings.php:48
+#: acf/php/noticeboard-settings.php:50
 msgid "Innehåll"
 msgstr ""
 
-#: acf/php/noticeboard-settings.php:68
+#: acf/php/noticeboard-settings.php:70
 msgid "Tas ner"
 msgstr ""
 
-#: acf/php/noticeboard-settings.php:86
+#: acf/php/noticeboard-settings.php:89
 msgid "Anslagstyp"
 msgstr ""
 
-#: acf/php/noticeboard-settings.php:115
+#: acf/php/noticeboard-settings.php:118
 msgid "Arkiverad"
 msgstr ""
 
-#: acf/php/noticeboard-settings.php:127
+#: acf/php/noticeboard-settings.php:130
 msgid "Ja"
+msgstr ""
+
+#: acf/php/noticeboard-settings.php:139
+msgid "Arkiverades"
 msgstr ""
 
 #: acf/php/page-settings.php:8
 msgid "Page settings"
 msgstr ""
 
-#: acf/php/page-settings.php:39
+#: acf/php/page-settings.php:43
 msgid "Hide breadcrumbs"
 msgstr ""
 
-#: acf/php/page-settings.php:59
+#: acf/php/page-settings.php:63
 msgid "Hide page title"
+msgstr ""
+
+#: acf/php/page-settings.php:83
+msgid "Hide right sidebar"
+msgstr ""
+
+#: acf/php/page-settings.php:87
+msgid "Right sidebar is automatically shown for accessibility reasons on pages, posts and the likes"
 msgstr ""
 
 #: acf/php/webcast-settings.php:8
@@ -377,15 +400,19 @@ msgstr ""
 msgid "Ange URL"
 msgstr ""
 
-#: includes/Announcements.php:34
+#: includes/Announcements.php:39
+msgid "Either \"Link to PDF/protocol\" or \"Content\" must be filled in."
+msgstr ""
+
+#: includes/Announcements.php:69
 msgid "Download protocol"
 msgstr ""
 
-#: includes/Announcements.php:51
+#: includes/Announcements.php:90
 msgid "Grant date:"
 msgstr ""
 
-#: includes/Announcements.php:55
+#: includes/Announcements.php:94
 msgid "To be archived:"
 msgstr ""
 
@@ -401,38 +428,46 @@ msgstr ""
 msgid "More events"
 msgstr ""
 
-#: includes/Search.php:21
+#: includes/Events.php:22
+msgid "Event"
+msgstr ""
+
+#: includes/Media.php:62
+msgid "Show only unused (%d)"
+msgstr ""
+
+#: includes/Search.php:27
 msgid "Pages"
 msgstr ""
 
-#: includes/Search.php:22
+#: includes/Search.php:28
 msgid "News"
 msgstr ""
 
-#: includes/Search.php:23
+#: includes/Search.php:29
 msgid "Jobs"
 msgstr ""
 
-#: includes/Search.php:24
+#: includes/Search.php:30
 msgid "Events"
 msgstr ""
 
-#: includes/Search.php:25
+#: includes/Search.php:31
 msgid "Operating information"
 msgstr ""
 
-#: includes/Search.php:112
+#: includes/Search.php:172
 msgid "Hit"
 msgid_plural "Hits"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/Search.php:113
+#: includes/Search.php:173
 msgid "All hits"
 msgstr ""
 
 #. translators: 1 nr hits, 2 hits, 3 search string, 4 domain
-#: includes/Search.php:115
+#: includes/Search.php:175
 msgid "%1$d %2$s for <b>\"%3$s\"</b> on %4$s"
 msgstr ""
 

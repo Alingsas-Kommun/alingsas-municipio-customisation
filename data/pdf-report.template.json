@@ -1,0 +1,24 @@
+{
+    "summary": {
+        "original_unreferenced_count": 0,
+        "found_in_markdown_count": 0,
+        "final_unreferenced_count": 0
+    },
+    "found_in_markdown_ids": [
+        12345
+    ],
+    "final_unreferenced_pdfs": [
+        {
+            "attachment_id": 0,
+            "title": "EXAMPLE_PDF_TITLE",
+            "file": "YYYY/MM/example-file.pdf",
+            "mime_type": "application/pdf",
+            "guid": "https://example.org/wp-content/uploads/YYYY/MM/example-file.pdf",
+            "post_date": "YYYY-MM-DD HH:MM:SS",
+            "post_parent": 0,
+            "referenced": false,
+            "reference_count": 0,
+            "references": []
+        }
+    ]
+}

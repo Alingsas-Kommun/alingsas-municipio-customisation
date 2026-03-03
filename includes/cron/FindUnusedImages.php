@@ -46,6 +46,9 @@ class FindUnusedImages
      * [--fields-file=<path>]
      * : Path to ACF field definitions JSON file. When provided, the count of
      *   loaded fields is included in the report metadata.
+    *
+    * [--ids=<list>]
+    * : Comma-separated list of image attachment IDs to check (e.g. "12,34,56").
      *
      * ## EXAMPLES
      *
@@ -67,6 +70,7 @@ class FindUnusedImages
         $this->db = $wpdb;
 
         $limitArg   = $assoc_args['limit'] ?? '10';
+        $idsArg     = $assoc_args['ids'] ?? null;
         $batchSize  = max(1, (int) ($assoc_args['batch-size'] ?? 50));
         $outputPath = $assoc_args['output'] ?? 'data/image-report-raw.json';
         $fieldsFile = $assoc_args['fields-file'] ?? null;
@@ -84,7 +88,11 @@ class FindUnusedImages
         WP_CLI::log('');
         WP_CLI::log("  Database:     {$this->db->dbname}");
         WP_CLI::log("  Table prefix: {$this->db->prefix}");
-        WP_CLI::log("  Image limit:  {$limitArg}");
+        if ($idsArg) {
+            WP_CLI::log("  Image IDs:    {$idsArg}");
+        } else {
+            WP_CLI::log("  Image limit:  {$limitArg}");
+        }
         WP_CLI::log("  Batch size:   {$batchSize}");
         WP_CLI::log("  Output:       {$outputPath}");
         WP_CLI::log('');
@@ -115,7 +123,17 @@ class FindUnusedImages
         // ── Step 1: Fetch image attachments ──────────────────
         WP_CLI::log(WP_CLI::colorize('%GStep 1:%n Fetching image attachments...'));
 
-        $this->fetchImageAttachments($limitArg);
+        if (!empty($idsArg)) {
+            $ids = array_filter(array_map('intval', preg_split('/\s*,\s*/', trim($idsArg))), fn($v) => $v > 0);
+            if (empty($ids)) {
+                WP_CLI::error('No valid image IDs provided to --ids.');
+                return;
+            }
+            $this->fetchImageAttachmentsByIds($ids);
+        } else {
+            $this->fetchImageAttachments($limitArg);
+        }
+
         $imageCount = count($this->images);
 
         WP_CLI::log("  Found {$imageCount} image attachments");
@@ -279,6 +297,60 @@ class FindUnusedImages
                 'file'             => null,
                 'file_variants'    => [],
                 'search_filenames' => [],
+                'resized_patterns' => [],
+                'references'       => [],
+            ];
+        }
+
+        $this->imageIds = array_keys($this->images);
+    }
+
+    /**
+     * Fetch specific image attachments by ID list.
+     *
+     * @param int[] $ids
+     */
+    private function fetchImageAttachmentsByIds(array $ids): void
+    {
+        $ids = array_values(array_unique(array_map('intval', $ids)));
+        if (empty($ids)) {
+            return;
+        }
+
+        $placeholders = implode(',', array_fill(0, count($ids), '%d'));
+
+        // phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+        $sql = $this->db->prepare(
+            "SELECT p.ID, p.post_title, p.post_mime_type, p.guid, p.post_date, p.post_parent
+             FROM {$this->db->posts} p
+             WHERE p.post_type = 'attachment'
+               AND p.post_mime_type LIKE 'image/%%'
+               AND p.ID IN ({$placeholders})
+               AND NOT EXISTS (
+                   SELECT 1 FROM {$this->db->postmeta} pm
+                   WHERE pm.post_id = p.ID
+                     AND pm.meta_key = 'event-manager-media'
+                     AND pm.meta_value = '1'
+               )",
+            ...$ids
+        );
+        // phpcs:enable
+
+        $rows = $this->db->get_results($sql, ARRAY_A);
+
+        foreach ($rows as $row) {
+            $id = (int) $row['ID'];
+            $this->images[$id] = [
+                'attachment_id'    => $id,
+                'title'            => $row['post_title'],
+                'mime_type'        => $row['post_mime_type'],
+                'guid'             => $row['guid'],
+                'post_date'        => $row['post_date'],
+                'post_parent'      => (int) $row['post_parent'],
+                'file'             => null,
+                'file_variants'    => [],
+                'search_filenames' => [],
+                'resized_patterns' => [],
                 'references'       => [],
             ];
         }
@@ -359,7 +431,34 @@ class FindUnusedImages
             }
         }
 
-        // Build search filenames per image
+        // If an 'file' ends with '-scaled.ext', prefer the original variant
+        // and move the scaled name into `file_variants` so searches target
+        // the original filename while still matching scaled variants.
+        foreach ($this->images as $id => &$img) {
+            if (!empty($img['file']) && preg_match('/-scaled(\.[^\/]+)$/', $img['file'])) {
+                $scaled = $img['file'];
+                $orig = preg_replace('/-scaled(?=\.[^\/]+$)/', '', $scaled);
+
+                // If original exists in variants, promote it to `file`.
+                if (in_array($orig, $img['file_variants'], true)) {
+                    $img['file'] = $orig;
+                    // remove the original from variants
+                    $img['file_variants'] = array_values(array_filter($img['file_variants'], fn($v) => $v !== $orig));
+                    // ensure scaled is present in variants
+                    if (!in_array($scaled, $img['file_variants'], true)) {
+                        $img['file_variants'][] = $scaled;
+                    }
+                } else {
+                    // If original not present, still set file to orig and keep scaled in variants
+                    $img['file'] = $orig;
+                    if (!in_array($scaled, $img['file_variants'], true)) {
+                        $img['file_variants'][] = $scaled;
+                    }
+                }
+            }
+        }
+
+        // Build search filenames per image and precompute resized-name regexes
         foreach ($this->images as $id => &$img) {
             $filenames = [];
             if ($img['file']) {
@@ -371,6 +470,38 @@ class FindUnusedImages
                 $filenames[] = basename($v);
             }
             $img['search_filenames'] = array_values(array_unique($filenames));
+
+            // Precompute regexes for resized filename variants like "basename-800x600.ext"
+            $resized = [];
+            $candidates = [];
+            if ($img['file']) {
+                $candidates[] = $img['file'];
+            }
+            foreach ($img['file_variants'] as $v) {
+                $candidates[] = $v;
+            }
+
+            foreach ($candidates as $cand) {
+                $bn = basename($cand);
+                $stem = pathinfo($bn, PATHINFO_FILENAME);
+                $ext = pathinfo($bn, PATHINFO_EXTENSION);
+                if (!$stem || !$ext) {
+                    continue;
+                }
+                $dir = dirname($cand);
+                $dir = ($dir === '.') ? '' : $dir . '/';
+
+                $dirEsc = $dir === '' ? '' : preg_quote($dir, '/');
+                $stemEsc = preg_quote($stem, '/');
+                $extEsc = preg_quote($ext, '/');
+
+                // e.g. uploads/2024/03/image-800x600.jpg
+                $resized[] = '/' . $dirEsc . $stemEsc . '-\d+x\d+\.' . $extEsc . '/i';
+                // e.g. image-800x600.jpg (basename only)
+                $resized[] = '/\b' . $stemEsc . '-\d+x\d+\.' . $extEsc . '\b/i';
+            }
+
+            $img['resized_patterns'] = array_values(array_unique($resized));
         }
         unset($img);
     }
@@ -597,6 +728,23 @@ class FindUnusedImages
                                     'matched_filename' => $fn,
                                 ];
                                 $count++;
+                                break;
+                            }
+                        }
+                    }
+
+                    // Resized filename variants like "basename-800x600.ext"
+                    if (!$found && !empty($this->images[$id]['resized_patterns'])) {
+                        foreach ($this->images[$id]['resized_patterns'] as $pattern) {
+                            if (preg_match($pattern, $content, $m)) {
+                                $this->images[$id]['references'][] = [
+                                    'type'             => 'post_content_resized',
+                                    'source_table'     => 'posts',
+                                    'source_id'        => $sourceId,
+                                    'matched_filename' => $m[0],
+                                ];
+                                $count++;
+                                $found = true;
                                 break;
                             }
                         }

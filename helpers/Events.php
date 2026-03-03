@@ -36,9 +36,9 @@ class Events {
             $endDate = new DateTime($date[0]['end_date']);
         }
 
-        // $displayDate = ($today >= $startDate && $today <= $endDate) ? $today : $startDate;
-        $event->day = date('d', $startDate->getTimestamp());
-        $event->month = wp_date('M', $startDate->getTimestamp());
+        $displayDate = ($today >= $startDate && $today <= $endDate) ? $today : $startDate;
+        $event->day = date('d', $displayDate->getTimestamp());
+        $event->month = wp_date('M', $displayDate->getTimestamp());
 
 
         if ($startDate->format('Y-m-d') === $endDate->format('Y-m-d')) {

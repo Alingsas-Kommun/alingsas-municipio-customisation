@@ -28,12 +28,12 @@
     z-index: 100;
 
     @media (max-width: 768px) {
-        // display: block; // Uncomment when tested by AK
+        display: block; 
     }
 }
 
 .c-apply-button--sidebar {
     @media (max-width: 768px) {
-        // display: none !important; // Uncomment when tested by AK
+        display: none !important; 
     } 
 }

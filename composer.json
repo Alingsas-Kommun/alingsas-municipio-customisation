@@ -23,7 +23,7 @@
       "url": "https://github.com/Alingsas-Kommun/alingsas-municipio-customisation"
     }
   ],
-  "version": "0.3.2",
+  "version": "0.3.3",
   "config": {
     "allow-plugins": {
       "composer/installers": false

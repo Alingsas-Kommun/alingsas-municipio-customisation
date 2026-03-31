@@ -3,15 +3,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Alingsås Municipio customisation 0.3.3\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/municipio-customisation\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/alingsas-municipio-customisation\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-02-23T04:47:43+00:00\n"
+"POT-Creation-Date: 2026-03-31T15:56:35+02:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.11.0\n"
+"X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: municipio-customisation\n"
 
 #. Plugin Name of the plugin
@@ -143,6 +143,7 @@ msgid "Sidebar"
 msgstr ""
 
 #: acf/php/appearance-settings.php:415
+#: includes/NewsArchive.php:48
 msgid "Settings"
 msgstr ""
 
@@ -336,6 +337,23 @@ msgstr ""
 msgid "Aktivera sök"
 msgstr ""
 
+#: acf/php/news-settings.php:7
+#: includes/NewsArchive.php:47
+msgid "News archive settings"
+msgstr ""
+
+#: acf/php/news-settings.php:11
+msgid "Days before auto-archive"
+msgstr ""
+
+#: acf/php/news-settings.php:15
+msgid "Published news older than this many days are moved to the Archived status (daily)."
+msgstr ""
+
+#: acf/php/news-settings.php:29
+msgid "days"
+msgstr ""
+
 #: acf/php/noticeboard-settings.php:8
 msgid "Anslagsinformation"
 msgstr ""
@@ -421,6 +439,7 @@ msgid "According to theme"
 msgstr ""
 
 #: includes/AppearanceSettings.php:95
+#, php-format
 msgid "Theme: %s"
 msgstr ""
 
@@ -432,9 +451,22 @@ msgstr ""
 msgid "Event"
 msgstr ""
 
-#: includes/Media.php:62
+#: includes/Media.php:61
+#, php-format
 msgid "Show only unused (%d)"
 msgstr ""
+
+#: includes/NewsArchive.php:26
+msgctxt "post status label"
+msgid "Archived"
+msgstr ""
+
+#: includes/NewsArchive.php:32
+#, php-format
+msgid "Archived <span class=\"count\">(%s)</span>"
+msgid_plural "Archived <span class=\"count\">(%s)</span>"
+msgstr[0] ""
+msgstr[1] ""
 
 #: includes/Search.php:27
 msgid "Pages"
@@ -468,6 +500,7 @@ msgstr ""
 
 #. translators: 1 nr hits, 2 hits, 3 search string, 4 domain
 #: includes/Search.php:175
+#, php-format
 msgid "%1$d %2$s for <b>\"%3$s\"</b> on %4$s"
 msgstr ""
 

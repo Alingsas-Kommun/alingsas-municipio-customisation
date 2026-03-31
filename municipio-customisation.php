@@ -10,7 +10,8 @@ Text Domain: municipio-customisation
 
 namespace AlingsasCustomisation;
 
-class Plugin {
+class Plugin
+{
 
     public const VERSION = '0.3.3';
 
@@ -18,7 +19,15 @@ class Plugin {
 
     public const VIEWPATH = __DIR__ . '/views/';
 
-    public function __construct() {
+    public function __construct()
+    {
+        // Load translations before includes (ACF field PHP runs __() on import). 
+        load_plugin_textdomain(
+            'municipio-customisation',
+            false,
+            dirname(plugin_basename(__FILE__)) . '/languages'
+        );
+
         // Require helpers
         $helpers = glob(__DIR__ . '/helpers/*.php');
         foreach ($helpers as $helper) {

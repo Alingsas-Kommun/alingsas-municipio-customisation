@@ -21,6 +21,7 @@ class ACF {
             'mod-manualinput-settings' => 'group_672336ea7ed1a',
             'noticeboard-settings' => 'group_6793527c520e2',
             'webcast-settings' => 'group_6784f11a254a0',
+            'news-settings' => 'group_67f2a8c1b3a01',
         ));
         $acfExportManager->import();
     }

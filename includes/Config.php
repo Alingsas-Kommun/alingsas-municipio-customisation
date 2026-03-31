@@ -42,18 +42,6 @@ class Config
             return $paths;
         });
 
-        add_action('init', function () {
-            $plugin_path = \AlingsasCustomisation\Plugin::PATH;
-
-            $textdomain = 'municipio-customisation';
-            $locale = get_locale();
-            $mo_file = $plugin_path . '/languages/' . $textdomain . '-' . $locale . '.mo';
-
-            if (file_exists($mo_file)) {
-                load_textdomain($textdomain, $mo_file);
-            }
-        });
-
         // Hide regular posts from admin menu
         add_action('admin_menu', function () {
             remove_menu_page('edit.php'); // Hides the "Posts" menu

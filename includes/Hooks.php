@@ -2,8 +2,13 @@
 
 namespace AlingsasCustomisation\Includes;
 
-class Hooks {
-    public function __construct() {
+/**
+ * Miscellaneous WordPress hooks.
+ */
+class Hooks
+{
+    public function __construct()
+    {
         add_action('admin_notices', function () {
             $screen = get_current_screen();
             if (!$screen || $screen->post_type !== 'anslagstavla' || $screen->base !== 'post') {
@@ -17,5 +22,39 @@ class Hooks {
                 </p>
             </div>';
         });
+
+        add_filter('Municipio/Template/lediga-jobb/single/viewData', [$this, 'appendJobWorkHoursToInformationList'], 10, 1);
+    }
+
+    /**
+     * Add JobPosting schema fields to the sidebar information list (SingularJobPosting).
+     *
+     * @param array<string, mixed> $viewData Municipio single view data.
+     * @return array<string, mixed>
+     */
+    public function appendJobWorkHoursToInformationList(array $viewData): array
+    {
+        $post = $viewData['post'] ?? null;
+        if (!is_object($post) || !method_exists($post, 'getSchemaProperty')) {
+            return $viewData;
+        }
+
+        $workHours = $post->getSchemaProperty('workHours');
+        if ($workHours !== null && $workHours !== '') {
+            $viewData['informationList'][] = [
+                'label' => __('Anställningsform', 'municipio-customisation'),
+                'value' => is_scalar($workHours) ? (string) $workHours : wp_json_encode($workHours),
+            ];
+        }
+
+        $jobDuration = $post->getSchemaProperty('jobDuration');
+        if ($jobDuration !== null && $jobDuration !== '') {
+            $viewData['informationList'][] = [
+                'label' => __('Anställningsperiod', 'municipio-customisation'),
+                'value' => is_scalar($jobDuration) ? (string) $jobDuration : wp_json_encode($jobDuration),
+            ];
+        }
+
+        return $viewData;
     }
 }

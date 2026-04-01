@@ -17,6 +17,7 @@ class NewsArchive
     {
         add_action('init', [$this, 'registerPostStatus']);
         add_action('acf/init', [$this, 'registerOptionsPage'], 5);
+        add_filter('quick_edit_statuses', [$this, 'addQuickEditArchivedStatus'], 10, 4);
         add_action('pre_get_posts', [$this, 'limitFrontEndArchiveToPublished'], 10, 1);
     }
 
@@ -50,6 +51,12 @@ class NewsArchive
             'menu_slug' => self::OPTIONS_PAGE_SLUG,
             'capability' => 'edit_posts',
         ]);
+    }
+
+    public function addQuickEditArchivedStatus($statuses, $post_type): array
+    {
+        $statuses[self::POST_STATUS] = _x('Archived', 'post status label', 'municipio-customisation');
+        return $statuses;
     }
 
     /**

@@ -1,12 +1,13 @@
 blockquote {
     padding: 1rem 0rem 2rem 3rem;
     background-color: transparent;
-    color: $color-plantation;
+    color: black;
 
     &:before {
         top: 27px;
         transform: rotate(180deg);
         left: 0;
+        color: $color-plantation;
     }
 
     &:after {

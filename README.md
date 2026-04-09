@@ -84,7 +84,9 @@ För extrainställningar och extra fält används tillägget som är branschstan
 
 ## Version
 
-Current version: 0.2.0
+Versions follow [Semantic Versioning](https://semver.org/) (`MAJOR.MINOR.PATCH`). Release tags use the `v`-prefix (e.g. `v0.3.4`) and should match the `Version` header in `municipio-customisation.php` and `Plugin::VERSION`.
+
+**Current release:** 0.3.4
 
 ## Författare
 

@@ -12,7 +12,7 @@
   "minimum-stability": "dev",
   "prefer-stable": true,
   "require": {
-    "helsingborg-stad/api-event-manager-integration": "3.1.0"
+    "helsingborg-stad/api-event-manager-integration": "3.1.4"
   },
   "require-dev": {
     "php-stubs/wp-cli-stubs": "^2.0"

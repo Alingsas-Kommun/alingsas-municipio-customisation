@@ -15,6 +15,7 @@ class FindUnusedPdfs
     private \wpdb $db;
     private array $pdfs = [];
     private array $pdfIds = [];
+    private bool $logQueries = false;
 
     /**
      * Find unreferenced PDF files in the media library and generate a JSON report.
@@ -43,9 +44,11 @@ class FindUnusedPdfs
      * default: 50
      * ---
      *
-     * [--fields-file=<path>]
-     * : Path to ACF field definitions JSON file. When provided, the count of
-     *   loaded fields is included in the report metadata.
+     * [--log-queries]
+    * : When present, log the SQL queries executed and the meta rows checked.
+    *
+    * [--ids=<list>]
+    * : Comma-separated list of PDF attachment IDs to check (e.g. "12,34,56").
      *
      * ## EXAMPLES
      *
@@ -67,9 +70,10 @@ class FindUnusedPdfs
         $this->db = $wpdb;
 
         $limitArg   = $assoc_args['limit'] ?? '10';
+        $idsArg     = $assoc_args['ids'] ?? null;
         $batchSize  = max(1, (int) ($assoc_args['batch-size'] ?? 50));
         $outputPath = $assoc_args['output'] ?? 'data/pdf-report-raw.json';
-        $fieldsFile = $assoc_args['fields-file'] ?? null;
+        $this->logQueries = !empty($assoc_args['log-queries']);
 
         // Resolve relative output path from plugin root
         if ($outputPath[0] !== '/') {
@@ -84,38 +88,30 @@ class FindUnusedPdfs
         WP_CLI::log('');
         WP_CLI::log("  Database:     {$this->db->dbname}");
         WP_CLI::log("  Table prefix: {$this->db->prefix}");
-        WP_CLI::log("  PDF limit:    {$limitArg}");
+        if ($idsArg) {
+            WP_CLI::log("  PDF IDs:      {$idsArg}");
+        } else {
+            WP_CLI::log("  PDF limit:    {$limitArg}");
+        }
+        WP_CLI::log('  Log queries:  ' . ($this->logQueries ? 'yes' : 'no'));
         WP_CLI::log("  Batch size:   {$batchSize}");
         WP_CLI::log("  Output:       {$outputPath}");
         WP_CLI::log('');
 
-        // ── Optional: ACF field definitions ──────────────────
-        $acfFieldCount = 0;
-        if ($fieldsFile) {
-            if (!file_exists($fieldsFile)) {
-                WP_CLI::warning("ACF fields file not found: {$fieldsFile} — skipping.");
-            } else {
-                $acfFields = json_decode(file_get_contents($fieldsFile), true);
-                if (is_array($acfFields)) {
-                    $acfFieldCount = count($acfFields);
-                    $byType = [];
-                    foreach ($acfFields as $f) {
-                        $byType[$f['field_type']][] = $f['field_name'];
-                    }
-                    WP_CLI::log("Loaded {$acfFieldCount} ACF field definitions");
-                    foreach ($byType as $type => $names) {
-                        $unique = count(array_unique($names));
-                        WP_CLI::log("  {$type}: {$unique} unique field names");
-                    }
-                    WP_CLI::log('');
-                }
-            }
-        }
-
         // ── Step 1: Fetch PDF attachments ─────────────────────
         WP_CLI::log(WP_CLI::colorize('%GStep 1:%n Fetching PDF attachments...'));
 
-        $this->fetchPdfAttachments($limitArg);
+        if (!empty($idsArg)) {
+            $ids = array_filter(array_map('intval', preg_split('/\s*,\s*/', trim($idsArg))), fn($v) => $v > 0);
+            if (empty($ids)) {
+                WP_CLI::error('No valid PDF IDs provided to --ids.');
+                return;
+            }
+            $this->fetchPdfAttachmentsByIds($ids);
+        } else {
+            $this->fetchPdfAttachments($limitArg);
+        }
+
         $pdfCount = count($this->pdfs);
 
         WP_CLI::log("  Found {$pdfCount} PDF attachments");
@@ -169,7 +165,7 @@ class FindUnusedPdfs
         // ── Step 4: Build report ─────────────────────────────
         WP_CLI::log(WP_CLI::colorize('%GStep 4:%n Building report...'));
 
-        $report = $this->buildReport($elapsed, $limitArg, $acfFieldCount);
+        $report = $this->buildReport($elapsed, $limitArg);
 
         // Ensure output directory exists
         $outputDir = dirname($outputPath);
@@ -285,6 +281,57 @@ class FindUnusedPdfs
         $this->pdfIds = array_keys($this->pdfs);
     }
 
+    /**
+     * Fetch specific PDF attachments by ID list.
+     *
+     * @param int[] $ids
+     */
+    private function fetchPdfAttachmentsByIds(array $ids): void
+    {
+        $ids = array_values(array_unique(array_map('intval', $ids)));
+        if (empty($ids)) {
+            return;
+        }
+
+        $placeholders = implode(',', array_fill(0, count($ids), '%d'));
+
+        // phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+        $sql = $this->db->prepare(
+            "SELECT p.ID, p.post_title, p.post_mime_type, p.guid, p.post_date, p.post_parent
+             FROM {$this->db->posts} p
+             WHERE p.post_type = 'attachment'
+               AND p.post_mime_type = 'application/pdf'
+               AND p.ID IN ({$placeholders})
+               AND NOT EXISTS (
+                   SELECT 1 FROM {$this->db->postmeta} pm
+                   WHERE pm.post_id = p.ID
+                     AND pm.meta_key = 'event-manager-media'
+                     AND pm.meta_value = '1'
+               )",
+            ...$ids
+        );
+        // phpcs:enable
+
+        $rows = $this->db->get_results($sql, ARRAY_A);
+
+        foreach ($rows as $row) {
+            $id = (int) $row['ID'];
+            $this->pdfs[$id] = [
+                'attachment_id'    => $id,
+                'title'            => $row['post_title'],
+                'mime_type'        => $row['post_mime_type'],
+                'guid'             => $row['guid'],
+                'post_date'        => $row['post_date'],
+                'post_parent'      => (int) $row['post_parent'],
+                'file'             => null,
+                'search_filenames' => [],
+                'references'       => [],
+            ];
+        }
+
+        $this->pdfIds = array_keys($this->pdfs);
+    }
+
     // ================================================================
     // Step 2: Load PDF Metadata & Build Search Patterns
     // ================================================================
@@ -322,6 +369,11 @@ class FindUnusedPdfs
             if ($pdf['file']) {
                 $filenames[] = $pdf['file'];
                 $filenames[] = basename($pdf['file']);
+                // URL-encoded variants (percent-encoding and plus-for-space)
+                $filenames[] = rawurlencode($pdf['file']);
+                $filenames[] = rawurlencode(basename($pdf['file']));
+                $filenames[] = urlencode($pdf['file']);
+                $filenames[] = urlencode(basename($pdf['file']));
             }
             $pdf['search_filenames'] = array_values(array_unique($filenames));
         }
@@ -347,23 +399,29 @@ class FindUnusedPdfs
         // ── 3a. Direct ID match in postmeta ──────────────────
         $count = 0;
         // phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared
-        $rows = $this->db->get_results(
-            "SELECT post_id, meta_key, meta_value
+        $sql = "SELECT meta_id, post_id, meta_key, meta_value
              FROM {$this->db->postmeta}
-             WHERE meta_value IN ({$idStrList})",
-            ARRAY_A
-        );
+             WHERE meta_value IN ({$idStrList})";
+        if ($this->logQueries) {
+            WP_CLI::log("SQL: {$sql}");
+        }
+        $rows = $this->db->get_results($sql, ARRAY_A);
         // phpcs:enable
 
         foreach ($rows as $row) {
             $refId  = (int) $row['meta_value'];
             $postId = (int) $row['post_id'];
+            $metaId = isset($row['meta_id']) ? (int) $row['meta_id'] : null;
+            if ($this->logQueries) {
+                WP_CLI::log("Checking postmeta meta_id={$metaId} post_id={$postId} key={$row['meta_key']} value={$row['meta_value']}");
+            }
             if (isset($this->pdfs[$refId]) && $postId !== $refId) {
                 $this->pdfs[$refId]['references'][] = [
                     'type'         => 'postmeta_id',
                     'source_table' => 'postmeta',
                     'source_id'    => $postId,
                     'meta_key'     => $row['meta_key'],
+                    'meta_id'      => $metaId,
                 ];
                 $count++;
             }
@@ -373,22 +431,29 @@ class FindUnusedPdfs
         // ── 3b. Direct ID match in termmeta ──────────────────
         $count = 0;
         // phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared
-        $rows = $this->db->get_results(
-            "SELECT term_id, meta_key, meta_value
+        $sql = "SELECT meta_id, term_id, meta_key, meta_value
              FROM {$this->db->termmeta}
-             WHERE meta_value IN ({$idStrList})",
-            ARRAY_A
-        );
+             WHERE meta_value IN ({$idStrList})";
+        if ($this->logQueries) {
+            WP_CLI::log("SQL: {$sql}");
+        }
+        $rows = $this->db->get_results($sql, ARRAY_A);
         // phpcs:enable
 
         foreach ($rows as $row) {
             $refId = (int) $row['meta_value'];
+            $termId = (int) $row['term_id'];
+            $metaId = isset($row['meta_id']) ? (int) $row['meta_id'] : null;
+            if ($this->logQueries) {
+                WP_CLI::log("Checking termmeta meta_id={$metaId} term_id={$termId} key={$row['meta_key']} value={$row['meta_value']}");
+            }
             if (isset($this->pdfs[$refId])) {
                 $this->pdfs[$refId]['references'][] = [
                     'type'         => 'termmeta_id',
                     'source_table' => 'termmeta',
-                    'source_id'    => (int) $row['term_id'],
+                    'source_id'    => $termId,
                     'meta_key'     => $row['meta_key'],
+                    'meta_id'      => $metaId,
                 ];
                 $count++;
             }
@@ -404,17 +469,22 @@ class FindUnusedPdfs
 
         $count = 0;
         // phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared
-        $rows = $this->db->get_results(
-            "SELECT post_id, meta_key, meta_value
-             FROM {$this->db->postmeta}
-             WHERE meta_value LIKE 'a:%'
-               AND (" . implode(' OR ', $orParts) . ")",
-            ARRAY_A
-        );
+                $sql = "SELECT meta_id, post_id, meta_key, meta_value
+                         FROM {$this->db->postmeta}
+                         WHERE meta_value LIKE 'a:%'
+                             AND (" . implode(' OR ', $orParts) . ")";
+                if ($this->logQueries) {
+                    WP_CLI::log("SQL: {$sql}");
+                }
+                $rows = $this->db->get_results($sql, ARRAY_A);
         // phpcs:enable
 
         foreach ($rows as $row) {
             $postId = (int) $row['post_id'];
+            $metaId = isset($row['meta_id']) ? (int) $row['meta_id'] : null;
+            if ($this->logQueries) {
+                WP_CLI::log("Checking serialized postmeta meta_id={$metaId} post_id={$postId} key={$row['meta_key']}");
+            }
             $data   = @unserialize($row['meta_value']);
             if (!is_array($data)) {
                 continue;
@@ -435,6 +505,7 @@ class FindUnusedPdfs
                         'source_table' => 'postmeta',
                         'source_id'    => $postId,
                         'meta_key'     => $row['meta_key'],
+                        'meta_id'      => $metaId,
                     ];
                     $count++;
                 }
@@ -445,17 +516,22 @@ class FindUnusedPdfs
         // ── 3d. Serialized arrays in termmeta ────────────────
         $count = 0;
         // phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared
-        $rows = $this->db->get_results(
-            "SELECT term_id, meta_key, meta_value
-             FROM {$this->db->termmeta}
-             WHERE meta_value LIKE 'a:%'
-               AND (" . implode(' OR ', $orParts) . ")",
-            ARRAY_A
-        );
+                $sql = "SELECT meta_id, term_id, meta_key, meta_value
+                         FROM {$this->db->termmeta}
+                         WHERE meta_value LIKE 'a:%'
+                             AND (" . implode(' OR ', $orParts) . ")";
+                if ($this->logQueries) {
+                        WP_CLI::log("SQL: {$sql}");
+                }
+                $rows = $this->db->get_results($sql, ARRAY_A);
         // phpcs:enable
 
         foreach ($rows as $row) {
             $termId = (int) $row['term_id'];
+            $metaId = isset($row['meta_id']) ? (int) $row['meta_id'] : null;
+            if ($this->logQueries) {
+                WP_CLI::log("Checking serialized termmeta meta_id={$metaId} term_id={$termId} key={$row['meta_key']}");
+            }
             $data   = @unserialize($row['meta_value']);
             if (!is_array($data)) {
                 continue;
@@ -476,6 +552,7 @@ class FindUnusedPdfs
                         'source_table' => 'termmeta',
                         'source_id'    => $termId,
                         'meta_key'     => $row['meta_key'],
+                        'meta_id'      => $metaId,
                     ];
                     $count++;
                 }
@@ -496,6 +573,14 @@ class FindUnusedPdfs
                 $escaped = $this->db->_real_escape($stem);
                 $batchStems[$stem] = true;
                 $contentConditions[] = "post_content LIKE '%{$escaped}%'";
+
+                // Also search for URL-encoded variant (handles non-ASCII chars like å, ä, ö)
+                $encodedStem = rawurlencode($stem);
+                if ($encodedStem !== $stem) {
+                    $escapedEncoded = $this->db->_real_escape($encodedStem);
+                    $batchStems[$encodedStem] = true;
+                    $contentConditions[] = "post_content LIKE '%{$escapedEncoded}%'";
+                }
             }
         }
         $contentConditions = array_unique($contentConditions);
@@ -503,15 +588,16 @@ class FindUnusedPdfs
         // ── 3e. Filenames in post_content ────────────────────
         $count = 0;
         if (!empty($contentConditions)) {
-            // phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared
-            $rows = $this->db->get_results(
-                "SELECT ID, post_content
-                 FROM {$this->db->posts}
-                 WHERE post_type NOT IN ('attachment','revision')
-                   AND (" . implode(' OR ', $contentConditions) . ")",
-                ARRAY_A
-            );
-            // phpcs:enable
+                        // phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+                        $sql = "SELECT ID, post_content
+                                 FROM {$this->db->posts}
+                                 WHERE post_type NOT IN ('attachment','revision')
+                                     AND (" . implode(' OR ', $contentConditions) . ")";
+                        if ($this->logQueries) {
+                                WP_CLI::log("SQL: {$sql}");
+                        }
+                        $rows = $this->db->get_results($sql, ARRAY_A);
+                        // phpcs:enable
 
             foreach ($rows as $row) {
                 $content  = $row['post_content'];
@@ -529,6 +615,9 @@ class FindUnusedPdfs
                                 'source_id'        => $sourceId,
                                 'matched_filename' => $fn,
                             ];
+                            if ($this->logQueries) {
+                                WP_CLI::log("Matched post_content ID={$sourceId} filename={$fn} for attachment {$id}");
+                            }
                             $count++;
                             break;
                         }
@@ -547,15 +636,16 @@ class FindUnusedPdfs
 
         $count = 0;
         if (!empty($metaConditions)) {
-            // phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared
-            $rows = $this->db->get_results(
-                "SELECT post_id, meta_key, meta_value
+                        // phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+            $sql = "SELECT meta_id, post_id, meta_key, meta_value
                  FROM {$this->db->postmeta}
                  WHERE meta_key NOT LIKE '\_%'
                    AND LENGTH(meta_value) > 20
-                   AND (" . implode(' OR ', $metaConditions) . ")",
-                ARRAY_A
-            );
+                   AND (" . implode(' OR ', $metaConditions) . ")";
+            if ($this->logQueries) {
+                WP_CLI::log("SQL: {$sql}");
+            }
+            $rows = $this->db->get_results($sql, ARRAY_A);
             // phpcs:enable
 
             foreach ($rows as $row) {
@@ -568,16 +658,21 @@ class FindUnusedPdfs
                     }
                     foreach ($this->pdfs[$id]['search_filenames'] as $fn) {
                         if (stripos($metaValue, $fn) !== false) {
-                            $this->pdfs[$id]['references'][] = [
-                                'type'             => 'postmeta_filename',
-                                'source_table'     => 'postmeta',
-                                'source_id'        => $postId,
-                                'meta_key'         => $row['meta_key'],
-                                'matched_filename' => $fn,
-                            ];
-                            $count++;
-                            break;
-                        }
+                                $metaId = isset($row['meta_id']) ? (int) $row['meta_id'] : null;
+                                $this->pdfs[$id]['references'][] = [
+                                    'type'             => 'postmeta_filename',
+                                    'source_table'     => 'postmeta',
+                                    'source_id'        => $postId,
+                                    'meta_key'         => $row['meta_key'],
+                                    'meta_id'          => $metaId,
+                                    'matched_filename' => $fn,
+                                ];
+                                if ($this->logQueries) {
+                                    WP_CLI::log("Matched postmeta meta_id={$metaId} post_id={$postId} filename={$fn} for attachment {$id}");
+                                }
+                                $count++;
+                                break;
+                            }
                     }
                 }
             }
@@ -588,12 +683,13 @@ class FindUnusedPdfs
         $count = 0;
         if (!empty($metaConditions)) {
             // phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared
-            $rows = $this->db->get_results(
-                "SELECT term_id, meta_key, meta_value
+            $sql = "SELECT meta_id, term_id, meta_key, meta_value
                  FROM {$this->db->termmeta}
-                 WHERE (" . implode(' OR ', $metaConditions) . ")",
-                ARRAY_A
-            );
+                 WHERE (" . implode(' OR ', $metaConditions) . ")";
+            if ($this->logQueries) {
+                WP_CLI::log("SQL: {$sql}");
+            }
+            $rows = $this->db->get_results($sql, ARRAY_A);
             // phpcs:enable
 
             foreach ($rows as $row) {
@@ -606,13 +702,18 @@ class FindUnusedPdfs
                     }
                     foreach ($this->pdfs[$id]['search_filenames'] as $fn) {
                         if (stripos($metaValue, $fn) !== false) {
+                            $metaId = isset($row['meta_id']) ? (int) $row['meta_id'] : null;
                             $this->pdfs[$id]['references'][] = [
                                 'type'             => 'termmeta_filename',
                                 'source_table'     => 'termmeta',
                                 'source_id'        => $termId,
                                 'meta_key'         => $row['meta_key'],
+                                'meta_id'          => $metaId,
                                 'matched_filename' => $fn,
                             ];
+                            if ($this->logQueries) {
+                                WP_CLI::log("Matched termmeta meta_id={$metaId} term_id={$termId} filename={$fn} for attachment {$id}");
+                            }
                             $count++;
                             break;
                         }
@@ -629,7 +730,7 @@ class FindUnusedPdfs
     // Step 4: Build Report
     // ================================================================
 
-    private function buildReport(float $elapsed, string $limitArg, int $acfFieldCount): array
+    private function buildReport(float $elapsed, string $limitArg): array
     {
         // Deduplicate references per PDF
         foreach ($this->pdfs as &$pdf) {
@@ -684,7 +785,6 @@ class FindUnusedPdfs
                 'total_referenced'        => $referenced,
                 'total_unreferenced'      => $unreferenced,
                 'search_duration_seconds' => $elapsed,
-                'acf_fields_loaded'       => $acfFieldCount,
             ],
             'unreferenced_ids' => $unreferencedIds,
             'pdfs'             => $reportPdfs,

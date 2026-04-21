@@ -43,11 +43,7 @@ class FindUnusedImages
      * default: 50
      * ---
      *
-     * [--fields-file=<path>]
-     * : Path to ACF field definitions JSON file. When provided, the count of
-     *   loaded fields is included in the report metadata.
-    *
-    * [--ids=<list>]
+     * [--ids=<list>]
     * : Comma-separated list of image attachment IDs to check (e.g. "12,34,56").
      *
      * ## EXAMPLES
@@ -73,7 +69,6 @@ class FindUnusedImages
         $idsArg     = $assoc_args['ids'] ?? null;
         $batchSize  = max(1, (int) ($assoc_args['batch-size'] ?? 50));
         $outputPath = $assoc_args['output'] ?? 'data/image-report-raw.json';
-        $fieldsFile = $assoc_args['fields-file'] ?? null;
 
         // Resolve relative output path from plugin root
         if ($outputPath[0] !== '/') {
@@ -96,29 +91,6 @@ class FindUnusedImages
         WP_CLI::log("  Batch size:   {$batchSize}");
         WP_CLI::log("  Output:       {$outputPath}");
         WP_CLI::log('');
-
-        // ── Optional: ACF field definitions ──────────────────
-        $acfFieldCount = 0;
-        if ($fieldsFile) {
-            if (!file_exists($fieldsFile)) {
-                WP_CLI::warning("ACF fields file not found: {$fieldsFile} — skipping.");
-            } else {
-                $acfFields = json_decode(file_get_contents($fieldsFile), true);
-                if (is_array($acfFields)) {
-                    $acfFieldCount = count($acfFields);
-                    $byType = [];
-                    foreach ($acfFields as $f) {
-                        $byType[$f['field_type']][] = $f['field_name'];
-                    }
-                    WP_CLI::log("Loaded {$acfFieldCount} ACF field definitions");
-                    foreach ($byType as $type => $names) {
-                        $unique = count(array_unique($names));
-                        WP_CLI::log("  {$type}: {$unique} unique field names");
-                    }
-                    WP_CLI::log('');
-                }
-            }
-        }
 
         // ── Step 1: Fetch image attachments ──────────────────
         WP_CLI::log(WP_CLI::colorize('%GStep 1:%n Fetching image attachments...'));
@@ -187,7 +159,7 @@ class FindUnusedImages
         // ── Step 4: Build report ─────────────────────────────
         WP_CLI::log(WP_CLI::colorize('%GStep 4:%n Building report...'));
 
-        $report = $this->buildReport($elapsed, $limitArg, $acfFieldCount);
+        $report = $this->buildReport($elapsed, $limitArg);
 
         // Ensure output directory exists
         $outputDir = dirname($outputPath);
@@ -464,10 +436,19 @@ class FindUnusedImages
             if ($img['file']) {
                 $filenames[] = $img['file'];
                 $filenames[] = basename($img['file']);
+                // URL-encoded variants (percent-encoding and plus-for-space)
+                $filenames[] = rawurlencode($img['file']);
+                $filenames[] = rawurlencode(basename($img['file']));
+                $filenames[] = urlencode($img['file']);
+                $filenames[] = urlencode(basename($img['file']));
             }
             foreach ($img['file_variants'] as $v) {
                 $filenames[] = $v;
                 $filenames[] = basename($v);
+                $filenames[] = rawurlencode($v);
+                $filenames[] = rawurlencode(basename($v));
+                $filenames[] = urlencode($v);
+                $filenames[] = urlencode(basename($v));
             }
             $img['search_filenames'] = array_values(array_unique($filenames));
 
@@ -845,7 +826,7 @@ class FindUnusedImages
     // Step 4: Build Report
     // ================================================================
 
-    private function buildReport(float $elapsed, string $limitArg, int $acfFieldCount): array
+    private function buildReport(float $elapsed, string $limitArg): array
     {
         // Deduplicate references per image
         foreach ($this->images as &$img) {
@@ -901,7 +882,6 @@ class FindUnusedImages
                 'total_referenced'        => $referenced,
                 'total_unreferenced'      => $unreferenced,
                 'search_duration_seconds' => $elapsed,
-                'acf_fields_loaded'       => $acfFieldCount,
             ],
             'unreferenced_ids' => $unreferencedIds,
             'images'           => $reportImages,

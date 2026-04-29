@@ -2,34 +2,43 @@
 
 @section('article.content')
 
-    {{$post->getSchemaProperty('employerOverview') ?? ''}}
-    {!!$post->getSchemaProperty('description') ?? ''!!}
+    {{ $post->getSchemaProperty('employerOverview') ?? '' }}
+    {!! $post->getSchemaProperty('description') ?? '' !!}
 
-    @if($post->getSchemaProperty('hiringOrganization')['ethicsPolicy'] ?? null)
+    @if ($readMoreUrl)
+        @typography(['element' => 'h2', 'classList' => ['']])
+            {{ __('Läs mer', 'municipio-customisation') }}
+        @endtypography
+        @link(['href' => $readMoreUrl, 'classList' => ['u-margin__top--4']])
+            {{ __('Mer om oss som arbetsgivare och vårt erbjudande till dig', 'municipio-customisation') }}
+        @endlink
+    @endif
+
+    @if ($post->getSchemaProperty('hiringOrganization')['ethicsPolicy'] ?? null)
         @paper(['padding' => 4])
-            {{$post->getSchemaProperty('hiringOrganization')['ethicsPolicy']}}
+            {{ $post->getSchemaProperty('hiringOrganization')['ethicsPolicy'] }}
         @endpaper
     @endif
-    
+
 @stop
 
 @section('sidebar.right-sidebar.before')
-    
+
     @typography(['element' => 'h3', 'classList' => ['u-margin__bottom--2']])
-        {{$lang->information}}
+        {{ $lang->information }}
     @endtypography
 
-    @if(!empty($informationList))
+    @if (!empty($informationList))
 
         @paper(['padding' => 2])
             @collection()
                 @foreach ($informationList as $item)
                     @collection__item([])
                         @typography(['element' => 'h4'])
-                            {{$item['label']}}
+                            {{ $item['label'] }}
                         @endtypography
                         @typography([])
-                            {{$item['value']}}
+                            {{ $item['value'] }}
                         @endtypography
                     @endcollection__item
                 @endforeach
@@ -38,51 +47,49 @@
 
     @endif
 
-    @if(!empty($post->getSchemaProperty('applicationContact')))
+    @if (!empty($post->getSchemaProperty('applicationContact')))
 
         @typography(['element' => 'h3', 'classList' => ['u-margin__bottom--2']])
-            {{$lang->contact}}
+            {{ $lang->contact }}
         @endtypography
 
         @paper(['padding' => 2])
             @collection()
                 @foreach ($post->getSchemaProperty('applicationContact') as $contact)
                     @collection__item([])
-                        
-                        @if($contact['name'] ?? null)
+                        @if ($contact['name'] ?? null)
                             @typography(['element' => 'h4'])
-                                {{$contact['name']}}
-                            @endtypography
-                        @endif
-                        
-                        @if($contact['contactType'] ?? null)
-                            @typography(['variant' => 'meta'])
-                                {{$contact['contactType']}}
+                                {{ $contact['name'] }}
                             @endtypography
                         @endif
 
-                        @if($contact['telephone'] ?? null)
+                        @if ($contact['contactType'] ?? null)
+                            @typography(['variant' => 'meta'])
+                                {{ $contact['contactType'] }}
+                            @endtypography
+                        @endif
+
+                        @if ($contact['telephone'] ?? null)
                             @link(['href' => "tel:{$contact['telephone']}"])
-                                {{$contact['telephone']}}
+                                {{ $contact['telephone'] }}
                             @endlink
                         @endif
 
                         <span></span>
-                        
-                        @if($contact['email'] ?? null)
+
+                        @if ($contact['email'] ?? null)
                             @link(['href' => "mailto:{$contact['email']}"])
-                                {{$contact['email']}}
+                                {{ $contact['email'] }}
                             @endlink
                         @endif
-
                     @endcollection__item
                 @endforeach
             @endcollection
         @endpaper
-    
+
     @endif
 
-    @if($post->getSchemaProperty('url'))
+    @if ($post->getSchemaProperty('url'))
         @button([
             'classList' => ['u-margin__top--4', 'c-apply-button--sidebar'],
             'fullWidth' => true,
@@ -90,14 +97,14 @@
             'color' => 'primary',
             'style' => 'filled',
             'attributeList' => $expired ? ['disabled' => ''] : null,
-            'href' => $expired ? null : $post->getSchemaProperty('url')
+            'href' => $expired ? null : $post->getSchemaProperty('url'),
         ])@endbutton
     @endif
 
 @stop
 
 @section('below')
-    @if($post->getSchemaProperty('url'))
+    @if ($post->getSchemaProperty('url'))
         <div class="c-sticky-apply-bar">
             @button([
                 'fullWidth' => true,
@@ -105,7 +112,7 @@
                 'color' => 'primary',
                 'style' => 'filled',
                 'attributeList' => $expired ? ['disabled' => ''] : null,
-                'href' => $expired ? null : $post->getSchemaProperty('url')
+                'href' => $expired ? null : $post->getSchemaProperty('url'),
             ])@endbutton
         </div>
     @endif

@@ -10,7 +10,7 @@ För att utveckla och bygga tillägget används Vite. Under utvecklings används
 
 TODO: Förbättring här skulle kunna vara att använda WordPress environment-variabel tillsammans med `dist`-mappen för att aktivera produktionsfiler. Om miljön är `development` strunta i att inkludera distributionsfilerna även om de finns på plats.
 
-Strukturerat enligt följande princip: 
+Strukturerat enligt följande princip:
 
 - **`/acf`**: Definition för fältgrupper
 - **`/components`**: Skräddarsydda komponenter
@@ -34,7 +34,7 @@ Strukturerat enligt följande princip:
 
 ### Stöd för anpassat utseende
 
-Filerna `includes/AppearanceSettings.php` och `helpers/Appearance.php` utgör grunden för de anpassningar som kan göras för utseendet med avseende på särprofiler. Här användaren att skapa en grund som sedan kan appliceras på särskilda sidor och på vissa komponenter. 
+Filerna `includes/AppearanceSettings.php` och `helpers/Appearance.php` utgör grunden för de anpassningar som kan göras för utseendet med avseende på särprofiler. Här användaren att skapa en grund som sedan kan appliceras på särskilda sidor och på vissa komponenter.
 
 - **Särprofiler**: Skapa och tillämpa teman med specifika färger på olika delar av webbplatsen
 - **Sökvägsbaserad tillämpning**: Använd teman automatiskt baserat på särskild sökväg
@@ -86,7 +86,7 @@ För extrainställningar och extra fält används tillägget som är branschstan
 
 Versions follow [Semantic Versioning](https://semver.org/) (`MAJOR.MINOR.PATCH`). Release tags use the `v`-prefix (e.g. `v0.3.4`) and should match the `Version` header in `municipio-customisation.php` and `Plugin::VERSION`.
 
-**Current release:** 0.3.5
+**Current release:** 0.3.6
 
 ## Författare
 

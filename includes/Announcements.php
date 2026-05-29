@@ -2,9 +2,16 @@
 
 namespace AlingsasCustomisation\Includes;
 
-class Announcements {
+class Announcements
+{
 
-    public function __construct() {
+    private const POST_TYPE = 'anslagstavla';
+
+    public function __construct()
+    {
+        add_filter('manage_' . self::POST_TYPE . '_posts_columns', [$this, 'addAdminListColumns']);
+        add_action('manage_' . self::POST_TYPE . '_posts_custom_column', [$this, 'renderAdminListColumn'], 10, 2);
+
         // Hide the "Archive date" field if the announcement is not archived
         add_filter('acf/prepare_field/key=field_6793772e2708e', '__return_false');
         add_filter('acf/prepare_field/key=field_698479ffaab01', function ($field) {
@@ -75,7 +82,7 @@ class Announcements {
         });
 
         // Add date and archive date as preamble
-        add_filter('Modularity/Display/mod-posts/viewData', function( $viewData ) {
+        add_filter('Modularity/Display/mod-posts/viewData', function ($viewData) {
             if (!isset($viewData['posts_data_post_type']) || $viewData['posts_data_post_type'] !== 'anslagstavla') {
                 return $viewData;
             }
@@ -142,6 +149,40 @@ class Announcements {
 
                 return $query;
             });
+        }
+    }
+
+    /**
+     * @param array<string, string> $columns
+     * @return array<string, string>
+     */
+    public function addAdminListColumns(array $columns): array
+    {
+        $new_columns = [];
+
+        foreach ($columns as $key => $label) {
+            $new_columns[$key] = $label;
+
+            if ($key === 'title') {
+                $new_columns['meeting_date'] = __('Anslagsdatum', 'municipio-customisation');
+                $new_columns['archived_date'] = __('Arkiverades', 'municipio-customisation');
+            }
+        }
+
+        return $new_columns;
+    }
+
+    public function renderAdminListColumn(string $column, int $post_id): void
+    {
+        if ($column === 'meeting_date') {
+            $value = get_field('meeting_date', $post_id);
+            echo $value ? esc_html($value) : '&mdash;';
+            return;
+        }
+
+        if ($column === 'archived_date') {
+            $value = get_field('archived_date', $post_id);
+            echo $value ? esc_html($value) : '&mdash;';
         }
     }
 }

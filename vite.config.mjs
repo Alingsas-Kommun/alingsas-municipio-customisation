@@ -40,6 +40,7 @@ export default defineConfig({
     manifest: true,
     rollupOptions: {
       input: {
+        cookieConsent: resolve(__dirname, 'src/js/cookie-consent.js'),
         main: resolve(__dirname, 'src/js/main.js'),
         style: resolve(__dirname, 'src/scss/main.scss'),
       },

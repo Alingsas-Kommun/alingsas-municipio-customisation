@@ -130,10 +130,6 @@ class CookieConsent
                     function tryTrack() {
                         attempts++;
                         var matomoReady = typeof window.Matomo !== 'undefined';
-                        console.log(
-                            '[Consent] trackPageView attempt ' + attempts + '/' + maxAttempts +
-                            ' | window.Matomo=' + (typeof window.Matomo)
-                        );
 
                         if (matomoReady) {
                             // Use the tracker object directly — avoids _paq proxy queue ordering issues.
@@ -146,41 +142,28 @@ class CookieConsent
                                     var t = window.Matomo.getAsyncTracker();
                                     if (t) trackers = [t];
                                 }
-                            } catch (e) {
-                                console.error('[Consent] Could not get Matomo trackers:', e);
-                            }
-
-                            console.log('[Consent] Found ' + trackers.length + ' Matomo tracker(s)');
+                            } catch (e) {}
 
                             if (trackers.length > 0) {
                                 trackers.forEach(function(tracker) {
                                     try {
-                                        // Explicitly grant consent on the tracker object itself,
-                                        // not just via the _paq proxy, to avoid queue ordering issues.
+                                        // setConsentGiven/rememberConsentGiven are already queued via _paq
+                                        // in updateMatomoConsent. Only call trackPageView here to avoid
+                                        // duplicate pings.
                                         tracker.setConsentGiven();
                                         tracker.rememberConsentGiven();
-                                        //tracker.trackPageView();
-                                        console.log('[Consent] trackPageView fired on tracker:', tracker.getTrackerUrl ? tracker.getTrackerUrl() : tracker);
-                                    } catch (e) {
-                                        console.error('[Consent] trackPageView failed on tracker:', e);
-                                    }
+                                    } catch (e) {}
                                 });
                                 return;
                             }
 
                             // Fallback: no trackers found via API, go through _paq
-                            console.warn('[Consent] No tracker instances found via Matomo API — falling back to _paq');
                             paq.push(['trackPageView']);
                             return;
                         }
 
                         if (attempts < maxAttempts) {
                             window.setTimeout(tryTrack, 200);
-                        } else {
-                            console.warn(
-                                '[Consent] Matomo tracker never loaded after ' + attempts + ' attempts. ' +
-                                'Check that the MTM container has a Matomo Analytics tag firing at page load.'
-                            );
                         }
                     }
 
@@ -245,7 +228,6 @@ class CookieConsent
 
                 window.addEventListener('pressidium-cookie-consent-accepted', function() {
                     pushConsentState('pressidium_consent_update');
-                    console.log('hej hopp', 'pressidium-cookie-consent-accepted');
                 });
                 window.addEventListener('pressidium-cookie-consent-changed', function() {
                     pushConsentState('pressidium_consent_update');

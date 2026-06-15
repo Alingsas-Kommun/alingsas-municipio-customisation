@@ -25,6 +25,12 @@
         }
     }
 
+    .c-card__heading-container.c-group--horizontal {
+        flex-direction: row-reverse;
+        justify-content: start;
+        gap: calc(var(--base, 8px)* 1);
+    }
+
     &:has(.c-accordion) {
         --c-button-primary-color: var(--color-page-theme, #{$color-brand-alt});
 

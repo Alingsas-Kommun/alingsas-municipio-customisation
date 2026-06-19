@@ -12,7 +12,9 @@
   "minimum-stability": "dev",
   "prefer-stable": true,
   "require": {
-    "helsingborg-stad/api-event-manager-integration": "^3.0.0"
+    "helsingborg-stad/api-event-manager-integration": "^3.0.0",
+    "considbrs-webdev/typesense-search": "^1.0.0",
+    "symfony/http-client": "^8.1"
   },
   "require-dev": {
     "php-stubs/wp-cli-stubs": "^2.0"
@@ -26,7 +28,8 @@
   "version": "1.0.0",
   "config": {
     "allow-plugins": {
-      "composer/installers": false
+      "composer/installers": false,
+      "php-http/discovery": true
     }
   }
 }

@@ -1,93 +1,120 @@
-# Alingsås tillägg för Municipio-anpassning
+# Alingsås anpassningar för Municipio
 
-Ett WordPress-tillägg som ger anpassad funktionalitet och förbättringar för Alingsås kommuns Municipio-baserade webbplats. Innehåller skräddarsydd kod för att uppnå design och innehållsstruktur som varit svår att åstadkomma med grunduppsättningen.
+Ett WordPress-tillägg med verksamhets- och designanpassningar för Alingsås kommuns webbplats, som bygger på temat Municipio. Tillägget kompletterar Municipio och övriga installerade tillägg; det ersätter inte deras grundfunktionalitet.
 
-## Teknisk struktur och implementation
+## Förutsättningar
 
-Tillägget är byggt på objektorienterad princip och använder huvudfilen för att läsa in och initiera de klasser som används. Composer tillsammans med packagist.org gör det hela enkelt installerbart i Municipios composer-filer.
+- WordPress med temat [Municipio](https://github.com/helsingborg-stad/Municipio).
+- PHP 8.1 eller senare. Detta krävs bland annat av söktillägget `typesense-search`.
+- Advanced Custom Fields och ACF Export Manager för tilläggets fältgrupper och inställningar.
+- Modularity för de modulanpassningar som beskrivs nedan.
+- `helsingborg-stad/api-event-manager-integration` för evenemangsfunktionen.
 
-För att utveckla och bygga tillägget används Vite. Under utvecklings används Vites utvecklingsserver för att läsa in stilmallar och skript. `dist`-mappen får då inte vara tillgänglig utan måste tas bort, annas läses filerna härifrån. För att starta utvecklingsläge använd `npm run dev`. Används istället `npm run build` för att bygga filerna för att testa produktionsläge.
+PHP-beroenden deklareras i `composer.json`. I den här driftsmiljön läses filen in av rotprojektets Composer-konfiguration, vilket också installerar beroendet `considbrs-webdev/typesense-search` som ett separat WordPress-tillägg.
 
-TODO: Förbättring här skulle kunna vara att använda WordPress environment-variabel tillsammans med `dist`-mappen för att aktivera produktionsfiler. Om miljön är `development` strunta i att inkludera distributionsfilerna även om de finns på plats.
+## Sök
 
-Strukturerat enligt följande princip:
+Webbplatsens sök tillhandahålls av paketet [`considbrs-webdev/typesense-search`](https://github.com/Considbrs-Webdev/typesense-search), inte av detta tillägg. Paketet indexerar valt WordPress-innehåll i Typesense och tillhandahåller både sökresultatsida och snabbsökning.
 
-- **`/acf`**: Definition för fältgrupper
-- **`/components`**: Skräddarsydda komponenter
-- **`/dist`**: Skapas när tillägget byggs och innehåller stilmallar och skript
-- **`/helpers`**: Stödfunktioner som återanvänds av olika funktioner
-- **`/includes`**: Merparten av tilläggets funktionalitet ligger här. Allt i denna mapp läses in vid inladdning
-- **`/languages`**: Språkfiler (byggs med `npm run make-pot` och översätts med POEdit)
-- **`/src`**: Källkod för stilmallar och skriptfiler. Stilmallar är uppdelade och använder Sass CSS
-- **`/views`**: Anpassade vyer för sök, evenemang och nyheter
+Konfigurera anslutning, innehållstyper, fasetter och snabbsökning under **Inställningar → Typesense Search**. Anslutningsuppgifter bör ligga i miljökonfigurationen med följande konstanter, så att administrativa nycklar inte sparas eller hanteras i WordPress-gränssnittet:
 
-## Nyckelfunktioner
+```php
+define('TYPESENSE_HOST', 'https://search.example.se');
+define('TYPESENSE_COLLECTION', 'alingsas');
+define('TYPESENSE_ADMIN_KEY', '...');
+define('TYPESENSE_SEARCH_KEY', '...');
+// Valfritt om den publika adressen skiljer sig från den interna:
+define('TYPESENSE_FRONTEND_HOST', 'https://search.example.se');
+```
 
-### Allmän extrafunktionalitet
+Efter ändringar av indexets schema eller de innehållstyper som ska indexeras behöver indexet byggas om. Exempel:
 
-- **Digital anslagstavla**: Ny posttyp för att husera innehåll för digital anslagstavla
-- **Webbsändningar**: Stöd för externa webbsändningar
-- **Lediga jobb**: Läses in externt från Visma till skräddarsydd posttyp. Integration ligger utanför detta tillägg.
-- **Anpassade komponenter**: Skräddarsydda komponenter som inte återfinns i Municipios grundinstallation
-- **Skräddarsydda stilmallar och skript**: Läses in för att anpassa utseende och funktionalitet
-- **Schemalagda jobb**: Skräddarsydda schemalagda jobb återfinns i `includes/Cron.php`. I dagsläget endast för att avpublicera inlägg för digitala anslagstavlan.
+```bash
+wp typesense rebuild --yes
+```
 
-### Stöd för anpassat utseende
+För en fullständig beskrivning av inställningar, indexering och WP-CLI-kommandon, se [dokumentationen för typesense-search](vendor/considbrs-webdev/typesense-search/README.md).
 
-Filerna `includes/AppearanceSettings.php` och `helpers/Appearance.php` utgör grunden för de anpassningar som kan göras för utseendet med avseende på särprofiler. Här användaren att skapa en grund som sedan kan appliceras på särskilda sidor och på vissa komponenter.
+Detta tillägg innehåller endast `includes/Search.php`, som anpassar söksidans rubrik till Municipios benämning för sökresultat. Den tidigare egna sökresultatsidan och dess posttypsfilter används inte längre.
 
-- **Särprofiler**: Skapa och tillämpa teman med specifika färger på olika delar av webbplatsen
-- **Sökvägsbaserad tillämpning**: Använd teman automatiskt baserat på särskild sökväg
-- **Sidspecifik anpassning**: Ställ in tema på specifika sidor
-- **CSS-variabler**: Genererar automatiskt CSS-variabler för alla anpassade färger och teman som kan användas i temat
+## Funktioner
 
-### Utökad sökfunktionalitet
+### Utseende och sidinställningar
 
-Den grundläggande sökfunktionen är väldigt begränsad och presenterar sökresultat rakt upp och ned. Sökresutatsidan har anpassats och så har även de individuella sökresultaten.
+- En inställningssida under **Utseende → Alingsås** för egna färger, teman och temaval baserat på URL-sökväg.
+- Teman kan väljas per sida och genereras som CSS-variabler på webbplatsen.
+- Extra sidinställningar för att dölja titel, brödsmulor eller högerspalt.
+- Högerspalten visas som standard på enskilda innehållssidor, om den inte uttryckligen har dolts.
 
-Filen `includes/Search.php` innehåller merparten av koden för detta och den skräddarsydda sidan återfinns i `views/custom-search.blade.php`.
+### Modularity och komponenter
 
-- **Anpassad sökresultatsida**
-  - Flikar för innehållstyp
-  - Träffantal per innehållstyp
-  - Brödsmulor för individuella träffar
-  - Stöd för paginering av sökträffar
+- Extra modulinställningar för bakgrundsremsa, över- och undermarginal samt ankarlänk.
+- Inställningar för kort, inlay-listor och manuella inmatningsmoduler.
+- Fritextsökning i modulen Manuell inmatning när den aktiveras i modulens inställningar.
+- En egen komponent för evenemangskort.
+- Anpassade vyer och komponentvägar för Modularity och Blade.
 
-- **Filtrera sökresultat efter posttyp**
-  - Sidor
-  - Nyheter
-  - Lediga jobb
-  - Evenemang
-  - Driftinformation
+### Evenemang och lediga jobb
 
-### Evenemangsanpassning
+- Anpassad visning och sortering av evenemang, inklusive evenemangskort i inläggsmodulen.
+- Anpassade mallar för evenemang och enskilda lediga jobb.
+- Länkar från evenemang till filtrerade evenemangsarkiv.
+- Kompletterande information om exempelvis anställningsstart, anställningsform och anställningsperiod på lediga jobb.
 
-Alingsås ville ha ett skräddarsytt utseende för evenemangskorten vilket möjliggjorts med en egen komponent som har ett tillhörande utseende. Utöver detta har även extra kod lagts till för att evenemangen ska presenteras i korrekt ordning i inläggsmodulen. Här hänvisas till kod från evenemangstillägget för att inte duplicera någon kod. Anpassningen sker generellt i `includes/Events.php`.
+### Digital anslagstavla, nyheter och webbsändningar
 
-- **Anpassad visning i inläggsmodulen**: `views/events.blade.php`
-- **Korrekt sortering i inläggsmodulen**: `includes/Events.php`
-- **Ny komponent för visning av evenemang**: `components/Event`
-- **Stödklass för att formatera data korrekt**: `helpers/Event.php`
-- **Korrekt visning på arkivsidan**: `includes/controllers/AkEventTemplate.php`
+- Anpassningar för innehållstypen `anslagstavla`: validering, administration, visning av anslags- och arkivdatum samt hantering av arkiverade anslag.
+- Schemalagd arkivering av anslag enligt deras inställningar.
+- Egen status för arkiverade nyheter och en inställning för hur många dagar publicerade nyheter ska ligga kvar innan de arkiveras.
+- Inbäddning av webbsändningar från ett ACF-fält och avstängda kommentarer för innehållstypen `webcast`.
 
-### Advanced Custom Fields
+### Media, import och övriga anpassningar
 
-För extrainställningar och extra fält används tillägget som är branschstandard för ändamålet - Advanced Custom Fields. Detta tillsammans med Helsingsborgs funktion för automatisk import och export och översättning av fältgrupper gör det möjligt att utöka sidor och moduler med extra inställningar. Dessa återfinns i `acf/json` och `acf/php` beroende på önskat format.
+- WP-CLI-jobb för att hitta, markera, kontrollera och radera oanvända bilder och PDF:er. Mediebiblioteket kan filtreras på markerade, oanvända mediafiler.
+- Stöd för att flytta temporära avpubliceringsfält till rätt metadata efter import via WP All Import.
+- Anpassningar av tillgänglighetsmeny, knappar, postutdrag, översättningar och Content Security Policy.
 
-- **Fältgrupper**:
-  - Sidinställningar
-  - Utseendeinställningar
-  - Allmänna modulinställningar
-  - Inställningar för kortmodulen
-  - Inställningar för innehåll på digital anslagstavla
-  - Inställningar för webbsändningar
+## Struktur
 
-## Version
+- `acf/` – exporterade ACF-fältgrupper i PHP- och JSON-format.
+- `components/` – egna Blade-komponenter, bland annat evenemangskortet.
+- `data/` – rapportmallar och genererade rapporter för mediekontroller.
+- `dist/` – byggda JavaScript- och CSS-filer från Vite. Skapas av byggsteget.
+- `helpers/` – återanvändbara hjälpklasser för bland annat utseende och evenemang.
+- `includes/` – tilläggets PHP-funktionalitet. Filerna läses in automatiskt från huvudfilen.
+- `languages/` – översättningsfiler för textdomänen `municipio-customisation`.
+- `src/` – källkod för JavaScript, Sass och administrations-CSS.
+- `views/` – mallöverskrivningar för evenemang, lediga jobb och moduler.
 
-Versions follow [Semantic Versioning](https://semver.org/) (`MAJOR.MINOR.PATCH`). Release tags use the `v`-prefix (e.g. `v0.3.4`) and should match the `Version` header in `municipio-customisation.php` and `Plugin::VERSION`.
+## Utveckling och bygge
 
-**Current release:** 1.0.0
+Installera JavaScript-beroenden och starta Vites utvecklingsserver:
+
+```bash
+npm ci
+npm run dev
+```
+
+Bygg produktionsfiler:
+
+```bash
+npm run build
+```
+
+I utvecklingsmiljö (`wp_get_environment_type() === 'development'`) laddas Vites utvecklingsserver. I övriga miljöer laddas filer från `dist/.vite/manifest.json`. Bygg därför om tillgångarna innan de tas i bruk i produktion.
+
+Skapa om språkunderlaget efter ändringar i översättningsbara strängar:
+
+```bash
+npm run make-pot
+```
+
+## Versionering
+
+Projektet följer [semantisk versionshantering](https://semver.org/) (`MAJOR.MINOR.PATCH`). Releasetaggar använder prefixet `v`, till exempel `v1.0.0`. Versionen ska vara densamma i `municipio-customisation.php`, `Plugin::VERSION` och `composer.json`.
+
+Aktuell version är **1.0.0**.
 
 ## Författare
 
-Utvecklad av Consid (https://www.consid.se) för Alingsås kommun
+Utvecklad av [Consid](https://www.consid.se) för Alingsås kommun.

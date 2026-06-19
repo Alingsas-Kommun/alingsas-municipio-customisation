@@ -1,3 +1,15 @@
+body.search-results [data-js-search-page-container] {
+    --ts-main-filter-background: #cadfde;
+    --ts-sidebar-background: #cadfde;
+    --ts-search-btn-bg: #236151;
+    --ts-badge-background: #236151;
+    --ts-mark-background: #236151;
+    --ts-mark-color: white;
+    --ts-color-primary: #236151;
+    --ts-sidebar-width: 350px;
+    --ts-panel-z-index: 9000;
+}
+
 body.search-results {
     h1 {
         color: var(--page-title-color, var(--color-primary, #ae0b05));

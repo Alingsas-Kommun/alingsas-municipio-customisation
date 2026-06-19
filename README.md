@@ -101,7 +101,7 @@ Bygg produktionsfiler:
 npm run build
 ```
 
-I utvecklingsmiljö (`wp_get_environment_type() === 'development'`) laddas Vites utvecklingsserver. I övriga miljöer laddas filer från `dist/.vite/manifest.json`. Bygg därför om tillgångarna innan de tas i bruk i produktion.
+I utvecklingsmiljö (`wp_get_environment_type() === 'development'`) laddas Vites utvecklingsserver. I övriga miljöer laddas filer från `dist/manifest.json`. Bygg därför om tillgångarna innan de tas i bruk i produktion.
 
 Skapa om språkunderlaget efter ändringar i översättningsbara strängar:
 
@@ -113,7 +113,7 @@ npm run make-pot
 
 Projektet följer [semantisk versionshantering](https://semver.org/) (`MAJOR.MINOR.PATCH`). Releasetaggar använder prefixet `v`, till exempel `v1.0.0`. Versionen ska vara densamma i `municipio-customisation.php`, `Plugin::VERSION` och `composer.json`.
 
-Aktuell version är **1.0.1**.
+Aktuell version är **1.0.2**.
 
 ## Författare
 

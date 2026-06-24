@@ -59,4 +59,10 @@ body.single-nyheter {
     .c-signature {
         column-gap: 0;
     }
+
+    article.s-article:has(.c-article__feature-image) {
+        h1 {
+            margin-top: 0;
+        }
+    }
 }

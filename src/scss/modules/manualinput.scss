@@ -1,42 +1,51 @@
 .modularity-mod-manualinput {
-    &.has-search {
-        form {
-            display: none;
-        }
-
-        &.js-search {
-            form {
-                background-color: white;
-                border-top-left-radius: var(--c-card-border-radius, var(--radius-lg, calc(var(--base, 8px) / 2)));
-                border-top-right-radius: var(--c-card-border-radius, var(--radius-lg, calc(var(--base, 8px) / 2)));
-                display: block;
-                padding: calc(var(--base, 8px)* 2);
-            }
-
-            label {
-                @extend .sr-only;
-            }
-
-            .c-card {
-                &__header {
-                    border-radius: 0;
-                }
-            }
-        }
+  &.has-search {
+    form {
+      display: none;
     }
 
-    .c-card__heading-container.c-group--horizontal {
-        flex-direction: row-reverse;
-        justify-content: start;
-        gap: calc(var(--base, 8px)* 1);
-    }
+    &.js-search {
+      form {
+        background-color: white;
+        border-top-left-radius: var(
+          --c-card-border-radius,
+          var(--radius-lg, calc(var(--base, 8px) / 2))
+        );
+        border-top-right-radius: var(
+          --c-card-border-radius,
+          var(--radius-lg, calc(var(--base, 8px) / 2))
+        );
+        display: block;
+        padding: calc(var(--base, 8px) * 2);
+      }
 
-    &:has(.c-accordion) {
-        --c-button-primary-color: var(--color-page-theme, #{$color-brand-alt});
+      label {
+        @extend .sr-only;
+      }
 
-        .c-card__header {
-            background-color: var(--color-page-theme, #{$color-brand-alt});
-            color: var(--theme-card-header-color, white);
+      .c-card {
+        &__header {
+          border-radius: 0;
         }
+      }
     }
+  }
+
+  .c-card__heading-container.c-group--horizontal {
+    flex-direction: row-reverse;
+    justify-content: start;
+    gap: calc(var(--base, 8px) * 1);
+    .c-element:has(.c-icon) {
+      filter: none;
+    }
+  }
+
+  &:has(.c-accordion) {
+    --c-button-primary-color: var(--color-page-theme, #{$color-brand-alt});
+
+    .c-card__header {
+      background-color: var(--color-page-theme, #{$color-brand-alt});
+      color: var(--theme-card-header-color, white);
+    }
+  }
 }

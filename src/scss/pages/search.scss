@@ -1,4 +1,4 @@
-body.search-results [data-js-search-page-container] {
+body.search [data-js-search-page-container] {
     --ts-main-filter-background: #cadfde;
     --ts-sidebar-background: #cadfde;
     --ts-search-btn-bg: #236151;
@@ -21,7 +21,7 @@ body.search-results [data-js-search-page-container] {
     --ts-qs-footer-hover-color: white;
 }
 
-body.search-results {
+body.search {
     h1 {
         color: var(--page-title-color, var(--color-primary, #ae0b05));
     }

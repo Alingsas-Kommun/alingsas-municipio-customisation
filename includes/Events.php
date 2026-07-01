@@ -61,6 +61,22 @@ class Events {
             return $posts;
         });
 
+        // PostsList fetches filter terms with hide_empty disabled. Restore it for event categories.
+        add_filter('get_terms', function ($terms, $taxonomies, $args) {
+            if (
+                !is_post_type_archive('event') ||
+                !in_array('event_categories', (array) $taxonomies, true) ||
+                ($args['hide_empty'] ?? true) !== false
+            ) {
+                return $terms;
+            }
+
+            return array_values(array_filter(
+                $terms,
+                static fn ($term) => $term->taxonomy !== 'event_categories' || $term->count > 0
+            ));
+        }, 10, 3);
+
         // Sort events properly
         add_action('wp', function () {
             if (!is_admin() && !is_post_type_archive('event')) {

@@ -18,7 +18,7 @@
     @foreach ($events as $event)
         <div class="o-grid-12@md">
             @card([
-                'link' => $event->guid,
+                'link' => $event->permalink,
                 'classList' => ['has-event']
             ])
                 @event([

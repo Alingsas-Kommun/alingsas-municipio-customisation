@@ -2,16 +2,16 @@
 # This file is distributed under the same license as the Alingsås Municipio customisation plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Alingsås Municipio customisation 0.3.3\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/alingsas-municipio-customisation\n"
+"Project-Id-Version: Alingsås Municipio customisation 1.0.2\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/municipio-customisation\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-03-31T15:56:35+02:00\n"
+"POT-Creation-Date: 2026-06-25T09:26:08+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.12.0\n"
+"X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: municipio-customisation\n"
 
 #. Plugin Name of the plugin
@@ -143,7 +143,7 @@ msgid "Sidebar"
 msgstr ""
 
 #: acf/php/appearance-settings.php:415
-#: includes/NewsArchive.php:48
+#: includes/NewsArchive.php:49
 msgid "Settings"
 msgstr ""
 
@@ -338,7 +338,7 @@ msgid "Aktivera sök"
 msgstr ""
 
 #: acf/php/news-settings.php:7
-#: includes/NewsArchive.php:47
+#: includes/NewsArchive.php:48
 msgid "News archive settings"
 msgstr ""
 
@@ -363,6 +363,7 @@ msgid "Länk till PDF/protokoll"
 msgstr ""
 
 #: acf/php/noticeboard-settings.php:30
+#: includes/Announcements.php:167
 msgid "Anslagsdatum"
 msgstr ""
 
@@ -387,6 +388,7 @@ msgid "Ja"
 msgstr ""
 
 #: acf/php/noticeboard-settings.php:139
+#: includes/Announcements.php:168
 msgid "Arkiverades"
 msgstr ""
 
@@ -418,19 +420,23 @@ msgstr ""
 msgid "Ange URL"
 msgstr ""
 
-#: includes/Announcements.php:39
+#: helpers/Events.php:52
+msgid "All day"
+msgstr ""
+
+#: includes/Announcements.php:46
 msgid "Either \"Link to PDF/protocol\" or \"Content\" must be filled in."
 msgstr ""
 
-#: includes/Announcements.php:69
+#: includes/Announcements.php:76
 msgid "Download protocol"
 msgstr ""
 
-#: includes/Announcements.php:90
+#: includes/Announcements.php:97
 msgid "Grant date:"
 msgstr ""
 
-#: includes/Announcements.php:94
+#: includes/Announcements.php:101
 msgid "To be archived:"
 msgstr ""
 
@@ -439,7 +445,6 @@ msgid "According to theme"
 msgstr ""
 
 #: includes/AppearanceSettings.php:95
-#, php-format
 msgid "Theme: %s"
 msgstr ""
 
@@ -451,58 +456,33 @@ msgstr ""
 msgid "Event"
 msgstr ""
 
+#: includes/Hooks.php:47
+msgid "Anställningsstart"
+msgstr ""
+
+#: includes/Hooks.php:56
+msgid "Anställningsform"
+msgstr ""
+
+#: includes/Hooks.php:64
+msgid "Anställningsperiod"
+msgstr ""
+
 #: includes/Media.php:61
-#, php-format
 msgid "Show only unused (%d)"
 msgstr ""
 
-#: includes/NewsArchive.php:26
+#: includes/NewsArchive.php:27
+#: includes/NewsArchive.php:58
 msgctxt "post status label"
 msgid "Archived"
 msgstr ""
 
-#: includes/NewsArchive.php:32
-#, php-format
+#: includes/NewsArchive.php:33
 msgid "Archived <span class=\"count\">(%s)</span>"
 msgid_plural "Archived <span class=\"count\">(%s)</span>"
 msgstr[0] ""
 msgstr[1] ""
-
-#: includes/Search.php:27
-msgid "Pages"
-msgstr ""
-
-#: includes/Search.php:28
-msgid "News"
-msgstr ""
-
-#: includes/Search.php:29
-msgid "Jobs"
-msgstr ""
-
-#: includes/Search.php:30
-msgid "Events"
-msgstr ""
-
-#: includes/Search.php:31
-msgid "Operating information"
-msgstr ""
-
-#: includes/Search.php:172
-msgid "Hit"
-msgid_plural "Hits"
-msgstr[0] ""
-msgstr[1] ""
-
-#: includes/Search.php:173
-msgid "All hits"
-msgstr ""
-
-#. translators: 1 nr hits, 2 hits, 3 search string, 4 domain
-#: includes/Search.php:175
-#, php-format
-msgid "%1$d %2$s for <b>\"%3$s\"</b> on %4$s"
-msgstr ""
 
 #: includes/Translation.php:24
 msgid "From"
@@ -514,4 +494,12 @@ msgstr ""
 
 #: includes/Translation.php:34
 msgid "Service"
+msgstr ""
+
+#: views/Jobs/single-schema-jobposting.blade.php:12
+msgid "Läs mer"
+msgstr ""
+
+#: views/Jobs/single-schema-jobposting.blade.php:16
+msgid "Mer om oss som arbetsgivare och vårt erbjudande till dig"
 msgstr ""

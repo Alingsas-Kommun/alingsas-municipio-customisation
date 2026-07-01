@@ -8,7 +8,6 @@ use WP_Term;
 use ComponentLibrary\Integrations\Image\Image;
 use DateTimeZone;
 use Municipio\Integrations\Component\ImageResolver;
-use Municipio\PostObject\Decorators\BackwardsCompatiblePostObject;
 use Municipio\PostObject\PostObjectInterface;
 
 class Events {
@@ -17,7 +16,11 @@ class Events {
             return $event;
         }
 
-        $event->link = get_permalink($event->id);
+        $event->link = add_query_arg(
+            'date',
+            preg_replace('/\D/', '', $event->startDate),
+            get_permalink($event->id)
+        );
 
         // Thumbnail
         $resolver = new ImageResolver;
@@ -31,7 +34,7 @@ class Events {
             $startDate = new DateTime($event->startDate);
             $endDate = new DateTime($event->endDate);
         } else {
-          $date = get_post_meta($event->id, 'occasions_complete', true);
+            $date = get_post_meta($event->id, 'occasions_complete', true);
             $startDate = new DateTime($date[0]['start_date']);
             $endDate = new DateTime($date[0]['end_date']);
         }
@@ -44,6 +47,10 @@ class Events {
         if ($startDate->format('Y-m-d') === $endDate->format('Y-m-d')) {
             $event->date = ucfirst(wp_date('l j F', $startDate->getTimestamp()));
             $event->time = $startDate->format('H:i') . ' &ndash; ' . $endDate->format('H:i');
+
+            if ($event->time === '00:00 &ndash; 23:59') {
+                $event->time = __('All day', 'municipio-customisation');
+            }
         } else {
             $GMT = new DateTimeZone('GMT');
             $event->date = wp_date('j M \k\l. H:i', $startDate->getTimestamp(), $GMT) . ' &ndash; ' . wp_date('j M \k\l. H:i', $endDate->getTimestamp(), $GMT);

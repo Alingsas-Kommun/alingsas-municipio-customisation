@@ -26,9 +26,9 @@ class MenuFilter {
      * Filter out orphaned pages from the navigation menu
      *
      * An orphaned page is defined as a page that:
-     * 1. Has no parent (is at root level)
-     * 2. Has no children (is a leaf node)
-     * 
+     * 1. Has no parent in the menu (is at root level)
+     * 2. Has no children in the menu or in the WordPress page tree
+     *
      * This filter helps maintain a clean hierarchical menu structure by hiding
      * pages that aren't properly integrated into the site's content hierarchy.
      *
@@ -42,35 +42,60 @@ class MenuFilter {
             return $items;
         }
 
-        return array_filter($items, [$this, 'shouldKeepMenuItem']);
+        return array_filter($items, fn(array $item): bool => $this->shouldKeepMenuItem($item, $items));
     }
 
     /**
      * Determine if a menu item should be kept in the navigation
      *
-     * @param array $item The menu item to evaluate
-     * 
+     * @param array $item     The menu item to evaluate
+     * @param array $allItems All menu items in the current flat list
+     *
      * @return bool True if the item should be kept, false if it should be filtered out
      */
-    private function shouldKeepMenuItem(array $item): bool {
+    private function shouldKeepMenuItem(array $item, array $allItems): bool {
         // Keep all non-page post types
         if (!isset($item['post_type']) || $item['post_type'] !== 'page') {
             return true;
         }
 
-        // Keep if it has a parent (is not at root level)
+        // Keep if it has a parent in the menu (is not at root level)
         if (!empty($item['post_parent'])) {
             return true;
         }
 
-        // Keep if it already has children in the menu structure
-        if (is_array($item['children']) && !empty($item['children'])) {
+        // Keep if other menu items are nested under this item
+        if ($this->hasMenuChildren($item, $allItems)) {
             return true;
         }
 
-        // Check for any published children using WordPress functions
-        $pageId = isset($item['page_id']) ? $item['page_id'] : $item['id'];
+        // Check for any published children in the WordPress page tree
+        $pageId = isset($item['page_id']) ? (int) $item['page_id'] : (int) $item['id'];
         return $this->hasPublishedChildren($pageId);
+    }
+
+    /**
+     * Check if a menu item has child items in the flat menu list
+     *
+     * @param array $item     The menu item to check
+     * @param array $allItems All menu items in the current flat list
+     *
+     * @return bool True if the item has menu children, false otherwise
+     */
+    private function hasMenuChildren(array $item, array $allItems): bool {
+        $menuItemId = (int) ($item['id'] ?? 0);
+
+        if ($menuItemId === 0) {
+            return false;
+        }
+
+        foreach ($allItems as $otherItem) {
+            if ((int) ($otherItem['post_parent'] ?? 0) === $menuItemId) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**

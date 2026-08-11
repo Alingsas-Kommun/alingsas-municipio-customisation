@@ -5,6 +5,13 @@ Format loosely follows [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+## [1.0.5] - 2026-08-11
+
+### Fixed
+
+- Recommend module preload buttons no longer stay stuck showing "loading" when analytics cookies are declined (they were waiting on a RekAI script blocked by cookie consent).
+- Article content tables no longer squeeze their columns into an unreadable wrap on narrow screens; they scroll horizontally instead, with a fade hinting there's more to scroll.
+
 ## [1.0.4] - 2026-08-11
 
 ### Fixed

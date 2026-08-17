@@ -58,35 +58,39 @@
     // column to shrink and wrap on narrow screens. Let the table size itself to
     // its content instead and scroll horizontally when that's wider than the
     // column, so headers stay legible rather than wrapping into a wall of text.
-    table {
-        display: block;
-        width: max-content !important;
-        max-width: 100%;
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: thin;
+    // Desktop has enough room for the inline width: 100% to behave, so this is
+    // scoped to narrow viewports only.
+    @media (max-width: 768px) {
+        table {
+            display: block;
+            width: max-content !important;
+            max-width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: thin;
 
-        th,
-        &:not(:has(thead)) tr:first-child td {
-            white-space: nowrap;
-        }
-
-        // Fades the edge(s) that still have content to scroll to, toggled by
-        // scrollable-tables.js via data-scroll-position. Mask-based so it works
-        // regardless of what's behind the table (no background-color to match).
-        &.has-overflow {
-            $fade: calc(var(--base, 8px)* 4);
-            mask-image: linear-gradient(to right, transparent, black $fade, black calc(100% - #{$fade}), transparent);
-            -webkit-mask-image: linear-gradient(to right, transparent, black $fade, black calc(100% - #{$fade}), transparent);
-
-            &[data-scroll-position="start"] {
-                mask-image: linear-gradient(to right, black calc(100% - #{$fade}), transparent);
-                -webkit-mask-image: linear-gradient(to right, black calc(100% - #{$fade}), transparent);
+            th,
+            &:not(:has(thead)) tr:first-child td {
+                white-space: nowrap;
             }
 
-            &[data-scroll-position="end"] {
-                mask-image: linear-gradient(to left, black calc(100% - #{$fade}), transparent);
-                -webkit-mask-image: linear-gradient(to left, black calc(100% - #{$fade}), transparent);
+            // Fades the edge(s) that still have content to scroll to, toggled by
+            // scrollable-tables.js via data-scroll-position. Mask-based so it works
+            // regardless of what's behind the table (no background-color to match).
+            &.has-overflow {
+                $fade: calc(var(--base, 8px)* 4);
+                mask-image: linear-gradient(to right, transparent, black $fade, black calc(100% - #{$fade}), transparent);
+                -webkit-mask-image: linear-gradient(to right, transparent, black $fade, black calc(100% - #{$fade}), transparent);
+
+                &[data-scroll-position="start"] {
+                    mask-image: linear-gradient(to right, black calc(100% - #{$fade}), transparent);
+                    -webkit-mask-image: linear-gradient(to right, black calc(100% - #{$fade}), transparent);
+                }
+
+                &[data-scroll-position="end"] {
+                    mask-image: linear-gradient(to left, black calc(100% - #{$fade}), transparent);
+                    -webkit-mask-image: linear-gradient(to left, black calc(100% - #{$fade}), transparent);
+                }
             }
         }
     }

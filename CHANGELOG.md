@@ -5,6 +5,12 @@ Format loosely follows [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+## [1.0.6] - 2026-08-17
+
+### Fixed
+
+- Article content tables' horizontal-scroll fix is now scoped to narrow viewports only; it was previously also overriding desktop table layout.
+
 ## [1.0.5] - 2026-08-11
 
 ### Fixed

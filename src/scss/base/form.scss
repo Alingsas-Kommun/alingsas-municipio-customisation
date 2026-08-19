@@ -2,20 +2,14 @@
 .s-sidebar {
     form {
         .c-field {
-            .c-field_focus-styler {
-                border-radius: calc(var(--base, 8px)* 6);
-                outline-color: var(--c-button-primary-color);
-                outline-width: 3px;
-            }
-
             input {
                 border-radius: calc(var(--base, 8px)* 6);
-                font-size: 16px;
+                font-size: var(--base-font-size, 1rem);
             }
 
             &__inner {
-                background-color: #fff;
-                border: 2px solid var(--c-button-primary-color);
+                background-color: var(--c-field--color--surface, var(--color--surface, #fff));
+                border: calc(var(--c-field--border-width, var(--border-width, .25)) * var(--base, 8px)) solid var(--c-field--color--primary, var(--color--primary));
                 border-radius: calc(var(--base, 8px)* 6);
                 height: 100%;
             }
@@ -25,7 +19,7 @@
             &__action-overlay {
                 &:focus {
                     border-radius: calc(var(--base, 8px)* 6);
-                    outline-color: var(--c-button-primary-color);
+                    outline-color: var(--color--focus);
                     outline-width: 3px;
                 }
             }
@@ -44,12 +38,12 @@ body.search {
         .ak-search {
             form {
                 .c-group {
-                    background-color: var(--c-button-primary-color);
+                    background-color: var(--c-button--color--primary, var(--color--primary));
                     border-radius: calc(var(--base, 8px)* 6);
-                    border: 2px solid var(--c-button-primary-color);
+                    border: calc(var(--c-button--border-width, var(--border-width, .25)) * var(--base, 8px)) solid var(--c-button--color--primary-border, var(--color--primary-border));
 
                     .c-field {
-                        background-color: var(--c-button-primary-color);
+                        background-color: var(--c-button--color--primary, var(--color--primary));
                         border-bottom-left-radius: calc(var(--base, 8px)* 6);
                         border-top-left-radius: calc(var(--base, 8px)* 6);
 
@@ -59,14 +53,8 @@ body.search {
                     }
 
                     .c-button {
-                        color: white;
+                        color: var(--c-button--color--primary-contrast, var(--color--primary-contrast));
                         padding: 0 calc(var(--base, 8px)*4) 0 calc(var(--base, 8px)*2);
-
-                        &:hover {
-                            &::after {
-                                display: none;
-                            }
-                        }
                     }
                 }
             }

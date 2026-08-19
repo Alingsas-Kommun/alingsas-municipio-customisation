@@ -1,16 +1,15 @@
 .sidebar-content-area {
     .modularity-mod-recommend {
-        background: white;
-        border-radius: var(--c-card-border-radius,
-                var(--radius-lg, calc(var(--base, 8px) / 4)));
+        background: var(--color--surface, #fff);
+        border-radius: calc(var(--c-card--border-radius, var(--border-radius, .5)) * var(--base, 8px));
         padding: 1rem;
 
         h2,
         h3,
         h4 {
             &.module-title {
-                font-size: clamp(var(--font-size-base, 1rem), 3vw, var(--h4-font-size, 1rem));
-                font-weight: var(--h4-font-weight, var(--font-weight-heading, 500));
+                font-size: clamp(var(--base-font-size, 1rem), 3vw, var(--font-size-400, 1rem));
+                font-weight: var(--font-weight-heading, 500);
             }
         }
     }

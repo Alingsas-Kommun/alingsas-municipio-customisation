@@ -34,8 +34,8 @@ body.archive {
   }
 
   table thead th {
-    background-color: #fad945;
-    color: #000;
+    background-color: var(--color--warning, #fad945);
+    color: var(--color--warning-contrast, #000);
 
     @media screen and (min-width: 1024px) {
       white-space: nowrap;
@@ -51,7 +51,7 @@ body.archive {
   }
 
   table th a.c-link {
-    color: #000;
+    color: var(--color--warning-contrast, #000);
     text-decoration: none;
     font-weight: 400;
   }
@@ -59,18 +59,15 @@ body.archive {
 
 .s-archive-filter {
   .c-button {
-    border: 2px solid var(--c-button-primary-color);
+    border: calc(var(--c-button--border-width, var(--border-width, .25)) * var(--base, 8px)) solid var(--c-button--color--primary-border, var(--color--primary-border));
   }
 
   .c-button:disabled:not(.c-button--no-disabled-color) {
-    --color-button-disabled-bg: #ccc;
+    background-color: var(--color--surface-border, #ccc);
+    color: var(--color--surface-contrast-muted, #707070);
 
     @media screen and (min-width: 520px) {
       box-sizing: content-box;
-    }
-
-    &::after {
-      content: unset;
     }
   }
 }

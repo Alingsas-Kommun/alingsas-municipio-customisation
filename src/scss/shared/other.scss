@@ -8,7 +8,7 @@
 
 #split-background:after {
   content: '';
-  background-color: #cadfde;
+  background-color: var(--color--secondary-alt, #cadfde);
   position: absolute;
   width: 100%;
   height: 500px;
@@ -53,19 +53,19 @@ div.widget_block>p:empty {
 /* Single job */
 
 .single-lediga-jobb .c-paper {
-  background-color: #dededd;
+  background-color: var(--color--surface-alt, #dededd);
 }
 
 .single-lediga-jobb [aria-label='Ansök'].c-button {
-  background-color: #fad945;
+  background-color: var(--color--warning, #fad945);
   border: none;
-  color: #000;
+  color: var(--color--warning-contrast, #000);
   filter: unset;
   outline: none;
 }
 
 .single-lediga-jobb [aria-label='Ansök'].c-button span {
-  color: #000;
+  color: var(--color--warning-contrast, #000);
 }
 
 /* Noticeboard */
@@ -73,10 +73,10 @@ div.widget_block>p:empty {
   .box-title {
     background-color: revert;
     color: revert;
-    font-size: clamp(var(--font-size-base, 1rem) + .25rem, 3vw, var(--h2-font-size, 1.375rem));
-    font-weight: var(--h2-font-weight, var(--font-weight-heading, 500));
-    font-family: var(--h2-font-family, var(--font-family-heading, var(--font-family-base, "Roboto", "sans-serif")));
-    line-height: var(--h2-line-height, var(--line-height-heading, 1.33));
+    font-size: clamp(calc(var(--base-font-size, 1rem) + .25rem), 3vw, var(--font-size-600, 1.375rem));
+    font-weight: var(--font-weight-heading, 500);
+    font-family: var(--font-family-heading, var(--font-family-base, "Roboto", sans-serif));
+    line-height: var(--line-height-heading, 1.33);
     padding: revert;
   }
 }

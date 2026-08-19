@@ -1,13 +1,13 @@
 blockquote {
     padding: 1rem 0rem 2rem 3rem;
     background-color: transparent;
-    color: black;
+    color: var(--color--surface-contrast, #000);
 
     &:before {
         top: 27px;
         transform: rotate(180deg);
         left: 0;
-        color: $color-plantation;
+        color: var(--color--primary, #{$color-plantation});
     }
 
     &:after {

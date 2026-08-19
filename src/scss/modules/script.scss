@@ -5,8 +5,8 @@
   margin: 0 auto;
   font-family: Arial, sans-serif;
   line-height: 1.6;
-  color: var(--card-body-color);
-  background-color: white;
+  color: var(--c-card--color--surface-contrast, var(--color--surface-contrast));
+  background-color: var(--c-card--color--surface, var(--color--surface));
   border: none;
 }
 
@@ -21,8 +21,8 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  border-right: 0.5px solid #ddd;
-  border-bottom: 0.5px solid #ddd;
+  border-right: 0.5px solid var(--color--surface-border, #ddd);
+  border-bottom: 0.5px solid var(--color--surface-border, #ddd);
 }
 
 .ak_frontpage_grid_item:nth-child(4n) {
@@ -36,13 +36,13 @@
 .ak_frontpage_grid_icon {
   font-size: 36px;
   margin-bottom: 10px;
-  color: var(--card-body-color);
+  color: var(--c-card--color--surface-contrast, var(--color--surface-contrast));
 }
 
 .ak_frontpage_grid_title {
   margin: 0 0 10px 0;
   font-size: 18px;
-  color: var(--card-body-color);
+  color: var(--c-card--color--surface-contrast, var(--color--surface-contrast));
 }
 
 .ak_frontpage_grid_description {
@@ -56,7 +56,7 @@
   }
 
   .ak_frontpage_grid_item:nth-child(4n) {
-    border-right: 0.5px solid #ddd;
+    border-right: 0.5px solid var(--color--surface-border, #ddd);
   }
 
   .ak_frontpage_grid_item:nth-child(2n) {
@@ -64,7 +64,7 @@
   }
 
   .ak_frontpage_grid_item:nth-last-child(-n + 4) {
-    border-bottom: 0.5px solid #ddd;
+    border-bottom: 0.5px solid var(--color--surface-border, #ddd);
   }
 
   .ak_frontpage_grid_item:nth-last-child(-n + 2) {
@@ -82,7 +82,7 @@
   }
 
   .ak_frontpage_grid_item:not(:last-child) {
-    border-bottom: 0.5px solid #ddd;
+    border-bottom: 0.5px solid var(--color--surface-border, #ddd);
   }
 
   .ak_frontpage_grid_item:last-child {

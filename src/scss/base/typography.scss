@@ -1,20 +1,20 @@
 :root {
-    --h1-font-size: 2.5rem;
-    --h1-font-weight: 700;
-    --page-title-color: var(--theme-page-title-color, #{$color-plantation});
+    --font-size-700: 2.5rem;
+    --font-weight-heading: 700;
+    --alingsas-page-title-color: var(--theme-page-title-color, #{$color-plantation});
 }
 
 #main-content {
-    --color-link-alingsas: var(--theme-links-link-color, var(--color-link));
-    --color-link-alingsas-hover: var(--theme-links-link-color_hover, var(--color-link-hover));
+    --c-link--color--primary: var(--theme-links-link-color, var(--color--primary));
+    --alingsas-link-hover-color: var(--theme-links-link-color_hover, var(--color--primary-border));
 }
 
 a,
 .link {
-    color: var(--color-link-alingsas, var(--color-link, var(--color-primary-dark, #236151)));
+    color: var(--c-link--color--primary, var(--color--primary, #236151));
 }
 
 a:hover,
 .link:hover {
-    color: var(--color-link-alingsas-hover, var(--color-link-hover, var(--color-primary, #13332b)));
+    color: var(--alingsas-link-hover-color, var(--color--primary-border, #13332b));
 }

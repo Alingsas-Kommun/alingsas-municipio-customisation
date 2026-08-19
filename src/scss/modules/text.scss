@@ -4,7 +4,7 @@
             background-color: $color-gray;
 
             a {
-                color: $color-black;
+                color: var(--color--surface-contrast, #{$color-black});
             }
         }
     }
@@ -16,20 +16,20 @@
         h2,
         h3,
         h4 {
-            font-size: clamp(var(--font-size-base, 1rem) + .125rem, 3vw, var(--h3-font-size, 1.125rem));
-            font-weight: var(--h4-font-weight, var(--font-weight-heading, 500));
+            font-size: clamp(calc(var(--base-font-size, 1rem) + .125rem), 3vw, var(--font-size-500, 1.125rem));
+            font-weight: var(--font-weight-heading, 500);
         }
 
         a {
-            color: var(--theme-sidebar-links-link-color, var(--color-link));
+            color: var(--theme-sidebar-links-link-color, var(--c-link--color--primary, var(--color--primary)));
         }
 
         a:hover {
-            color: var(--theme-sidebar-links-link-color_hover, var(--color-link-hover));
+            color: var(--theme-sidebar-links-link-color_hover, var(--color--primary-border));
         }
 
         a:visited {
-            color: var(--theme-sidebar-links-link-color_visited, var(--color-link-visited));
+            color: var(--theme-sidebar-links-link-color_visited, var(--color--primary-border));
         }
     }
 }

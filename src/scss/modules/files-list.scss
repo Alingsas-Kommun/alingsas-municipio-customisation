@@ -11,20 +11,14 @@
                 @extend .sr-only;
             }
 
-            .c-field_focus-styler {
-                border-radius: calc(var(--base, 8px)* 6);
-                outline-color: var(--theme-card-header-background, var(--color-page-theme, var(--c-button-primary-color)));
-                outline-width: 3px;
-            }
-
             input {
                 border-radius: calc(var(--base, 8px)* 6);
-                font-size: 16px;
+                font-size: var(--base-font-size, 1rem);
             }
 
             &__inner {
-                background-color: #fff;
-                border: 2px solid var(--theme-card-header-background, var(--color-page-theme, var(--c-button-primary-color)));
+                background-color: var(--c-field--color--surface, var(--color--surface, #fff));
+                border: calc(var(--c-field--border-width, var(--border-width, .25)) * var(--base, 8px)) solid var(--theme-card-header-background, var(--color-page-theme, var(--c-field--color--primary, var(--color--primary))));
                 border-radius: calc(var(--base, 8px)* 6);
                 height: auto;
             }

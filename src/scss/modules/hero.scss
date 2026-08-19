@@ -3,7 +3,7 @@ body {
         @media screen and (min-width: 360px) and (max-width: 500px) {
             form.c-form {
                 .c-group {
-                    background-color: var(--c-button-primary-color);
+                    background-color: var(--c-button--color--primary, var(--color--primary));
                     flex-direction: row;
                     gap: 0;
 

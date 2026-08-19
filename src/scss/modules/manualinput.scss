@@ -6,15 +6,9 @@
 
     &.js-search {
       form {
-        background-color: white;
-        border-top-left-radius: var(
-          --c-card-border-radius,
-          var(--radius-lg, calc(var(--base, 8px) / 2))
-        );
-        border-top-right-radius: var(
-          --c-card-border-radius,
-          var(--radius-lg, calc(var(--base, 8px) / 2))
-        );
+        background-color: var(--color--surface, #fff);
+        border-top-left-radius: calc(var(--c-card--border-radius, var(--border-radius, 1)) * var(--base, 8px));
+        border-top-right-radius: calc(var(--c-card--border-radius, var(--border-radius, 1)) * var(--base, 8px));
         display: block;
         padding: calc(var(--base, 8px) * 2);
       }
@@ -41,11 +35,15 @@
   }
 
   &:has(.c-accordion) {
-    --c-button-primary-color: var(--color-page-theme, #{$color-brand-alt});
+    --c-button--color--primary: var(--color-page-theme, var(--color--primary, #{$color-brand-alt}));
+    --c-button--color--primary-contrast: var(--theme-card-header-color, var(--color--primary-contrast, #fff));
+    --c-button--color--primary-border: var(--color-page-theme, var(--color--primary-border, #{$color-brand-alt}));
+    --c-card--color--primary: var(--color-page-theme, var(--color--primary, #{$color-brand-alt}));
+    --c-card--color--primary-contrast: var(--theme-card-header-color, var(--color--primary-contrast, #fff));
 
     .c-card__header {
-      background-color: var(--color-page-theme, #{$color-brand-alt});
-      color: var(--theme-card-header-color, white);
+      background-color: var(--c-card--color--primary);
+      color: var(--c-card--color--primary-contrast);
     }
   }
 }

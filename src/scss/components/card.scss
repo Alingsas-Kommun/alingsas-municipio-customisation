@@ -1,12 +1,12 @@
 .c-card {
     &__header {
-        background-color: var(--card-header-background);
-        color: var(--card-header-color);
+        background-color: var(--c-card--color--primary, var(--color--primary));
+        color: var(--c-card--color--primary-contrast, var(--color--primary-contrast));
     }
 
     &__body {
-        background-color: var(--card-body-background);
-        color: var(--card-body-color);
+        background-color: var(--c-card--color--surface, var(--color--surface));
+        color: var(--c-card--color--surface-contrast, var(--color--surface-contrast));
     }
 
     .c-typography.c-typography__variant--h1,
@@ -26,20 +26,20 @@
 .sidebar-content-area {
     .c-card {
         &__header {
-            background-color: var(--color-page-theme, var(--card-header-background));
-            color: var(--theme-card-header-color, var(--card-header-color));
+            background-color: var(--color-page-theme, var(--c-card--color--primary, var(--color--primary)));
+            color: var(--theme-card-header-color, var(--c-card--color--primary-contrast, var(--color--primary-contrast)));
         }
     }
 }
 
 body.home {
-    --card-header-background: white;
-    --card-header-color: black;
+    --c-card--color--primary: var(--color--surface, #fff);
+    --c-card--color--primary-contrast: var(--color--surface-contrast, #000);
 }
 
 .sidebar-content-area,
 .sidebar-content-area-top {
-    --card-header-color: white;
+    --c-card--color--primary-contrast: var(--color--primary-contrast, #fff);
 
     .modularity-mod-manualinput,
     .modularity-mod-posts {
@@ -98,10 +98,10 @@ body.home {
 .sidebar-left-sidebar,
 .sidebar-right-sidebar,
 .single-event-sidebar-right {
-    --card-header-background: var(--theme-sidebar-background, var(--color-page-theme, #{$color-gray}));
-    --card-header-color: var(--theme-sidebar-color, black);
-    --card-body-background: var(--theme-sidebar-background, var(--color-page-theme, #{$color-gray}));
-    --card-body-color: var(--theme-sidebar-color, black);
+    --c-card--color--primary: var(--theme-sidebar-background, var(--color-page-theme, #{$color-gray}));
+    --c-card--color--primary-contrast: var(--theme-sidebar-color, var(--color--surface-contrast, #000));
+    --c-card--color--surface: var(--theme-sidebar-background, var(--color-page-theme, #{$color-gray}));
+    --c-card--color--surface-contrast: var(--theme-sidebar-color, var(--color--surface-contrast, #000));
 
     .c-card {
         &__header {

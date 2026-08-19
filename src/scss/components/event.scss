@@ -4,8 +4,8 @@
     gap: 1rem;
 
     .image {
-        border-top-left-radius: var(--radius-lg);
-        border-top-right-radius: var(--radius-lg);
+        border-top-left-radius: calc(var(--c-card--border-radius, var(--border-radius, 1)) * var(--base, 8px));
+        border-top-right-radius: calc(var(--c-card--border-radius, var(--border-radius, 1)) * var(--base, 8px));
         overflow: hidden;
         padding-bottom: 56.25%;
         position: relative;
@@ -25,7 +25,8 @@
 
         .date {
             align-items: center;
-            background: white;
+            background: var(--color--surface, #fff);
+            color: var(--color--surface-contrast);
             display: flex;
             flex-flow: column;
             font-size: 85%;
@@ -65,7 +66,7 @@
         }
 
         .icon {
-            color: var(--color-secondary-dark);
+            color: var(--color--secondary-border);
         }
 
         .value {
@@ -136,7 +137,7 @@ a.c-card.has-event {
 
                 .image {
                     border-top-right-radius: 0;
-                    border-bottom-left-radius: var(--radius-lg);
+                    border-bottom-left-radius: calc(var(--c-card--border-radius, var(--border-radius, 1)) * var(--base, 8px));
                     flex: 0 0 35%;
                     padding-bottom: 0;
                 }

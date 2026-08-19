@@ -1,10 +1,10 @@
 .c-footer {
     &__postfooter-wrapper {
-        background-color: #f3f3f3;
+        background-color: var(--color--background-alt, #f3f3f3);
     }
 
     &__subfooter {
-        background-color: #f3f3f3;
+        background-color: var(--color--background-alt, #f3f3f3);
     }
 
     &__main-wrapper {
@@ -13,7 +13,7 @@
 
         .widget_block {
             h3 {
-                font-weight: bold;
+                font-weight: var(--font-weight-bold, 700);
             }
         }
 
@@ -28,7 +28,7 @@
     }
 
     &__prefooter-wrapper {
-        background-color: #fff;
+        background-color: var(--c-footer--color--surface, var(--color--surface, #fff));
     }
 
     .s-sidebar-footer-area-column-2 {

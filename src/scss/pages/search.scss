@@ -1,29 +1,29 @@
 body.search [data-js-search-page-container] {
-    --ts-main-filter-background: #cadfde;
-    --ts-sidebar-background: #cadfde;
-    --ts-search-btn-bg: #236151;
-    --ts-badge-background: #236151;
-    --ts-mark-background: #236151;
-    --ts-mark-color: white;
-    --ts-color-primary: #236151;
+    --ts-main-filter-background: var(--color--secondary-alt, #cadfde);
+    --ts-sidebar-background: var(--color--secondary-alt, #cadfde);
+    --ts-search-btn-bg: var(--color--primary, #236151);
+    --ts-badge-background: var(--color--primary, #236151);
+    --ts-mark-background: var(--color--primary, #236151);
+    --ts-mark-color: var(--color--primary-contrast, #fff);
+    --ts-color-primary: var(--color--primary, #236151);
     --ts-sidebar-width: 350px;
     --ts-panel-z-index: 9000;
 }
 
 :root {
-    --ts-qs-highlight-bg: #236151;
-    --ts-qs-highlight-color: white;
-    --ts-qs-type-bg: #236151;
-    --ts-qs-type-color: white;
-    --ts-qs-footer-bg: #236151;
-    --ts-qs-footer-color: white;
-    --ts-qs-footer-hover-bg: #1b473b;
-    --ts-qs-footer-hover-color: white;
+    --ts-qs-highlight-bg: var(--color--primary, #236151);
+    --ts-qs-highlight-color: var(--color--primary-contrast, #fff);
+    --ts-qs-type-bg: var(--color--primary, #236151);
+    --ts-qs-type-color: var(--color--primary-contrast, #fff);
+    --ts-qs-footer-bg: var(--color--primary, #236151);
+    --ts-qs-footer-color: var(--color--primary-contrast, #fff);
+    --ts-qs-footer-hover-bg: var(--color--primary-border, #1b473b);
+    --ts-qs-footer-hover-color: var(--color--primary-contrast, #fff);
 }
 
 body.search {
     h1 {
-        color: var(--page-title-color, var(--color-primary, #ae0b05));
+        color: var(--alingsas-page-title-color, var(--color--primary, #ae0b05));
     }
 }
 

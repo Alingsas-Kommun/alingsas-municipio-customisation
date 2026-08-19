@@ -38,6 +38,8 @@ out explicitly to the user as a change needed elsewhere) — don't edit the Muni
 mu-plugins directly, even when the root cause of a bug lives there. Prefer hooks, filters, and CSS/JS overrides
 loaded from this plugin over patching vendor code.
 
+Commit messages must not include a `Co-Authored-By` trailer.
+
 ## Architecture
 
 ### Bootstrapping and autoloading convention
@@ -136,8 +138,9 @@ external (provided by WordPress, not bundled).
 
 ### Versioning
 
-Semantic versioning. The version number must be kept in sync in three places: the `Version:` header comment in
-`municipio-customisation.php`, `Plugin::VERSION` in the same file, and `composer.json`'s `version`.
+Semantic versioning. The version number must be kept in sync in four places: the `Version:` header comment in
+`municipio-customisation.php`, `Plugin::VERSION` in the same file, `composer.json`'s `version`, and the
+"Aktuell version är **X.Y.Z**." line in `README.md`.
 
 `CHANGELOG.md` tracks notable changes per release, starting at 1.0.0. Update it (including an `[Unreleased]`
 section) alongside version bumps rather than relying solely on `git log`.

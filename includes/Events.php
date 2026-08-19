@@ -8,7 +8,7 @@ use EventManagerIntegration\EventArchive;
 
 class Events {
     public function __construct() {
-        // Add option to display post as events calendar
+        /* // Add option to display post as events calendar
         add_action('acf/load_field/name=posts_display_as', function ($field) {
             if (!isset($_GET['post'])) {
                 return $field;
@@ -93,6 +93,6 @@ class Events {
                     return $query;
                 });
             }
-        });
+        }); */
     }
 }

@@ -6,8 +6,8 @@ namespace AlingsasCustomisation\Includes;
 class Event extends \EventManagerIntegration\PostTypes\Events {
 
 	public function __construct() {
-		add_filter( 'Municipio/Template/event/single/viewData', [ $this, 'singleViewData' ], 5, 1 );
-		add_filter( 'Municipio/viewData', [ $this, 'modifyEventArchiveUrl' ], 20, 1 );
+		//add_filter( 'Municipio/Template/event/single/viewData', [ $this, 'singleViewData' ], 5, 1 );
+		//add_filter( 'Municipio/viewData', [ $this, 'modifyEventArchiveUrl' ], 20, 1 );
 	}
 
 	/**

@@ -1,7 +1,16 @@
-:root {
-    --font-size-700: 2.5rem;
-    --font-weight-heading: 700;
-    --alingsas-page-title-color: var(--theme-page-title-color, #{$color-plantation});
+@layer theme {
+    :root {
+        --font-family-base: Inter, sans-serif;
+        --font-family-heading: Inter, sans-serif;
+        --font-size-700: 2.5rem;
+        --font-weight-heading: 700;
+        --alingsas-page-title-color: var(--theme-page-title-color, #{$color-plantation});
+    }
+}
+
+h1#page-title,
+h1.page-header__title {
+    color: var(--hero-color, var(--alingsas-page-title-color));
 }
 
 #main-content {

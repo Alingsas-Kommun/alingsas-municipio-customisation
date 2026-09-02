@@ -1,8 +1,10 @@
-:root {
-    --c-card--color--primary: #{$color-plantation};
-    --c-card--color--primary-contrast: #fff;
-    --c-notice--color--danger: #{$color-thunderbird};
-    --o-tooltip--color--alpha: #000;
-    --o-tooltip--color--alpha-contrast: #fff;
-    --o-tooltip--color--alpha-border: #000;
+@layer theme {
+    :root {
+        --c-card--color--primary: #{$color-plantation};
+        --c-card--color--primary-contrast: #fff;
+        --c-notice--color--danger: #{$color-thunderbird};
+        --o-tooltip--color--alpha: #000;
+        --o-tooltip--color--alpha-contrast: #fff;
+        --o-tooltip--color--alpha-border: #000;
+    }
 }

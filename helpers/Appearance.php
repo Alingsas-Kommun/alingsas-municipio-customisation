@@ -5,33 +5,47 @@ namespace AlingsasCustomisation\Helpers;
 use AlingsasCustomisation\Includes\AppearanceSettings;
 
 class Appearance {
+    /**
+     * Municipio 6 palette keys → Styleguide v3 CSS variables.
+     *
+     * @var array<string, string>
+     */
+    private const PALETTE = [
+        'primary' => 'var(--color--primary)',
+        'primary-light' => 'var(--color--primary-alt)',
+        'primary-dark' => 'var(--color--primary-border)',
+        'secondary' => 'var(--color--secondary)',
+        'secondary-light' => 'var(--color--secondary-alt)',
+        'secondary-dark' => 'var(--color--secondary-border)',
+        'page-theme' => 'var(--color-page-theme)',
+    ];
+
     public static function getColorValue($id) {
-        // Is Municipio palette color
-        if (strpos($id, 'municipio-') !== false) {
-            return 'var(--color-' . str_replace('municipio-', '', $id) . ')';
-        }
-
-        // Is theme color
-        if (strpos($id, 'theme-') !== false) {
-            return 'var(--alingsas-' . $id . ')';
-        }
-
-        // Is theme color
-        if (strpos($id, 'color-') !== false) {
-            return 'var(--alingsas-' . $id . ')';
-        }
-
-        // Is standard color
-        if (empty($id) || $id === '-') {
+        if (!is_string($id) || $id === '' || $id === '-') {
             return false;
         }
 
-        // Is hex color
-        if (strpos($id, '#') === 0) {
+        if (str_starts_with($id, 'municipio-')) {
+            $id = substr($id, strlen('municipio-'));
+        }
+
+        if (isset(self::PALETTE[$id])) {
+            return self::PALETTE[$id];
+        }
+
+        if (str_starts_with($id, 'theme-')) {
+            return 'var(--alingsas-' . $id . ')';
+        }
+
+        if (str_starts_with($id, 'color-')) {
+            return 'var(--alingsas-' . $id . ')';
+        }
+
+        if (str_starts_with($id, '#')) {
             return $id;
         }
 
-        return 'var(--color-' . $id . ')';
+        return 'var(--color--' . $id . ')';
     }
 
     public static function getThemeVar($theme_id) {

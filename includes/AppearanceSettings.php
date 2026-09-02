@@ -192,7 +192,7 @@ class AppearanceSettings {
                 $css_vars .= "--alingsas-theme-{$theme['id']}: var(--alingsas-color-{$theme['theme_color']});";
             }
 
-            echo '<style>:root {' . $css_vars . '}</style>';
+            echo '<style>@layer theme{:root {' . $css_vars . '}}</style>';
         });
 
         // Output theme colors if page or URL has it
@@ -211,7 +211,7 @@ class AppearanceSettings {
             }
 
             if (!empty($css_vars)) {
-                echo '<style>:root {' . $css_vars . '}</style>';
+                echo '<style>@layer theme{:root {' . $css_vars . '}}</style>';
             }
         });
     }

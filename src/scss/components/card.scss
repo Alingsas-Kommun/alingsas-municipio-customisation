@@ -2,6 +2,11 @@
     &__header {
         background-color: var(--c-card--color--primary, var(--color--primary));
         color: var(--c-card--color--primary-contrast, var(--color--primary-contrast));
+        padding: calc(var(--base, 8px) * 2);
+
+        .c-typography {
+            font-size: 1rem;
+        }
     }
 
     &__body {
@@ -23,7 +28,8 @@
 
 }
 
-.sidebar-content-area {
+.sidebar-content-area,
+#sidebar-content-area {
     .c-card {
         &__header {
             background-color: var(--color-page-theme, var(--c-card--color--primary, var(--color--primary)));
@@ -38,7 +44,9 @@ body.home {
 }
 
 .sidebar-content-area,
-.sidebar-content-area-top {
+.sidebar-content-area-top,
+#sidebar-content-area,
+#sidebar-content-area-top {
     --c-card--color--primary-contrast: var(--color--primary-contrast, #fff);
 
     .modularity-mod-manualinput,
@@ -97,7 +105,9 @@ body.home {
 
 .sidebar-left-sidebar,
 .sidebar-right-sidebar,
-.single-event-sidebar-right {
+.single-event-sidebar-right,
+#sidebar-left-sidebar,
+#sidebar-right-sidebar {
     --c-card--color--primary: var(--theme-sidebar-background, var(--color-page-theme, #{$color-gray}));
     --c-card--color--primary-contrast: var(--theme-sidebar-color, var(--color--surface-contrast, #000));
     --c-card--color--surface: var(--theme-sidebar-background, var(--color-page-theme, #{$color-gray}));

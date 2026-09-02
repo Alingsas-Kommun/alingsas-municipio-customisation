@@ -8,14 +8,20 @@
 
 body:not(.home) {
 
-    .sidebar-content-area-top {
-        --c-button--color--primary: var(--theme-button-background, var(--color--primary, #{$color-brand-alt}));
-        --c-button--color--primary-contrast: var(--theme-button-color, var(--color--primary-contrast, #fff));
-        --c-button--color--primary-border: var(--theme-button-background, var(--color--primary-border, #{$color-brand-alt}));
+    .sidebar-content-area-top,
+    #sidebar-content-area-top {
+        --c-button--color--primary: var(--theme-button-background, #{$color-brand-alt});
+        --c-button--color--primary-contrast: var(--theme-button-color, #fff);
+        --c-button--color--primary-border: var(--theme-button-background, #{$color-brand-alt});
 
         .c-button:not(.c-notice__button) {
+            --c-button--color--primary: var(--theme-button-background, #{$color-brand-alt});
+            --c-button--color--primary-contrast: var(--theme-button-color, #fff);
+            --c-button--color--primary-border: var(--theme-button-background, #{$color-brand-alt});
             --c-button--base: 7px;
-            background-color: var(--c-button--color--primary);
+            background-color: var(--theme-button-background, #{$color-brand-alt});
+            border-color: var(--theme-button-background, #{$color-brand-alt});
+            color: var(--theme-button-color, #fff);
 
             &:hover {
                 background-color: var(--c-button--color--primary-border);
@@ -72,15 +78,20 @@ body:not(.home) {
     }
 }
 
-.sidebar-content-area .modularity-mod-recommend {
+.sidebar-content-area .modularity-mod-recommend,
+#sidebar-content-area .modularity-mod-recommend {
     --c-button--color--primary: #{$color-gray};
     --c-button--color--primary-contrast: #000;
     --c-button--color--primary-border: #{color.scale($color-gray, $lightness: -10%)};
 
     .c-button {
+        --c-button--color--primary: #{$color-gray};
+        --c-button--color--primary-contrast: #000;
+        --c-button--color--primary-border: #{color.scale($color-gray, $lightness: -10%)};
         --c-button--base: 6.5px;
-        background-color: var(--c-button--color--primary);
-        border-radius: calc(var(--c-button--border-radius, var(--border-radius, 1)) * var(--base, 8px));
+        background-color: #{$color-gray};
+        border-color: #{$color-gray};
+        color: #000;
 
         &:hover {
             background-color: var(--c-button--color--primary-border);

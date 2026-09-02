@@ -1,5 +1,6 @@
 #main-content,
-.s-sidebar {
+.s-sidebar,
+[data-scope*="s-sidebar;"] {
     form {
         .c-field {
             input {

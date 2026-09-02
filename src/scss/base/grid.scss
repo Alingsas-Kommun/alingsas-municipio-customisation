@@ -1,8 +1,10 @@
-.sidebar-content-area-top {
+.sidebar-content-area-top,
+#sidebar-content-area-top {
     --o-grid-gap: 4;
 }
 
-.sidebar-right-sidebar {
+.sidebar-right-sidebar,
+#sidebar-right-sidebar {
     .o-grid {
         --o-grid-gap: 3;
     }

@@ -35,11 +35,11 @@
   }
 
   &:has(.c-accordion) {
-    --c-button--color--primary: var(--color-page-theme, var(--color--primary, #{$color-brand-alt}));
-    --c-button--color--primary-contrast: var(--theme-card-header-color, var(--color--primary-contrast, #fff));
-    --c-button--color--primary-border: var(--color-page-theme, var(--color--primary-border, #{$color-brand-alt}));
-    --c-card--color--primary: var(--color-page-theme, var(--color--primary, #{$color-brand-alt}));
-    --c-card--color--primary-contrast: var(--theme-card-header-color, var(--color--primary-contrast, #fff));
+    --c-button--color--primary: var(--color-page-theme, #{$color-brand-alt});
+    --c-button--color--primary-contrast: var(--theme-card-header-color, #fff);
+    --c-button--color--primary-border: var(--color-page-theme, #{$color-brand-alt});
+    --c-card--color--primary: var(--color-page-theme, #{$color-brand-alt});
+    --c-card--color--primary-contrast: var(--theme-card-header-color, #fff);
 
     .c-card__header {
       background-color: var(--c-card--color--primary);

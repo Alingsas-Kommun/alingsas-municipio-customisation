@@ -14,7 +14,7 @@ class InlayList {
 
                 if (!empty($appearance) && $appearance === 'buttons') {
                     $background_color = get_field('background_color', $ID);
-                    if ($background_color === true || $background_color === NULL) {
+                    if ($background_color === null || filter_var($background_color, FILTER_VALIDATE_BOOLEAN)) {
                         $classes[] = 'modularity-mod-inlaylist--background-color';
                     }
                 }

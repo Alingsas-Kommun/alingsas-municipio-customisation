@@ -1,4 +1,9 @@
 .modularity-mod-inlaylist {
+    .c-card__header {
+        background-color: var(--color-page-theme, var(--c-card--color--primary, #{$color-plantation}));
+        color: var(--c-card--color--primary-contrast, #fff);
+    }
+
     &--appearance-buttons {
         .c-collection {
             display: flex;
@@ -8,9 +13,12 @@
 
             &__item {
                 background: var(--color--surface, #fff);
-                border: 2px solid var(--color--primary-alt, #{$color-brand-light});
+                border: 2px solid #{$color-brand-light};
                 border-radius: var(--base, 8px);
+                flex: 0 1 auto;
+                max-width: 100%;
                 overflow: hidden;
+                width: auto;
 
                 &:hover {
                     background-color: var(--color--surface-alt, #f3f3f3);
@@ -31,10 +39,9 @@
 
             &__content {
                 align-items: center;
-                color: var(--color--primary, #{$color-brand});
+                color: var(--c-card--color--primary, #{$color-brand});
                 display: flex;
                 justify-content: center;
-                //white-space: nowrap;
 
                 h2 {
                     text-decoration: underline;
@@ -50,14 +57,17 @@
 
     &--background-color {
         padding: 1rem 0;
+        position: relative;
 
-        --theme-card-header-background: var(--theme-external-links-general-background, var(--color--secondary-alt, #{$color-geyser}));
-        --theme-card-header-color: var(--theme-external-links-general-color, var(--color--secondary-contrast, #000));
-        --c-card--color--primary: var(--theme-external-links-general-background, var(--color--secondary-alt, #{$color-geyser}));
-        --c-card--color--primary-contrast: var(--theme-external-links-general-color, var(--color--secondary-contrast, #000));
+        --inlay-list-stripe: var(--theme-external-links-general-background, var(--color--secondary, #{$color-geyser}));
+        --inlay-list-stripe-contrast: var(--theme-external-links-general-color, var(--color--secondary-contrast, #000));
+        --theme-card-header-background: var(--inlay-list-stripe);
+        --theme-card-header-color: var(--inlay-list-stripe-contrast);
+        --c-card--color--primary: var(--inlay-list-stripe);
+        --c-card--color--primary-contrast: var(--inlay-list-stripe-contrast);
 
         &::before {
-            background: var(--theme-external-links-general-background, var(--color--secondary-alt, #{$color-geyser}));
+            background: var(--inlay-list-stripe);
             content: '';
             height: 100%;
             margin-left: calc(calc(calc(-100vw - var(--scrollbar))/2) + 50% + var(--scrollbar));
@@ -71,12 +81,17 @@
         }
 
         .c-card {
-            background: var(--theme-external-links-general-background, var(--color--secondary-alt, #{$color-geyser}));
-            color: var(--theme-external-links-general-color, var(--color--secondary-contrast, #000));
+            background: var(--inlay-list-stripe);
+            color: var(--inlay-list-stripe-contrast);
+        }
+
+        .c-card__header {
+            background-color: transparent;
+            color: var(--inlay-list-stripe-contrast);
         }
 
         .c-collection {
-            background: var(--theme-external-links-general-background, var(--color--secondary-alt, #{$color-geyser}));
+            background: var(--inlay-list-stripe);
             padding: 0 1rem 1rem;
 
             &__item {
@@ -108,14 +123,15 @@
             }
 
             &__content {
-                color: var(--theme-external-links-button-color, var(--color--primary, #{$color-plantation}));
+                color: var(--theme-external-links-button-color, #{$color-plantation});
                 z-index: 2;
             }
         }
     }
 }
 
-.sidebar-content-area {
+.sidebar-content-area,
+#sidebar-content-area {
     .modularity-mod-inlaylist {
         .c-collection {
             h2 {

@@ -19,6 +19,7 @@ class ExtraSettings {
             if (!empty($background_color) && $background_color !== 'none') {
                 $classes[] = 'has-background-stripe';
                 $classes[] = 'background-stripe-color-' . $ID;
+                $classes[] = 'background-stripe-color-' . sanitize_html_class((string) $background_color);
             }
 
             if ($no_top_margin) {
@@ -37,13 +38,10 @@ class ExtraSettings {
             $background_color = get_field('background_stripe_color', $ID);
 
             if (!empty($background_color) && $background_color !== 'none') {
-                $html .= '
-                <style>
-                .background-stripe-color-' . $ID . '::before {
-                    background-color: ' . AppearanceHelper::getColorValue($background_color) . ';
+                $color = AppearanceHelper::getColorValue($background_color);
+                if ($color) {
+                    $html .= '<style>@layer theme {.background-stripe-color-' . (int) $ID . '::before { background-color: ' . $color . '; }}</style>';
                 }
-                </style>
-                ';
             }
 
             return $html;

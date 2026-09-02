@@ -55,10 +55,17 @@ div[class^="modularity-mod-"] {
             background-color: var(--color--secondary-border);
         }
     }
+
+    &.background-stripe-color-page-theme {
+        &::before {
+            background-color: var(--color-page-theme);
+        }
+    }
 }
 
 #main-content {
-    &:has(.sidebar-right-sidebar) {
+    &:has(.sidebar-right-sidebar),
+    &:has(#sidebar-right-sidebar) {
         div[class^="modularity-mod-"] {
             &.has-background-stripe {
                 &::before {}

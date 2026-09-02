@@ -1,8 +1,12 @@
 :root {
     --c-nav--background-expanded: rgba(0, 0, 0, 0.05);
+}
 
-    .s-nav-drawer-secondary {
-        --c-nav--color--surface-contrast: var(--color--primary);
+@layer theme {
+    .c-drawer.s-drawer-menu {
+        --c-drawer--color--primary: #{$color-plantation};
+        --c-drawer--color--primary-contrast: #fff;
+        --c-nav--item-background-color-hover: #f4f4f4;
     }
 }
 
@@ -124,8 +128,12 @@ body:has(.c-drawer.is-open) {
 }
 
 .c-drawer {
+    --c-drawer--color--primary: #{$color-plantation};
+    --c-drawer--color--primary-contrast: #fff;
+    --c-nav--item-background-color-hover: #f4f4f4;
+
     scrollbar-width: thin;
-    scrollbar-color: var(--c-drawer--color--primary, var(--color--primary)) var(--c-drawer--color--surface-border, var(--color--surface-border));
+    scrollbar-color: var(--c-drawer--color--primary, #{$color-plantation}) var(--c-drawer--color--surface-border, var(--color--surface-border));
 
     &__body {
         padding-bottom: 70px;
@@ -151,7 +159,7 @@ body:has(.c-drawer.is-open) {
         border-radius: 6px;
 
         &:hover {
-            background: var(--color--primary-border);
+            background: color-mix(in srgb, #000 10%, var(--c-drawer--color--primary, #{$color-plantation}));
         }
     }
 
@@ -167,13 +175,17 @@ body:has(.c-drawer.is-open) {
 
                 &__toggle {
                     flex: 0 0 48px;
-                    margin-top: 5px;
+                    align-self: stretch;
+                    height: auto;
+                    min-height: inherit;
+                    margin-top: 0;
+                    margin-right: 0;
                 }
 
                 &__item {
                     &.has-children {
                         .c-nav.c-nav--vertical {
-                            border-left: 8px solid var(--color--secondary-alt);
+                            border-left: 8px solid #c2dad7;
                             background-color: var(--c-drawer--color--surface, var(--color--surface)) !important;
 
                             .c-nav.c-nav--vertical {
@@ -187,46 +199,64 @@ body:has(.c-drawer.is-open) {
         }
     }
 
-    /* Justera bakgrundsfärg för header */
     &.s-drawer-menu &__header {
-        background-color: var(--c-drawer--color--primary, var(--color--primary));
+        background-color: var(--c-drawer--color--primary, #{$color-plantation});
 
         .c-drawer__close {
             .c-button__label {
-
-                /* Justera färg för "Stäng" header */
                 &-icon .c-icon,
                 &-text {
-                    color: var(--c-drawer--color--primary-contrast, var(--color--primary-contrast));
+                    color: var(--c-drawer--color--primary-contrast, #fff);
                 }
             }
         }
+    }
+
+    .site-nav-mobile__primary.c-nav--vertical {
+        .c-nav__item:not(.is-open) > .c-nav__item-wrapper:hover {
+            background-color: #f4f4f4;
+        }
+    }
+
+    .c-nav--vertical .c-nav__item.has-toggle > .c-nav__item-wrapper > .c-nav__toggle {
+        margin-right: 0;
+        --c-button-contrast: #000;
+        color: #000;
+
+        .c-button__label,
+        .c-icon {
+            color: #000;
+        }
+    }
+
+    .c-nav.c-nav--vertical .c-nav.c-nav--child,
+    .c-nav.c-nav--vertical:not(.c-nav--bordered) .c-nav.c-nav--child.c-nav--depth-2 {
+        border-radius: 0;
+        overflow: visible;
+        corner-shape: initial;
     }
 
     .c-nav {
         &--drawer {
             .c-nav {
 
-                /* Huvudmenyobjekt */
                 &__item-wrapper {
                     background-color: var(--c-drawer--color--surface, var(--color--surface));
-                    border-bottom: 1px solid var(--c-drawer--color--surface-border, var(--color--surface-border));
+                    border-bottom: 1px solid #e0e0e0;
                     transition: background-color 0.3s ease;
                 }
 
                 &__item {
                     &--depth-2 {
-
-                        /* Undermenyobjekt */
                         .c-nav__item-wrapper {
-                            border-bottom: 1px solid var(--color--secondary-alt);
+                            border-bottom: 1px solid #c2dad7;
                         }
                     }
                 }
 
                 /* Textfärg för alla menyobjekt */
                 &__link {
-                    color: var(--c-drawer--color--surface-contrast, var(--color--surface-contrast));
+                    color: #000;
                     display: flex;
                     align-items: center;
                     gap: 10px;
@@ -243,22 +273,20 @@ body:has(.c-drawer.is-open) {
                     /* Stil för expanderad huvudmenysektion */
                     &.is-open {
                         >.c-nav__item-wrapper.c-nav__item-wrapper {
-                            border-color: var(--color--secondary-alt);
-                            background-color: var(--color--secondary-alt);
+                            border-color: #c2dad7;
+                            background-color: #c2dad7;
                             font-weight: 600;
 
-                            /* Hover för undermenyobjekt */
                             &:hover {
-                                background-color: var(--color--secondary-border);
+                                background-color: #9cc0bb;
                             }
 
                             .c-nav__link,
                             .c-button,
                             .c-nav__toggle .c-icon {
-                                color: var(--color--secondary-contrast);
+                                color: #000;
                             }
 
-                            /* Rotera pilen uppåt för expanderad menysektion */
                             .c-nav__toggle {
                                 .c-icon {
                                     transform: rotate(180deg);
@@ -267,12 +295,7 @@ body:has(.c-drawer.is-open) {
                         }
 
                         .c-nav__item--depth-3 .c-nav__link {
-                            color: var(--color--secondary-contrast);
-                        }
-
-                        /* Behåll vit text för huvudmenyobjekt även när undermenyer är öppna */
-                        >.c-nav__item-wrapper .c-nav__link {
-                            color: var(--c-drawer--color--primary-contrast, var(--color--primary-contrast));
+                            color: #000;
                         }
                     }
 
@@ -282,7 +305,7 @@ body:has(.c-drawer.is-open) {
                     &--depth-4 {
                         &.is-open {
                             >.c-nav__item-wrapper {
-                                background-color: var(--color--secondary-alt);
+                                background-color: #c2dad7;
                                 margin-left: 4px;
                             }
                         }
@@ -295,7 +318,7 @@ body:has(.c-drawer.is-open) {
                                 .c-nav__link,
                                 .c-button,
                                 .c-nav__toggle .c-icon {
-                                    color: var(--color--secondary-contrast);
+                                    color: #000;
                                 }
                             }
                         }
@@ -328,12 +351,8 @@ body:has(.c-drawer.is-open) {
                 }
             }
 
-            .c-drawer {
-                .c-nav__item {
-                    .c-nav__icon {
-                        color: var(--c-drawer--color--primary, var(--color--primary));
-                    }
-                }
+            .c-nav__icon {
+                color: var(--c-drawer--color--primary, #{$color-plantation});
             }
         }
     }

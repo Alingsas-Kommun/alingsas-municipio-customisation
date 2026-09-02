@@ -1,4 +1,7 @@
 .c-footer {
+    --c-footer--color--surface: #dededd;
+    background-color: var(--c-footer--color--surface, #dededd);
+
     &__postfooter-wrapper {
         background-color: var(--color--background-alt, #f3f3f3);
     }
@@ -12,8 +15,11 @@
         padding-bottom: 0 !important;
 
         .widget_block {
-            h3 {
+            h3,
+            .wp-block-heading {
                 font-weight: var(--font-weight-bold, 700);
+                margin-top: 0;
+                padding-top: 0;
             }
         }
 
@@ -28,10 +34,11 @@
     }
 
     &__prefooter-wrapper {
-        background-color: var(--c-footer--color--surface, var(--color--surface, #fff));
+        background-color: var(--color--surface, #fff);
     }
 
-    .s-sidebar-footer-area-column-2 {
+    .s-sidebar-footer-area-column-2,
+    #sidebar-footer-area-column-2 {
         .t-block-container {
             padding: 0 !important;
 

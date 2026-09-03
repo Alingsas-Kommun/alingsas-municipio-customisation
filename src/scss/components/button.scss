@@ -1,6 +1,9 @@
 @use "sass:color";
 
 .c-button {
+    // Migrated Kirki pill shape. Design Builder drops this token on save.
+    --c-button--border-radius: 4;
+
     &.c-button--sm {
         letter-spacing: 1px;
     }

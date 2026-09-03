@@ -3,11 +3,13 @@
 namespace AlingsasCustomisation\Includes;
 
 /**
- * Keep Styleguide v3 Design Builder tokens readable.
+ * Keep Styleguide v3 Design Builder tokens readable and save-safe.
  *
  * Municipio 7 emits theme_mod('tokens') in @layer theme. A Kirki-era import
  * left --color--primary and --color--primary-contrast on the same hex, which
- * makes body chrome look unstyled. Repair at runtime and persist once.
+ * makes body chrome look unstyled. V41 also stores some component tokens as
+ * JSON numbers; Design Builder drops non-strings on first save. Repair at
+ * runtime and persist.
  */
 class DesignBuilderTokens
 {
@@ -17,19 +19,15 @@ class DesignBuilderTokens
     {
         add_action('init', [$this, 'maybePersistRepairedTokens'], 6);
         add_filter('theme_mod_tokens', [$this, 'filterThemeModTokens']);
+        add_filter('Municipio/Styleguide/Customize/OverrideState', [$this, 'filterOverrideState']);
     }
 
     /**
-     * Persist a contrast-safe copy so Design Builder matches the front end.
+     * Persist a contrast-safe, stringified copy so Design Builder matches the front end.
      */
     public function maybePersistRepairedTokens(): void
     {
-        if (get_option(self::OPTION_REPAIRED)) {
-            return;
-        }
-
-        $raw = get_theme_mod('tokens', '');
-        $decoded = $this->decodeTokens($raw);
+        $decoded = $this->decodeTokens($this->getUnfilteredTokensRaw());
         $repaired = $this->repairTokens($decoded);
 
         if ($repaired === $decoded) {
@@ -50,6 +48,17 @@ class DesignBuilderTokens
         $repaired = $this->repairTokens($decoded);
 
         return wp_json_encode($repaired) ?: '{"token":{},"component":{}}';
+    }
+
+    /**
+     * Design Builder reads OverrideState after json_decode; stringify numbers here too.
+     *
+     * @param mixed $stored
+     * @return array{token: array<string, mixed>, component: array<string, mixed>}
+     */
+    public function filterOverrideState(mixed $stored): array
+    {
+        return $this->repairTokens($this->decodeTokens($stored));
     }
 
     /**
@@ -106,7 +115,66 @@ class DesignBuilderTokens
             }
         }
 
+        $tokens['token'] = $this->stringifyNumericValues($tokens['token']);
+        $tokens['component'] = $this->stringifyNumericValues($tokens['component']);
+        $tokens = $this->ensurePillButtonRadius($tokens);
+
         return $tokens;
+    }
+
+    /**
+     * Design Builder has no button-shape control and omits this token from the
+     * save payload. Re-apply the migrated pill radius (Kirki button_shape).
+     *
+     * @param array{token: array<string, mixed>, component: array<string, mixed>} $tokens
+     * @return array{token: array<string, mixed>, component: array<string, mixed>}
+     */
+    private function ensurePillButtonRadius(array $tokens): array
+    {
+        if (!isset($tokens['component']['__general__']) || !is_array($tokens['component']['__general__'])) {
+            $tokens['component']['__general__'] = [];
+        }
+
+        if (!isset($tokens['component']['__general__']['button']) || !is_array($tokens['component']['__general__']['button'])) {
+            $tokens['component']['__general__']['button'] = [];
+        }
+
+        $tokens['component']['__general__']['button']['--c-button--border-radius'] = '4';
+
+        return $tokens;
+    }
+
+    /**
+     * Styleguide Design Builder keeps only string overrides. V41 stores pill radius
+     * and several other tokens as JSON numbers, which are dropped on first save.
+     *
+     * @param array<string, mixed> $values
+     * @return array<string, mixed>
+     */
+    private function stringifyNumericValues(array $values): array
+    {
+        foreach ($values as $key => $value) {
+            if (is_array($value)) {
+                $values[$key] = $this->stringifyNumericValues($value);
+                continue;
+            }
+
+            if (is_int($value) || is_float($value)) {
+                $values[$key] = (string) $value;
+            }
+        }
+
+        return $values;
+    }
+
+    /**
+     * Raw theme_mod JSON, bypassing theme_mod_tokens so persist can see numbers.
+     */
+    private function getUnfilteredTokensRaw(): mixed
+    {
+        $mods = get_option('theme_mods_' . get_stylesheet());
+
+        return is_array($mods) ? ($mods['tokens'] ?? '') : '';
     }
 
     private function normalizeHex(string $value): string

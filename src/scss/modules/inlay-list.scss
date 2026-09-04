@@ -1,3 +1,12 @@
+// M6 cards defaulted to --border-width-card: 0. Styleguide v3 cards always
+// paint --c-card--border (~1px surface-border). Zero it only on this module.
+@layer theme {
+    .modularity-mod-inlaylist .c-card {
+        --c-card--border-width: 0;
+        --c-card--border: none;
+    }
+}
+
 .modularity-mod-inlaylist {
     .c-card__header {
         background-color: var(--color-page-theme, var(--c-card--color--primary, #{$color-plantation}));

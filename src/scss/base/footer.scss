@@ -15,9 +15,13 @@
         padding-bottom: 0 !important;
 
         .widget_block {
+            h2,
             h3,
+            h4,
             .wp-block-heading {
+                font-size: var(--font-size-200);
                 font-weight: var(--font-weight-bold, 700);
+                line-height: 1.4;
                 margin-top: 0;
                 padding-top: 0;
             }

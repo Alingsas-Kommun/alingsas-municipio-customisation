@@ -38,9 +38,27 @@
     }
 }
 
-body.home {
+@layer theme {
+    body.home {
+        --c-card--color--primary: var(--color--surface, #fff);
+        --c-card--color--primary-contrast: var(--color--surface-contrast, #2d2d2d);
+    }
+
+    body.home .sidebar-content-area,
+    body.home .sidebar-content-area-top,
+    body.home #sidebar-content-area,
+    body.home #sidebar-content-area-top {
+        --c-card--color--primary: var(--color--surface, #fff);
+        --c-card--color--primary-contrast: var(--color--surface-contrast, #2d2d2d);
+    }
+}
+
+body.home .sidebar-content-area,
+body.home .sidebar-content-area-top,
+body.home #sidebar-content-area,
+body.home #sidebar-content-area-top {
     --c-card--color--primary: var(--color--surface, #fff);
-    --c-card--color--primary-contrast: var(--color--surface-contrast, #000);
+    --c-card--color--primary-contrast: var(--color--surface-contrast, #2d2d2d);
 }
 
 .sidebar-content-area,

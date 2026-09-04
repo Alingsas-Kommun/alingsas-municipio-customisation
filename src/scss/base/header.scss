@@ -8,6 +8,10 @@
         --c-drawer--color--primary-contrast: #fff;
         --c-nav--item-background-color-hover: #f4f4f4;
     }
+
+    .collapsible-search-form {
+        --c-field--border-radius: 4;
+    }
 }
 
 .site-header:not(.c-header--business) {
@@ -40,13 +44,12 @@
     .collapsible-search-form {
         &__group {
             .c-field {
-                input {
-                    font-size: var(--base-font-size, 1rem) !important;
-                }
+                --c-field--color--surface: var(--color--surface, #fff);
+                --c-field--color--primary: var(--color--primary);
+                border-radius: calc(var(--c-field--border-radius, 4) * var(--base, 8px));
 
-                &__inner {
-                    background-color: var(--c-field--color--surface, var(--color--surface, #fff));
-                    border: calc(var(--c-field--border-width, var(--border-width, .25)) * var(--base, 8px)) solid var(--c-field--color--primary, var(--color--primary));
+                input {
+                    font-size: var(--base-font-size, 1rem);
                 }
             }
         }
@@ -66,14 +69,25 @@
         }
 
         &__submit-icon {
-            background-color: transparent !important;
-            outline-color: var(--color--focus) !important;
-            height: calc(100% - 10px) !important;
-            width: calc(var(--base, 8px)* 5) !important;
-            inset: 50% 5px auto auto !important;
+            background-color: transparent;
+            height: calc(100% - 10px);
+            width: calc(var(--base, 8px)* 5);
+            inset: 50% 5px auto auto;
 
-            .c-icon {
-                color: var(--c-button--color--primary, var(--color--primary));
+            .c-icon,
+            .c-button__label {
+                color: var(--color--primary);
+            }
+
+            &[disabled],
+            &:disabled {
+                opacity: 1;
+                color: var(--color--primary);
+
+                .c-icon,
+                .c-button__label {
+                    color: var(--color--primary);
+                }
             }
         }
 

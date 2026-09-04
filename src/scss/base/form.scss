@@ -1,25 +1,18 @@
+@layer theme {
+    .collapsible-search-form,
+    body.search .ak-search {
+        --c-field--border-radius: 4;
+    }
+}
+
 #main-content,
 .s-sidebar,
 [data-scope*="s-sidebar;"] {
     form {
-        .c-field {
-            input {
-                border-radius: calc(var(--base, 8px)* 6);
-                font-size: var(--base-font-size, 1rem);
-            }
-
-            &__inner {
-                background-color: var(--c-field--color--surface, var(--color--surface, #fff));
-                border: calc(var(--c-field--border-width, var(--border-width, .25)) * var(--base, 8px)) solid var(--c-field--color--primary, var(--color--primary));
-                border-radius: calc(var(--base, 8px)* 6);
-                height: 100%;
-            }
-        }
-
         .c-select {
             &__action-overlay {
                 &:focus {
-                    border-radius: calc(var(--base, 8px)* 6);
+                    border-radius: calc(var(--c-field--border-radius, var(--border-radius, 1)) * var(--base, 8px));
                     outline-color: var(--color--focus);
                     outline-width: 3px;
                 }
@@ -29,35 +22,6 @@
                 width: calc(100% - calc(var(--base, 8px)* 6));
                 left: calc(var(--base, 8px)* 3);
                 top: calc(100% + calc(var(--base, 8px)/2));
-            }
-        }
-    }
-}
-
-body.search {
-    #main-content {
-        .ak-search {
-            form {
-                .c-group {
-                    background-color: var(--c-button--color--primary, var(--color--primary));
-                    border-radius: calc(var(--base, 8px)* 6);
-                    border: calc(var(--c-button--border-width, var(--border-width, .25)) * var(--base, 8px)) solid var(--c-button--color--primary-border, var(--color--primary-border));
-
-                    .c-field {
-                        background-color: var(--c-button--color--primary, var(--color--primary));
-                        border-bottom-left-radius: calc(var(--base, 8px)* 6);
-                        border-top-left-radius: calc(var(--base, 8px)* 6);
-
-                        &__inner {
-                            border: 0;
-                        }
-                    }
-
-                    .c-button {
-                        color: var(--c-button--color--primary-contrast, var(--color--primary-contrast));
-                        padding: 0 calc(var(--base, 8px)*4) 0 calc(var(--base, 8px)*2);
-                    }
-                }
             }
         }
     }

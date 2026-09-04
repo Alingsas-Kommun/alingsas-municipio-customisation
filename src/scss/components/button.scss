@@ -1,60 +1,50 @@
 @use "sass:color";
 
-.c-button {
-    // Migrated Kirki pill shape. Design Builder drops this token on save.
-    --c-button--border-radius: 4;
+@layer theme {
+    .c-button {
+        --c-button--border-radius: 4;
+    }
 
+    body:not(.home) {
+        .sidebar-content-area-top,
+        #sidebar-content-area-top {
+            --c-button--color--primary: var(--theme-button-background, #{$color-brand-alt});
+            --c-button--color--primary-contrast: var(--theme-button-color, #fff);
+            --c-button--color--primary-border: var(--theme-button-background, #{$color-brand-alt});
+        }
+
+        .modularity-event-index {
+            --c-button--color--primary: var(--theme-button-background, var(--color--primary, #{$color-brand-alt}));
+            --c-button--color--primary-contrast: var(--theme-button-color, var(--color--primary-contrast, #fff));
+            --c-button--color--primary-border: var(--theme-button-background, var(--color--primary-border, #{$color-brand-alt}));
+        }
+    }
+
+    .sidebar-content-area .modularity-mod-recommend,
+    #sidebar-content-area .modularity-mod-recommend {
+        --c-button--color--primary: #{$color-gray};
+        --c-button--color--primary-contrast: #000;
+        --c-button--color--primary-border: #{color.scale($color-gray, $lightness: -10%)};
+    }
+}
+
+.c-button {
     &.c-button--sm {
         letter-spacing: 1px;
     }
 }
 
 body:not(.home) {
-
     .sidebar-content-area-top,
     #sidebar-content-area-top {
-        --c-button--color--primary: var(--theme-button-background, #{$color-brand-alt});
-        --c-button--color--primary-contrast: var(--theme-button-color, #fff);
-        --c-button--color--primary-border: var(--theme-button-background, #{$color-brand-alt});
-
         .c-button:not(.c-notice__button) {
-            --c-button--color--primary: var(--theme-button-background, #{$color-brand-alt});
-            --c-button--color--primary-contrast: var(--theme-button-color, #fff);
-            --c-button--color--primary-border: var(--theme-button-background, #{$color-brand-alt});
             --c-button--base: 7px;
-            background-color: var(--theme-button-background, #{$color-brand-alt});
-            border-color: var(--theme-button-background, #{$color-brand-alt});
-            color: var(--theme-button-color, #fff);
-
-            &:hover {
-                background-color: var(--c-button--color--primary-border);
-                border-color: var(--c-button--color--primary-border);
-                opacity: .9;
-            }
-
-            .c-button__label {
-                color: var(--c-button--color--primary-contrast);
-            }
         }
     }
 
     .modularity-event-index {
-        --c-button--color--primary: var(--theme-button-background, var(--color--primary, #{$color-brand-alt}));
-        --c-button--color--primary-contrast: var(--theme-button-color, var(--color--primary-contrast, #fff));
-        --c-button--color--primary-border: var(--theme-button-background, var(--color--primary-border, #{$color-brand-alt}));
-
         .c-button {
             --c-button--base: 7px;
-            background-color: var(--c-button--color--primary);
-            border: calc(var(--c-button--border-width, var(--border-width, .25)) * var(--base, 8px)) solid var(--c-button--color--primary-border);
-
-            &:hover {
-                background-color: var(--c-button--color--primary-border);
-            }
-
-            .c-button__label {
-                color: var(--c-button--color--primary-contrast);
-            }
         }
 
         .c-pagination {
@@ -65,11 +55,6 @@ body:not(.home) {
                     &::after {
                         display: none;
                     }
-                }
-
-                &.c-button__filled--primary {
-                    background-color: var(--c-button--color--primary);
-                    color: var(--c-button--color--primary-contrast);
                 }
 
                 &.disabled {
@@ -83,44 +68,20 @@ body:not(.home) {
 
 .sidebar-content-area .modularity-mod-recommend,
 #sidebar-content-area .modularity-mod-recommend {
-    --c-button--color--primary: #{$color-gray};
-    --c-button--color--primary-contrast: #000;
-    --c-button--color--primary-border: #{color.scale($color-gray, $lightness: -10%)};
-
     .c-button {
-        --c-button--color--primary: #{$color-gray};
-        --c-button--color--primary-contrast: #000;
-        --c-button--color--primary-border: #{color.scale($color-gray, $lightness: -10%)};
         --c-button--base: 6.5px;
-        background-color: #{$color-gray};
-        border-color: #{$color-gray};
-        color: #000;
-
-        &:hover {
-            background-color: var(--c-button--color--primary-border);
-            border-color: var(--c-button--color--primary-border);
-        }
-
-        .c-button__label {
-            color: var(--c-button--color--primary-contrast);
-        }
     }
 }
 
 .ak-footer-knapp {
     border-right: 1px solid var(--color--surface-border, gray);
-    /* Border till höger på alla element */
     padding-right: 10px;
-    /* Justera padding efter behov */
 }
 
 .ak-footer-knapp:first-child {
     border-left: 1px solid var(--color--surface-border, gray);
-    /* Border till vänster på första elementet */
     padding-left: 10px;
-    /* Justera padding efter behov */
 }
-
 
 .ak-tags {
     display: flex;

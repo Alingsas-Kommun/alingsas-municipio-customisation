@@ -1,3 +1,26 @@
+@layer theme {
+    .sidebar-content-area .modularity-mod-recommend,
+    .sidebar-content-area-top .modularity-mod-recommend,
+    #sidebar-content-area .modularity-mod-recommend,
+    #sidebar-content-area-top .modularity-mod-recommend {
+        --c-button--border-radius: 1;
+
+        .c-button {
+            --c-button--border-radius: 1;
+        }
+    }
+}
+
+.sidebar-content-area-top,
+#sidebar-content-area-top {
+    .modularity-mod-recommend {
+        .c-button {
+            --c-button--border-radius: 1;
+            border-radius: calc(1 * var(--base, 8px));
+        }
+    }
+}
+
 .sidebar-content-area,
 #sidebar-content-area {
     .modularity-mod-recommend {

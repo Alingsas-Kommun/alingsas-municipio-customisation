@@ -5,6 +5,10 @@ Format loosely follows [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+### Fixed
+
+- Posts modules saved with the legacy `items` display (Driftinformation, Digital anslagstavla) render as Card again on Municipio 7; the theme now rejects that slug and fell back to List, dropping dates, excerpts and the "Anslaget/Arkiveras" labels.
+
 ## [1.0.6] - 2026-08-17
 
 ### Fixed

@@ -17,7 +17,7 @@
         h2,
         h3,
         h4 {
-            font-size: clamp(calc(var(--base-font-size, 1rem) + .125rem), 3vw, var(--font-size-500, 1.125rem));
+            font-size: clamp(calc(var(--base-font-size, 1rem) + .125rem), 3vw, var(--c-typography--h3-font-size, 1.125rem));
             font-weight: var(--font-weight-heading, 500);
         }
 

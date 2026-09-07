@@ -19,9 +19,9 @@
             h3,
             h4,
             .wp-block-heading {
-                font-size: var(--font-size-200);
+                font-size: var(--c-typography--h3-font-size, 1.17rem);
                 font-weight: var(--font-weight-bold, 700);
-                line-height: 1.4;
+                line-height: var(--line-height-base, 1.625);
                 margin-top: 0;
                 padding-top: 0;
             }

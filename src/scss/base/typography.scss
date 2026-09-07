@@ -1,11 +1,29 @@
+// Heading sizes are the Municipio 6 Kirki values (typography_h1–h5) so every
+// heading variant keeps its production size instead of the Styleguide v3
+// 1.25 modular scale. Styleguide floors headings at the base size, so h5/h6
+// stay at 1rem.
 @layer theme {
     :root {
         --font-family-base: Inter, sans-serif;
         --font-family-heading: Inter, sans-serif;
-        --font-size-700: 2.5rem;
         --font-weight-heading: 700;
+        --c-typography--h1-font-size: 2.375rem;
+        --c-typography--h2-font-size: 1.5rem;
+        --c-typography--h3-font-size: 1.17rem;
+        --c-typography--h4-font-size: 1rem;
+        --c-typography--h5-font-size: 1rem;
+        --c-typography--h6-font-size: 1rem;
         --alingsas-page-title-color: var(--theme-page-title-color, #{$color-plantation});
     }
+}
+
+// Production h2/h3 variants use medium weight and body line-height (Kirki
+// typography_h2/h3); Styleguide v3 only has one heading weight and line-height
+// token. Variant classes only, as Kirki did: bare tags keep the heading defaults.
+.c-typography__variant--h2,
+.c-typography__variant--h3 {
+    font-weight: var(--font-weight-medium, 500);
+    line-height: var(--line-height-base, 1.625);
 }
 
 h1#page-title,

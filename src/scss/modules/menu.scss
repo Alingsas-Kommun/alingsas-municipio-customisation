@@ -13,9 +13,10 @@
 }
 
 .mod-menu {
+	// Modularity 7 renders the heading as variant h4 (was h2); target the label class.
 	&__heading-link {
-		.c-typography.c-typography__variant--h2 {
-			font-size: 18px;
+		.c-typography.mod-menu__heading-label {
+			font-size: 1.125rem;
 			font-weight: 700;
 		}
 	}

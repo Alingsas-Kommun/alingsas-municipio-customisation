@@ -26,6 +26,7 @@
     .modularity-mod-recommend {
         --c-button--border-radius: 1;
         background: var(--color--surface, #fff);
+        color: var(--color--surface-contrast, #000);
         border-radius: calc(var(--c-card--border-radius, var(--border-radius, .5)) * var(--base, 8px));
         padding: 1rem;
 

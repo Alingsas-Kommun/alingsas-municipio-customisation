@@ -25,6 +25,13 @@
         --c-button--color--primary: #{$color-gray};
         --c-button--color--primary-contrast: #000;
         --c-button--color--primary-border: #{color.scale($color-gray, $lightness: -10%)};
+
+        .c-button {
+            --c-button--color--primary: #{$color-gray};
+            --c-button--color--primary-contrast: #000;
+            --c-button--color--primary-border: #{color.scale($color-gray, $lightness: -10%)};
+            --c-button-contrast: #000;
+        }
     }
 }
 
@@ -39,6 +46,22 @@ body:not(.home) {
     #sidebar-content-area-top {
         .c-button:not(.c-notice__button) {
             --c-button--base: 7px;
+        }
+
+        .modularity-mod-recommend .c-button {
+            background-color: var(--theme-button-background, #{$color-brand-alt});
+            border-color: var(--theme-button-background, #{$color-brand-alt});
+            color: var(--theme-button-color, #fff);
+
+            &:hover {
+                background-color: var(--theme-button-background, #{$color-brand-alt});
+                border-color: var(--theme-button-background, #{$color-brand-alt});
+                opacity: .9;
+            }
+
+            .c-button__label {
+                color: var(--theme-button-color, #fff);
+            }
         }
     }
 
@@ -70,6 +93,18 @@ body:not(.home) {
 #sidebar-content-area .modularity-mod-recommend {
     .c-button {
         --c-button--base: 6.5px;
+        background-color: #{$color-gray};
+        border-color: #{$color-gray};
+        color: #000;
+
+        &:hover {
+            background-color: var(--c-button--color--primary-border, #{color.scale($color-gray, $lightness: -10%)});
+            border-color: var(--c-button--color--primary-border, #{color.scale($color-gray, $lightness: -10%)});
+        }
+
+        .c-button__label {
+            color: #000;
+        }
     }
 }
 

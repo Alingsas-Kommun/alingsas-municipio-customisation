@@ -6,17 +6,21 @@ use AlingsasCustomisation\Includes\AppearanceSettings;
 
 class Appearance {
     /**
-     * Municipio 6 palette keys → Styleguide v3 CSS variables.
+     * Municipio 6 palette keys → solid colours, not Styleguide v3 color-mix.
+     *
+     * Kirki stored primary-light/dark as independent greys and secondary-light
+     * as the same geyser as secondary. v3 --color--*-alt/--*-border mix contrast
+     * into the base, so stripes and shape dividers no longer match production.
      *
      * @var array<string, string>
      */
     private const PALETTE = [
         'primary' => 'var(--color--primary)',
-        'primary-light' => 'var(--color--primary-alt)',
-        'primary-dark' => 'var(--color--primary-border)',
-        'secondary' => 'var(--color--secondary)',
-        'secondary-light' => 'var(--color--secondary-alt)',
-        'secondary-dark' => 'var(--color--secondary-border)',
+        'primary-light' => 'var(--color-primary-light, #f7f7f7)',
+        'primary-dark' => 'var(--color-primary-dark, #dededd)',
+        'secondary' => 'var(--color-secondary, var(--color--secondary))',
+        'secondary-light' => 'var(--color-secondary-light, var(--color--secondary))',
+        'secondary-dark' => 'var(--color-secondary-dark, #236151)',
         'page-theme' => 'var(--color-page-theme)',
     ];
 

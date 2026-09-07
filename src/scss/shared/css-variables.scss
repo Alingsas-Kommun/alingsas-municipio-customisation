@@ -6,5 +6,10 @@
         --o-tooltip--color--alpha: #000;
         --o-tooltip--color--alpha-contrast: #fff;
         --o-tooltip--color--alpha-border: #000;
+        --color-primary-light: #{$color-alabaster};
+        --color-primary-dark: #{$color-gray};
+        --color-secondary: var(--color--secondary);
+        --color-secondary-light: var(--color--secondary);
+        --color-secondary-dark: #{$color-plantation};
     }
 }

@@ -28,31 +28,31 @@ div[class^="modularity-mod-"] {
 
     &.background-stripe-color-primary-light {
         &::before {
-            background-color: var(--color--primary-alt);
+            background-color: var(--color-primary-light, #{$color-alabaster});
         }
     }
 
     &.background-stripe-color-primary-dark {
         &::before {
-            background-color: var(--color--primary-border);
+            background-color: var(--color-primary-dark, #{$color-gray});
         }
     }
 
     &.background-stripe-color-secondary {
         &::before {
-            background-color: var(--color--secondary);
+            background-color: var(--color-secondary, var(--color--secondary));
         }
     }
 
     &.background-stripe-color-secondary-light {
         &::before {
-            background-color: var(--color--secondary-alt);
+            background-color: var(--color-secondary-light, var(--color--secondary));
         }
     }
 
     &.background-stripe-color-secondary-dark {
         &::before {
-            background-color: var(--color--secondary-border);
+            background-color: var(--color-secondary-dark, #{$color-plantation});
         }
     }
 

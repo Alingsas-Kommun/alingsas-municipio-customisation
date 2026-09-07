@@ -10,7 +10,39 @@
     }
 
     .collapsible-search-form {
-        --c-field--border-radius: 4;
+        --c-field--border-radius: 6;
+        --c-field--border-width: 0.25;
+        --c-field--color--primary: #{$color-plantation};
+        --inherit-color-border: #{$color-plantation};
+        --c-button--border-radius: 6;
+    }
+}
+
+@layer components {
+    .site-header:not(.c-header--business) .collapsible-search-form {
+        $search-pill-radius: calc(var(--c-field--border-radius, 6) * var(--base, 8px));
+
+        &__group.c-group > .c-field,
+        &__group .c-field__inner,
+        &__group .c-field input {
+            border-radius: $search-pill-radius !important;
+        }
+
+        &__group .c-field__inner:focus-within,
+        &__group .c-field .c-field_focus-styler {
+            border-radius: $search-pill-radius !important;
+        }
+
+        &__submit-icon {
+            border-radius: 50% !important;
+        }
+
+        &__close-button {
+            border-top-left-radius: 0 !important;
+            border-bottom-left-radius: 0 !important;
+            border-top-right-radius: $search-pill-radius !important;
+            border-bottom-right-radius: $search-pill-radius !important;
+        }
     }
 }
 
@@ -42,29 +74,42 @@
     }
 
     .collapsible-search-form {
+        contain: none;
+
+        &.is-open {
+            z-index: 2;
+        }
+
         &__group {
             .c-field {
                 --c-field--color--surface: var(--color--surface, #fff);
-                --c-field--color--primary: var(--color--primary);
-                border-radius: calc(var(--c-field--border-radius, 4) * var(--base, 8px));
+
+                &__inner {
+                    background-color: var(--c-field--color--surface, var(--color--surface, #fff));
+                    border-color: #{$color-plantation};
+
+                    &:focus-within {
+                        outline-color: #{$color-plantation};
+                    }
+                }
+
+                .c-field_focus-styler {
+                    outline-color: #{$color-plantation};
+                }
 
                 input {
                     font-size: var(--base-font-size, 1rem);
+                    padding-right: calc(var(--base, 8px) * 5);
                 }
             }
         }
 
         &__form {
+            z-index: 7000;
+
             @media (max-width: 799px) {
                 position: fixed;
                 top: calc(var(--base, 8px) * 1.5);
-            }
-
-            &.open {
-                @media (max-width: 799px) {
-                    width: calc(100% - (var(--base, 8px) * 1.6)) !important;
-                    right: calc(var(--base, 8px) * 0.8);
-                }
             }
         }
 
@@ -76,17 +121,17 @@
 
             .c-icon,
             .c-button__label {
-                color: var(--color--primary);
+                color: #{$color-plantation};
             }
 
             &[disabled],
             &:disabled {
                 opacity: 1;
-                color: var(--color--primary);
+                color: #{$color-plantation};
 
                 .c-icon,
                 .c-button__label {
-                    color: var(--color--primary);
+                    color: #{$color-plantation};
                 }
             }
         }
@@ -96,9 +141,7 @@
             height: 50px !important;
             padding: 0 calc(var(--base, 8px) * 1.5) 0 calc(var(--base, 8px) * 0.9) !important;
             background-color: var(--color--secondary-alt);
-            outline-color: var(--color--focus) !important;
-            border-top-left-radius: 0 !important;
-            border-bottom-left-radius: 0 !important;
+            outline-color: #{$color-plantation} !important;
             color: var(--color--secondary-contrast) !important;
 
             &::before {
@@ -122,11 +165,11 @@
 .admin-bar {
     .collapsible-search-form {
         position: relative;
+    }
 
-        &__form {
-            @media (max-width: 799px) {
-                top: calc(var(--wp-admin--admin-bar--height, 32px) + 10px);
-            }
+    .site-header:not(.c-header--business) .collapsible-search-form__form {
+        @media (max-width: 799px) {
+            top: calc(var(--wp-admin--admin-bar--height, 32px) + 10px);
         }
     }
 }

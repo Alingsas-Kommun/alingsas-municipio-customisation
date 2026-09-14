@@ -7,14 +7,18 @@
 #main-content {
     --color-link-alingsas: var(--theme-links-link-color, var(--color-link));
     --color-link-alingsas-hover: var(--theme-links-link-color_hover, var(--color-link-hover));
-}
 
-a,
-.link {
-    color: var(--color-link-alingsas, var(--color-link, var(--color-primary-dark, #236151)));
-}
+    a:not([class^="c-"]):not([class*=" c-"]),
+    .link {
+        color: var(--color-link-alingsas, var(--color-link, var(--color-primary-dark, #236151)));
+    }
 
-a:hover,
-.link:hover {
-    color: var(--color-link-alingsas-hover, var(--color-link-hover, var(--color-primary, #13332b)));
+    a:not([class^="c-"]):not([class*=" c-"]):hover,
+    .link:hover {
+        color: var(--color-link-alingsas-hover, var(--color-link-hover, var(--color-primary, #13332b)));
+    }
+
+    ul li::marker {
+        color: var(--color-primary, #{$color-mine-shaft});
+    }
 }

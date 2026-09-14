@@ -5,6 +5,12 @@ Format loosely follows [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+### Fixed
+
+- List bullets no longer fall back to Helsingborg red after the Municipio design-token rename (`--color-primary` → `--color--primary`).
+- Reduced the gap between breadcrumbs and the page title (extra `nav-helper` margins, and empty Recommend modules still occupying space).
+- Content links are green again (`#236151`); new Municipio `color-mix` link styles were rendering them gray.
+
 ## [1.0.6] - 2026-08-17
 
 ### Fixed

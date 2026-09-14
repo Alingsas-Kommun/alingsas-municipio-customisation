@@ -1,3 +1,8 @@
+.modularity-mod-recommend:not(:has(.c-button:not(.u-preloader))),
+#sidebar-content-area-top:not(:has(.c-button:not(.u-preloader))):not(:has([class^="modularity-mod-"]:not(.modularity-mod-recommend))) {
+    display: none;
+}
+
 .sidebar-content-area {
     .modularity-mod-recommend {
         background: white;

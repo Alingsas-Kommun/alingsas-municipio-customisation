@@ -2,11 +2,12 @@
 // 24px, 18.72px) as the clamp() maximum, with the old styleguide's 3vw fluid
 // step and minimums, instead of the Styleguide v3 1.25 modular scale.
 // Styleguide floors headings at the base size, so h4–h6 stay at 1rem.
-// .editor-styles-wrapper is required so Gutenberg/TinyMCE inherit the same
-// tokens — Municipio does not load this plugin's frontend stylesheet in the iframe.
+// .editor-styles-wrapper is Gutenberg; :root covers the TinyMCE iframe too
+// when this sheet is linked via mce_css (same mechanism as Municipio styleguide).
 @layer theme {
     :root,
-    .editor-styles-wrapper {
+    .editor-styles-wrapper,
+    .mce-content-body {
         --font-family-base: "Inter", sans-serif;
         --font-family-heading: "Inter", sans-serif;
         --font-weight-heading: 700;

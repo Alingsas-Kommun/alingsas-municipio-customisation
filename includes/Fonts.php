@@ -17,7 +17,6 @@ class Fonts
         add_action('wp_head', [$this, 'printFontFaces'], 5);
         add_action('enqueue_block_editor_assets', [$this, 'printFontFaces'], 5);
         add_filter('block_editor_settings_all', [$this, 'addEditorIframeFontFaces'], 15);
-        add_filter('tiny_mce_before_init', [$this, 'addTinyMceFontFaces']);
     }
 
     /**
@@ -62,28 +61,7 @@ class Fonts
     }
 
     /**
-     * Print the same Inter faces inside TinyMCE content iframes (ACF WYSIWYG).
-     *
-     * @param array<string, mixed> $init
-     * @return array<string, mixed>
-     */
-    public function addTinyMceFontFaces(array $init): array
-    {
-        $css = $this->getFontFaceCss();
-        if ($css === '') {
-            return $init;
-        }
-
-        $existing = isset($init['content_style']) && is_string($init['content_style'])
-            ? $init['content_style']
-            : '';
-        $init['content_style'] = $existing . $css;
-
-        return $init;
-    }
-
-    /**
-     * @return string @font-face CSS for editor iframes that never run wp_head.
+     * @return string @font-face CSS for Gutenberg iframes that never run wp_head.
      */
     private function getFontFaceCss(): string
     {

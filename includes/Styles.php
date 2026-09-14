@@ -7,8 +7,8 @@ use AlingsasCustomisation\Plugin;
 class Styles {
     public function __construct() {
         add_action('wp_enqueue_scripts', [$this, 'enqueueFrontendStyles']);
-        add_action('after_setup_theme', [$this, 'registerEditorStyle'], 20);
         add_filter('block_editor_settings_all', [$this, 'addEditorIframeStyles'], 20);
+        add_filter('mce_css', [$this, 'addTinyMceStylesheet']);
     }
 
     /**
@@ -21,18 +21,6 @@ class Styles {
         }
 
         wp_enqueue_style('alingsas-style', $url, null, Plugin::VERSION);
-    }
-
-    /**
-     * Load typography tokens in TinyMCE via add_editor_style.
-     */
-    public function registerEditorStyle(): void {
-        $url = $this->getDistUrl('src/scss/editor.scss');
-        if ($url === null) {
-            return;
-        }
-
-        add_editor_style($url);
     }
 
     /**
@@ -56,6 +44,22 @@ class Styles {
         $settings['styles'] = $editorStyles;
 
         return $settings;
+    }
+
+    /**
+     * Load the token sheet in TinyMCE as content_css (iframe <link>), same as
+     * Municipio's styleguide.css. Do not use content_style — TinyMCE 4 parses
+     * that string and can leave mce_SELRES bookmarks in the HTML.
+     *
+     * @param string $mce_css Comma-separated stylesheet URLs.
+     */
+    public function addTinyMceStylesheet(string $mce_css): string {
+        $url = $this->getDistUrl('src/scss/editor.scss');
+        if ($url === null) {
+            return $mce_css;
+        }
+
+        return trim($mce_css . ',' . $url, ' ,');
     }
 
     /**

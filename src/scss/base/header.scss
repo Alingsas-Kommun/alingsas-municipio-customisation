@@ -75,6 +75,8 @@
 
     .collapsible-search-form {
         contain: none;
+        position: relative;
+        z-index: 20;
 
         &__form {
             z-index: 20;

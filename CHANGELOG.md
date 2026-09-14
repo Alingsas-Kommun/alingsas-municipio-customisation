@@ -9,6 +9,9 @@ Format loosely follows [Keep a Changelog](https://keepachangelog.com/).
 
 - Posts modules saved with the legacy `items` display (Driftinformation, Digital anslagstavla) render as Card again on Municipio 7; the theme now rejects that slug and fell back to List, dropping dates, excerpts and the "Anslaget/Arkiveras" labels.
 - Heading scale matches production: the Municipio 6 Kirki sizes (h1 38px, h2 24px, h3 18.72px, h4–h6 16px) with the old `clamp(min, 3vw, max)` fluid step are set through the Styleguide `--c-typography--h*-font-size` tokens instead of the v3 1.25 modular scale, and h2/h3 keep medium weight and body line-height. Drops the global `--font-size-700` override. Sidebar text-module, footer and noticeboard headings reference the same heading tokens; menu-module headings follow the label class now that Modularity renders them as h4.
+- List bullets no longer fall back to Helsingborg red after the Municipio design-token rename (`--color-primary` → `--color--primary`).
+- Reduced the gap between breadcrumbs and the page title (extra `nav-helper` margins, and empty Recommend modules still occupying space).
+- Content links are green again (`#236151`); new Municipio `color-mix` link styles were rendering them gray.
 
 ## [1.0.6] - 2026-08-17
 

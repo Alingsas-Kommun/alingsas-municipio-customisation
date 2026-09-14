@@ -15,16 +15,20 @@ h1.page-header__title {
 }
 
 #main-content {
-    --c-link--color--primary: var(--theme-links-link-color, var(--color--primary));
-    --alingsas-link-hover-color: var(--theme-links-link-color_hover, var(--color--primary-border));
-}
+    --color-link-alingsas: var(--theme-links-link-color, var(--color-link));
+    --color-link-alingsas-hover: var(--theme-links-link-color_hover, var(--color-link-hover));
 
-a:not(.c-button),
-.link {
-    color: var(--c-link--color--primary, var(--color--primary, #236151));
-}
+    a:not([class^="c-"]):not([class*=" c-"]),
+    .link {
+        color: var(--color-link-alingsas, var(--color-link, var(--color-primary-dark, #236151)));
+    }
 
-a:not(.c-button):hover,
-.link:hover {
-    color: var(--alingsas-link-hover-color, var(--color--primary-border, #13332b));
+    a:not([class^="c-"]):not([class*=" c-"]):hover,
+    .link:hover {
+        color: var(--color-link-alingsas-hover, var(--color-link-hover, var(--color-primary, #13332b)));
+    }
+
+    ul li::marker {
+        color: var(--color-primary, #{$color-mine-shaft});
+    }
 }

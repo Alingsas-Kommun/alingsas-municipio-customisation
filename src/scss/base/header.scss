@@ -22,7 +22,7 @@
     .site-header:not(.c-header--business) .collapsible-search-form {
         $search-pill-radius: calc(var(--c-field--border-radius, 6) * var(--base, 8px));
 
-        &__group.c-group > .c-field,
+        &__group.c-group>.c-field,
         &__group .c-field__inner,
         &__group .c-field input {
             border-radius: $search-pill-radius !important;
@@ -58,13 +58,13 @@
             }
         }
 
-        .collapsible-search-form__trigger-button {
-            min-width: 0;
+        // .collapsible-search-form__trigger-button {
+        //     min-width: 0;
 
-            .c-button__label-text {
-                display: none;
-            }
-        }
+        //     .c-button__label-text {
+        //         display: none;
+        //     }
+        // }
     }
 
     .c-nav.c-nav--horizontal {
@@ -76,79 +76,25 @@
     .collapsible-search-form {
         contain: none;
 
-        &.is-open {
-            z-index: 2;
-        }
-
-        &__group {
-            .c-field {
-                --c-field--color--surface: var(--color--surface, #fff);
-
-                &__inner {
-                    background-color: var(--c-field--color--surface, var(--color--surface, #fff));
-                    border-color: #{$color-plantation};
-
-                    &:focus-within {
-                        outline-color: #{$color-plantation};
-                    }
-                }
-
-                .c-field_focus-styler {
-                    outline-color: #{$color-plantation};
-                }
-
-                input {
-                    font-size: var(--base-font-size, 1rem);
-                    padding-right: calc(var(--base, 8px) * 5);
-                }
-            }
-        }
-
         &__form {
-            z-index: 7000;
+            z-index: 20;
 
             @media (max-width: 799px) {
                 position: fixed;
-                top: calc(var(--base, 8px) * 1.5);
+                top: calc(var(--wp-admin--admin-bar--height, 0px) + (var(--base, 8px) * 0.5));
+                left: calc(var(--base, 8px) * 0.8);
+                right: calc(var(--base, 8px) * 0.8);
+                width: auto;
             }
         }
 
-        &__submit-icon {
-            background-color: transparent;
-            height: calc(100% - 10px);
-            width: calc(var(--base, 8px)* 5);
-            inset: 50% 5px auto auto;
-
-            .c-icon,
-            .c-button__label {
-                color: #{$color-plantation};
-            }
-
-            &[disabled],
-            &:disabled {
-                opacity: 1;
-                color: #{$color-plantation};
-
-                .c-icon,
-                .c-button__label {
-                    color: #{$color-plantation};
+        &.is-open {
+            .collapsible-search-form__form {
+                @media (max-width: 799px) {
+                    width: auto !important;
                 }
             }
         }
-
-        &__close-button {
-            width: auto !important;
-            height: 50px !important;
-            padding: 0 calc(var(--base, 8px) * 1.5) 0 calc(var(--base, 8px) * 0.9) !important;
-            background-color: var(--color--secondary-alt);
-            outline-color: #{$color-plantation} !important;
-            color: var(--color--secondary-contrast) !important;
-
-            &::before {
-                background-color: var(--color--secondary-alt);
-            }
-        }
-
     }
 
     // Match drawer Meny: plantation text + green-tint hover on all header chrome
@@ -163,18 +109,6 @@
         .c-button__label-text,
         .c-icon {
             color: var(--c-button-contrast);
-        }
-    }
-}
-
-.admin-bar {
-    .collapsible-search-form {
-        position: relative;
-    }
-
-    .site-header:not(.c-header--business) .collapsible-search-form__form {
-        @media (max-width: 799px) {
-            top: calc(var(--wp-admin--admin-bar--height, 32px) + 10px);
         }
     }
 }
@@ -266,6 +200,7 @@ body:has(.c-drawer.is-open) {
 
         .c-drawer__close {
             .c-button__label {
+
                 &-icon .c-icon,
                 &-text {
                     color: var(--c-drawer--color--primary-contrast, #fff);
@@ -275,12 +210,12 @@ body:has(.c-drawer.is-open) {
     }
 
     .site-nav-mobile__primary.c-nav--vertical {
-        .c-nav__item:not(.is-open) > .c-nav__item-wrapper:hover {
+        .c-nav__item:not(.is-open)>.c-nav__item-wrapper:hover {
             background-color: #f4f4f4;
         }
     }
 
-    .c-nav--vertical .c-nav__item.has-toggle > .c-nav__item-wrapper > .c-nav__toggle {
+    .c-nav--vertical .c-nav__item.has-toggle>.c-nav__item-wrapper>.c-nav__toggle {
         margin-right: 0;
         --c-button-contrast: #000;
         color: #000;

@@ -68,7 +68,7 @@
     }
 
     .c-nav.c-nav--horizontal {
-        a {
+        a:not(.c-button) {
             color: var(--c-link--color--primary, var(--color--primary));
         }
     }
@@ -149,16 +149,21 @@
             }
         }
 
-        .c-button {
-            .c-button__label {
-                color: var(--c-button--color--primary, var(--color--primary));
-            }
-        }
-
     }
 
-    .s-header-button .c-button__label {
-        color: var(--c-button--color--primary, var(--color--primary));
+    // Match drawer Meny: plantation text + green-tint hover on all header chrome
+    // buttons (Sök, Meny, Turistinformation, E-tjänster). Primary basic sets
+    // label colour via --c-button-contrast; default basic needs explicit labels.
+    .s-header-button.c-button,
+    .collapsible-search-form__trigger-button,
+    .c-nav.c-nav--horizontal .c-button.c-nav__button {
+        --c-button-contrast: var(--c-button--color--primary, #{$color-plantation});
+
+        .c-button__label,
+        .c-button__label-text,
+        .c-icon {
+            color: var(--c-button-contrast);
+        }
     }
 }
 

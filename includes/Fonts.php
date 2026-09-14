@@ -3,7 +3,7 @@
 namespace AlingsasCustomisation\Includes;
 
 /**
- * Print native WordPress font-library faces on the front end.
+ * Print native WordPress font-library faces on the front end and in editors.
  *
  * Municipio 7 stores Inter in wp_font_family / wp_font_face and Design Builder
  * sets --font-family-base, but WP_Font_Face_Resolver does not emit @font-face
@@ -15,6 +15,9 @@ class Fonts
     public function __construct()
     {
         add_action('wp_head', [$this, 'printFontFaces'], 5);
+        add_action('enqueue_block_editor_assets', [$this, 'printFontFaces'], 5);
+        add_filter('block_editor_settings_all', [$this, 'addEditorIframeFontFaces'], 15);
+        add_filter('tiny_mce_before_init', [$this, 'addTinyMceFontFaces']);
     }
 
     /**
@@ -32,6 +35,90 @@ class Fonts
         }
 
         wp_print_font_faces($fonts);
+    }
+
+    /**
+     * Print the same Inter faces inside the Gutenberg content iframe.
+     *
+     * @param array<string, mixed> $settings
+     * @return array<string, mixed>
+     */
+    public function addEditorIframeFontFaces(array $settings): array
+    {
+        $css = $this->getFontFaceCss();
+        if ($css === '') {
+            return $settings;
+        }
+
+        $editorStyles = $settings['styles'] ?? [];
+        if (!is_array($editorStyles)) {
+            $editorStyles = [];
+        }
+
+        $editorStyles[] = ['css' => $css];
+        $settings['styles'] = $editorStyles;
+
+        return $settings;
+    }
+
+    /**
+     * Print the same Inter faces inside TinyMCE content iframes (ACF WYSIWYG).
+     *
+     * @param array<string, mixed> $init
+     * @return array<string, mixed>
+     */
+    public function addTinyMceFontFaces(array $init): array
+    {
+        $css = $this->getFontFaceCss();
+        if ($css === '') {
+            return $init;
+        }
+
+        $existing = isset($init['content_style']) && is_string($init['content_style'])
+            ? $init['content_style']
+            : '';
+        $init['content_style'] = $existing . $css;
+
+        return $init;
+    }
+
+    /**
+     * @return string @font-face CSS for editor iframes that never run wp_head.
+     */
+    private function getFontFaceCss(): string
+    {
+        $fonts = $this->getFontsForPrint();
+        if ($fonts === []) {
+            return '';
+        }
+
+        $css = '';
+        foreach ($fonts as $faces) {
+            foreach ($faces as $face) {
+                $srcs = [];
+                foreach ($face['src'] as $url) {
+                    if (!is_string($url) || $url === '') {
+                        continue;
+                    }
+                    $srcs[] = 'url("' . esc_url($url) . '")';
+                }
+                if ($srcs === []) {
+                    continue;
+                }
+
+                $family = '"' . str_replace(['"', "'"], '', (string) $face['font-family']) . '"';
+                $css .= sprintf(
+                    '@font-face{font-family:%s;font-style:%s;font-weight:%s;font-display:%s;src:%s;}',
+                    $family,
+                    (string) $face['font-style'],
+                    (string) $face['font-weight'],
+                    (string) $face['font-display'],
+                    implode(',', $srcs)
+                );
+            }
+        }
+
+        return $css;
     }
 
     /**

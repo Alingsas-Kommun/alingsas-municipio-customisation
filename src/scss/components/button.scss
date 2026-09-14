@@ -41,6 +41,15 @@
     }
 }
 
+a.c-button.c-button__outlined--primary {
+    color: var(--c-button--color--primary, #{$color-plantation});
+    border-color: currentColor;
+
+    .c-button__label {
+        color: inherit;
+    }
+}
+
 body:not(.home) {
     .sidebar-content-area-top,
     #sidebar-content-area-top {

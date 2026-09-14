@@ -1,24 +1,31 @@
-body.search [data-js-search-page-container] {
-    --ts-main-filter-background: var(--color--secondary-alt, #cadfde);
-    --ts-sidebar-background: var(--color--secondary-alt, #cadfde);
-    --ts-search-btn-bg: var(--color--primary, #236151);
-    --ts-badge-background: var(--color--primary, #236151);
-    --ts-mark-background: var(--color--primary, #236151);
-    --ts-mark-color: var(--color--primary-contrast, #fff);
-    --ts-color-primary: var(--color--primary, #236151);
-    --ts-sidebar-width: 350px;
-    --ts-panel-z-index: 9000;
-}
+// Typesense still falls back to Municipio 6 names (--color-primary). After v3,
+// Design Builder --color--primary is charcoal (body text). Brand green lives on
+// --c-button--color--primary / plantation.
+@layer theme {
+    body.search [data-js-search-page-container] {
+        --ts-color-primary: var(--c-button--color--primary, #{$color-plantation});
+        --ts-color-on-primary: var(--c-button--color--primary-contrast, #fff);
+        --ts-search-btn-bg: var(--c-button--color--primary, #{$color-plantation});
+        --ts-badge-background: var(--c-button--color--primary, #{$color-plantation});
+        --ts-mark-background: var(--c-button--color--primary, #{$color-plantation});
+        --ts-mark-color: var(--c-button--color--primary-contrast, #fff);
+        --ts-main-filter-background: var(--color--secondary, #{$color-geyser});
+        --ts-sidebar-background: var(--color--secondary, #{$color-geyser});
+        --ts-label-font-weight: var(--font-weight-heading, 700);
+        --ts-sidebar-width: 350px;
+        --ts-panel-z-index: 9000;
+    }
 
-:root {
-    --ts-qs-highlight-bg: var(--color--primary, #236151);
-    --ts-qs-highlight-color: var(--color--primary-contrast, #fff);
-    --ts-qs-type-bg: var(--color--primary, #236151);
-    --ts-qs-type-color: var(--color--primary-contrast, #fff);
-    --ts-qs-footer-bg: var(--color--primary, #236151);
-    --ts-qs-footer-color: var(--color--primary-contrast, #fff);
-    --ts-qs-footer-hover-bg: var(--color--primary-border, #1b473b);
-    --ts-qs-footer-hover-color: var(--color--primary-contrast, #fff);
+    :root {
+        --ts-qs-highlight-bg: var(--c-button--color--primary, #{$color-plantation});
+        --ts-qs-highlight-color: var(--c-button--color--primary-contrast, #fff);
+        --ts-qs-type-bg: var(--c-button--color--primary, #{$color-plantation});
+        --ts-qs-type-color: var(--c-button--color--primary-contrast, #fff);
+        --ts-qs-footer-bg: var(--c-button--color--primary, #{$color-plantation});
+        --ts-qs-footer-color: var(--c-button--color--primary-contrast, #fff);
+        --ts-qs-footer-hover-bg: var(--c-button--color--primary-border, #{$color-plantation});
+        --ts-qs-footer-hover-color: var(--c-button--color--primary-contrast, #fff);
+    }
 }
 
 body.search {
@@ -58,4 +65,10 @@ body.search {
 
 form.ts-quick-search-overlay__form input.c-field__input:focus-visible {
     box-shadow: none;
+}
+
+.ts-quick-search-overlay__submit {
+    background-color: var(--c-button--color--primary, #{$color-plantation});
+    border-color: var(--c-button--color--primary, #{$color-plantation});
+    color: var(--c-button--color--primary-contrast, #fff);
 }

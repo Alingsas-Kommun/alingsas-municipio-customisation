@@ -1,0 +1,6 @@
+@import 'shared/variables';
+@import 'base/typography-tokens';
+
+.editor-styles-wrapper {
+    font-family: var(--font-family-base, "Inter", sans-serif);
+}

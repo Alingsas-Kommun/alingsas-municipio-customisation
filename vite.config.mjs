@@ -42,6 +42,7 @@ export default defineConfig({
       input: {
         main: resolve(__dirname, 'src/js/main.js'),
         style: resolve(__dirname, 'src/scss/main.scss'),
+        editor: resolve(__dirname, 'src/scss/editor.scss'),
       },
       output: {
         entryFileNames: 'js/[name].[hash].js',

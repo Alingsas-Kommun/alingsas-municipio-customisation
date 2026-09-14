@@ -1,0 +1,21 @@
+// Heading sizes reproduce Municipio 6: Kirki values (typography_h1–h3: 38px,
+// 24px, 18.72px) as the clamp() maximum, with the old styleguide's 3vw fluid
+// step and minimums, instead of the Styleguide v3 1.25 modular scale.
+// Styleguide floors headings at the base size, so h4–h6 stay at 1rem.
+// .editor-styles-wrapper is required so Gutenberg/TinyMCE inherit the same
+// tokens — Municipio does not load this plugin's frontend stylesheet in the iframe.
+@layer theme {
+    :root,
+    .editor-styles-wrapper {
+        --font-family-base: "Inter", sans-serif;
+        --font-family-heading: "Inter", sans-serif;
+        --font-weight-heading: 700;
+        --c-typography--h1-font-size: clamp(1.5rem, 3vw, 2.375rem);
+        --c-typography--h2-font-size: clamp(1.25rem, 3vw, 1.5rem);
+        --c-typography--h3-font-size: clamp(1.125rem, 3vw, 1.17rem);
+        --c-typography--h4-font-size: 1rem;
+        --c-typography--h5-font-size: 1rem;
+        --c-typography--h6-font-size: 1rem;
+        --alingsas-page-title-color: var(--theme-page-title-color, #{$color-plantation});
+    }
+}

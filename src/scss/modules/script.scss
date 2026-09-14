@@ -3,7 +3,7 @@
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   max-width: 1200px;
   margin: 0 auto;
-  font-family: Arial, sans-serif;
+  font-family: var(--font-family-base, "Inter", sans-serif);
   line-height: 1.6;
   color: var(--c-card--color--surface-contrast, var(--color--surface-contrast));
   background-color: var(--c-card--color--surface, var(--color--surface));

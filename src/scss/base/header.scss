@@ -332,7 +332,7 @@ body:has(.c-drawer.is-open) {
                         >.c-nav__item-wrapper.c-nav__item-wrapper {
                             border-color: #c2dad7;
                             background-color: #c2dad7;
-                            font-weight: 600;
+                            font-weight: var(--font-weight-heading, 700);
 
                             &:hover {
                                 background-color: #9cc0bb;

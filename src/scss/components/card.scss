@@ -1,3 +1,11 @@
+@layer theme {
+    .c-card {
+        --c-card--border-width: 0;
+        --c-card--border: none;
+        --c-card--shadow-amount: 0;
+    }
+}
+
 .c-card {
     &__header {
         background-color: var(--c-card--color--primary, var(--color--primary));

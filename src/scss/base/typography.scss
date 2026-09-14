@@ -15,17 +15,25 @@ h1.page-header__title {
 }
 
 #main-content {
-    --color-link-alingsas: var(--theme-links-link-color, var(--color-link));
-    --color-link-alingsas-hover: var(--theme-links-link-color_hover, var(--color-link-hover));
+    --c-link--color--primary: var(--theme-links-link-color, #{$color-plantation});
+    --c-link--color-mix-amount: 0%;
+    --c-link--state-color-mix-amount: 0%;
 
-    a:not([class^="c-"]):not([class*=" c-"]),
+    .c-link,
+    a:not(.c-button),
     .link {
-        color: var(--color-link-alingsas, var(--color-link, var(--color-primary-dark, #236151)));
+        color: var(--theme-links-link-color, #{$color-plantation});
     }
 
-    a:not([class^="c-"]):not([class*=" c-"]):hover,
+    .c-link:hover,
+    .c-link:active,
+    .c-link:focus,
+    a:not(.c-button):hover,
+    a:not(.c-button):active,
+    a:not(.c-button):focus,
     .link:hover {
-        color: var(--color-link-alingsas-hover, var(--color-link-hover, var(--color-primary, #13332b)));
+        --c-link--color--primary: var(--theme-links-link-color_hover, #13332b);
+        color: var(--theme-links-link-color_hover, #13332b);
     }
 
     ul li::marker {

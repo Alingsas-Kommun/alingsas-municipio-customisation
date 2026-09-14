@@ -25,12 +25,12 @@
             color: var(--theme-sidebar-links-link-color, var(--c-link--color--primary, var(--color--primary)));
         }
 
-        a:hover {
-            color: var(--theme-sidebar-links-link-color_hover, var(--color--primary-border));
+        a:visited {
+            color: var(--theme-sidebar-links-link-color_visited, var(--c-link--color--primary, var(--color--primary)));
         }
 
-        a:visited {
-            color: var(--theme-sidebar-links-link-color_visited, var(--color--primary-border));
+        a:hover {
+            color: var(--theme-sidebar-links-link-color_hover, #13332b);
         }
     }
 }

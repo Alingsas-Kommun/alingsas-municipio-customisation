@@ -13,6 +13,7 @@
 }
 
 .mod-menu {
+
 	// Modularity 7 renders the heading as variant h4 (was h2); target the label class.
 	&__heading-link {
 		.c-typography.mod-menu__heading-label {
@@ -36,6 +37,7 @@
 					&:hover {
 						span.c-nav__text {
 							transform: none;
+							opacity: .7;
 						}
 					}
 				}
@@ -73,6 +75,7 @@
 		}
 
 		&.mod-menu--wrapped {
+
 			.mod-menu__children,
 			.mod-menu__heading-description {
 				a {

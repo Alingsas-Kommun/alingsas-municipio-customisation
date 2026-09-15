@@ -19,18 +19,18 @@ h1.page-header__title {
     --c-link--color-mix-amount: 0%;
     --c-link--state-color-mix-amount: 0%;
 
-    .c-link,
-    a:not(.c-button),
+    .c-link:not(.c-nav__link):not(.mod-menu__heading-link),
+    a:not(.c-button):not(.c-nav__link):not(.mod-menu__heading-link),
     .link {
         color: var(--theme-links-link-color, #{$color-plantation});
     }
 
-    .c-link:hover,
-    .c-link:active,
-    .c-link:focus,
-    a:not(.c-button):hover,
-    a:not(.c-button):active,
-    a:not(.c-button):focus,
+    .c-link:not(.c-nav__link):not(.mod-menu__heading-link):hover,
+    .c-link:not(.c-nav__link):not(.mod-menu__heading-link):active,
+    .c-link:not(.c-nav__link):not(.mod-menu__heading-link):focus,
+    a:not(.c-button):not(.c-nav__link):not(.mod-menu__heading-link):hover,
+    a:not(.c-button):not(.c-nav__link):not(.mod-menu__heading-link):active,
+    a:not(.c-button):not(.c-nav__link):not(.mod-menu__heading-link):focus,
     .link:hover {
         --c-link--color--primary: var(--theme-links-link-color_hover, #13332b);
         color: var(--theme-links-link-color_hover, #13332b);

@@ -206,6 +206,14 @@ body:has(.c-drawer.is-open) {
     --c-drawer--color--primary: #{$color-plantation};
     --c-drawer--color--primary-contrast: #fff;
     --c-nav--item-background-color-hover: #f4f4f4;
+    --c-nav--item-color: #000;
+    --inherit-color-contrast: #000;
+
+    .c-nav.c-nav.c-nav--vertical .c-nav__item .c-nav__icon,
+    .c-nav.c-nav.c-nav--vertical .c-nav__item .c-nav__text,
+    .c-nav.c-nav.c-nav--vertical .c-nav__item .c-nav__toggle {
+        color: #000 !important;
+    }
 
     scrollbar-width: thin;
     scrollbar-color: var(--c-drawer--color--primary, #{$color-plantation}) var(--c-drawer--color--surface-border, var(--color--surface-border));
@@ -413,6 +421,7 @@ body:has(.c-drawer.is-open) {
     /* Secondary Menu */
     .site-nav-mobile {
         &__secondary {
+            --c-nav--item-color: #{$color-plantation};
             margin-top: 1rem;
 
             .c-nav__item-wrapper {
@@ -427,8 +436,10 @@ body:has(.c-drawer.is-open) {
                 }
             }
 
-            .c-nav__icon {
-                color: var(--c-drawer--color--primary, #{$color-plantation});
+            &.c-nav.c-nav.c-nav--vertical .c-nav__item .c-nav__icon,
+            &.c-nav.c-nav.c-nav--vertical .c-nav__item .c-nav__text,
+            &.c-nav.c-nav.c-nav--vertical .c-nav__item .c-nav__toggle {
+                color: #{$color-plantation} !important;
             }
         }
     }

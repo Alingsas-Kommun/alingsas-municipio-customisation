@@ -16,8 +16,8 @@ h1.page-header__title {
 
 #main-content {
     --c-link--color--primary: var(--theme-links-link-color, #{$color-plantation});
-    --c-link--color-mix-amount: 0%;
-    --c-link--state-color-mix-amount: 0%;
+    // --c-link--color-mix-amount: 0%;
+    // --c-link--state-color-mix-amount: 0%;
 
     .c-link:not(.c-nav__link):not(.mod-menu__heading-link),
     a:not(.c-button):not(.c-nav__link):not(.mod-menu__heading-link),

@@ -46,6 +46,14 @@
     }
 }
 
+.site-header:not(.c-header--business) .c-header__upper-right {
+    gap: calc(var(--base, 8px) * 1);
+
+    .c-nav--horizontal {
+        gap: calc(var(--base, 8px) * 1);
+    }
+  }
+
 .site-header:not(.c-header--business) {
     @media (max-width: 500px) {
         --c-header--logotype-height-multiplier: .9167;

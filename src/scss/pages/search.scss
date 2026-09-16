@@ -3,7 +3,7 @@
 // --c-button--color--primary / plantation.
 @layer theme {
     body.search [data-js-search-page-container] {
-        --ts-color-primary: var(--c-button--color--primary, #{$color-plantation});
+        --ts-color-primary: var(--c-button--color--primary, #{$color-plantation}) !important;
         --ts-color-on-primary: var(--c-button--color--primary-contrast, #fff);
         --ts-search-btn-bg: var(--c-button--color--primary, #{$color-plantation});
         --ts-badge-background: var(--c-button--color--primary, #{$color-plantation});

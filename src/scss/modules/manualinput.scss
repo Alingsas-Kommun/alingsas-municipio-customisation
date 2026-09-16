@@ -72,7 +72,6 @@
 
   .o-manualinput-slider {
     position: relative;
-    padding-inline: calc(var(--base, 8px) * 8);
 
     .c-slider__arrows {
       pointer-events: none;
@@ -86,14 +85,15 @@
       pointer-events: auto;
       position: absolute;
       top: 50%;
-      transform: translateY(-50%);
 
       &--prev {
         left: 0;
+        transform: translate(calc(-100% - var(--base, 8px) * 2), -50%);
       }
 
       &--next {
         right: 0;
+        transform: translate(calc(100% + var(--base, 8px) * 2), -50%);
       }
     }
   }

@@ -34,6 +34,34 @@
     }
   }
 
+  .o-manualinput-slider {
+    position: relative;
+    padding-inline: calc(var(--base, 8px) * 8);
+
+    .c-slider__arrows {
+      pointer-events: none;
+      position: absolute;
+      inset: 0;
+      transform: none;
+      z-index: 1;
+    }
+
+    .c-slider__arrow {
+      pointer-events: auto;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+
+      &--prev {
+        left: 0;
+      }
+
+      &--next {
+        right: 0;
+      }
+    }
+  }
+
   .c-slider--post {
     .c-slider__container {
       padding-top: 0;

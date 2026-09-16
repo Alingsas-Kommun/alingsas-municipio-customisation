@@ -28,8 +28,8 @@
         </div>
 
         @slider([
-            'classList' => ['c-slider--post'],
-            'showStepper' => false,
+            'classList' => ['c-slider--post', 'c-slider--has-stepper'],
+            'showStepper' => true,
             'autoSlide' => false,
             'repeatSlide' => false,
             'customButtons' => 'slider_' . $sliderId,

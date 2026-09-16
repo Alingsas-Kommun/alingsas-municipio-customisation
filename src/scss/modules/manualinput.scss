@@ -34,6 +34,27 @@
     }
   }
 
+  .c-slider--post {
+    .c-slider__container {
+      padding-top: 0;
+    }
+
+    .c-slider__item--post {
+      flex: 0 0 auto;
+      height: auto;
+      max-height: none;
+      width: 100%;
+    }
+
+    .c-card,
+    .c-block,
+    .c-segment,
+    .c-box,
+    .c-newsitem {
+      height: 100%;
+    }
+  }
+
   &:has(.c-accordion) {
     --c-button--color--primary: var(--color-page-theme, #{$color-brand-alt});
     --c-button--color--primary-contrast: var(--theme-card-header-color, #fff);

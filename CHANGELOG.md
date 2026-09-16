@@ -5,6 +5,10 @@ Format loosely follows [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+### Added
+
+- Manual Input modules can be shown as a Splide slider (same `@slider` component as Posts). Enable **Visa som slider** in the module settings; column count controls how many slides are visible. Works with Card, Block, Box, Segment and News.
+
 ### Fixed
 
 - Posts modules saved with the legacy `items` display (Driftinformation, Digital anslagstavla) render as Card again on Municipio 7; the theme now rejects that slug and fell back to List, dropping dates, excerpts and the "Anslaget/Arkiveras" labels.

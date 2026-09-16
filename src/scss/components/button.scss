@@ -6,6 +6,7 @@
     }
 
     body:not(.home) {
+
         .sidebar-content-area-top,
         #sidebar-content-area-top {
             --c-button--color--primary: var(--theme-button-background, #{$color-brand-alt});
@@ -41,6 +42,49 @@
     }
 }
 
+a.c-button.u-no-decoration {
+    --c-button--border-radius: 100;
+    --c-button--space: 3.5;
+    border-radius: 100vh;
+
+    &.c-button__filled,
+    &.c-button__outlined,
+    &.c-button__basic {
+        height: auto;
+        padding-block: calc(var(--c-button--space, var(--space, 1)) * var(--base, 8px) * 0.5);
+        padding-inline: calc(var(--c-button--space, var(--space, 1)) * var(--base, 8px) * 2);
+
+        &.c-button--sm {
+            height: auto;
+            padding-block: calc(var(--base, 8px) * 1);
+            padding-inline: calc(var(--c-button--space, var(--space, 1)) * var(--base, 8px) * 2);
+        }
+
+        &.c-button--lg {
+            height: auto;
+            padding-block: calc(var(--c-button--space, var(--space, 1)) * var(--base, 8px) * 0.5);
+            padding-inline: calc(var(--c-button--space, var(--space, 1)) * var(--base, 8px) * 2.5);
+        }
+    }
+
+    &.c-button__filled {
+        border: none;
+    }
+
+    &.c-button__filled--primary {
+        --c-button-hover: var(--c-button--color--primary, var(--color--primary));
+        --c-button--color--primary-border: var(--c-button--color--primary, var(--color--primary));
+
+        &:hover,
+        &:focus,
+        &:active {
+            background-color: var(--c-button--color--primary, var(--color--primary));
+            border: none;
+            opacity: 0.9;
+        }
+    }
+}
+
 a.c-button.c-button__outlined--primary {
     color: var(--c-button--color--primary, #{$color-plantation});
     border-color: currentColor;
@@ -51,6 +95,7 @@ a.c-button.c-button__outlined--primary {
 }
 
 body:not(.home) {
+
     .sidebar-content-area-top,
     #sidebar-content-area-top {
         .c-button:not(.c-notice__button) {

@@ -34,6 +34,42 @@
     }
   }
 
+  &.has-centered-content,
+  .has-centered-content {
+    .c-card {
+      .c-card__heading-container {
+        justify-content: center;
+        text-align: center;
+
+        &.c-group--justify-content-space-between {
+          justify-content: center;
+        }
+
+        .c-group--vertical {
+          align-items: center;
+          width: 100%;
+        }
+      }
+
+      .c-card__heading,
+      .c-card__body,
+      .c-card__content {
+        text-align: center;
+        width: 100%;
+      }
+
+      .c-card__footer {
+        display: flex;
+        justify-content: center;
+        text-align: center;
+
+        .c-button {
+          margin-inline: auto;
+        }
+      }
+    }
+  }
+
   .o-manualinput-slider {
     position: relative;
     padding-inline: calc(var(--base, 8px) * 8);

@@ -8,6 +8,7 @@ Format loosely follows [Keep a Changelog](https://keepachangelog.com/).
 ### Added
 
 - Manual Input modules can be shown as a Splide slider (same `@slider` component as Posts). Enable **Visa som slider** in the module settings; column count controls how many slides are visible. Works with Card, Block, Box, Segment and News.
+- Manual Input setting **Centrera allt textinnehåll** centers card heading, body text and button.
 
 ### Fixed
 

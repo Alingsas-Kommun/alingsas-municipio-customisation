@@ -20,6 +20,7 @@ class ManualInput {
     public const SLIDER_TEMPLATES = ['card', 'block', 'box', 'segment', 'news'];
 
     private const FIELD_SHOW_AS_SLIDER = 'field_68c91a16001ab';
+    private const FIELD_CENTER_CONTENT = 'field_68c93c4e001ac';
 
     public function __construct() {
         add_filter('/Modularity/externalViewPath', [$this, 'addExternalViewPath']);
@@ -65,6 +66,8 @@ class ManualInput {
      * @return array
      */
     public function addSliderViewData(array $data): array {
+        $data['centerContent'] = $this->isCenterContentRequested($data);
+
         if (!$this->viewShouldUseSlider($data)) {
             $data['showAsSlider'] = false;
             return $data;
@@ -149,6 +152,10 @@ class ManualInput {
             $classes[] = 'has-slider';
         }
 
+        if (get_field('center_content', $ID)) {
+            $classes[] = 'has-centered-content';
+        }
+
         return $classes;
     }
 
@@ -188,6 +195,31 @@ class ManualInput {
         }
 
         return $this->isTruthy(get_field('show_as_slider', $id));
+    }
+
+    /**
+     * @param array $data
+     * @return bool
+     */
+    private function isCenterContentRequested(array $data): bool {
+        $candidates = [
+            $data['centerContent'] ?? null,
+            $data['center_content'] ?? null,
+            $data[self::FIELD_CENTER_CONTENT] ?? null,
+        ];
+
+        foreach ($candidates as $value) {
+            if ($this->isTruthy($value)) {
+                return true;
+            }
+        }
+
+        $id = $data['ID'] ?? null;
+        if (!$id || !is_numeric($id)) {
+            return false;
+        }
+
+        return $this->isTruthy(get_field('center_content', $id));
     }
 
     /**

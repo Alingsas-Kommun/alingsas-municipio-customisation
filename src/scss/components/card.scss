@@ -101,6 +101,13 @@ body.home #sidebar-content-area-top {
             }
         }
     }
+
+    .modularity-mod-manualinput.hide-heading-arrow,
+    .modularity-mod-manualinput .hide-heading-arrow {
+        a.c-card .c-group--vertical:before {
+            content: none;
+        }
+    }
 }
 
 .s-nyheter-archive {

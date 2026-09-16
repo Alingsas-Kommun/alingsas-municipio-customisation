@@ -1,7 +1,7 @@
 @includeWhen(empty($hideTitle) && !empty($postTitle), 'partials.post-title')
 
 @if (!empty($manualInputs))
-    <div class="o-manualinput-slider{{ !empty($centerContent) ? ' has-centered-content' : '' }}">
+    <div class="o-manualinput-slider{{ !empty($centerContent) ? ' has-centered-content' : '' }}{{ !empty($hideHeadingArrow) ? ' hide-heading-arrow' : '' }}">
         <div class="c-slider__arrows" id="slider_{{ $sliderId }}">
             @button([
                 'icon' => 'keyboard_arrow_left',

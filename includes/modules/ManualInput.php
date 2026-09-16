@@ -21,6 +21,7 @@ class ManualInput {
 
     private const FIELD_SHOW_AS_SLIDER = 'field_68c91a16001ab';
     private const FIELD_CENTER_CONTENT = 'field_68c93c4e001ac';
+    private const FIELD_HIDE_HEADING_ARROW = 'field_68d9e2b0001ad';
 
     public function __construct() {
         add_filter('/Modularity/externalViewPath', [$this, 'addExternalViewPath']);
@@ -67,6 +68,7 @@ class ManualInput {
      */
     public function addSliderViewData(array $data): array {
         $data['centerContent'] = $this->isCenterContentRequested($data);
+        $data['hideHeadingArrow'] = $this->isHideHeadingArrowRequested($data);
 
         if (!$this->viewShouldUseSlider($data)) {
             $data['showAsSlider'] = false;
@@ -156,6 +158,10 @@ class ManualInput {
             $classes[] = 'has-centered-content';
         }
 
+        if (get_field('hide_heading_arrow', $ID)) {
+            $classes[] = 'hide-heading-arrow';
+        }
+
         return $classes;
     }
 
@@ -220,6 +226,31 @@ class ManualInput {
         }
 
         return $this->isTruthy(get_field('center_content', $id));
+    }
+
+    /**
+     * @param array $data
+     * @return bool
+     */
+    private function isHideHeadingArrowRequested(array $data): bool {
+        $candidates = [
+            $data['hideHeadingArrow'] ?? null,
+            $data['hide_heading_arrow'] ?? null,
+            $data[self::FIELD_HIDE_HEADING_ARROW] ?? null,
+        ];
+
+        foreach ($candidates as $value) {
+            if ($this->isTruthy($value)) {
+                return true;
+            }
+        }
+
+        $id = $data['ID'] ?? null;
+        if (!$id || !is_numeric($id)) {
+            return false;
+        }
+
+        return $this->isTruthy(get_field('hide_heading_arrow', $id));
     }
 
     /**

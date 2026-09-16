@@ -61,6 +61,26 @@
             "ui": 0,
             "ui_on_text": "",
             "ui_off_text": ""
+        },
+        {
+            "key": "field_68d9e2b0001ad",
+            "label": "Dölj pil-ikon i rubrik",
+            "name": "hide_heading_arrow",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "Ja",
+            "default_value": 0,
+            "ui": 0,
+            "ui_on_text": "",
+            "ui_off_text": ""
         }
     ],
     "location": [
@@ -80,7 +100,7 @@
         ]
     ],
     "menu_order": 0,
-    "position": "side",
+    "position": "normal",
     "style": "default",
     "label_placement": "left",
     "instruction_placement": "label",

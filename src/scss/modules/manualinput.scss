@@ -73,6 +73,12 @@
   .o-manualinput-slider {
     position: relative;
 
+    &:not(:has(.c-slider.is-overflow)) {
+      .c-slider__arrows {
+        display: none;
+      }
+    }
+
     .c-slider__arrows {
       pointer-events: none;
       position: absolute;

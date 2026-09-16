@@ -5,7 +5,7 @@
 // token. Variant classes only, as Kirki did: bare tags keep the heading defaults.
 .c-typography__variant--h2,
 .c-typography__variant--h3 {
-    font-weight: var(--font-weight-medium, 500);
+    font-weight: 700;
     line-height: var(--line-height-base, 1.625);
 }
 

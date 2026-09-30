@@ -19,7 +19,7 @@ body.search [data-js-search-page-container] {
     --ts-panel-z-index: 9000;
 
     .c-badge {
-        border-radius: var(--ts-badge-radius);
+        border-radius: var(--ts-badge-radius) !important;
     }
 }
 

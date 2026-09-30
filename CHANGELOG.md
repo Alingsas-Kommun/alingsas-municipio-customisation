@@ -12,7 +12,7 @@ Format loosely follows [Keep a Changelog](https://keepachangelog.com/).
 
 ### Fixed
 
-- Search hit badges use the same corner radius as mark highlights (`0.15em`). The token override lost both to Typesense’s unlayered 8px default (`@layer theme`) and to Styleguide v3’s `.c-badge { border-radius }` rule.
+- Search hit badges use the same corner radius as mark highlights (`0.15em`). Typesense’s unlayered token lost to cascade order, and Styleguide v3 then zeros radius on every `.c-group` child (`border-radius: 0 !important` in `@layer components`), which also beats unlayered `!important`.
 - Särprofilens färger på knappar, kort och fält målas solida igen. Styleguide v3 `color-mix` tintade dem, och knapp-tokens sattes för högt upp i kaskaden. Outlined hero-knappar använder bakgrundsfärgen (inte textkontrasten) så att svart/vitt i inställningarna inte byter plats.
 - Posts modules saved with the legacy `items` display (Driftinformation, Digital anslagstavla) render as Card again on Municipio 7; the theme now rejects that slug and fell back to List, dropping dates, excerpts and the "Anslaget/Arkiveras" labels.
 - Heading scale matches production: the Municipio 6 Kirki sizes (h1 38px, h2 24px, h3 18.72px, h4–h6 16px) with the old `clamp(min, 3vw, max)` fluid step are set through the Styleguide `--c-typography--h*-font-size` tokens instead of the v3 1.25 modular scale, and h2/h3 keep medium weight and body line-height. Drops the global `--font-size-700` override. Sidebar text-module, footer and noticeboard headings reference the same heading tokens; menu-module headings follow the label class now that Modularity renders them as h4.

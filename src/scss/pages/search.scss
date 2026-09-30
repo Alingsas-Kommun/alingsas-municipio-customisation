@@ -9,7 +9,7 @@ body.search [data-js-search-page-container] {
     --ts-color-on-primary: var(--c-button--color--primary-contrast, #fff);
     --ts-search-btn-bg: var(--c-button--color--primary, #{$color-plantation});
     --ts-badge-background: var(--c-button--color--primary, #{$color-plantation});
-    --ts-badge-radius: 0.15em;
+    --ts-badge-radius: 0.25em;
     --ts-mark-background: var(--c-button--color--primary, #{$color-plantation});
     --ts-mark-color: var(--c-button--color--primary-contrast, #fff);
     --ts-main-filter-background: var(--color--secondary, #{$color-geyser});
@@ -17,9 +17,16 @@ body.search [data-js-search-page-container] {
     --ts-label-font-weight: var(--font-weight-heading, 700);
     --ts-sidebar-width: 350px;
     --ts-panel-z-index: 9000;
+}
 
-    .c-badge {
-        border-radius: var(--ts-badge-radius) !important;
+// Styleguide v3: `.c-group:not(.c-group--skip-child-normalization) > *`
+// sets `border-radius: 0 !important` inside `@layer components`. Layered
+// !important beats unlayered !important, so Typesense (and a raw override
+// here) never reach the badge — computed radius stays 0, even if you edit
+// the struck-through rule or set inline radius without winning the layer.
+@layer components {
+    body.search [data-js-search-page-container] .c-group>.c-badge {
+        border-radius: var(--ts-badge-radius, 0.25em) !important;
     }
 }
 

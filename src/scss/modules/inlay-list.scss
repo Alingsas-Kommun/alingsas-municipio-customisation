@@ -1,7 +1,21 @@
 .modularity-mod-inlaylist {
+    // v3 sets color on `.c-collection__item--action a` (surface contrast / body
+    // text). That beats a color on `.c-collection__content`, so profile link
+    // colour never showed. The anchor has to carry the token.
+    --c-collection--color--surface-contrast: var(--theme-links-link-color, #{$color-plantation});
+
     .c-card__header {
         background-color: var(--color-page-theme, var(--c-card--color--primary, #{$color-plantation}));
-        color: var(--c-card--color--primary-contrast, #fff);
+        color: var(--theme-card-header-color, #fff);
+
+        .c-typography {
+            color: inherit;
+        }
+    }
+
+    .c-collection .c-collection__item--action,
+    .c-collection .c-collection__item--action a {
+        color: var(--theme-links-link-color, #{$color-plantation});
     }
 
     &--appearance-buttons {
@@ -39,7 +53,7 @@
 
             &__content {
                 align-items: center;
-                color: var(--c-card--color--primary, #{$color-brand});
+                color: var(--theme-links-link-color, #{$color-plantation});
                 display: flex;
                 justify-content: center;
 
@@ -91,8 +105,16 @@
         }
 
         .c-collection {
+            --c-collection--color--surface-contrast: var(--theme-external-links-button-color, #{$color-plantation});
             background: var(--inlay-list-stripe);
             padding: 0 1rem 1rem;
+
+            .c-collection__item--action,
+            .c-collection__item--action:hover,
+            .c-collection__item--action a {
+                background: var(--theme-external-links-button-background, var(--color--surface, #fff));
+                color: var(--theme-external-links-button-color, #{$color-plantation});
+            }
 
             &__item {
                 background: var(--theme-external-links-button-background, var(--color--surface, #fff));
@@ -100,7 +122,7 @@
                 position: relative;
 
                 &:hover {
-                    background-color: inherit;
+                    background-color: var(--theme-external-links-button-background, var(--color--surface, #fff));
 
                     &::after {
                         display: block;

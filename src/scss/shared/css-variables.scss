@@ -1,3 +1,21 @@
+// Municipio 6 painted profile colours solid. Styleguide v3 color-mix tints
+// them toward the contrast colour, so the same settings no longer match production.
+.c-button {
+    --c-button--color-mix-amount: 0%;
+    --c-button--state-color-mix-amount: 0%;
+}
+
+.c-card {
+    --c-card--color-mix-amount: 0%;
+    --c-card--state-color-mix-amount: 0%;
+}
+
+.c-field,
+.c-select {
+    --c-field--color-mix-amount: 0%;
+    --c-field--state-color-mix-amount: 0%;
+}
+
 @layer theme {
     :root {
         --c-card--color--primary: #{$color-plantation};

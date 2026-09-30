@@ -147,6 +147,13 @@ body.home #sidebar-content-area-top {
     --c-card--color--surface-contrast: var(--theme-sidebar-color, var(--color--surface-contrast, #000));
 
     .c-card {
+        --c-card--color--primary: var(--theme-sidebar-background, var(--color-page-theme, #{$color-gray}));
+        --c-card--color--primary-contrast: var(--theme-sidebar-color, var(--color--surface-contrast, #000));
+        --c-card--color--surface: var(--theme-sidebar-background, var(--color-page-theme, #{$color-gray}));
+        --c-card--color--surface-contrast: var(--theme-sidebar-color, var(--color--surface-contrast, #000));
+    }
+
+    .c-card {
         &__header {
             padding: calc(var(--base, 8px)* 3);
             padding-bottom: calc(var(--base, 4px) * 1.5);

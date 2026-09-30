@@ -12,6 +12,8 @@ Format loosely follows [Keep a Changelog](https://keepachangelog.com/).
 
 ### Fixed
 
+- Search hit badges use the same corner radius as mark highlights (`0.15em`). The override lived in `@layer theme` and lost to Typesense’s unlayered 8px default.
+- Särprofilens färger på knappar, kort och fält målas solida igen. Styleguide v3 `color-mix` tintade dem, och knapp-tokens sattes för högt upp i kaskaden. Outlined hero-knappar använder bakgrundsfärgen (inte textkontrasten) så att svart/vitt i inställningarna inte byter plats.
 - Posts modules saved with the legacy `items` display (Driftinformation, Digital anslagstavla) render as Card again on Municipio 7; the theme now rejects that slug and fell back to List, dropping dates, excerpts and the "Anslaget/Arkiveras" labels.
 - Heading scale matches production: the Municipio 6 Kirki sizes (h1 38px, h2 24px, h3 18.72px, h4–h6 16px) with the old `clamp(min, 3vw, max)` fluid step are set through the Styleguide `--c-typography--h*-font-size` tokens instead of the v3 1.25 modular scale, and h2/h3 keep medium weight and body line-height. Drops the global `--font-size-700` override. Sidebar text-module, footer and noticeboard headings reference the same heading tokens; menu-module headings follow the label class now that Modularity renders them as h4.
 - List bullets no longer fall back to Helsingborg red after the Municipio design-token rename (`--color-primary` → `--color--primary`).

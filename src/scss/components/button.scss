@@ -5,22 +5,6 @@
         --c-button--border-radius: 4;
     }
 
-    body:not(.home) {
-
-        .sidebar-content-area-top,
-        #sidebar-content-area-top {
-            --c-button--color--primary: var(--theme-button-background, #{$color-brand-alt});
-            --c-button--color--primary-contrast: var(--theme-button-color, #fff);
-            --c-button--color--primary-border: var(--theme-button-background, #{$color-brand-alt});
-        }
-
-        .modularity-event-index {
-            --c-button--color--primary: var(--theme-button-background, var(--color--primary, #{$color-brand-alt}));
-            --c-button--color--primary-contrast: var(--theme-button-color, var(--color--primary-contrast, #fff));
-            --c-button--color--primary-border: var(--theme-button-background, var(--color--primary-border, #{$color-brand-alt}));
-        }
-    }
-
     .sidebar-content-area .modularity-mod-recommend,
     #sidebar-content-area .modularity-mod-recommend {
         --c-button--color--primary: #{$color-gray};
@@ -39,6 +23,48 @@
 .c-button {
     &.c-button--sm {
         letter-spacing: 1px;
+    }
+}
+
+body:not(.home) {
+    .sidebar-content-area-top,
+    #sidebar-content-area-top {
+        .c-button:not(.c-notice__button) {
+            --c-button--color--primary: var(--theme-button-background, #{$color-brand-alt});
+            --c-button--color--primary-contrast: var(--theme-button-color, #fff);
+            --c-button--color--primary-border: var(--theme-button-background, #{$color-brand-alt});
+        }
+    }
+
+    .modularity-event-index .c-button {
+        --c-button--color--primary: var(--theme-button-background, var(--color--primary, #{$color-brand-alt}));
+        --c-button--color--primary-contrast: var(--theme-button-color, var(--color--primary-contrast, #fff));
+        --c-button--color--primary-border: var(--theme-button-background, var(--color--primary-border, #{$color-brand-alt}));
+    }
+}
+
+.modularity-mod-alingsashero .c-button:not(.c-button__filled--attention):not(.c-button__outlined--attention) {
+    --c-button--color--primary: var(--hero-button-background, var(--hero-color));
+    --c-button--color--primary-contrast: var(--hero-button-color, #fff);
+    --c-button--color--primary-border: var(--hero-button-border, var(--hero-button-background));
+}
+
+.modularity-mod-alingsashero .c-button.c-button__filled:not(.c-button__filled--attention) {
+    background-color: var(--hero-button-background, var(--hero-color));
+    border-color: var(--hero-button-border, var(--hero-button-background));
+    color: var(--hero-button-color, #fff);
+
+    .c-button__label {
+        color: inherit;
+    }
+}
+
+.modularity-mod-alingsashero .c-button.c-button__outlined:not(.c-button__outlined--attention) {
+    color: var(--hero-button-background, var(--hero-color));
+    border-color: currentColor;
+
+    .c-button__label {
+        color: inherit;
     }
 }
 

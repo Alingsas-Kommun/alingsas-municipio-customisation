@@ -1,4 +1,19 @@
 .modularity-mod-manualinput {
+  // Highlighted first item (display Card → Block 16:9). v3 fills the block
+  // from --color--alpha; heading/body must stay white on the image.
+  .c-block.ak-manualinput-highlighted {
+    --c-block--color-text: #fff;
+    --c-block--color--alpha-contrast: #fff;
+
+    .c-block__heading,
+    .c-block__content,
+    .c-block__body,
+    .c-block__meta,
+    .c-typography {
+      color: #fff;
+    }
+  }
+
   &.has-search {
     form {
       display: none;

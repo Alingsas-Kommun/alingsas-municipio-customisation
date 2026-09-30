@@ -67,6 +67,7 @@ class ManualInput {
      * @return array
      */
     public function addSliderViewData(array $data): array {
+        $data = $this->markHighlightedInputs($data);
         $data['centerContent'] = $this->isCenterContentRequested($data);
         $data['hideHeadingArrow'] = $this->isHideHeadingArrowRequested($data);
 
@@ -93,6 +94,34 @@ class ManualInput {
             }
 
             $input['columnSize'] = 'u-height--100';
+        }
+
+        return $data;
+    }
+
+    /**
+     * Tag the highlighted first item so CSS can force light text on the image overlay.
+     *
+     * @param array $data
+     * @return array
+     */
+    private function markHighlightedInputs(array $data): array {
+        if (empty($data['manualInputs']) || !is_array($data['manualInputs'])) {
+            return $data;
+        }
+
+        foreach ($data['manualInputs'] as &$input) {
+            if (!is_array($input) || empty($input['isHighlighted'])) {
+                continue;
+            }
+
+            $classList = $input['classList'] ?? [];
+            if (!is_array($classList)) {
+                $classList = [];
+            }
+
+            $classList[] = 'ak-manualinput-highlighted';
+            $input['classList'] = $classList;
         }
 
         return $data;

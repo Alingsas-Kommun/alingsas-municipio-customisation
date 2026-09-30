@@ -14,13 +14,19 @@ h1.page-header__title {
     color: var(--hero-color, var(--alingsas-page-title-color));
 }
 
-#main-content {
+// Prose only: article body, text modules, split/two-column segment text,
+// Gutenberg columns. Design-module anchors (cards, collections, nav) keep
+// their own colours.
+.c-article,
+.modularity-mod-text,
+.c-segment__text,
+.o-grid-column-block {
     --c-link--color--primary: var(--theme-links-link-color, #{$color-plantation});
-    // --c-link--color-mix-amount: 0%;
-    // --c-link--state-color-mix-amount: 0%;
+    --c-link--color-mix-amount: 0%;
+    --c-link--state-color-mix-amount: 0%;
 
     .c-link:not(.c-nav__link):not(.mod-menu__heading-link),
-    a:not(.c-button):not(.c-nav__link):not(.mod-menu__heading-link),
+    a:not([class^="c-"]):not([class*=" c-"]),
     .link {
         color: var(--theme-links-link-color, #{$color-plantation});
     }
@@ -28,14 +34,16 @@ h1.page-header__title {
     .c-link:not(.c-nav__link):not(.mod-menu__heading-link):hover,
     .c-link:not(.c-nav__link):not(.mod-menu__heading-link):active,
     .c-link:not(.c-nav__link):not(.mod-menu__heading-link):focus,
-    a:not(.c-button):not(.c-nav__link):not(.mod-menu__heading-link):hover,
-    a:not(.c-button):not(.c-nav__link):not(.mod-menu__heading-link):active,
-    a:not(.c-button):not(.c-nav__link):not(.mod-menu__heading-link):focus,
+    a:not([class^="c-"]):not([class*=" c-"]):hover,
+    a:not([class^="c-"]):not([class*=" c-"]):active,
+    a:not([class^="c-"]):not([class*=" c-"]):focus,
     .link:hover {
         --c-link--color--primary: var(--theme-links-link-color_hover, #13332b);
         color: var(--theme-links-link-color_hover, #13332b);
     }
+}
 
+#main-content {
     ul li::marker {
         color: var(--color-primary, #{$color-mine-shaft});
     }

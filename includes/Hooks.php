@@ -45,16 +45,15 @@ class Hooks {
         if ($jobStartDate !== null && $jobStartDate !== '') {
             $viewData['informationList'][] = [
                 'label' => __('Anställningsstart', 'municipio-customisation'),
-                'value' => is_scalar($jobStartDate) ? (string) $jobStartDate : wp_json_encode($jobStartDate),
+                'value' => $this->formatJobInformationValue($jobStartDate),
             ];
         }
-
 
         $workHours = $post->getSchemaProperty('workHours');
         if ($workHours !== null && $workHours !== '') {
             $viewData['informationList'][] = [
                 'label' => __('Anställningsform', 'municipio-customisation'),
-                'value' => is_scalar($workHours) ? (string) $workHours : wp_json_encode($workHours),
+                'value' => $this->formatJobInformationValue($workHours),
             ];
         }
 
@@ -62,10 +61,31 @@ class Hooks {
         if ($jobDuration !== null && $jobDuration !== '') {
             $viewData['informationList'][] = [
                 'label' => __('Anställningsperiod', 'municipio-customisation'),
-                'value' => is_scalar($jobDuration) ? (string) $jobDuration : wp_json_encode($jobDuration),
+                'value' => $this->formatJobInformationValue($jobDuration),
             ];
         }
 
         return $viewData;
+    }
+
+    /**
+     * Format a job schema value for the sidebar information list.
+     *
+     * DateTime values are rendered as Y-m-d. Strings are returned unchanged.
+     *
+     * @param mixed $value Schema property from the job posting.
+     */
+    private function formatJobInformationValue(mixed $value): string {
+        if ($value instanceof \DateTimeInterface) {
+            return $value->format('Y-m-d');
+        }
+
+        if (is_scalar($value)) {
+            return (string) $value;
+        }
+
+        $encoded = wp_json_encode($value);
+
+        return is_string($encoded) ? $encoded : '';
     }
 }

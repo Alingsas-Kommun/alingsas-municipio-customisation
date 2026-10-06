@@ -4,6 +4,8 @@ namespace AlingsasCustomisation\Includes\Cron;
 
 use WP_CLI;
 
+require_once __DIR__ . '/MediaScanSafety.php';
+
 /**
  * CLI command to find unreferenced images in WordPress media library
  *
@@ -12,6 +14,8 @@ use WP_CLI;
  */
 class FindUnusedImages
 {
+    use MediaScanSafety;
+
     private \wpdb $db;
     private array $images = [];
     private array $imageIds = [];
@@ -25,7 +29,7 @@ class FindUnusedImages
      * ## OPTIONS
      *
      * [--limit=<number>]
-     * : Number of images to check. Use "all" to check every image.
+     * : Number of eligible images to check. Use "all" for all eligible attachments.
      * ---
      * default: 10
      * ---
@@ -43,15 +47,24 @@ class FindUnusedImages
      * default: 50
      * ---
      *
+     * [--pause-ms=<number>]
+     * : Pause between batches in milliseconds (0–60000). Does not limit query duration.
+     * ---
+     * default: 500
+     * ---
+     *
+     * [--force]
+     * : Check attachments even if scanned within the last seven days. Also applies to --ids.
+     *
      * [--ids=<list>]
-    * : Comma-separated list of image attachment IDs to check (e.g. "12,34,56").
+     * : Comma-separated list of image attachment IDs to check (e.g. "12,34,56").
      *
      * ## EXAMPLES
      *
-     *     # Quick check of 10 most recent images
+     *     # Quick check of 10 most recent eligible images
      *     wp alingsas find-unused-images
      *
-     *     # Scan all images and save to a custom location
+     *     # Scan all eligible images and save to a custom location
      *     wp alingsas find-unused-images --limit=all --output=/tmp/report.json
      *
      *     # Scan 500 images in batches of 100
@@ -62,18 +75,46 @@ class FindUnusedImages
      */
     public function __invoke(array $args, array $assoc_args): void
     {
+        try {
+            try {
+                $this->scan($args, $assoc_args);
+            } finally {
+                $this->releaseScanLock();
+            }
+        } catch (\Throwable $error) {
+            WP_CLI::error('Media scan aborted: ' . $error->getMessage());
+        }
+    }
+
+    private function scan(array $args, array $assoc_args): void
+    {
         global $wpdb;
         $this->db = $wpdb;
+        $this->images = [];
+        $this->imageIds = [];
 
         $limitArg   = $assoc_args['limit'] ?? '10';
         $idsArg     = $assoc_args['ids'] ?? null;
-        $batchSize  = max(1, (int) ($assoc_args['batch-size'] ?? 50));
+        $batchSize  = $this->scanIntegerOption($assoc_args, 'batch-size', 50);
+        $pauseMs    = $this->scanIntegerOption($assoc_args, 'pause-ms', 500, 0, 60000);
         $outputPath = $assoc_args['output'] ?? 'data/image-report-raw.json';
+
+        if ($limitArg !== 'all') {
+            $limitArg = (string) $this->scanIntegerOption($assoc_args, 'limit', 10);
+        }
+        $requestedIds = $idsArg !== null ? $this->scanAttachmentIds($idsArg) : null;
+        if ($outputPath === '') {
+            throw new \RuntimeException('--output must not be empty.');
+        }
 
         // Resolve relative output path from plugin root
         if ($outputPath[0] !== '/') {
             $outputPath = dirname(__DIR__, 2) . '/' . $outputPath;
         }
+
+        $this->acquireScanLock();
+        $this->prepareScanOutput($outputPath);
+        $this->configureScanHistory($assoc_args);
 
         // ── Header ───────────────────────────────────────────
         WP_CLI::log('');
@@ -83,25 +124,21 @@ class FindUnusedImages
         WP_CLI::log('');
         WP_CLI::log("  Database:     {$this->db->dbname}");
         WP_CLI::log("  Table prefix: {$this->db->prefix}");
-        if ($idsArg) {
+        if ($requestedIds !== null) {
             WP_CLI::log("  Image IDs:    {$idsArg}");
         } else {
             WP_CLI::log("  Image limit:  {$limitArg}");
         }
         WP_CLI::log("  Batch size:   {$batchSize}");
+        WP_CLI::log("  Batch pause:  {$pauseMs}ms");
         WP_CLI::log("  Output:       {$outputPath}");
         WP_CLI::log('');
 
         // ── Step 1: Fetch image attachments ──────────────────
         WP_CLI::log(WP_CLI::colorize('%GStep 1:%n Fetching image attachments...'));
 
-        if (!empty($idsArg)) {
-            $ids = array_filter(array_map('intval', preg_split('/\s*,\s*/', trim($idsArg))), fn($v) => $v > 0);
-            if (empty($ids)) {
-                WP_CLI::error('No valid image IDs provided to --ids.');
-                return;
-            }
-            $this->fetchImageAttachmentsByIds($ids);
+        if ($requestedIds !== null) {
+            $this->fetchImageAttachmentsByIds($requestedIds);
         } else {
             $this->fetchImageAttachments($limitArg);
         }
@@ -110,11 +147,6 @@ class FindUnusedImages
 
         WP_CLI::log("  Found {$imageCount} image attachments");
         WP_CLI::log('');
-
-        if ($imageCount === 0) {
-            WP_CLI::success('No images to check.');
-            return;
-        }
 
         // ── Step 2: Load metadata & build search patterns ────
         WP_CLI::log(WP_CLI::colorize('%GStep 2:%n Loading image metadata...'));
@@ -143,11 +175,16 @@ class FindUnusedImages
 
             WP_CLI::log("  Batch {$batchNum}/{$totalBatches} [{$pct}%] — IDs {$minId}–{$maxId}");
 
+            $batchStarted = microtime(true);
             $counts = $this->searchBatchReferences($batchIds);
 
             foreach ($counts as $label => $c) {
                 $padded = str_pad($label . ':', 26);
                 WP_CLI::log("    {$padded}{$c}");
+            }
+            $this->logScanBatch($batchStarted);
+            if ($pauseMs > 0 && $batchNum < $totalBatches) {
+                usleep($pauseMs * 1000);
             }
         }
 
@@ -161,21 +198,8 @@ class FindUnusedImages
 
         $report = $this->buildReport($elapsed, $limitArg);
 
-        // Ensure output directory exists
-        $outputDir = dirname($outputPath);
-        if (!is_dir($outputDir)) {
-            wp_mkdir_p($outputDir);
-        }
-
-        $written = file_put_contents(
-            $outputPath,
-            json_encode($report, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)
-        );
-
-        if ($written === false) {
-            WP_CLI::error("Failed to write report to: {$outputPath}");
-            return;
-        }
+        $this->writeScanReport($outputPath, $report);
+        $this->rememberScannedAttachments($this->imageIds);
 
         // ── Summary ──────────────────────────────────────────
         $referenced   = $report['metadata']['total_referenced'];
@@ -237,6 +261,7 @@ class FindUnusedImages
     private function fetchImageAttachments(string $limitArg): void
     {
         $limitClause = ($limitArg === 'all') ? '' : 'LIMIT ' . max(1, (int) $limitArg);
+        $eligibility = $this->scanEligibilitySql();
 
         // phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared
         $sql = "
@@ -250,12 +275,13 @@ class FindUnusedImages
                     AND pm.meta_key = 'event-manager-media'
                     AND pm.meta_value = '1'
               )
+              {$eligibility}
             ORDER BY p.ID DESC
             {$limitClause}
         ";
         // phpcs:enable
 
-        $rows = $this->db->get_results($sql, ARRAY_A);
+        $rows = $this->scanResults($sql, ARRAY_A);
 
         foreach ($rows as $row) {
             $id = (int) $row['ID'];
@@ -290,6 +316,7 @@ class FindUnusedImages
         }
 
         $placeholders = implode(',', array_fill(0, count($ids), '%d'));
+        $eligibility = $this->scanEligibilitySql();
 
         // phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared
         $sql = $this->db->prepare(
@@ -298,6 +325,7 @@ class FindUnusedImages
              WHERE p.post_type = 'attachment'
                AND p.post_mime_type LIKE 'image/%%'
                AND p.ID IN ({$placeholders})
+               {$eligibility}
                AND NOT EXISTS (
                    SELECT 1 FROM {$this->db->postmeta} pm
                    WHERE pm.post_id = p.ID
@@ -308,7 +336,7 @@ class FindUnusedImages
         );
         // phpcs:enable
 
-        $rows = $this->db->get_results($sql, ARRAY_A);
+        $rows = $this->scanResults($sql, ARRAY_A);
 
         foreach ($rows as $row) {
             $id = (int) $row['ID'];
@@ -344,7 +372,7 @@ class FindUnusedImages
 
         // _wp_attached_file
         // phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared
-        $rows = $this->db->get_results(
+        $rows = $this->scanResults(
             $this->db->prepare(
                 "SELECT post_id, meta_value FROM {$this->db->postmeta}
                  WHERE meta_key = '_wp_attached_file' AND post_id IN ({$idPlaceholders})",
@@ -363,7 +391,7 @@ class FindUnusedImages
 
         // _wp_attachment_metadata (thumbnails, sizes)
         // phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared
-        $rows = $this->db->get_results(
+        $rows = $this->scanResults(
             $this->db->prepare(
                 "SELECT post_id, meta_value FROM {$this->db->postmeta}
                  WHERE meta_key = '_wp_attachment_metadata' AND post_id IN ({$idPlaceholders})",
@@ -506,7 +534,7 @@ class FindUnusedImages
         // ── 3a. Direct ID match in postmeta ──────────────────
         $count = 0;
         // phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared
-        $rows = $this->db->get_results(
+        $rows = $this->scanResults(
             "SELECT post_id, meta_key, meta_value
              FROM {$this->db->postmeta}
              WHERE meta_value IN ({$idStrList})",
@@ -532,7 +560,7 @@ class FindUnusedImages
         // ── 3b. Direct ID match in termmeta ──────────────────
         $count = 0;
         // phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared
-        $rows = $this->db->get_results(
+        $rows = $this->scanResults(
             "SELECT term_id, meta_key, meta_value
              FROM {$this->db->termmeta}
              WHERE meta_value IN ({$idStrList})",
@@ -563,7 +591,7 @@ class FindUnusedImages
 
         $count = 0;
         // phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared
-        $rows = $this->db->get_results(
+        $rows = $this->scanResults(
             "SELECT post_id, meta_key, meta_value
              FROM {$this->db->postmeta}
              WHERE meta_value LIKE 'a:%'
@@ -604,7 +632,7 @@ class FindUnusedImages
         // ── 3d. Serialized arrays in termmeta ────────────────
         $count = 0;
         // phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared
-        $rows = $this->db->get_results(
+        $rows = $this->scanResults(
             "SELECT term_id, meta_key, meta_value
              FROM {$this->db->termmeta}
              WHERE meta_value LIKE 'a:%'
@@ -667,7 +695,7 @@ class FindUnusedImages
         $count = 0;
         if (!empty($contentConditions)) {
             // phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared
-            $rows = $this->db->get_results(
+            $rows = $this->scanResults(
                 "SELECT ID, post_content
                  FROM {$this->db->posts}
                  WHERE post_type NOT IN ('attachment','revision')
@@ -745,7 +773,7 @@ class FindUnusedImages
         $count = 0;
         if (!empty($metaConditions)) {
             // phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared
-            $rows = $this->db->get_results(
+            $rows = $this->scanResults(
                 "SELECT post_id, meta_key, meta_value
                  FROM {$this->db->postmeta}
                  WHERE meta_key NOT LIKE '\_%'
@@ -785,7 +813,7 @@ class FindUnusedImages
         $count = 0;
         if (!empty($metaConditions)) {
             // phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared
-            $rows = $this->db->get_results(
+            $rows = $this->scanResults(
                 "SELECT term_id, meta_key, meta_value
                  FROM {$this->db->termmeta}
                  WHERE (" . implode(' OR ', $metaConditions) . ")",

@@ -37,6 +37,44 @@ För en fullständig beskrivning av inställningar, indexering och WP-CLI-komman
 
 Detta tillägg innehåller endast `includes/Search.php`, som anpassar söksidans rubrik till Municipios benämning för sökresultat. Den tidigare egna sökresultatsidan och dess posttypsfilter används inte längre.
 
+## Mediesökning via WP-CLI
+
+`alingsas find-unused-images` och `alingsas find-unused-pdfs` söker efter referenser och skriver rårapporter. De sparar tidpunkten för senaste lyckade kontroll per bilaga, men markerar inga bilagor som oanvända och raderar inga filer. Kör först ett begränsat urval på servern och följ loggen samt webbplatsens svarstider:
+
+```sh
+wp --url=https://www.alingsas.se alingsas find-unused-images --limit=100 --pause-ms=1000 --output=/sökväg/till/körning/image-report-raw.json
+wp --url=https://www.alingsas.se alingsas find-unused-pdfs --limit=100 --pause-ms=1000 --output=/sökväg/till/körning/pdf-report-raw.json
+```
+
+Ange även installationens `--path` när kommandona körs från en annan katalog. `--limit=100` väljer de 100 senaste bilagorna enligt ID som **inte har kontrollerats de senaste sju dygnen**. Nästa körning fortsätter med nästa tillgängliga urval. När samtliga är kontrollerade blir rapporten tom tills någon kontroll har blivit sju dygn gammal eller nya bilagor tillkommer. Detta gäller både använda och oanvända bilagor, även när `--ids` anges.
+
+Använd `--force` för att bortse från tidigare kontroller. Övriga urval, såsom filtyp, `--ids` och `--limit`, gäller fortfarande:
+
+```sh
+wp alingsas find-unused-images --limit=100 --force
+wp alingsas find-unused-pdfs --ids=123,456 --force
+```
+
+`--limit=all` kontrollerar alla bilagor som är aktuella för kontroll; `--limit=all --force` kontrollerar samtliga utan veckofiltret. Sjudygnsintervallet är rullande, inte knutet till en kalendervecka. Filerna väljs fortfarande med nyaste ID först: endast en körning med `--limit=100` per vecka garanterar därför inte att hela biblioteket till slut täcks. Kör flera omgångar inom veckan eller använd `--limit=all` när hela biblioteket ska gås igenom.
+
+- `--pause-ms` är pausen **mellan batcherna**, normalt 500 ms, med tillåtet intervall 0–60000. Pausen begränsar inte en enskild SQL-frågas körtid. `--batch-size` är fortfarande antalet bilagor per batch, normalt 50; det begränsar inte antalet databasrader som söks igenom.
+- Ett gemensamt, icke-väntande fillås stoppar samtidiga bild- och PDF-sökningar för samma databas på samma värd. Även olika webbplatser i samma databas delar låset. Kör med samma systemanvändare och temporärkatalog. En andra körning avslutas med felkod, så schemalägg dem **sekventiellt i samma skript**. Låset samordnar inte andra jobb, exempelvis Typesense, och är inte ett distribuerat lås mellan servrar.
+- Varje SQL-resultat kontrolleras för databasfel. Ett fel stoppar sökningen med felkod och ingen ny rapport publiceras. Även fel vid JSON-kodning eller rapportskrivning ger felkod. Använd `set -e` i körskriptet, eller `&&` mellan kommandon, så att efterföljande steg inte använder en gammal rapport efter ett fel.
+- Rapporten skrivs först till en temporär fil i målkatalogen och ersätts sedan atomiskt. En tidigare rapport ligger kvar om sökningen misslyckas. Använd en separat katalog per körning och kontrollera rapportens `generated_at`. En lyckad sökning utan bilagor skriver en tom rapport i stället för att lämna gamla kandidater kvar.
+- Tidpunkten sparas som Unix-tid i bilagans postmeta `_alingsas_media_last_scanned_at`, separat för respektive webbplats. Den sparas först **efter att hela rapporten har skrivits**. SQL- eller rapportfel gör därför inte att bilagor hoppas över vid nästa försök. Om själva sparandet av historiken misslyckas finns rapporten kvar, kommandot returnerar felkod och bilagor utan sparad historik kontrolleras igen. Kontrollens starttid används så att en veckokörning kan kontrollera bilagorna vid samma starttid nästa vecka.
+- Varje rapport innehåller endast den aktuella körningens urval; tidigare omgångar slås inte ihop. Använd olika `--output` eller separata körningskataloger för att bevara samtliga omgångars resultat. Historiken sparas oberoende av rapportens sökväg.
+- Loggen visar tid per batch, sammanlagd SQL-tid, antal frågor och minnesåtgång. Frågor som tar minst fem sekunder ger en varning. Rapportens metadata innehåller även `scan_complete`, `database_query_count` och `database_query_seconds`.
+
+Låsfilen ligger i PHP:s temporärkatalog och lämnas kvar efter körningen för att undvika låsningsrace. Det aktiva låset släpps när körningen avslutas; en kvarliggande fil betyder inte att en sökning fortfarande körs. Radera inte låsfilen medan en körning pågår.
+
+Rårapporterna används därefter av `check-unused-images` respektive `check-unused-pdfs` tillsammans med en aktuell Worddown-export. Fortsätt sedan med manuell granskning och `mark-unused-*`. En fil utan hittad referens är en granskningskandidat, inte ett bevis på att filen säkert kan tas bort.
+
+Skydden kan testas utan WordPress eller anslutning till en serverdatabas, från tilläggets katalog. Testerna använder SQLite i minnet för urvalsfrågorna och kräver PHP-tillägget `pdo_sqlite`:
+
+```sh
+php tests/media-scan-safety.php
+```
+
 ## Funktioner
 
 ### Utseende och sidinställningar

@@ -4,6 +4,8 @@ namespace AlingsasCustomisation\Includes\Cron;
 
 use WP_CLI;
 
+require_once __DIR__ . '/MediaScanSafety.php';
+
 /**
  * CLI command to find unreferenced PDF files in WordPress media library
  *
@@ -12,6 +14,8 @@ use WP_CLI;
  */
 class FindUnusedPdfs
 {
+    use MediaScanSafety;
+
     private \wpdb $db;
     private array $pdfs = [];
     private array $pdfIds = [];
@@ -26,7 +30,7 @@ class FindUnusedPdfs
      * ## OPTIONS
      *
      * [--limit=<number>]
-     * : Number of PDFs to check. Use "all" to check every PDF.
+     * : Number of eligible PDFs to check. Use "all" for all eligible attachments.
      * ---
      * default: 10
      * ---
@@ -44,18 +48,27 @@ class FindUnusedPdfs
      * default: 50
      * ---
      *
+     * [--pause-ms=<number>]
+     * : Pause between batches in milliseconds (0–60000). Does not limit query duration.
+     * ---
+     * default: 500
+     * ---
+     *
      * [--log-queries]
-    * : When present, log the SQL queries executed and the meta rows checked.
-    *
-    * [--ids=<list>]
-    * : Comma-separated list of PDF attachment IDs to check (e.g. "12,34,56").
+     * : When present, log the SQL queries executed and the meta rows checked.
+     *
+     * [--force]
+     * : Check attachments even if scanned within the last seven days. Also applies to --ids.
+     *
+     * [--ids=<list>]
+     * : Comma-separated list of PDF attachment IDs to check (e.g. "12,34,56").
      *
      * ## EXAMPLES
      *
-     *     # Quick check of 10 most recent PDFs
+     *     # Quick check of 10 most recent eligible PDFs
      *     wp alingsas find-unused-pdfs
      *
-     *     # Scan all PDFs and save to a custom location
+     *     # Scan all eligible PDFs and save to a custom location
      *     wp alingsas find-unused-pdfs --limit=all --output=/tmp/report.json
      *
      *     # Scan 500 PDFs in batches of 100
@@ -66,19 +79,47 @@ class FindUnusedPdfs
      */
     public function __invoke(array $args, array $assoc_args): void
     {
+        try {
+            try {
+                $this->scan($args, $assoc_args);
+            } finally {
+                $this->releaseScanLock();
+            }
+        } catch (\Throwable $error) {
+            WP_CLI::error('Media scan aborted: ' . $error->getMessage());
+        }
+    }
+
+    private function scan(array $args, array $assoc_args): void
+    {
         global $wpdb;
         $this->db = $wpdb;
+        $this->pdfs = [];
+        $this->pdfIds = [];
 
         $limitArg   = $assoc_args['limit'] ?? '10';
         $idsArg     = $assoc_args['ids'] ?? null;
-        $batchSize  = max(1, (int) ($assoc_args['batch-size'] ?? 50));
+        $batchSize  = $this->scanIntegerOption($assoc_args, 'batch-size', 50);
+        $pauseMs    = $this->scanIntegerOption($assoc_args, 'pause-ms', 500, 0, 60000);
         $outputPath = $assoc_args['output'] ?? 'data/pdf-report-raw.json';
         $this->logQueries = !empty($assoc_args['log-queries']);
+
+        if ($limitArg !== 'all') {
+            $limitArg = (string) $this->scanIntegerOption($assoc_args, 'limit', 10);
+        }
+        $requestedIds = $idsArg !== null ? $this->scanAttachmentIds($idsArg) : null;
+        if ($outputPath === '') {
+            throw new \RuntimeException('--output must not be empty.');
+        }
 
         // Resolve relative output path from plugin root
         if ($outputPath[0] !== '/') {
             $outputPath = dirname(__DIR__, 2) . '/' . $outputPath;
         }
+
+        $this->acquireScanLock();
+        $this->prepareScanOutput($outputPath);
+        $this->configureScanHistory($assoc_args);
 
         // ── Header ───────────────────────────────────────────
         WP_CLI::log('');
@@ -88,26 +129,22 @@ class FindUnusedPdfs
         WP_CLI::log('');
         WP_CLI::log("  Database:     {$this->db->dbname}");
         WP_CLI::log("  Table prefix: {$this->db->prefix}");
-        if ($idsArg) {
+        if ($requestedIds !== null) {
             WP_CLI::log("  PDF IDs:      {$idsArg}");
         } else {
             WP_CLI::log("  PDF limit:    {$limitArg}");
         }
         WP_CLI::log('  Log queries:  ' . ($this->logQueries ? 'yes' : 'no'));
         WP_CLI::log("  Batch size:   {$batchSize}");
+        WP_CLI::log("  Batch pause:  {$pauseMs}ms");
         WP_CLI::log("  Output:       {$outputPath}");
         WP_CLI::log('');
 
         // ── Step 1: Fetch PDF attachments ─────────────────────
         WP_CLI::log(WP_CLI::colorize('%GStep 1:%n Fetching PDF attachments...'));
 
-        if (!empty($idsArg)) {
-            $ids = array_filter(array_map('intval', preg_split('/\s*,\s*/', trim($idsArg))), fn($v) => $v > 0);
-            if (empty($ids)) {
-                WP_CLI::error('No valid PDF IDs provided to --ids.');
-                return;
-            }
-            $this->fetchPdfAttachmentsByIds($ids);
+        if ($requestedIds !== null) {
+            $this->fetchPdfAttachmentsByIds($requestedIds);
         } else {
             $this->fetchPdfAttachments($limitArg);
         }
@@ -116,11 +153,6 @@ class FindUnusedPdfs
 
         WP_CLI::log("  Found {$pdfCount} PDF attachments");
         WP_CLI::log('');
-
-        if ($pdfCount === 0) {
-            WP_CLI::success('No PDFs to check.');
-            return;
-        }
 
         // ── Step 2: Load metadata & build search patterns ────
         WP_CLI::log(WP_CLI::colorize('%GStep 2:%n Loading PDF metadata...'));
@@ -149,11 +181,16 @@ class FindUnusedPdfs
 
             WP_CLI::log("  Batch {$batchNum}/{$totalBatches} [{$pct}%] — IDs {$minId}–{$maxId}");
 
+            $batchStarted = microtime(true);
             $counts = $this->searchBatchReferences($batchIds);
 
             foreach ($counts as $label => $c) {
                 $padded = str_pad($label . ':', 26);
                 WP_CLI::log("    {$padded}{$c}");
+            }
+            $this->logScanBatch($batchStarted);
+            if ($pauseMs > 0 && $batchNum < $totalBatches) {
+                usleep($pauseMs * 1000);
             }
         }
 
@@ -167,21 +204,8 @@ class FindUnusedPdfs
 
         $report = $this->buildReport($elapsed, $limitArg);
 
-        // Ensure output directory exists
-        $outputDir = dirname($outputPath);
-        if (!is_dir($outputDir)) {
-            wp_mkdir_p($outputDir);
-        }
-
-        $written = file_put_contents(
-            $outputPath,
-            json_encode($report, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)
-        );
-
-        if ($written === false) {
-            WP_CLI::error("Failed to write report to: {$outputPath}");
-            return;
-        }
+        $this->writeScanReport($outputPath, $report);
+        $this->rememberScannedAttachments($this->pdfIds);
 
         // ── Summary ──────────────────────────────────────────
         $referenced   = $report['metadata']['total_referenced'];
@@ -243,6 +267,7 @@ class FindUnusedPdfs
     private function fetchPdfAttachments(string $limitArg): void
     {
         $limitClause = ($limitArg === 'all') ? '' : 'LIMIT ' . max(1, (int) $limitArg);
+        $eligibility = $this->scanEligibilitySql();
 
         // phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared
         $sql = "
@@ -256,12 +281,13 @@ class FindUnusedPdfs
                     AND pm.meta_key = 'event-manager-media'
                     AND pm.meta_value = '1'
               )
+              {$eligibility}
             ORDER BY p.ID DESC
             {$limitClause}
         ";
         // phpcs:enable
 
-        $rows = $this->db->get_results($sql, ARRAY_A);
+        $rows = $this->scanResults($sql, ARRAY_A);
 
         foreach ($rows as $row) {
             $id = (int) $row['ID'];
@@ -294,6 +320,7 @@ class FindUnusedPdfs
         }
 
         $placeholders = implode(',', array_fill(0, count($ids), '%d'));
+        $eligibility = $this->scanEligibilitySql();
 
         // phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared
         $sql = $this->db->prepare(
@@ -302,6 +329,7 @@ class FindUnusedPdfs
              WHERE p.post_type = 'attachment'
                AND p.post_mime_type = 'application/pdf'
                AND p.ID IN ({$placeholders})
+               {$eligibility}
                AND NOT EXISTS (
                    SELECT 1 FROM {$this->db->postmeta} pm
                    WHERE pm.post_id = p.ID
@@ -312,7 +340,7 @@ class FindUnusedPdfs
         );
         // phpcs:enable
 
-        $rows = $this->db->get_results($sql, ARRAY_A);
+        $rows = $this->scanResults($sql, ARRAY_A);
 
         foreach ($rows as $row) {
             $id = (int) $row['ID'];
@@ -346,7 +374,7 @@ class FindUnusedPdfs
 
         // _wp_attached_file
         // phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared
-        $rows = $this->db->get_results(
+        $rows = $this->scanResults(
             $this->db->prepare(
                 "SELECT post_id, meta_value FROM {$this->db->postmeta}
                  WHERE meta_key = '_wp_attached_file' AND post_id IN ({$idPlaceholders})",
@@ -405,7 +433,7 @@ class FindUnusedPdfs
         if ($this->logQueries) {
             WP_CLI::log("SQL: {$sql}");
         }
-        $rows = $this->db->get_results($sql, ARRAY_A);
+        $rows = $this->scanResults($sql, ARRAY_A);
         // phpcs:enable
 
         foreach ($rows as $row) {
@@ -437,7 +465,7 @@ class FindUnusedPdfs
         if ($this->logQueries) {
             WP_CLI::log("SQL: {$sql}");
         }
-        $rows = $this->db->get_results($sql, ARRAY_A);
+        $rows = $this->scanResults($sql, ARRAY_A);
         // phpcs:enable
 
         foreach ($rows as $row) {
@@ -476,7 +504,7 @@ class FindUnusedPdfs
                 if ($this->logQueries) {
                     WP_CLI::log("SQL: {$sql}");
                 }
-                $rows = $this->db->get_results($sql, ARRAY_A);
+                $rows = $this->scanResults($sql, ARRAY_A);
         // phpcs:enable
 
         foreach ($rows as $row) {
@@ -523,7 +551,7 @@ class FindUnusedPdfs
                 if ($this->logQueries) {
                         WP_CLI::log("SQL: {$sql}");
                 }
-                $rows = $this->db->get_results($sql, ARRAY_A);
+                $rows = $this->scanResults($sql, ARRAY_A);
         // phpcs:enable
 
         foreach ($rows as $row) {
@@ -596,7 +624,7 @@ class FindUnusedPdfs
                         if ($this->logQueries) {
                                 WP_CLI::log("SQL: {$sql}");
                         }
-                        $rows = $this->db->get_results($sql, ARRAY_A);
+                        $rows = $this->scanResults($sql, ARRAY_A);
                         // phpcs:enable
 
             foreach ($rows as $row) {
@@ -645,7 +673,7 @@ class FindUnusedPdfs
             if ($this->logQueries) {
                 WP_CLI::log("SQL: {$sql}");
             }
-            $rows = $this->db->get_results($sql, ARRAY_A);
+            $rows = $this->scanResults($sql, ARRAY_A);
             // phpcs:enable
 
             foreach ($rows as $row) {
@@ -689,7 +717,7 @@ class FindUnusedPdfs
             if ($this->logQueries) {
                 WP_CLI::log("SQL: {$sql}");
             }
-            $rows = $this->db->get_results($sql, ARRAY_A);
+            $rows = $this->scanResults($sql, ARRAY_A);
             // phpcs:enable
 
             foreach ($rows as $row) {

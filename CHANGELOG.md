@@ -5,6 +5,10 @@ Format loosely follows [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+### Changed
+
+- Driftinformation posts now show "Publicerad <date>, uppdaterad <date>" as their date (next to the date icon, e.g. on cards in the Posts module) instead of the published date and time; only the published date if never updated afterwards.
+
 ## [1.0.6] - 2026-08-17
 
 ### Fixed

@@ -49,3 +49,14 @@
     }
   }
 }
+
+// Theme-controlled button colors for all buttons in Manual input.
+// Falls back to Municipio's own values, so themes without these settings are unaffected.
+.modularity-mod-manualinput .c-button:not(.c-segment__buttons .c-button) {
+  background-color: var(--theme-manualinput-button-background, var(--c-button-primary-color));
+  border-color: var(--theme-manualinput-button-background, var(--c-button-primary-color));
+
+  .c-button__label {
+    color: var(--theme-manualinput-button-color, var(--c-button-primary-color-contrasting));
+  }
+}

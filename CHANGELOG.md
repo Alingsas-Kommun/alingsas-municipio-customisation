@@ -5,6 +5,10 @@ Format loosely follows [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+### Added
+
+- Theme setting "Manual input → Buttons" (Utseende → Alingsås) controlling the button colors of all buttons in the Manual input module, including Segment buttons. Themes that don't set it keep the current button colors.
+
 ### Changed
 
 - Driftinformation posts now show "Publicerad <date>, uppdaterad <date>" as their date (next to the date icon, e.g. on cards in the Posts module) instead of the published date and time; only the published date if never updated afterwards.

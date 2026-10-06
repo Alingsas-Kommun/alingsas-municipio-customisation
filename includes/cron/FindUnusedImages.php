@@ -268,6 +268,7 @@ class FindUnusedImages
             SELECT p.ID, p.post_title, p.post_mime_type, p.guid, p.post_date, p.post_parent
             FROM {$this->db->posts} p
             WHERE p.post_type = 'attachment'
+              AND p.post_status <> 'trash'
               AND p.post_mime_type LIKE 'image/%%'
               AND NOT EXISTS (
                   SELECT 1 FROM {$this->db->postmeta} pm
@@ -323,6 +324,7 @@ class FindUnusedImages
             "SELECT p.ID, p.post_title, p.post_mime_type, p.guid, p.post_date, p.post_parent
              FROM {$this->db->posts} p
              WHERE p.post_type = 'attachment'
+               AND p.post_status <> 'trash'
                AND p.post_mime_type LIKE 'image/%%'
                AND p.ID IN ({$placeholders})
                {$eligibility}

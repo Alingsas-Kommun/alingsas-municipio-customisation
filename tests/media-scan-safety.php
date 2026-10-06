@@ -75,16 +75,19 @@ class wpdb
         $this->dbname = $database;
         $this->selection = new PDO('sqlite::memory:');
         $this->selection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $this->selection->exec('CREATE TABLE test_posts (ID INTEGER PRIMARY KEY, post_title TEXT, post_mime_type TEXT, guid TEXT, post_date TEXT, post_parent INTEGER, post_type TEXT)');
+        $this->selection->exec('CREATE TABLE test_posts (ID INTEGER PRIMARY KEY, post_title TEXT, post_mime_type TEXT, guid TEXT, post_date TEXT, post_parent INTEGER, post_type TEXT, post_status TEXT)');
         $this->selection->exec('CREATE TABLE test_postmeta (post_id INTEGER, meta_key TEXT, meta_value TEXT)');
         $this->addAttachment(101, 'image/jpeg');
         $this->addAttachment(102, 'image/jpeg');
+        // Trashed attachments must never be scanned or reported.
+        $this->addAttachment(901, 'image/jpeg', 'trash');
+        $this->addAttachment(902, 'application/pdf', 'trash');
     }
 
-    public function addAttachment(int $id, string $mime): void
+    public function addAttachment(int $id, string $mime, string $status = 'inherit'): void
     {
-        $query = $this->selection->prepare('INSERT INTO test_posts VALUES (?, ?, ?, ?, ?, 0, ?)');
-        $query->execute([$id, "Attachment {$id}", $mime, "https://example.test/{$id}", '2026-01-01 00:00:00', 'attachment']);
+        $query = $this->selection->prepare('INSERT INTO test_posts VALUES (?, ?, ?, ?, ?, 0, ?, ?)');
+        $query->execute([$id, "Attachment {$id}", $mime, "https://example.test/{$id}", '2026-01-01 00:00:00', 'attachment', $status]);
     }
 
     public function prepare($sql, ...$args): string

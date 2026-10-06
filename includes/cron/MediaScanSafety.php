@@ -20,23 +20,38 @@ trait MediaScanSafety
     private float $scanQuerySeconds = 0.0;
     private int $scanStartedAt = 0;
     private bool $forceScan = false;
+    private bool $recordScanHistory = true;
+    private int $minAgeDays = 0;
 
     private function configureScanHistory(array $args): void
     {
         $this->scanStartedAt = time();
         $this->forceScan = !empty($args['force']);
+        $this->recordScanHistory = empty($args['skip-history']);
+        $this->minAgeDays = $this->scanIntegerOption($args, 'min-age-days', 0, 0, 3650);
+        if ($this->minAgeDays > 0) {
+            WP_CLI::log("Only checking attachments uploaded more than {$this->minAgeDays} days ago.");
+        }
         WP_CLI::log($this->forceScan
             ? 'Force: checking attachments regardless of previous scans.'
             : 'Skipping attachments checked within the last seven days (use --force to recheck).');
     }
 
-    /** Filter before LIMIT so recently checked attachments do not use up slots. */
+    /** Filter before LIMIT so skipped attachments do not use up slots. */
     private function scanEligibilitySql(): string
     {
-        if ($this->forceScan) {
-            return '';
+        $sql = '';
+        if ($this->minAgeDays > 0) {
+            // Applies even with --force: new uploads may not be linked anywhere yet.
+            $sql .= $this->db->prepare(
+                'AND p.post_date < %s ',
+                gmdate('Y-m-d H:i:s', $this->scanStartedAt - $this->minAgeDays * 86400)
+            );
         }
-        return $this->db->prepare(
+        if ($this->forceScan) {
+            return $sql;
+        }
+        return $sql . $this->db->prepare(
             "AND NOT EXISTS (
                 SELECT 1 FROM {$this->db->postmeta} scan_history
                 WHERE scan_history.post_id = p.ID
@@ -51,6 +66,10 @@ trait MediaScanSafety
     /** Only called after the complete report has been published successfully. */
     private function rememberScannedAttachments(array $ids): void
     {
+        if (!$this->recordScanHistory) {
+            WP_CLI::log('Scan history not saved (--skip-history); these attachments will be selected again.');
+            return;
+        }
         // Use the start time so a weekly job is eligible again at its next start.
         $timestamp = (string) $this->scanStartedAt;
         foreach ($ids as $id) {
@@ -166,6 +185,8 @@ trait MediaScanSafety
         $report['metadata']['scan_started_at'] = gmdate('c', $this->scanStartedAt);
         $report['metadata']['recheck_after_seconds'] = $this->scanRecheckSeconds;
         $report['metadata']['force_used'] = $this->forceScan;
+        $report['metadata']['history_saved'] = $this->recordScanHistory;
+        $report['metadata']['min_age_days'] = $this->minAgeDays;
         $report['metadata']['database_query_count'] = $this->scanQueryCount;
         $report['metadata']['database_query_seconds'] = round($this->scanQuerySeconds, 2);
         $json = json_encode($report, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR);

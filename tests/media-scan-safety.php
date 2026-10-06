@@ -84,10 +84,10 @@ class wpdb
         $this->addAttachment(902, 'application/pdf', 'trash');
     }
 
-    public function addAttachment(int $id, string $mime, string $status = 'inherit'): void
+    public function addAttachment(int $id, string $mime, string $status = 'inherit', string $date = '2026-01-01 00:00:00'): void
     {
         $query = $this->selection->prepare('INSERT INTO test_posts VALUES (?, ?, ?, ?, ?, 0, ?, ?)');
-        $query->execute([$id, "Attachment {$id}", $mime, "https://example.test/{$id}", '2026-01-01 00:00:00', 'attachment', $status]);
+        $query->execute([$id, "Attachment {$id}", $mime, "https://example.test/{$id}", $date, 'attachment', $status]);
     }
 
     public function prepare($sql, ...$args): string
@@ -220,8 +220,16 @@ try {
         check($report['metadata']['scan_complete'] === true, 'Empty scan did not complete');
         $checks++;
 
+        $wpdb = new wpdb($database);
+        $command([], array_replace($options, ['skip-history' => true]));
+        $report = json_decode(file_get_contents($reportPath), true, 512, JSON_THROW_ON_ERROR);
+        check($report['metadata']['scan_complete'] === true, '--skip-history scan did not complete');
+        check($report['metadata']['history_saved'] === false, '--skip-history was not recorded in the report');
+        check($wpdb->historyWrites === 0, '--skip-history still saved scan history');
+        $checks++;
+
         foreach ([['pause-ms' => '-1'], ['pause-ms' => '60001'], ['batch-size' => '0'],
-                  ['limit' => 'typo'], ['ids' => '101,garbage'], ['ids' => ''], ['output' => '']] as $invalid) {
+                  ['limit' => 'typo'], ['ids' => '101,garbage'], ['ids' => ''], ['output' => ''], ['min-age-days' => '-1'], ['min-age-days' => 'abc']] as $invalid) {
             $wpdb = new wpdb($database);
             expectFailure(fn() => $command([], array_replace($options, $invalid)), '--');
             check($wpdb->calls === 0, 'Invalid arguments reached the database');
@@ -279,6 +287,20 @@ try {
         $ids = $readIds();
         sort($ids);
         check($ids === [101, 102], 'Force with explicit IDs selected the wrong attachments');
+        $checks++;
+
+        // Recent uploads are skipped by --min-age-days, even with --force or --ids.
+        $wpdb->addAttachment(400, $mime, 'inherit', gmdate('Y-m-d H:i:s', time() - 3600));
+        $wpdb->addAttachment(401, $mime, 'inherit', gmdate('Y-m-d H:i:s', time() - 100 * 86400));
+        $command([], array_replace($options, ['ids' => '400,401', 'force' => true]));
+        $ids = $readIds();
+        sort($ids);
+        check($ids === [400, 401], 'Without --min-age-days recent uploads were skipped');
+        $command([], array_replace($options, ['ids' => '400,401', 'force' => true, 'min-age-days' => '90']));
+        check($readIds() === [401], '--min-age-days did not skip the recent upload');
+        $command([], array_replace($options, ['limit' => '3', 'force' => true, 'min-age-days' => '90']));
+        check(!in_array(400, $readIds(), true), '--min-age-days did not apply to limited scans');
+        expectFailure(fn() => $command([], array_replace($options, ['min-age-days' => '-1'])), '--min-age-days');
         $checks++;
 
         $now = time();

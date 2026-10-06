@@ -60,6 +60,18 @@ class FindUnusedPdfs
      * [--force]
      * : Check attachments even if scanned within the last seven days. Also applies to --ids.
      *
+     * [--min-age-days=<days>]
+     * : Only check attachments uploaded more than this many days ago, so recent
+     *   uploads that may not be linked yet are left alone. Also applies with --force
+     *   and --ids. 0 disables the filter.
+     * ---
+     * default: 0
+     * ---
+     *
+     * [--skip-history]
+     * : Do not record the scan in attachment history, so the same attachments are
+     *   selected again by the next run. Useful for dry runs.
+     *
      * [--ids=<list>]
      * : Comma-separated list of PDF attachment IDs to check (e.g. "12,34,56").
      *

@@ -42,6 +42,9 @@ class Hooks {
         }
 
         $jobStartDate = $post->getSchemaProperty('jobStartDate');
+        if ($jobStartDate instanceof \DateTimeInterface) {
+            $jobStartDate = $jobStartDate->format('Y-m-d');
+        }
         if ($jobStartDate !== null && $jobStartDate !== '') {
             $viewData['informationList'][] = [
                 'label' => __('Anställningsstart', 'municipio-customisation'),

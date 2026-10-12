@@ -12,6 +12,7 @@ Format loosely follows [Keep a Changelog](https://keepachangelog.com/).
 
 ### Fixed
 
+- Customer feedback bar no longer sits under footer details on regular pages. The page footer is pulled up 48px; that offset is skipped when `#customer-feedback` is present.
 - Gallery lightbox images are visible again. Municipio's gallery modal sizes the figure with `fit-content` while the injected image uses `max-width: 100%`, which collapsed the picture to 0×0 (the request still showed in Network). Override gives the image a viewport-relative max size and writes intrinsic width/height after load.
 - Inlay list uses the page profile again. Styleguide v3 paints collection links with `--c-collection--color--surface-contrast` on the anchor, which beat the colour set on `.c-collection__content`. Header uses the page theme, list links use the profile link colour, and the button stripe uses the external-links colours.
 - Manual Input **Betona första inlägget** (Card display) uses white heading and body text on the large first block so it stays readable on the image. Styleguide v3 paints that block from `--color--alpha`, which was no longer a dark overlay.

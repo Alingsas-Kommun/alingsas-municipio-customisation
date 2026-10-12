@@ -1,9 +1,12 @@
 body {
     &.page:not(.page-template-one-page-blade) {
-        footer {
-            &.site-footer {
-                margin-top: calc(var(--base, 8px) * calc(-12/2));
-            }
+        footer.site-footer {
+            margin-top: calc(var(--base, 8px) * calc(-12/2));
+        }
+
+        // Negative footer pull covers the customer-feedback bar (last in main).
+        &:has(#customer-feedback) footer.site-footer {
+            margin-top: 0;
         }
     }
 }

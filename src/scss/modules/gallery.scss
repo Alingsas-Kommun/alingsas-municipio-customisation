@@ -1,0 +1,29 @@
+// Municipio gallery lightbox: the modal figure is `width: fit-content` +
+// `container-type: inline-size`, while the injected img uses `max-width: 100%`
+// and `height: inherit`. That circular sizing collapses the image to 0×0 —
+// Network shows the request, but nothing is painted. Styleguide hides the img
+// until `.c-image__image--is-visible` as well. Give the image viewport-relative
+// max size and keep it visible. Remove once component-library >= 5.43.2
+// (https://github.com/helsingborg-stad/styleguide/pull/1319).
+
+.c-modal.c-modal--gallery .c-modal__content {
+    .c-image {
+        container-type: normal;
+        width: auto;
+        max-width: min(75rem, calc(100vw - 4rem));
+        height: auto;
+        max-height: 80vh;
+    }
+
+    .c-image .c-image__image,
+    .c-image .c-image__image:not(.c-image__image--is-visible) {
+        display: block;
+        width: auto;
+        height: auto;
+        max-width: min(75rem, calc(100vw - 4rem));
+        max-height: 80vh;
+        object-fit: contain;
+        opacity: 1;
+        visibility: visible;
+    }
+}

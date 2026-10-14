@@ -5,6 +5,8 @@ Format loosely follows [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+## [1.1.0] - 2026-10-14
+
 ### Added
 
 - Theme setting "Manual input → Buttons" (Utseende → Alingsås) controlling the button colors of all buttons in the Manual input module, including Segment buttons. Themes that don't set it keep the current button colors.

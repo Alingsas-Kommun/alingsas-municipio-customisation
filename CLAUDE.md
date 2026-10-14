@@ -108,9 +108,11 @@ rather than relying on the auto-instantiation, since cron job classes need to be
 - **Modularity modules**: `includes/modules/*.php` (`InlayList`, `ManualInput`, `Posts`, `Recommend`) — settings/
   behavior for specific Modularity module types; `src/js/lib/manualinput-search.js` implements free-text search
   for the "Manual input" module when enabled in its settings.
-- **Decorators**: `Decorators.php` conditionally requires and applies `src/Decorators/HideTitlePostObject.php`
-  (note: lives under `src/`, not `includes/`, so it's outside the auto-instantiation bootstrap) via the
-  `Municipio/DecoratePostObject` filter to blank a post's title when its `hide_title` ACF field is set.
+- **Decorators**: post object decorators (`AlingsasCustomisation\Decorators` namespace) live in
+  `includes/decorators/`; the bootstrap `require_once`s them but doesn't instantiate them (namespace doesn't match
+  the derived pattern) — the feature classes apply them via the `Municipio/DecoratePostObject` filter.
+  `Decorators.php` applies `HideTitlePostObject` to blank a post's title when its `hide_title` ACF field is set;
+  `DriftInformation.php` applies `DriftInformationDatePostObject` (published/updated archive date text).
 - **Misc**: `ContentSecurityPolicy.php`, `Config.php` (assorted small Municipio/ComponentLibrary filter tweaks —
   accessibility menu items, button classes, page excerpts, stripping HTML from `nyheter` excerpts), `Sidebar.php`
   (right sidebar shown by default on singular content unless explicitly hidden), `Translation.php`,

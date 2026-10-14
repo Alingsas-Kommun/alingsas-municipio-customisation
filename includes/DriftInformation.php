@@ -22,10 +22,6 @@ class DriftInformation
             return $postObject;
         }
 
-        if (!class_exists('\\AlingsasCustomisation\\Decorators\\DriftInformationDatePostObject')) {
-            require_once __DIR__ . '/../src/Decorators/DriftInformationDatePostObject.php';
-        }
-
         return new \AlingsasCustomisation\Decorators\DriftInformationDatePostObject($postObject);
     }
 }

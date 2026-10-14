@@ -113,7 +113,7 @@ npm run make-pot
 
 Projektet följer [semantisk versionshantering](https://semver.org/) (`MAJOR.MINOR.PATCH`). Releasetaggar använder samma versionsnummer, till exempel `1.0.0`. Versionen ska vara densamma i `municipio-customisation.php`, `Plugin::VERSION` och `composer.json`.
 
-Aktuell version är **1.1.0**.
+Aktuell version är **1.1.1**.
 
 ## Författare
 

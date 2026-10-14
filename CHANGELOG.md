@@ -5,6 +5,12 @@ Format loosely follows [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+## [1.1.1] - 2026-10-14
+
+### Changed
+
+- Moved `DriftInformationDatePostObject` from `src/Decorators/` to `includes/decorators/` next to the other decorator and removed the now-redundant manual `require_once` fallbacks. No functional change.
+
 ## [1.1.0] - 2026-10-14
 
 ### Added

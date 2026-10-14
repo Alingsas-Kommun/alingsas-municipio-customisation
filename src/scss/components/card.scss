@@ -137,3 +137,22 @@ body.home {
         }
     }
 }
+.c-card__date:has(.drift-date) {
+    align-items: flex-start;
+    display: inline-flex;
+    gap: 0.25em;
+
+    .c-icon {
+        flex-shrink: 0;
+        // Align the icon with the first line instead of centering it against both
+        margin-top: 0.1em;
+    }
+
+    .drift-date {
+        display: block;
+
+        &__line {
+            display: block;
+        }
+    }
+}

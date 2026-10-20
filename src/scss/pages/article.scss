@@ -21,6 +21,12 @@
         margin-top: 1.75rem;
     }
 
+    // Column gap plus the heading margin doubles the space under a recommend
+    // prediction mount. Pull the title back so only the column gap remains.
+    .u-flex--gridgap > #sidebar-content-area-top:has([id^="prediction-mount-"]) + & > .c-article__header > h1#page-title {
+        margin-top: -15px;
+    }
+
     p {
         --base: 4px;
         margin-top: calc(var(--base, 8px)* 5);

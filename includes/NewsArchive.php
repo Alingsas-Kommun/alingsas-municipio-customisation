@@ -110,7 +110,7 @@ class NewsArchive
     {
         $days = 90;
         if (function_exists('get_field')) {
-            $value = get_field(self::FIELD_DAYS, self::OPTIONS_PAGE_SLUG);
+            $value = get_field(self::FIELD_DAYS, 'option');
             if ($value !== null && $value !== '' && is_numeric($value)) {
                 $days = (int) $value;
             }

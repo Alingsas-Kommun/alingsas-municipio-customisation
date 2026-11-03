@@ -5,6 +5,12 @@ Format loosely follows [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+## [1.1.2] - 2026-11-03
+
+### Added
+
+- Iframes from `mediaflow.com` and any of its subdomains now survive kses filtering, so users without `unfiltered_html` (everyone but super admins) can save Mediaflow video embeds. Iframes from other hosts are still removed.
+
 ## [1.1.1] - 2026-10-14
 
 ### Changed

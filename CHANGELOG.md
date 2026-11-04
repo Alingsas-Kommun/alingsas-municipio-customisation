@@ -12,6 +12,11 @@ Format loosely follows [Keep a Changelog](https://keepachangelog.com/).
 
 ### Fixed
 
+- Recommend modules in the content area under the article keep the column gap. The no-margin option was pulling them flush against neighbouring modules. The button row above the article is unchanged.
+- Inlay list links are black on every colour profile. External-link buttons keep their profile colours. The external-links heading is black as well, including on profiles that set a white heading.
+- Manual Input headings keep production's 24px space under the title. Municipio 6's `u-margin--0` on the module title had closed that gap.
+- Breadcrumbs on wide screens use production's 32px vertical margin again. The wide-screen container margin had been zeroed, leaving 16px.
+- On narrow screens, the gap between the top content buttons and the page title matches the pre-migration spacing. The -15px prediction-mount pull stays from 56em up, where the column gap is larger.
 - Customer feedback bar no longer sits under footer details on regular pages. The page footer is pulled up 48px; that offset is skipped when `#customer-feedback` is present.
 - Gallery lightbox images are visible again. Municipio's gallery modal sizes the figure with `fit-content` while the injected image uses `max-width: 100%`, which collapsed the picture to 0×0 (the request still showed in Network). Override gives the image a viewport-relative max size and writes intrinsic width/height after load.
 - Inlay list uses the page profile again. Styleguide v3 paints collection links with `--c-collection--color--surface-contrast` on the anchor, which beat the colour set on `.c-collection__content`. Header uses the page theme, list links use the profile link colour, and the button stripe uses the external-links colours.

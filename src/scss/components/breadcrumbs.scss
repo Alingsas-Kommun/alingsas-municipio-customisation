@@ -1,8 +1,10 @@
 .nav-helper {
     .nav-helper__container {
         @container nav-helper (min-width: 670px) {
-            margin-top: 0;
-            margin-bottom: 0;
+            // The helper is a flex box, so this margin stays inside its own 16px
+            // and the breadcrumb text gets 32px above and below, as on production.
+            margin-top: calc(var(--base, 8px) * 2);
+            margin-bottom: calc(var(--base, 8px) * 2);
         }
     }
 }

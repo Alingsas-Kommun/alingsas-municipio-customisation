@@ -1,4 +1,10 @@
 .modularity-mod-manualinput {
+  // Municipio 6 zeros module titles with u-margin--0. Production keeps
+  // 24px under the heading; margin-top stays 0 when the title is first.
+  > .c-typography.module-title {
+    margin-bottom: calc(var(--base, 8px) * 3);
+  }
+
   // Highlighted first item (display Card → Block 16:9). v3 fills the block
   // from --color--alpha; heading/body must stay white on the image.
   .c-block.ak-manualinput-highlighted {

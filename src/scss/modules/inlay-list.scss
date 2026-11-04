@@ -1,8 +1,8 @@
 .modularity-mod-inlaylist {
-    // v3 sets color on `.c-collection__item--action a` (surface contrast / body
-    // text). That beats a color on `.c-collection__content`, so profile link
-    // colour never showed. The anchor has to carry the token.
-    --c-collection--color--surface-contrast: var(--theme-links-link-color, #{$color-plantation});
+    // List links stay black on every profile. v3 paints the anchor from
+    // surface contrast, so the token has to be set here rather than on the
+    // inner text. Button-style external links override this below.
+    --c-collection--color--surface-contrast: #{$color-black};
 
     .c-card__header {
         background-color: var(--color-page-theme, var(--c-card--color--primary, #{$color-plantation}));
@@ -15,7 +15,7 @@
 
     .c-collection .c-collection__item--action,
     .c-collection .c-collection__item--action a {
-        color: var(--theme-links-link-color, #{$color-plantation});
+        color: #{$color-black};
     }
 
     &--appearance-buttons {
@@ -101,7 +101,7 @@
 
         .c-card__header {
             background-color: transparent;
-            color: var(--inlay-list-stripe-contrast);
+            color: #{$color-black};
         }
 
         .c-collection {

@@ -23,8 +23,15 @@
 
     // Column gap plus the heading margin doubles the space under a recommend
     // prediction mount. Pull the title back so only the column gap remains.
+    // Below 56em the gap is 24px, and -15px leaves ~9px above the title.
+    // Pre-migration the heading's optical margin is about -6px, so the
+    // visible gap stays ~18px. Keep the stronger pull once the gap grows.
     .u-flex--gridgap > #sidebar-content-area-top:has([id^="prediction-mount-"]) + & > .c-article__header > h1#page-title {
-        margin-top: -15px;
+        margin-top: -6px;
+
+        @media (min-width: 56em) {
+            margin-top: -15px;
+        }
     }
 
     p {

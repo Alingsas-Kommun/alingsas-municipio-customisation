@@ -33,7 +33,7 @@ if (function_exists('acf_add_local_field_group')) {
             'name' => 'show_as_slider',
             'aria-label' => '',
             'type' => 'true_false',
-            'instructions' => __('Visar korten i en slider. Kolumninställningen styr hur många slides som syns. Fungerar med Kort, Block, Box, Segment och Nyheter.', 'municipio-customisation'),
+            'instructions' => __('Visar korten i en slider. Kolumninställningen styr hur många slides som syns.', 'municipio-customisation'),
             'required' => 0,
             'conditional_logic' => 0,
             'wrapper' => array(

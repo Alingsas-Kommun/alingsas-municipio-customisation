@@ -109,6 +109,9 @@ rather than relying on the auto-instantiation, since cron job classes need to be
 - **Decorators**: `Decorators.php` conditionally requires and applies `src/Decorators/HideTitlePostObject.php`
   (note: lives under `src/`, not `includes/`, so it's outside the auto-instantiation bootstrap) via the
   `Municipio/DecoratePostObject` filter to blank a post's title when its `hide_title` ACF field is set.
+- **WYSIWYG button dialog**: `TinyMceButtons.php` swaps Municipio's `mce_hbg_buttons` TinyMCE plugin for
+  `assets/admin/mce-buttons.js`. That file is plain ES5 served as-is, not Vite-built, because `src/` is stripped in
+  prod builds. The dialog offers two brand colours, read from Municipio's `tokens` theme mod.
 - **Misc**: `ContentSecurityPolicy.php`, `Config.php` (assorted small Municipio/ComponentLibrary filter tweaks —
   accessibility menu items, button classes, page excerpts, stripping HTML from `nyheter` excerpts), `Sidebar.php`
   (right sidebar shown by default on singular content unless explicitly hidden), `Translation.php`,

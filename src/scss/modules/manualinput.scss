@@ -109,6 +109,41 @@
       container-type: inline-size;
     }
 
+    // Tighter gap between card text and the read-more button: the body's
+    // bottom padding is enough, so drop the footer's top padding and the
+    // last paragraph's bottom margin.
+    .c-card .c-card__footer {
+      padding-top: 0;
+    }
+
+    .c-card .c-card__content > :last-child {
+      margin-bottom: 0;
+    }
+
+    // Särprofiler: read-more (secondary) and slider arrows (primary) follow
+    // the page theme's button colours (Utseende → Alingsås → tema → Knappar).
+    // Without a theme the --theme-button-* vars are unset and the normal
+    // palette applies. Sets the resolved --c-button-* vars rather than
+    // --c-button--color--* so the fallback can reference the original token.
+    .c-button.c-button__filled[class*='--primary'] {
+      --c-button-background: var(--theme-button-background, var(--c-button--color--primary, var(--color--primary)));
+      --c-button-border: var(--theme-button-background, var(--c-button--color--primary-border, var(--color--primary-border)));
+      --c-button-contrast: var(--theme-button-color, var(--c-button--color--primary-contrast, var(--color--primary-contrast)));
+      --c-button-hover: var(--c-button-background);
+    }
+
+    .c-button.c-button__filled[class*='--secondary'] {
+      --c-button-background: var(--theme-button-background, var(--c-button--color--secondary, var(--color--secondary)));
+      --c-button-border: var(--theme-button-background, var(--c-button--color--secondary-border, var(--color--secondary-border)));
+      --c-button-contrast: var(--theme-button-color, var(--c-button--color--secondary-contrast, var(--color--secondary-contrast)));
+      --c-button-hover: var(--c-button-background);
+
+      &:hover,
+      &:focus-visible {
+        opacity: 0.9;
+      }
+    }
+
     @container (min-width: 500px) {
       .c-card .c-card__paint-container {
         display: grid;
@@ -140,8 +175,6 @@
     }
 
     .c-slider__arrow {
-      --c-button-hover: var(--c-button--color--primary, var(--color--primary));
-      --c-button--color--primary-border: var(--c-button--color--primary, var(--color--primary));
       border: none;
       pointer-events: auto;
       position: absolute;
@@ -150,7 +183,7 @@
       &:hover,
       &:focus,
       &:active {
-        background-color: var(--c-button--color--primary, var(--color--primary));
+        background-color: var(--c-button-background);
         border: none;
         opacity: 0.9;
       }
@@ -200,7 +233,7 @@
         width: calc(var(--base, 8px) * 1.5);
 
         &.is-active {
-          background-color: var(--c-button--color--primary, var(--color--primary));
+          background-color: var(--theme-button-background, var(--c-button--color--primary, var(--color--primary)));
           opacity: 1;
           transform: scale(1.25);
         }

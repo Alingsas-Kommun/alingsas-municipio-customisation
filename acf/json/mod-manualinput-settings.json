@@ -28,7 +28,7 @@
             "name": "show_as_slider",
             "aria-label": "",
             "type": "true_false",
-            "instructions": "Visar korten i en slider. Kolumninst\u00e4llningen styr hur m\u00e5nga slides som syns. Fungerar med Kort, Block, Box, Segment och Nyheter.",
+            "instructions": "Visar korten i en slider. Kolumninst\u00e4llningen styr hur m\u00e5nga slides som syns.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {

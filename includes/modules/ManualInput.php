@@ -13,11 +13,15 @@ use Modularity\Module\ManualInput\ManualInput as ModularityManualInput;
 
 class ManualInput {
     /**
-     * Display templates that can render as a Splide slider.
+     * Display templates our extra settings (slider, centered content, hidden
+     * heading arrow) apply to. The admin hides those settings for any other
+     * "Visa som" choice (assets/admin/manualinput-settings.js).
      *
      * @var array<int, string>
      */
-    public const SLIDER_TEMPLATES = ['card', 'block', 'box', 'segment', 'news'];
+    public const SLIDER_TEMPLATES = ['card'];
+
+    private const FIELD_DISPLAY_AS = 'field_64ff23d0d91bf';
 
     private const FIELD_SHOW_AS_SLIDER = 'field_68c91a16001ab';
     private const FIELD_CENTER_CONTENT = 'field_68c93c4e001ac';
@@ -29,6 +33,28 @@ class ManualInput {
         add_filter('Modularity/Display/mod-manualinput/viewData', [$this, 'addSliderViewData']);
         add_filter('Modularity/Display/BeforeModule', [$this, 'appendSearchForm'], 10, 4);
         add_filter('Modularity/Display/BeforeModule::classes', [$this, 'addModuleClasses'], 10, 4);
+        add_action('acf/input/admin_enqueue_scripts', [$this, 'enqueueSettingsScript']);
+    }
+
+    /**
+     * Show our Card-only settings only while "Visa som" is Card. ACF's own
+     * conditional logic can't do this: display_as lives in Modularity's field
+     * group, and ACF only resolves condition fields within the same group.
+     */
+    public function enqueueSettingsScript(): void {
+        wp_enqueue_script(
+            'alingsas-manualinput-settings',
+            dirname(plugin_dir_url(__DIR__)) . '/assets/admin/manualinput-settings.js',
+            ['acf-input'],
+            Plugin::VERSION,
+            true
+        );
+
+        wp_localize_script('alingsas-manualinput-settings', 'alingsasManualInputSettings', [
+            'displayAsKey' => self::FIELD_DISPLAY_AS,
+            'templates' => self::SLIDER_TEMPLATES,
+            'fieldKeys' => [self::FIELD_SHOW_AS_SLIDER, self::FIELD_CENTER_CONTENT, self::FIELD_HIDE_HEADING_ARROW],
+        ]);
     }
 
     /**
@@ -68,8 +94,9 @@ class ManualInput {
      */
     public function addSliderViewData(array $data): array {
         $data = $this->markHighlightedInputs($data);
-        $data['centerContent'] = $this->isCenterContentRequested($data);
-        $data['hideHeadingArrow'] = $this->isHideHeadingArrowRequested($data);
+        $isSupportedTemplate = in_array($this->getDisplayAsFromViewData($data), self::SLIDER_TEMPLATES, true);
+        $data['centerContent'] = $isSupportedTemplate && $this->isCenterContentRequested($data);
+        $data['hideHeadingArrow'] = $isSupportedTemplate && $this->isHideHeadingArrowRequested($data);
 
         if (!$this->viewShouldUseSlider($data)) {
             $data['showAsSlider'] = false;
@@ -177,6 +204,10 @@ class ManualInput {
 
         if (get_field('use_search', $ID)) {
             $classes[] = 'has-search';
+        }
+
+        if (!in_array(get_field('display_as', $ID), self::SLIDER_TEMPLATES, true)) {
+            return $classes;
         }
 
         if (get_field('show_as_slider', $ID)) {

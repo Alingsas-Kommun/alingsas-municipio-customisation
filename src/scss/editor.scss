@@ -5,3 +5,23 @@
 .mce-content-body {
     font-family: var(--font-family-base, "Inter", sans-serif);
 }
+
+// The editor iframes don't get Municipio's stored design tokens, so WYSIWYG
+// buttons fall back to the styleguide's dark default. Mirror the frontend
+// brand colours and pill shape (components/button.scss).
+.editor-styles-wrapper,
+.mce-content-body {
+    .c-button {
+        --c-button--color--primary: #{$color-plantation};
+        --c-button--color--primary-border: #{$color-plantation};
+        --c-button--color--primary-contrast: #fff;
+        --c-button--color--secondary: #{$color-geyser};
+        --c-button--color--secondary-border: #{$color-geyser};
+        --c-button--color--secondary-contrast: #{$color-mine-shaft};
+    }
+
+    a.c-button.u-no-decoration {
+        border-radius: 100vh;
+        text-decoration: none;
+    }
+}

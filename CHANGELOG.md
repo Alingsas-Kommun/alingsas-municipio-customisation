@@ -7,8 +7,16 @@ Format loosely follows [Keep a Changelog](https://keepachangelog.com/).
 
 ### Added
 
-- Manual Input modules can be shown as a Splide slider (same `@slider` component as Posts). Enable **Visa som slider** in the module settings; column count controls how many slides are visible. Works with Card, Block, Box, Segment and News.
+- Manual Input modules can be shown as a Splide slider (same `@slider` component as Posts). Enable **Visa som slider** in the module settings; column count controls how many slides are visible. Card display only.
 - Manual Input setting **Centrera allt textinnehåll** centers card heading, body text and button.
+- Manual Input slider follows the page theme. On themed pages, the read-more button, the slider arrows and the active page dot use the theme's button colours (**Knappar** tab).
+
+### Changed
+
+- Manual Input settings **Visa som slider**, **Centrera allt textinnehåll** and **Dölj pil-ikon i rubrik** only show while **Visa som** is Card, and only take effect for Card.
+- Manual Input slider cards sit the read-more button closer to the text. The footer's top padding and the last paragraph's bottom margin are removed.
+- The WYSIWYG **Knapp** dialog is replaced with a native TinyMCE dialog. It offers only **Mörkgrön** and **Ljusgrön**, and its preview uses the site's design tokens. Municipio 6's dialog showed styleguide defaults and a grey "default" option. The inserted markup is unchanged.
+- WYSIWYG buttons in the editor show the brand colours and pill shape. The editor iframe doesn't load Municipio's design tokens, so primary buttons used to show as near-black.
 
 ### Fixed
 

@@ -20,6 +20,7 @@ Format loosely follows [Keep a Changelog](https://keepachangelog.com/).
 
 ### Fixed
 
+- Modularity modules inserted as Gutenberg blocks (e.g. on the one-page template) follow särprofiler like widget-area modules. Card headers use the page theme, and Recommend, Manual Input and Posts get the content-area styling. Blocks also get the module classes added through `Modularity/Display/BeforeModule::classes`, such as Manual Input slider/search/arrow and Inlay list appearance, plus the Manual Input search form. Modularity only runs that filter for widget modules.
 - Recommend modules in the content area under the article keep the column gap. The no-margin option was pulling them flush against neighbouring modules. The button row above the article is unchanged.
 - Inlay list links are black on every colour profile. External-link buttons keep their profile colours. The external-links heading is black as well, including on profiles that set a white heading.
 - Manual Input headings keep production's 24px space under the title. Municipio 6's `u-margin--0` on the module title had closed that gap.

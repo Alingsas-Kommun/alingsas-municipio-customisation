@@ -1,7 +1,8 @@
 @layer theme {
 
     .sidebar-content-area .modularity-mod-recommend,
-    #sidebar-content-area .modularity-mod-recommend {
+    #sidebar-content-area .modularity-mod-recommend,
+    .block-modularity-mod-recommend {
         --c-button--border-radius: 1;
 
         .c-button {
@@ -41,6 +42,11 @@
             }
         }
     }
+}
+
+// Same "hide when empty" rule for Recommend inserted as a Gutenberg block.
+.block-modularity-mod-recommend:not(:has(.c-button:not(.u-preloader))) {
+    display: none;
 }
 
 .c-article:first-child .c-article__header h1#page-title.c-typography.c-typography__variant--h1 {

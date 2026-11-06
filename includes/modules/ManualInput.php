@@ -172,8 +172,19 @@ class ManualInput {
             return $beforeModule;
         }
 
+        $beforeModule .= self::searchFormMarkup();
+
+        return $beforeModule;
+    }
+
+    /**
+     * Free-text search form shown above a Manual Input module with "use_search"
+     * enabled. Shared with Gutenberg-rendered modules (see BlockModules).
+     */
+    public static function searchFormMarkup(): string {
         $uniqid = uniqid();
-        $beforeModule .= '
+
+        return '
             <form>
                 <div class="c-field u-width--100 c-field--search c-field--md c-field--radius-md c-field--bg-transparent c-field--text-align-left">
                     <label id="label_' . $uniqid . '" for="input_' . $uniqid . '" class="c-field__label">Sök innehåll</label>
@@ -184,8 +195,6 @@ class ManualInput {
                 </div>
             </form>
         ';
-
-        return $beforeModule;
     }
 
     /**

@@ -37,7 +37,8 @@
 }
 
 .sidebar-content-area,
-#sidebar-content-area {
+#sidebar-content-area,
+#{$gutenberg-module} {
     .c-card {
         &__header {
             background-color: var(--color-page-theme, var(--c-card--color--primary, var(--color--primary)));
@@ -55,7 +56,8 @@
     body.home .sidebar-content-area,
     body.home .sidebar-content-area-top,
     body.home #sidebar-content-area,
-    body.home #sidebar-content-area-top {
+    body.home #sidebar-content-area-top,
+    body.home #{$gutenberg-module} {
         --c-card--color--primary: var(--color--surface, #fff);
         --c-card--color--primary-contrast: var(--color--surface-contrast, #2d2d2d);
     }
@@ -64,7 +66,8 @@
 body.home .sidebar-content-area,
 body.home .sidebar-content-area-top,
 body.home #sidebar-content-area,
-body.home #sidebar-content-area-top {
+body.home #sidebar-content-area-top,
+body.home #{$gutenberg-module} {
     --c-card--color--primary: var(--color--surface, #fff);
     --c-card--color--primary-contrast: var(--color--surface-contrast, #2d2d2d);
 }
@@ -72,11 +75,14 @@ body.home #sidebar-content-area-top {
 .sidebar-content-area,
 .sidebar-content-area-top,
 #sidebar-content-area,
-#sidebar-content-area-top {
+#sidebar-content-area-top,
+#{$gutenberg-module} {
     --c-card--color--primary-contrast: var(--color--primary-contrast, #fff);
 
     .modularity-mod-manualinput,
-    .modularity-mod-posts {
+    .modularity-mod-posts,
+    &.block-modularity-mod-manualinput,
+    &.block-modularity-mod-posts {
         a.c-card {
             .c-card__body {
                 padding: calc(var(--base, 8px)* 2);
@@ -103,7 +109,9 @@ body.home #sidebar-content-area-top {
     }
 
     .modularity-mod-manualinput.hide-heading-arrow,
-    .modularity-mod-manualinput .hide-heading-arrow {
+    .modularity-mod-manualinput .hide-heading-arrow,
+    &.block-modularity-mod-manualinput.hide-heading-arrow,
+    &.block-modularity-mod-manualinput .hide-heading-arrow {
         a.c-card .c-group--vertical:before {
             content: none;
         }

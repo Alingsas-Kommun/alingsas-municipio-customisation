@@ -6,7 +6,8 @@
     }
 
     .sidebar-content-area .modularity-mod-recommend,
-    #sidebar-content-area .modularity-mod-recommend {
+    #sidebar-content-area .modularity-mod-recommend,
+    .block-modularity-mod-recommend {
         --c-button--color--primary: #{$color-gray};
         --c-button--color--primary-contrast: #000;
         --c-button--color--primary-border: #{color.scale($color-gray, $lightness: -10%)};
@@ -170,7 +171,8 @@ body:not(.home) {
 }
 
 .sidebar-content-area .modularity-mod-recommend,
-#sidebar-content-area .modularity-mod-recommend {
+#sidebar-content-area .modularity-mod-recommend,
+.block-modularity-mod-recommend {
     .c-button {
         --c-button--base: 6.5px;
         background-color: #{$color-gray};

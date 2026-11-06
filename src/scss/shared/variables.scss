@@ -14,3 +14,10 @@ $color-brand-light: $color-granny-smith;
 
 $color-black: $color-mine-shaft;
 $color-gray: $color-quill-gray;
+
+// Modularity modules inserted as Gutenberg blocks render outside the widget
+// areas (e.g. straight into .o-container on one-page), so rules scoped to
+// #sidebar-content-area never reach them. Every block wrapper carries
+// block-modularity-mod-<name>; add this next to content-area selectors so
+// särprofiler and module styling behave the same for blocks.
+$gutenberg-module: '[class*="block-modularity-mod-"]';

@@ -52,25 +52,34 @@ class BlockModules {
 
         acf_setup_meta($data, $blockId);
         $classes = (array) apply_filters('Modularity/Display/BeforeModule::classes', [], [], 'mod-' . $module, $blockId);
+        // Blocks skip the Modularity/Display/BeforeModule and AfterModule HTML
+        // filters too, so ExtraSettings' stripe colour and anchor are added here.
+        $stripeStyle = ExtraSettings::backgroundStripeStyle($blockId);
+        $anchor = ExtraSettings::anchor($blockId);
         acf_reset_meta($blockId);
 
         $classes = array_unique(array_filter(array_map('sanitize_html_class', $classes)));
-        if (empty($classes)) {
-            return $content;
+
+        if (!empty($classes)) {
+            $search = 'class="' . $wrapperClasses;
+            $replace = $search . ' ' . implode(' ', $classes);
+            $position = strpos($content, $search);
+            $content = substr_replace($content, $replace, $position, strlen($search));
+
+            // Mirror ManualInput::appendSearchForm(), which hangs off the
+            // Modularity/Display/BeforeModule HTML filter that blocks also skip.
+            if ($module === 'manualinput' && in_array('has-search', $classes, true)) {
+                $openingTagEnd = strpos($content, '>', $position);
+                if ($openingTagEnd !== false) {
+                    $content = substr_replace($content, ManualInput::searchFormMarkup(), $openingTagEnd + 1, 0);
+                }
+            }
         }
 
-        $search = 'class="' . $wrapperClasses;
-        $replace = $search . ' ' . implode(' ', $classes);
-        $position = strpos($content, $search);
-        $content = substr_replace($content, $replace, $position, strlen($search));
+        $content .= $stripeStyle;
 
-        // Mirror ManualInput::appendSearchForm(), which hangs off the
-        // Modularity/Display/BeforeModule HTML filter that blocks also skip.
-        if ($module === 'manualinput' && in_array('has-search', $classes, true)) {
-            $openingTagEnd = strpos($content, '>', $position);
-            if ($openingTagEnd !== false) {
-                $content = substr_replace($content, ManualInput::searchFormMarkup(), $openingTagEnd + 1, 0);
-            }
+        if ($anchor !== '') {
+            $content = '<div id="' . esc_attr($anchor) . '">' . $content . '</div>';
         }
 
         return $content;

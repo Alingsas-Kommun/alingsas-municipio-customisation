@@ -6,8 +6,7 @@
     }
 
     .sidebar-content-area .modularity-mod-recommend,
-    #sidebar-content-area .modularity-mod-recommend,
-    .block-modularity-mod-recommend {
+    #sidebar-content-area .modularity-mod-recommend {
         --c-button--color--primary: #{$color-gray};
         --c-button--color--primary-contrast: #000;
         --c-button--color--primary-border: #{color.scale($color-gray, $lightness: -10%)};
@@ -24,6 +23,35 @@
 .c-button {
     &.c-button--sm {
         letter-spacing: 1px;
+    }
+}
+
+// Recommend inserted as a Gutenberg block looks like the button row above the
+// article (#sidebar-content-area-top): särprofilens button colours (Utseende →
+// Alingsås → tema → Knappar), pill shape. Without a theme it falls back to the
+// brand green. Content-area widget Recommend stays grey (below). Both wrapper
+// classes so it outranks `a.c-button.c-button__outlined--primary` (the buttons
+// are outlined pills), which would otherwise paint the text in the background
+// colour; the top-row rule gets there through its #id.
+.modularity-mod-recommend.block-modularity-mod-recommend {
+    .c-button {
+        --c-button--base: 7px;
+        --c-button--color--primary: var(--theme-button-background, #{$color-brand-alt});
+        --c-button--color--primary-contrast: var(--theme-button-color, #fff);
+        --c-button--color--primary-border: var(--theme-button-background, #{$color-brand-alt});
+        background-color: var(--theme-button-background, #{$color-brand-alt});
+        border-color: var(--theme-button-background, #{$color-brand-alt});
+        color: var(--theme-button-color, #fff);
+
+        &:hover {
+            background-color: var(--theme-button-background, #{$color-brand-alt});
+            border-color: var(--theme-button-background, #{$color-brand-alt});
+            opacity: .9;
+        }
+
+        .c-button__label {
+            color: var(--theme-button-color, #fff);
+        }
     }
 }
 
@@ -171,8 +199,7 @@ body:not(.home) {
 }
 
 .sidebar-content-area .modularity-mod-recommend,
-#sidebar-content-area .modularity-mod-recommend,
-.block-modularity-mod-recommend {
+#sidebar-content-area .modularity-mod-recommend {
     .c-button {
         --c-button--base: 6.5px;
         background-color: #{$color-gray};

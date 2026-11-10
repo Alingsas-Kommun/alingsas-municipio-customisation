@@ -18,7 +18,7 @@ class ExtraSettings {
 
             if (!empty($background_color) && $background_color !== 'none') {
                 $classes[] = 'has-background-stripe';
-                $classes[] = 'background-stripe-color-' . $ID;
+                $classes[] = 'background-stripe-color-' . sanitize_html_class((string) $ID);
                 $classes[] = 'background-stripe-color-' . sanitize_html_class((string) $background_color);
             }
 
@@ -35,23 +35,14 @@ class ExtraSettings {
         
         // Output background stripe styles
         add_filter('Modularity/Display/AfterModule', function ($html, $args, $posttype, $ID) {
-            $background_color = get_field('background_stripe_color', $ID);
-
-            if (!empty($background_color) && $background_color !== 'none') {
-                $color = AppearanceHelper::getColorValue($background_color);
-                if ($color) {
-                    $html .= '<style>@layer theme {.background-stripe-color-' . (int) $ID . '::before { background-color: ' . $color . '; }}</style>';
-                }
-            }
-
-            return $html;
+            return $html . self::backgroundStripeStyle($ID);
         }, 10, 4);
 
         // Custom anchors
         add_filter('Modularity/Display/BeforeModule', function ($html, $args, $posttype, $ID) {
-            $anchor = get_field('module_id', $ID);
+            $anchor = self::anchor($ID);
 
-            if (!empty($anchor)) {
+            if ($anchor !== '') {
                 $html .= '<div id="' . esc_attr($anchor) . '">';
                 $this->custom_anchors[$ID] = $anchor;
             }
@@ -72,5 +63,38 @@ class ExtraSettings {
                 add_filter('Municipio/Partials/Navigation/HelperNavBeforeContent', '__return_false');
             }
         });
+    }
+
+    /**
+     * Inline style painting the background stripe for one module. The named
+     * palette colours have static CSS (extra-settings.scss); custom colours and
+     * themes only get colour through this rule. Shared with Gutenberg blocks
+     * (see BlockModules), where $ID is the block ID ("block_<hash>").
+     *
+     * @param int|string $ID Module post ID or block ID.
+     */
+    public static function backgroundStripeStyle($ID): string {
+        $background_color = get_field('background_stripe_color', $ID);
+        if (empty($background_color) || $background_color === 'none') {
+            return '';
+        }
+
+        $color = AppearanceHelper::getColorValue($background_color);
+        if (!$color) {
+            return '';
+        }
+
+        return '<style>@layer theme {.background-stripe-color-' . sanitize_html_class((string) $ID) . '::before { background-color: ' . esc_attr($color) . '; }}</style>';
+    }
+
+    /**
+     * Custom anchor ("module_id") set on a module, or '' when none.
+     *
+     * @param int|string $ID Module post ID or block ID.
+     */
+    public static function anchor($ID): string {
+        $anchor = get_field('module_id', $ID);
+
+        return is_string($anchor) ? trim($anchor) : '';
     }
 }

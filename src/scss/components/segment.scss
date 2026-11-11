@@ -4,3 +4,22 @@
         border-radius: calc(var(--c-segment--border-radius, var(--border-radius, 1)) * var(--base, 8px));
     }
 }
+
+.c-segment__buttons {
+    .c-button {
+        --segment-button-bg: var(--theme-manualinput-button-background, var(--theme-button-background, #{$color-brand-alt}));
+        --c-button-primary-color: var(--segment-button-bg);
+        background-color: var(--segment-button-bg);
+        border-color: var(--segment-button-bg);
+
+        &:hover {
+            background-color: var(--segment-button-bg);
+            border-color: var(--segment-button-bg);
+            opacity: .9;
+        }
+
+        .c-button__label {
+            color: var(--theme-manualinput-button-color, var(--theme-button-color, white));
+        }
+    }
+}

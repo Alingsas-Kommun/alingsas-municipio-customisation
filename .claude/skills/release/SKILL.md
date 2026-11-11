@@ -22,11 +22,12 @@ Release process for this plugin. Follow these steps in order; do not skip the co
   human-curated version) over re-deriving from raw commit subjects. Only fall back to raw commits if
   `[Unreleased]` is empty.
 
-## 3. Bump the version in all three places (must stay in sync)
+## 3. Bump the version in all four places (must stay in sync)
 
 - `municipio-customisation.php`: the `Version:` header comment.
 - `municipio-customisation.php`: `Plugin::VERSION` constant.
 - `composer.json`: the `version` field.
+- `README.md`: the "Aktuell version är **X.Y.Z**." line under "## Versionering".
 
 ## 4. Update CHANGELOG.md
 
@@ -37,9 +38,9 @@ Release process for this plugin. Follow these steps in order; do not skip the co
 
 ## 5. Commit
 
-- Commit exactly the version-bump files (`municipio-customisation.php`, `composer.json`, `CHANGELOG.md`) with
-  a message like `Bump version to X.Y.Z`, briefly noting what's included. Don't sweep in unrelated untracked
-  files.
+- Commit exactly the version-bump files (`municipio-customisation.php`, `composer.json`, `CHANGELOG.md`,
+  `README.md`) with a message like `Bump version to X.Y.Z`, briefly noting what's included. Don't sweep in
+  unrelated untracked files.
 
 ## 6. Merge into main
 

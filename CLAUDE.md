@@ -38,6 +38,8 @@ out explicitly to the user as a change needed elsewhere) — don't edit the Muni
 mu-plugins directly, even when the root cause of a bug lives there. Prefer hooks, filters, and CSS/JS overrides
 loaded from this plugin over patching vendor code.
 
+Commit messages must not include a `Co-Authored-By` trailer.
+
 ## Architecture
 
 ### Bootstrapping and autoloading convention
@@ -106,12 +108,11 @@ rather than relying on the auto-instantiation, since cron job classes need to be
 - **Modularity modules**: `includes/modules/*.php` (`InlayList`, `ManualInput`, `Posts`, `Recommend`) — settings/
   behavior for specific Modularity module types; `src/js/lib/manualinput-search.js` implements free-text search
   for the "Manual input" module when enabled in its settings.
-- **Decorators**: `Decorators.php` conditionally requires and applies `src/Decorators/HideTitlePostObject.php`
-  (note: lives under `src/`, not `includes/`, so it's outside the auto-instantiation bootstrap) via the
-  `Municipio/DecoratePostObject` filter to blank a post's title when its `hide_title` ACF field is set.
-- **WYSIWYG button dialog**: `TinyMceButtons.php` swaps Municipio's `mce_hbg_buttons` TinyMCE plugin for
-  `assets/admin/mce-buttons.js`. That file is plain ES5 served as-is, not Vite-built, because `src/` is stripped in
-  prod builds. The dialog offers two brand colours, read from Municipio's `tokens` theme mod.
+- **Decorators**: post object decorators (`AlingsasCustomisation\Decorators` namespace) live in
+  `includes/decorators/`; the bootstrap `require_once`s them but doesn't instantiate them (namespace doesn't match
+  the derived pattern) — the feature classes apply them via the `Municipio/DecoratePostObject` filter.
+  `Decorators.php` applies `HideTitlePostObject` to blank a post's title when its `hide_title` ACF field is set;
+  `DriftInformation.php` applies `DriftInformationDatePostObject` (published/updated archive date text).
 - **Misc**: `ContentSecurityPolicy.php`, `Config.php` (assorted small Municipio/ComponentLibrary filter tweaks —
   accessibility menu items, button classes, page excerpts, stripping HTML from `nyheter` excerpts), `Sidebar.php`
   (right sidebar shown by default on singular content unless explicitly hidden), `Translation.php`,
@@ -139,8 +140,9 @@ external (provided by WordPress, not bundled).
 
 ### Versioning
 
-Semantic versioning. The version number must be kept in sync in three places: the `Version:` header comment in
-`municipio-customisation.php`, `Plugin::VERSION` in the same file, and `composer.json`'s `version`.
+Semantic versioning. The version number must be kept in sync in four places: the `Version:` header comment in
+`municipio-customisation.php`, `Plugin::VERSION` in the same file, `composer.json`'s `version`, and the
+"Aktuell version är **X.Y.Z**." line in `README.md`.
 
 `CHANGELOG.md` tracks notable changes per release, starting at 1.0.0. Update it (including an `[Unreleased]`
 section) alongside version bumps rather than relying solely on `git log`.

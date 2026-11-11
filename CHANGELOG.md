@@ -5,6 +5,7 @@ Format loosely follows [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+<<<<<<< HEAD
 ### Added
 
 - Manual Input modules can be shown as a Splide slider (same `@slider` component as Posts). Enable **Visa som slider** in the module settings; column count controls how many slides are visible. Card display only.
@@ -37,6 +38,29 @@ Format loosely follows [Keep a Changelog](https://keepachangelog.com/).
 - List bullets no longer fall back to Helsingborg red after the Municipio design-token rename (`--color-primary` → `--color--primary`).
 - Reduced the gap between breadcrumbs and the page title (extra `nav-helper` margins, and empty Recommend modules still occupying space).
 - Content links are green again (`#236151`) in article body, text modules, split/two-column segment text and Gutenberg columns only; new Municipio `color-mix` link styles were rendering them gray. Design-module anchors (cards, collections, nav, menu module) keep their own colours.
+=======
+## [1.1.2] - 2026-11-03
+
+### Added
+
+- Iframes from `mediaflow.com` and any of its subdomains now survive kses filtering, so users without `unfiltered_html` (everyone but super admins) can save Mediaflow video embeds. Iframes from other hosts are still removed.
+
+## [1.1.1] - 2026-10-14
+
+### Changed
+
+- Moved `DriftInformationDatePostObject` from `src/Decorators/` to `includes/decorators/` next to the other decorator and removed the now-redundant manual `require_once` fallbacks. No functional change.
+
+## [1.1.0] - 2026-10-14
+
+### Added
+
+- Theme setting "Manual input → Buttons" (Utseende → Alingsås) controlling the button colors of all buttons in the Manual input module, including Segment buttons. Themes that don't set it keep the current button colors.
+
+### Changed
+
+- Driftinformation posts now show "Publicerad <date>, uppdaterad <date>" as their date (next to the date icon, e.g. on cards in the Posts module) instead of the published date and time; only the published date if never updated afterwards. The dates are shown on separate lines with bold labels ("**Publicerad:** …" / "**Uppdaterad:** …").
+>>>>>>> origin/main
 
 ## [1.0.6] - 2026-08-17
 

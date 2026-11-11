@@ -13,11 +13,6 @@ class Decorators
     public function maybeHidePostTitle()
     {
         if (is_singular() && get_field('hide_title')) {
-            // Make sure decorator class is available (in case Composer autoload not active for plugin src)
-            if (!class_exists('\\AlingsasCustomisation\\Decorators\\HideTitlePostObject')) {
-                require_once __DIR__ . '/../src/Decorators/HideTitlePostObject.php';
-            }
-
             // Decorate the PostObject so getTitle() returns empty, hiding the H1 in templates
             add_filter('Municipio/DecoratePostObject', function ($postObject) {
                 if (method_exists($postObject, 'getId')) {

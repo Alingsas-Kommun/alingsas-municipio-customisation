@@ -5,6 +5,8 @@ Format loosely follows [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+## [1.2.0] - 2026-11-11
+
 ### Added
 
 - Manual Input modules can be shown as a Splide slider (same `@slider` component as Posts). Enable **Visa som slider** in the module settings; column count controls how many slides are visible. Card display only.

@@ -211,7 +211,8 @@ body:has(.c-drawer.is-open) {
 
     .c-nav.c-nav.c-nav--vertical .c-nav__item .c-nav__icon,
     .c-nav.c-nav.c-nav--vertical .c-nav__item .c-nav__text,
-    .c-nav.c-nav.c-nav--vertical .c-nav__item .c-nav__toggle {
+    .c-nav.c-nav.c-nav--vertical .c-nav__item .c-nav__toggle,
+    .c-nav.c-nav.c-nav--vertical .c-nav__item .c-nav__toggle * {
         color: #000 !important;
     }
 
@@ -305,10 +306,13 @@ body:has(.c-drawer.is-open) {
     .c-nav--vertical .c-nav__item.has-toggle>.c-nav__item-wrapper>.c-nav__toggle {
         margin-right: 0;
         --c-button-contrast: #000;
+        --icon-color: #000;
         color: #000;
 
         .c-button__label,
-        .c-icon {
+        .c-button__label *,
+        .c-icon,
+        .c-icon * {
             color: #000;
         }
     }

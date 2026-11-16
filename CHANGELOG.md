@@ -5,6 +5,10 @@ Format loosely follows [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+### Fixed
+
+- Pages that list a post type through a Posts module, such as Driftinformation, are purged from the Nginx page cache when a post of that type is published, updated, unpublished, trashed or deleted. Nginx Helper only purged the post itself and real archives, so new posts could stay hidden from the list until the cache expired. Posts modules inserted as blocks or shortcodes are not covered.
+
 ## [1.2.0] - 2026-11-11
 
 ### Added

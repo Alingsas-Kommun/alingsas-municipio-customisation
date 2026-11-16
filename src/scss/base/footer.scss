@@ -11,8 +11,9 @@
     }
 
     &__main-wrapper {
-        padding-top: 0 !important;
-        padding-bottom: 0 !important;
+        // Styleguide v3 adds horizontal padding here. It insets the white
+        // prefooter, so the gray footer shows as gutters beside the quick links.
+        padding: 0 !important;
 
         .widget_block {
             h2,

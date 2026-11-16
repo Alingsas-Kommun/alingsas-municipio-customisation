@@ -97,12 +97,15 @@ body.home #{$gutenberg-module} {
                 flex-direction: row;
 
                 &:before {
-                    content: 'arrow_forward';
-                    font-family: 'Material Symbols Rounded';
-                    font-size: 1.5rem;
-                    height: 100%;
-                    line-height: 1.3;
+                    content: '';
+                    flex: 0 0 auto;
+                    width: 0.45em;
+                    height: 0.45em;
+                    margin-top: 0.35em;
                     margin-right: .5rem;
+                    border-right: 0.12em solid currentColor;
+                    border-bottom: 0.12em solid currentColor;
+                    transform: rotate(-45deg);
                 }
             }
         }
@@ -133,12 +136,15 @@ body.home #{$gutenberg-module} {
             flex-direction: row;
 
             &:before {
-                content: 'arrow_forward';
-                font-family: 'Material Symbols Rounded';
-                font-size: 1.5rem;
-                height: 100%;
-                line-height: 1.3;
+                content: '';
+                flex: 0 0 auto;
+                width: 0.45em;
+                height: 0.45em;
+                margin-top: 0.35em;
                 margin-right: .5rem;
+                border-right: 0.12em solid currentColor;
+                border-bottom: 0.12em solid currentColor;
+                transform: rotate(-45deg);
             }
         }
     }

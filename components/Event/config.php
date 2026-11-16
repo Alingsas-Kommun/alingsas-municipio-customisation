@@ -1,0 +1,39 @@
+<?php
+
+declare(strict_types=1);
+
+/**
+ * Component-library 5.44 reads config.php. event.json is no longer loaded.
+ */
+return [
+    'slug' => 'event',
+    'default' => [
+        'title_variant' => 'h2',
+    ],
+    'description' => [
+        'title' => 'Title of the event.',
+        'title_variant' => 'Which title variant to use',
+        'date' => 'Date that the event takes place.',
+        'day' => 'Day of the month the event takes place.',
+        'month' => 'Month event takes place.',
+        'time' => 'The time of the event.',
+        'location' => 'Where the event takes place.',
+        'link' => 'Link to event detail page.',
+        'tags' => 'Event tags.',
+        'image' => 'Image of the event.',
+    ],
+    'types' => [
+        'title' => 'string',
+        'title_variant' => 'string',
+        'date' => 'string',
+        'day' => 'string',
+        'month' => 'string',
+        'time' => 'string',
+        'location' => 'string',
+        'link' => 'string',
+        'tags' => 'array',
+        'image' => 'string',
+    ],
+    'view' => 'event.blade.php',
+    'dependency' => [],
+];

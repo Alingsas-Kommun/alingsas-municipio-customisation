@@ -46,20 +46,6 @@ class Events {
 
             return $viewData;
         });
-        
-        add_filter('Municipio/Controller/Archive/getArchivePosts', function ($posts) {
-            if (is_post_type_archive('event')) {
-                $eventOccurrences = [];
-                foreach ($posts as $key => $post) {
-                    $eventId = $post->id;
-                    $occasionIndex = $eventOccurrences[$eventId] ?? 0;
-                    $posts[$key] = EventHelper::parseEvent($post, $occasionIndex);
-                    $eventOccurrences[$eventId] = $occasionIndex + 1;
-                }
-            }
-
-            return $posts;
-        });
 
         // PostsList fetches filter terms with hide_empty disabled. Restore it for event categories.
         add_filter('get_terms', function ($terms, $taxonomies, $args) {

@@ -14,9 +14,9 @@
         @endlink
     @endif
 
-    @if ($post->getSchemaProperty('hiringOrganization')['ethicsPolicy'] ?? null)
+    @if (!empty($ethicsPolicy))
         @paper(['padding' => 4])
-            {{ $post->getSchemaProperty('hiringOrganization')['ethicsPolicy'] }}
+            {!! $ethicsPolicy !!}
         @endpaper
     @endif
 

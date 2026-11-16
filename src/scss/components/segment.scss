@@ -8,7 +8,7 @@
 .c-segment__buttons {
     .c-button {
         --segment-button-bg: var(--theme-manualinput-button-background, var(--theme-button-background, #{$color-brand-alt}));
-        --c-button-primary-color: var(--segment-button-bg);
+        --c-button--color--primary: var(--segment-button-bg);
         background-color: var(--segment-button-bg);
         border-color: var(--segment-button-bg);
 

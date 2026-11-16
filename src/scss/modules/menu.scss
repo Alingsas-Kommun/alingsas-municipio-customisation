@@ -14,8 +14,21 @@
 
 .mod-menu {
 
-	// Modularity 7 renders the heading as variant h4 (was h2); target the label class.
-	&__heading-link {
+	// The stored menu-item icon sits beside the heading. The new listing
+	// otherwise draws arrow_forward after the title.
+	&__heading-row {
+		display: flex;
+		align-items: center;
+		column-gap: 0.75rem;
+
+		> .c-icon {
+			flex: 0 0 auto;
+			color: var(--color--primary, #{$color-plantation});
+		}
+	}
+
+	// Modularity 7 renders the heading as variant h5 (was h2); target the label class.
+	&__heading-item {
 		.c-typography.mod-menu__heading-label {
 			font-size: 1.125rem;
 			font-weight: 700;

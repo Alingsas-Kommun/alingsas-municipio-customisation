@@ -7,6 +7,7 @@ Format loosely follows [Keep a Changelog](https://keepachangelog.com/).
 
 ### Fixed
 
+- Menu listings show the icon stored on the menu item beside the heading again. Municipio 7 draws `arrow_forward` after the title instead. The "Visa alla" dropdown stays.
 - Pages that list a post type through a Posts module, such as Driftinformation, are purged from the Nginx page cache when a post of that type is published, updated, unpublished, trashed or deleted. Nginx Helper only purged the post itself and real archives, so new posts could stay hidden from the list until the cache expired. Posts modules inserted as blocks or shortcodes are not covered.
 
 ## [1.2.0] - 2026-11-11

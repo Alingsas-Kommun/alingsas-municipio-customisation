@@ -7,6 +7,7 @@ Format loosely follows [Keep a Changelog](https://keepachangelog.com/).
 
 ### Fixed
 
+- Logged-in pages no longer leave a gap under the admin bar or pull the breadcrumb over the header. The theme offset the sticky header by 32px even though the header stays in normal flow, and WordPress already clears the admin bar.
 - The footer's white quick-link band goes edge to edge again. Styleguide v3 padded the footer wrapper, which left gray gutters beside the links on pages.
 - Recommend buttons above the article use production's 32px side padding, so the long links wrap onto their own row again.
 - Menu listings show the icon stored on the menu item beside the heading again. Municipio 7 draws `arrow_forward` after the title instead. The "Visa alla" dropdown stays.

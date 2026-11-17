@@ -8,6 +8,11 @@ use EventManagerIntegration\EventArchive;
 
 class Events {
     public function __construct() {
+        add_filter('Municipio/Archive/Search/Text/Label', [$this, 'eventSearchLabel'], 10, 2);
+        add_filter('Municipio/Archive/getTaxonomyFilters/taxonomies', [$this, 'mapEventCategoryFilter']);
+        add_filter('Municipio/Archive/TaxonomyFilter/Label', [$this, 'eventCategoryFilterLabel'], 10, 2);
+        add_filter('Municipio/Archive/TaxonomyFilter/Placeholder', [$this, 'eventCategoryFilterLabel'], 10, 2);
+
         /* // Add option to display post as events calendar
         add_action('acf/load_field/name=posts_display_as', function ($field) {
             if (!isset($_GET['post'])) {
@@ -79,6 +84,50 @@ class Events {
                     return $query;
                 });
             }
-        }); */
+            }); */
+    }
+
+    /**
+     * The event post type falls back to WordPress' "Search Posts" label.
+     */
+    public function eventSearchLabel(string $label, $postType): string
+    {
+        if ($postType instanceof \WP_Post_Type && $postType->name === 'event') {
+            return __('Sök evenemang', 'municipio-customisation');
+        }
+
+        return $label;
+    }
+
+    /**
+     * The calendar filter is still saved as event_categories. Schema events use event_keywords_name.
+     *
+     * @param mixed $taxonomies
+     * @return mixed
+     */
+    public function mapEventCategoryFilter($taxonomies)
+    {
+        if (!is_post_type_archive('event') || !is_array($taxonomies)) {
+            return $taxonomies;
+        }
+
+        return array_map(
+            static fn ($taxonomy) => $taxonomy === 'event_categories' ? 'event_keywords_name' : $taxonomy,
+            $taxonomies
+        );
+    }
+
+    /**
+     * @param mixed $label
+     * @param mixed $taxonomy
+     */
+    public function eventCategoryFilterLabel($label, $taxonomy): string
+    {
+        $name = is_object($taxonomy) ? ($taxonomy->name ?? '') : '';
+        if ($name === 'event_keywords_name') {
+            return __('Kategorier', 'municipio-customisation');
+        }
+
+        return (string) $label;
     }
 }

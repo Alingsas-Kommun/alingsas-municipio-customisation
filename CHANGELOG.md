@@ -5,6 +5,10 @@ Format loosely follows [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+### Changed
+
+- Event pagination uses a filled black button for the current page and a black outline for the other pages. The start page keeps its existing buttons.
+
 ### Fixed
 
 - Logged-in pages no longer leave a gap under the admin bar or pull the breadcrumb over the header. The theme offset the sticky header by 32px even though the header stays in normal flow, and WordPress already clears the admin bar.

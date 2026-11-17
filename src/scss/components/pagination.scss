@@ -27,3 +27,41 @@
         }
     }
 }
+
+// Event lists only, except the start page. WordPress marks the front page
+// with `home`, and that page has its own event module.
+body:not(.home) .c-pagination[data-scope*="s-event-archive-pagination;"] {
+    .c-button:not(:disabled):not(.c-pagination__item--is-active) {
+        background: transparent;
+        border: 2px solid #000;
+        color: #000;
+        filter: none;
+
+        .c-button__label,
+        .c-icon {
+            color: #000;
+        }
+
+        &:hover {
+            background: color-mix(in srgb, #000 12%, transparent);
+            border-color: #000;
+            color: #000;
+        }
+    }
+
+    .c-button.c-pagination__item--is-active:not(:disabled) {
+        background: #000;
+        border: 2px solid #000;
+        color: #fff;
+        filter: none;
+
+        .c-button__label {
+            color: #fff;
+        }
+
+        &:hover {
+            background: #222;
+            border-color: #222;
+        }
+    }
+}

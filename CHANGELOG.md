@@ -5,12 +5,17 @@ Format loosely follows [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+## [1.2.1] - 2026-11-24
+
 ### Changed
 
 - Event pagination uses a filled black button for the current page and a black outline for the other pages. The start page keeps its existing buttons.
 
 ### Fixed
 
+- The event archive search field says "Sök evenemang", and the category filter lists event keywords under "Kategorier". The archive was still reading the old `event_categories` taxonomy and WordPress' "Search Posts" label.
+- Drawer menu chevrons are black. The white contrast on the green header was also painting the toggle icon. The close button is unchanged.
+- The Event component keeps working on Municipio 7.67. Component Library now requires a PHP config, and the old Material icon, menu wrapper class and button colour token are gone. The gallery lightbox size override is removed; Component Library 5.43.2 paints the picture itself.
 - Logged-in pages no longer leave a gap under the admin bar or pull the breadcrumb over the header. The theme offset the sticky header by 32px even though the header stays in normal flow, and WordPress already clears the admin bar.
 - The footer's white quick-link band goes edge to edge again. Styleguide v3 padded the footer wrapper, which left gray gutters beside the links on pages.
 - Recommend buttons above the article use production's 32px side padding, so the long links wrap onto their own row again.

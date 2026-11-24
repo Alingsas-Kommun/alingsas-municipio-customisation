@@ -5,6 +5,12 @@ Format loosely follows [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+## [1.2.2] - 2026-11-24
+
+### Changed
+
+- The right sidebar is no longer forced active on single event pages. It only shows there when it holds modules.
+
 ## [1.2.1] - 2026-11-24
 
 ### Changed

@@ -19,7 +19,7 @@ class Sidebar
                 return false;
             }
 
-            if (is_singular() && $sidebar === 'right-sidebar' && empty($pageTemplate)) {
+            if (is_singular() && !is_singular('event') && $sidebar === 'right-sidebar' && empty($pageTemplate)) {
                 return true;
             }
             return $isActiveSidebar;

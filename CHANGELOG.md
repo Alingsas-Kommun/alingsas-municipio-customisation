@@ -5,6 +5,12 @@ Format loosely follows [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+## [1.2.3] - 2026-11-25
+
+### Fixed
+
+- Lediga jobb pages render when a job has no ethics policy. Municipio 7.67 passes null to wpautop. The shim can go once Municipio is 7.76.23 or newer.
+
 ## [1.2.2] - 2026-11-24
 
 ### Changed

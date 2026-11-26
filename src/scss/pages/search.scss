@@ -78,6 +78,33 @@ body.search {
     }
 }
 
+// The theme joins the modal field and submit into one control, and it cuts the
+// submit's left corners at every width. Below the 400px container the controls
+// stack, so that cut leaves a square edge on a full-width button.
+@container search-modal (max-width: 399px) {
+    .t-search-modal .t-search-modal__form {
+        gap: calc(var(--base, 8px) * 1.5);
+    }
+
+    .t-search-modal .t-search-modal__field .c-field__inner,
+    .t-search-modal .t-search-modal__field .c-field__input {
+        border-radius: 999px !important;
+    }
+}
+
+// The theme cut lives in @layer theme with !important. Layered !important
+// beats an unlayered override, so this has to sit in the same layer.
+@layer theme {
+    @container search-modal (max-width: 399px) {
+        .t-search-modal .c-modal__content .t-search-modal__submit.c-button {
+            border-top-left-radius: 999px !important;
+            border-top-right-radius: 999px !important;
+            border-bottom-right-radius: 999px !important;
+            border-bottom-left-radius: 999px !important;
+        }
+    }
+}
+
 form.ts-quick-search-overlay__form input.c-field__input:focus-visible {
     box-shadow: none;
 }

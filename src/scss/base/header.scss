@@ -66,7 +66,7 @@
             }
         }
 
-        .collapsible-search-form__trigger-button {
+        .c-collapsiblesearch > .c-button[data-js-collapsible-search-trigger] {
             min-width: 0;
 
             .c-button__label-text {
@@ -180,7 +180,7 @@
     // buttons (Sök, Meny, Turistinformation, E-tjänster). Primary basic sets
     // label colour via --c-button-contrast; default basic needs explicit labels.
     .s-header-button.c-button,
-    .collapsible-search-form__trigger-button,
+    .c-collapsiblesearch > .c-button[data-js-collapsible-search-trigger],
     .c-nav.c-nav--horizontal .c-button.c-nav__button {
         --c-button-contrast: var(--c-button--color--primary, #{$color-plantation});
 

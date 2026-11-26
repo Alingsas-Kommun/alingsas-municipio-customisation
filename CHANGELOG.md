@@ -5,6 +5,14 @@ Format loosely follows [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+## [1.2.4] - 2026-11-26
+
+### Fixed
+
+- The header collapsible search button uses the same green as the other header buttons.
+- Search result cards load their component CSS. Typesense prints the cards inside a template, so the styleguide never saw them on the page.
+- On a narrow screen the search modal field and submit button are full pills with space between them. The joined desktop layout is unchanged.
+
 ## [1.2.3] - 2026-11-25
 
 ### Fixed

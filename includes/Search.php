@@ -17,6 +17,31 @@ class Search {
         } );
 
         add_filter('option_typesense_quick_search_selectors', [$this, 'ensureHeaderQuickSearchSelector']);
+        add_action('wp', [$this, 'enqueueSearchResultComponents']);
+    }
+
+    /**
+     * Typesense prints hit cards inside a template tag. The styleguide only
+     * enqueues CSS for components that render, so those cards arrive unstyled.
+     */
+    public function enqueueSearchResultComponents(): void
+    {
+        if (!is_search()) {
+            return;
+        }
+
+        if (!class_exists(\Municipio\Styleguide\ComponentAssets\WordPressAssetEnqueuer::class)) {
+            return;
+        }
+
+        $assets = \Municipio\Styleguide\ComponentAssets\WordPressAssetEnqueuer::instance();
+        if ($assets === null) {
+            return;
+        }
+
+        foreach (['card', 'image', 'group', 'typography', 'icon'] as $slug) {
+            $assets->enqueueComponent($slug);
+        }
     }
 
     /**

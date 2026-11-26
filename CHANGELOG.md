@@ -5,6 +5,10 @@ Format loosely follows [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+### Fixed
+
+- Video thumbnails show behind the GDPR acceptance box. The opaque surface colour override now only applies to non-video acceptance boxes, so the video box keeps Municipio's default overlay.
+
 ## [1.2.4] - 2026-11-26
 
 ### Fixed

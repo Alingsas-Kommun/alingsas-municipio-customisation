@@ -1,9 +1,12 @@
 div.c-acceptance {
-    --c-acceptance--color--alpha: var(--color--surface, #fff);
-
     overflow: hidden;
 
     > p {
         margin-top: 0;
+    }
+
+    // Video acceptance boxes keep the Municipio default overlay so the thumbnail shows through.
+    &:not(.c-acceptance--video) {
+        --c-acceptance--color--alpha: var(--color--surface, #fff);
     }
 }
